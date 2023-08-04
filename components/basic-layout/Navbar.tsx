@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -13,17 +15,16 @@ import moreImg from "@/app/assets/images2/more.svg";
 
 import faceImg from "@/app/assets/images/face.png";
 
-interface NavBarProps {
-  isActiveNavbar: any;
-  setIsActiveNavbar: any;
-}
-
-export default function Navbar(props: NavBarProps) {
-  const { isActiveNavbar, setIsActiveNavbar } = props;
+export default function Navbar() {
+  const [isActiveNavbar, setIsActiveNavbar] = useState(false);
 
   return (
-    <div className="md:relative absolute flex md:w-auto w-full md:h-auto h-full">
-      <div className={`${isActiveNavbar ? "flex" : "md:flex hidden"} md:relative fixed flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20`}>
+    <>
+      <div
+        className={`${
+          isActiveNavbar ? "flex" : "md:flex hidden"
+        } md:relative fixed flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20`}
+      >
         <div className="px-[32px] py-[24px]">
           <Link href="/" title="Go to homepage">
             <Image
@@ -35,8 +36,16 @@ export default function Navbar(props: NavBarProps) {
           </Link>
         </div>
         <div className="grow flex flex-col">
-          <Link href={"/"} className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer">
-            <Image src={homeImg} className="w-[24px] h-[24px]" alt="" priority />
+          <Link
+            href={"/"}
+            className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer"
+          >
+            <Image
+              src={homeImg}
+              className="w-[24px] h-[24px]"
+              alt=""
+              priority
+            />
             <p className="text-[16px]">홈</p>
           </Link>
           <div className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer">
@@ -58,7 +67,12 @@ export default function Navbar(props: NavBarProps) {
             <p className="text-[16px]">메시지</p>
           </div>
           <div className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer">
-            <Image src={alarmImg} className="w-[24px] h-[24px]" alt="" priority />
+            <Image
+              src={alarmImg}
+              className="w-[24px] h-[24px]"
+              alt=""
+              priority
+            />
             <p className="text-[16px]">알림</p>
           </div>
           <div className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer">
@@ -108,7 +122,16 @@ export default function Navbar(props: NavBarProps) {
           </div>
         </div>
       </div>
-      <div className={`${isActiveNavbar ? "md:hidden block" : "hidden"} grow bg-[#00000050] z-10`} onClick={() => setIsActiveNavbar(false)}></div>
-    </div>
+      <div
+        className={`${
+          isActiveNavbar ? "md:hidden block" : "hidden"
+        } grow bg-[#00000050] z-10`}
+        onClick={() => setIsActiveNavbar(false)}
+      ></div>
+      <div
+        className="absolute top-[12px] left-[16px] md:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full bg-transparent cursor-pointer z-30"
+        onClick={() => setIsActiveNavbar(true)}
+      ></div>
+    </>
   );
 }
