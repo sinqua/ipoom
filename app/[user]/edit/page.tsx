@@ -8,7 +8,7 @@ import Hamburger from "@/components/basic-layout/Hamburger";
 // import Header from "@/components/basic-layout/Header";
 // import Navbar from "@/components/basic-layout/Navbar";
 import Navbar from "@/features/Navbar/Navbar";
-import Header from "@/features/Edit/Edit.Header";
+import Header from "@/features/Edit/Header/Edit.Header";
 
 import emptyImg from "@/app/assets/images/empty.png";
 import Link from "next/link";
