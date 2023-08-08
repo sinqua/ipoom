@@ -38,5 +38,8 @@ module.exports = {
         'login': 'url("/loginBackground.png")',
       },
     },
+    plugins: [
+      require('tailwind-scrollbar-hide')
+    ],
   },
 }
