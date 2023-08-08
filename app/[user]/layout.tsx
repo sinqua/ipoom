@@ -1,3 +1,7 @@
-export default async function Layout(props: any) {
-  return <>{props.children}</>;
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <>{children}</>;
 }
