@@ -15,7 +15,7 @@ export default function Tag() {
         onChange={(e: any) => {
           setCurrentTags(e);
         }}
-        className="flex w-full items-center sm:w-[482px] h-[47px]"
+        className="flex w-full items-center ph:w-[482px] h-[47px]"
         placeholder={"태그를 입력해주세요"}
         styles={{
           control: (baseStyles, state) => ({

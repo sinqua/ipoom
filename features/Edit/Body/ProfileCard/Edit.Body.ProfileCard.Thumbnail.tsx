@@ -7,12 +7,12 @@ export default function Thumbnail() {
   const imgRef = useRef<any>();
 
   return (
-    <div className="flex items-center sm:space-x-[32px] space-x-[24px]">
+    <div className="flex items-center ph:space-x-[32px] space-x-[24px]">
       <Image
         src={emptyImg}
         width={160}
         height={160}
-        className="sm:h-[160px] h-[100px] sm:w-[160px] w-[100px] bg-gray-200 rounded-full border-none"
+        className="ph:h-[160px] h-[100px] ph:w-[160px] w-[100px] bg-gray-200 rounded-full border-none"
         alt=""
       />
       <form>

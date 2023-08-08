@@ -1,7 +1,3 @@
-import Image from "next/image";
-
-import uploadImg from "@/app/assets/images2/upload.svg";
-
 export default function Button({
   children,
   style

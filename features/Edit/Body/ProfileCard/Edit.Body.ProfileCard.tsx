@@ -9,8 +9,8 @@ import Tag from "@/features/Edit/Body/ProfileCard/Edit.Body.ProfileCard.Tag";
 
 export default function ProfileCard() {
   return (
-    <div className="flex justify-center w-full grow md:px-0 px-[16px] py-[40px]">
-      <div className="relative flex flex-col md:max-w-[1008px] w-full h-full space-y-[64px]">
+    <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
+      <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full space-y-[64px]">
         <Card>
           <CardHeader title={"프로필 사진"}>
             최소 200 x 200 크기의 JPEG 또는 PNG 파일을 사용해주세요.

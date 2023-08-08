@@ -20,17 +20,17 @@ export default function Navbar() {
   const [isActiveNavbar, setIsActiveNavbar] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative w-[280px]">
       <div
         className={`${
-          isActiveNavbar ? "flex" : "md:flex hidden"
+          isActiveNavbar ? "flex" : "dt:flex hidden"
         } fixed flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]`}
       >
         <div className="px-[32px] py-[24px]">
           <Link href="/" title="Go to homepage">
             <Image
               src={moopiLogo}
-              className="w-auto sm:h-[40px] h-[30px]"
+              className="w-auto ph:h-[40px] h-[30px]"
               alt=""
               priority
             />
@@ -49,12 +49,12 @@ export default function Navbar() {
       </div>
       <div
         className={`${
-          isActiveNavbar ? "md:hidden block" : "hidden"
+          isActiveNavbar ? "dt:hidden block" : "hidden"
         } fixed w-full h-full bg-[#00000050] z-10`}
         onClick={() => setIsActiveNavbar(false)}
       ></div>
       <div
-        className="absolute top-[12px] left-[16px] md:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full bg-transparent cursor-pointer z-30"
+        className="absolute top-[12px] left-[16px] dt:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full bg-transparent cursor-pointer z-30"
         onClick={() => setIsActiveNavbar(true)}
       ></div>
     </div>

@@ -1,6 +1,6 @@
 export default function Kakao() {
   return (
-    <div className="flex items-center sm:w-[482px] w-auto h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
+    <div className="flex items-center ph:w-[482px] w-auto h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
       <input
         type="text"
         className="grow h-full outline-none text-sm"
