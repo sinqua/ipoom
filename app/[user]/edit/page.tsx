@@ -7,7 +7,8 @@ import useDrag from "@/hooks/useDrag";
 import Footer from "@/components/basic-layout/Footer";
 import Hamburger from "@/components/basic-layout/Hamburger";
 import Header from "@/components/basic-layout/Header";
-import Navbar from "@/components/basic-layout/Navbar";
+// import Navbar from "@/components/basic-layout/Navbar";
+import Navbar from "@/features/Navbar/Navbar";
 
 import emptyImg from "@/app/assets/images/empty.png";
 import Link from "next/link";
