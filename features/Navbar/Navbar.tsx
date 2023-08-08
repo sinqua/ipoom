@@ -37,12 +37,12 @@ export default function Navbar() {
           </Link>
         </div>
         <Menu>
-          <Item icon={homeImg} title={"홈"} />
-          <Item icon={searchImg} title={"검색"} />
-          <Item icon={messageImg} title={"메시지"} />
-          <Item icon={alarmImg} title={"알림"} />
-          <Item icon={followImg} title={"팔로우"} />
-          <Item icon={settingImg} title={"설정"} />
+          <Item imgSrc={homeImg}>홈</Item>
+          <Item imgSrc={searchImg}>검색</Item>
+          <Item imgSrc={messageImg}>메시지</Item>
+          <Item imgSrc={alarmImg}>알림</Item>
+          <Item imgSrc={followImg}>팔로우</Item>
+          <Item imgSrc={settingImg}>설정</Item>
         </Menu>
         <Button />
         <Profile />
