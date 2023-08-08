@@ -2,26 +2,21 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import CreatableSelect from "react-select/creatable";
-import useDrag from "@/hooks/useDrag";
 
 import Footer from "@/components/basic-layout/Footer";
 import Hamburger from "@/components/basic-layout/Hamburger";
-import Header from "@/components/basic-layout/Header";
+// import Header from "@/components/basic-layout/Header";
 // import Navbar from "@/components/basic-layout/Navbar";
 import Navbar from "@/features/Navbar/Navbar";
+import Header from "@/features/Edit/Edit.Header";
 
 import emptyImg from "@/app/assets/images/empty.png";
 import Link from "next/link";
 
 export default function Page() {
-  let { dragRef, dragEvents, mountedStatus, setMountedStatus } = useDrag();
-
   const imgRef = useRef<any>();
   const [currentTags, setCurrentTags] = useState<any>(null);
 
-  useEffect(() => {
-    setMountedStatus(true);
-  }, []);
 
   return (
     <div className="relative flex h-full min-h-full text-[#333333]">
@@ -29,48 +24,7 @@ export default function Page() {
         <Navbar />
       </Hamburger>
       <div className="relative flex flex-col grow h-auto min-h-full">
-        <div className="flex justify-center w-full border-b-[1px] border-[#D4D4D4]">
-          <div className="relative md:max-w-[1008px] w-full h-[115px] flex justify-between items-center md:px-0 px-[16px] bg-white font-sm text-[14px]">
-            <div className="grid w-full h-full">
-              <div className="flex md:justify-start justify-center items-center h-[80px]">
-                <p className="sm:text-[24px] text-[20px] font-bold">
-                  프로필 수정
-                </p>
-                <div className="absolute right-[16px] sm:hidden flex justify-center items-center whitespace-nowrap px-[16px] py-[11px] rounded-[8px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer">
-                  저장
-                </div>
-              </div>
-              <div
-                className="relative flex h-[35px] w-full space-x-[32px] sm:text-[18px] text-[16px] font-semibold whitespace-nowrap overflow-x-scroll scrollbar-hide"
-                {...dragEvents}
-                ref={dragRef}
-              >
-                <div className="flex flex-col justify-between h-full cursor-pointer">
-                  <p>프로필 카드</p>{" "}
-                  <div className="w-full h-[2px] bg-[#333333]"></div>
-                </div>
-                <div className="flex flex-col justify-between h-full text-[#9D9D9D] cursor-pointer">
-                  <p>대표 아바타</p>
-                </div>
-                <div className="flex flex-col justify-between h-full text-[#9D9D9D] cursor-pointer">
-                  <p>설명</p>
-                </div>
-                <div className="flex flex-col justify-between h-full text-[#9D9D9D] cursor-pointer">
-                  <p>포트폴리오</p>
-                </div>
-                <div className="flex flex-col justify-between h-full text-[#9D9D9D] cursor-pointer">
-                  <p>가격정보</p>
-                </div>
-                <div className="flex flex-col justify-between h-full text-[#9D9D9D] cursor-pointer">
-                  <p>결제수단</p>
-                </div>
-              </div>
-            </div>
-            <div className="sm:flex hidden justify-center items-center whitespace-nowrap px-[16px] py-[11px] rounded-[8px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer">
-              저장하기
-            </div>
-          </div>
-        </div>
+        <Header />
         <div className="flex justify-center w-full grow md:px-0 px-[16px] py-[40px]">
           <div className="relative flex flex-col md:max-w-[1008px] w-full h-full space-y-[64px]">
             <div className="flex flex-col">
