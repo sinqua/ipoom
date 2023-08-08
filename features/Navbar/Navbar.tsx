@@ -20,11 +20,11 @@ export default function Navbar() {
   const [isActiveNavbar, setIsActiveNavbar] = useState(false);
 
   return (
-    <>
+    <div className="relative">
       <div
         className={`${
           isActiveNavbar ? "flex" : "md:flex hidden"
-        } md:relative fixed flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]`}
+        } fixed flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]`}
       >
         <div className="px-[32px] py-[24px]">
           <Link href="/" title="Go to homepage">
@@ -50,13 +50,13 @@ export default function Navbar() {
       <div
         className={`${
           isActiveNavbar ? "md:hidden block" : "hidden"
-        } grow bg-[#00000050] z-10`}
+        } fixed w-full h-full bg-[#00000050] z-10`}
         onClick={() => setIsActiveNavbar(false)}
       ></div>
       <div
         className="absolute top-[12px] left-[16px] md:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full bg-transparent cursor-pointer z-30"
         onClick={() => setIsActiveNavbar(true)}
       ></div>
-    </>
+    </div>
   );
 }

@@ -12,7 +12,7 @@ export default function Page() {
       </Hamburger>
       <div className="relative flex flex-col grow h-auto min-h-full">
         <Header />
-        <ProfileCard />
+        {/* <ProfileCard /> */}
         <Footer />
       </div>
     </div>
