@@ -1,11 +1,11 @@
-import Card from "@/features/Edit/Body/Card/Edit.Body.Card";
-import CardHeader from "@/features/Edit/Body/Card/Edit.Body.Card.Header";
-import CardBody from "@/features/Edit/Body/Card/Edit.Body.Card.Body";
-import Thumbnail from "@/features/Edit/Body/ProfileCard/Edit.Body.ProfileCard.Thumbnail";
-import Nickname from "@/features/Edit/Body/ProfileCard/Edit.Body.ProfileCard.Nickname";
-import Kakao from "@/features/Edit/Body/ProfileCard/Edit.Body.ProfileCard.Kakao";
-import Toss from "@/features/Edit/Body/ProfileCard/Edit.Body.ProfileCard.Toss";
-import Tag from "@/features/Edit/Body/ProfileCard/Edit.Body.ProfileCard.Tag";
+import Card from "@/components/card/card";
+import CardHeader from "@/components/card/header";
+import CardBody from "@/components/card/body";
+import Thumbnail from "@/components/edit/body/profile-card/thumbnail";
+import Nickname from "@/components/edit/body/profile-card/nickname";
+import Kakao from "@/components/edit/body/profile-card/kakao";
+import Toss from "@/components/edit/body/profile-card/toss";
+import Tag from "@/components/edit/body/profile-card/tags";
 
 export default function ProfileCard() {
   return (

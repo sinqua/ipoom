@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 import uploadImg from "@/app/assets/images2/upload.svg";
-import Button from "./Edit.Header.Button";
-import Menu from "./Edit.Header.Menu";
-import Item from "./Edit.Header.Menu.Item";
+import Button from "./button";
+import Menu from "./menu";
+import Item from "./menu-item";
 
 export default function Header() {
   return (

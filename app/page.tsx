@@ -1,9 +1,9 @@
-import Navbar from "@/components/basic-layout/Navbar";
-import Header from "@/components/basic-layout/Header";
+import Navbar from "@/components/basic-layout/navbar";
+import Header from "@/components/basic-layout/header";
 import dynamic from "next/dynamic";
-import Hamburger from "@/components/basic-layout/Hamburger";
+import Hamburger from "@/components/basic-layout/hamburger";
 
-const Discord = dynamic(() => import("@/components/Discord"), { ssr: false });
+const Discord = dynamic(() => import("@/components/discord"), { ssr: false });
 
 export default function Home() {
   return (

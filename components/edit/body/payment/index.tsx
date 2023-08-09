@@ -1,6 +1,6 @@
-import Card from "@/features/Edit/Body/Card/Edit.Body.Card";
-import CardHeader from "@/features/Edit/Body/Card/Edit.Body.Card.Header";
-import CardBody from "@/features/Edit/Body/Card/Edit.Body.Card.Body";
+import Card from "@/components/card/card";
+import CardHeader from "@/components/card/header";
+import CardBody from "@/components/card/body";
 
 export default function Payment() {
   return (

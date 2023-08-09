@@ -1,7 +1,7 @@
-import Card from "@/features/Edit/Body/Card/Edit.Body.Card";
-import CardHeader from "@/features/Edit/Body/Card/Edit.Body.Card.Header";
-import CardBody from "@/features/Edit/Body/Card/Edit.Body.Card.Body";
-import MainAvatarCard from "@/features/Edit/Body/MainAvatar/Edit.Body.MainAvatar.Card";
+import Card from "@/components/card/card";
+import CardHeader from "@/components/card/header";
+import CardBody from "@/components/card/body";
+import MainAvatarCard from "@/components/edit/body/main-avatar/card";
 
 export default function MainAvatar() {
   return (

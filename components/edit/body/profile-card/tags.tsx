@@ -2,7 +2,7 @@
 import { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 
-export default function Tag() {
+export default function Tags() {
   const [currentTags, setCurrentTags] = useState<any>(null);
 
   return (
