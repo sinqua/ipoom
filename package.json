@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.32.0",
     "@types/node": "20.4.7",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
@@ -21,6 +22,7 @@
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-quill": "^2.0.0",
     "react-select": "^5.7.4",
     "react-use-draggable-scroll": "^0.4.7",
     "tailwind-scrollbar-hide": "^1.1.7",
