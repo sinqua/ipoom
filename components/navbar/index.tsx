@@ -4,10 +4,10 @@ import Link from "next/link";
 
 import Image from "next/image";
 import moopiLogo from "@/app/assets/logos/moopi.svg";
-import Profile from "./Navbar.Profile";
-import Button from "./Navbar.Button";
-import Menu from "./Navbar.Menu";
-import Item from "./Navbar.Menu.Item";
+import Profile from "./profile";
+import Button from "./button";
+import Menu from "./menu";
+import Item from "./menu-item";
 
 import homeImg from "@/app/assets/images2/home.svg";
 import searchImg from "@/app/assets/images2/search.svg";

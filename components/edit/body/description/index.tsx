@@ -1,13 +1,12 @@
 'use client';
 import dynamic from "next/dynamic";
 
-import Card from "@/features/Edit/Body/Card/Edit.Body.Card";
-import CardHeader from "@/features/Edit/Body/Card/Edit.Body.Card.Header";
-import CardBody from "@/features/Edit/Body/Card/Edit.Body.Card.Body";
-import MainAvatarCard from "@/features/Edit/Body/MainAvatar/Edit.Body.MainAvatar.Card";
+import Card from "@/components/card/card";
+import CardHeader from "@/components/card/header";
+import CardBody from "@/components/card/body";
 import { useState } from "react";
 
-const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
+const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
 
 export default function Description() {

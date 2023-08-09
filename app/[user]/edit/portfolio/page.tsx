@@ -1,8 +1,8 @@
-import Footer from "@/components/basic-layout/Footer";
-import Hamburger from "@/components/basic-layout/Hamburger";
-import Navbar from "@/features/Navbar/Navbar";
-import Header from "@/features/Edit/Header/Edit.Header";
-import Portfolio from "@/features/Edit/Body/Portfolio/Edit.Body.Portfolio";
+import Footer from "@/components/basic-layout/footer";
+import Hamburger from "@/components/basic-layout/hamburger";
+import Navbar from "@/components/navbar";
+import Header from "@/components/edit/header/index";
+import Portfolio from "@/components/edit/body/portfolio";
 
 export default function Page() {
   return (
