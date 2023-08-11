@@ -8,9 +8,7 @@ const Discord = dynamic(() => import("@/components/discord"), { ssr: false });
 export default function Home() {
   return (
     <div className="relative flex h-full min-h-full">
-      <Hamburger>
-        <Navbar />
-      </Hamburger>
+      <Navbar />
       <div className="relative flex flex-col grow h-auto min-h-full">
         <Header />
         <Discord />

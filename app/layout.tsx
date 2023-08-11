@@ -1,10 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
 import { Suspense } from "react";
 
 import Footer from "@/components/basic-layout/footer";
+import AuthProvider from "@/components/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>
-          <Suspense>
-            <main>{children}</main>
-          </Suspense>
-          <Footer />
-        </SessionProvider>
+        <Suspense>
+          <main>
+            <AuthProvider>{children}</AuthProvider>
+          </main>
+        </Suspense>
+        <Footer />
       </body>
     </html>
   );
