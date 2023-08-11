@@ -12,9 +12,10 @@ export default function Page() {
   
   return (
     <div className="relative flex h-full min-h-full text-[#333333]">
-      <Hamburger>
-        <Navbar />
-      </Hamburger>
+      {/* <Hamburger>
+      </Hamburger> */}
+      <Navbar />
+
       <div className="relative flex flex-col grow h-auto min-h-full">
         <Header />
         <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
