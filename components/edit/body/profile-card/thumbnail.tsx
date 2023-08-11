@@ -4,12 +4,13 @@ import Card from "@/components/card/card";
 import CardHeader from "@/components/card/header";
 import CardBody from "@/components/card/body";
 import UploadImage from "./upload-image";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 
-export default async function Thumbnail() {
-  const session = await getServerSession(authOptions);
-  
+
+export default function Thumbnail( asd: any ) {
+
+  console.log(typeof asd)
+
+
   return (
     <Card>
       <CardHeader title={"프로필 사진"}>

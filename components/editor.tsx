@@ -6,7 +6,7 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { RangeStatic } from "quill";
 
-import { CreateQuillUrl } from "@/lib/storage";
+import { CreateQuillUrl } from "@/lib/supabase";
 
 var Image = Quill.import("formats/image");
 Image.className = "inline-block";
