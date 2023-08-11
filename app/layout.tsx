@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 
-import Footer from "@/components/basic-layout/footer";
 import AuthProvider from "@/components/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });

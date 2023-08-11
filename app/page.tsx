@@ -1,7 +1,6 @@
 import Navbar from "@/components/navbar";
 import Header from "@/components/basic-layout/header";
 import dynamic from "next/dynamic";
-import Hamburger from "@/components/basic-layout/hamburger";
 
 const Discord = dynamic(() => import("@/components/discord"), { ssr: false });
 

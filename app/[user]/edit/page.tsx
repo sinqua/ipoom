@@ -1,7 +1,3 @@
-import Footer from "@/components/basic-layout/footer";
-import Hamburger from "@/components/basic-layout/hamburger";
-import Navbar from "@/components/navbar";
-import Header from "@/components/edit/header";
 import Thumbnail from "@/components/edit/body/profile-card/thumbnail";
 import Nickname from "@/components/edit/body/profile-card/nickname";
 import Kakao from "@/components/edit/body/profile-card/kakao";
