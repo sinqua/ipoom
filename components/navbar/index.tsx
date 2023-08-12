@@ -13,6 +13,7 @@ export default function Navbar() {
       <div className="block flex-none dt:hidden">
         <MobileNavbar>
           <MenuList />
+          <UploadWork />
           <Profile />
         </MobileNavbar>
       </div>

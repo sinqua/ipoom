@@ -1,19 +1,21 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 import moreImg from "@/app/assets/images2/more.svg";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
 
 export default function KebabMenu() {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const logOut = () => {
     signOut();
     setIsOpen(false);
   };
+  const url = session ? `/${session?.user.id}/edit` : "";
 
   return (
     <>
@@ -26,7 +28,7 @@ export default function KebabMenu() {
       <Transition className="absolute bottom-[77px]" show={isOpen}>
         <div className="flex flex-col w-[152px] border-solid border-[1px] rounded-[8px] bg-white ">
           <button className="w-[152px] h-[40px] text-[14px] text-[#333333]">
-            <Link href="/mypage">마이페이지</Link>
+            <Link href={url}>마이페이지</Link>
           </button>
           <button
             className="w-[152px] h-[40px] text-[14px] text-[#333333]"

@@ -14,7 +14,7 @@ import UploadWork from "./upload-work";
 export default function MobileNavbar({
   children,
 }: {
-  children: [React.ReactNode, React.ReactNode];
+  children: [React.ReactNode, React.ReactNode, React.ReactNode];
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -70,8 +70,8 @@ export default function MobileNavbar({
                   </Link>
                 </div>
                 {children[0]}
-                <UploadWork />
                 {children[1]}
+                {children[2]}
               </div>
             </Dialog.Panel>
           </Transition.Child>
