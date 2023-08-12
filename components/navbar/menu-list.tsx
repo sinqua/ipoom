@@ -5,16 +5,21 @@ import alarmImg from "@/app/assets/images2/alram.svg";
 import followImg from "@/app/assets/images2/follow.svg";
 import settingImg from "@/app/assets/images2/setting.svg";
 import Item from "./menu-item";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-export default function MenuList() {
+export default async function MenuList() {
+  const session = await getServerSession(authOptions);
+  const userId = session ? `${session?.user.id}` : "";
+
   return (
     <div className="grow flex flex-col">
-      <Item imgSrc={homeImg}>홈</Item>
-      <Item imgSrc={searchImg}>검색</Item>
-      <Item imgSrc={messageImg}>메시지</Item>
-      <Item imgSrc={alarmImg}>알림</Item>
-      <Item imgSrc={followImg}>팔로우</Item>
-      <Item imgSrc={settingImg}>설정</Item>
+      <Item imgSrc={homeImg} url={userId}>홈</Item>
+      <Item imgSrc={searchImg} url={userId}>검색</Item>
+      <Item imgSrc={messageImg} url={userId}>메시지</Item>
+      <Item imgSrc={alarmImg} url={userId}>알림</Item>
+      <Item imgSrc={followImg} url={userId}>팔로우</Item>
+      <Item imgSrc={settingImg} url={`${userId}/edit`}>마이페이지</Item>
     </div>
   );
 }

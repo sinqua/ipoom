@@ -1,8 +1,8 @@
 import { getServerSession } from "next-auth";
-
+import { authOptions } from "@/lib/auth";
 import Image from "next/image";
 import faceImg from "@/app/assets/images/face.png";
-import { authOptions } from "@/lib/auth";
+
 import { getProfile } from "@/lib/supabase";
 import KebabMenu from "./kebab-menu";
 

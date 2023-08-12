@@ -3,17 +3,19 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import Image from "next/image";
 import menuImg from "@/app/assets/images2/menu.svg";
 import moopiLogo from "@/app/assets/logos/moopi.svg";
 
-import Profile from "./profile";
-import MenuList from "./menu-list";
 import UploadWork from "./upload-work";
 
-export default function MobileNavbar() {
+export default function MobileNavbar({
+  children,
+}: {
+  children: [React.ReactNode, React.ReactNode];
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
@@ -67,9 +69,9 @@ export default function MobileNavbar() {
                     />
                   </Link>
                 </div>
-                <MenuList />
+                {children[0]}
                 <UploadWork />
-                <Profile />
+                {children[1]}
               </div>
             </Dialog.Panel>
           </Transition.Child>
