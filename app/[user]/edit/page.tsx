@@ -1,8 +1,8 @@
-import Thumbnail from "@/components/edit/body/profile-card/thumbnail";
-import Nickname from "@/components/edit/body/profile-card/nickname";
-import Kakao from "@/components/edit/body/profile-card/kakao";
-import Toss from "@/components/edit/body/profile-card/toss";
-import Tags from "@/components/edit/body/profile-card/tags";
+import Thumbnail from "@/components/edit/profile-card/thumbnail";
+import Nickname from "@/components/edit/profile-card/nickname";
+import Kakao from "@/components/edit/profile-card/kakao";
+import Toss from "@/components/edit/profile-card/toss";
+import Tags from "@/components/edit/profile-card/tags";
 import { getProfile, getLink } from "@/lib/supabase";
 
 export default async function Page({ params }: { params: { user: string } }) {

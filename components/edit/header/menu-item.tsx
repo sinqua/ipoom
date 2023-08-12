@@ -16,20 +16,21 @@ const menus: menuMap = {
 };
 
 const links: menuMap = {
-  '프로필 카드': '/123/edit',
-  '대표 아바타': '/123/edit/main-avatar',
-  '설명': '/123/edit/description',
-  '포트폴리오': '/123/edit/portfolio',
-  '가격정보': '/123/edit/price-info',
-  '결제수단': '/123/edit/payment',
+  '프로필 카드': 'edit',
+  '대표 아바타': 'edit/main-avatar',
+  '설명': 'edit/description',
+  '포트폴리오': 'edit/portfolio',
+  '가격정보': 'edit/price-info',
+  '결제수단': 'edit/payment',
 };
 
 export default function Item({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const url = `/${pathname.split("/")[1]}/${links[children!.toString()]}`
 
   return (
     <Link
-      href={`${links[children!.toString()]}`}
+      href={url}
       className={`${
         checkUrl(children, pathname) ? "text-[#333333]" : "text-[#9D9D9D]"
       } flex flex-col justify-between h-full  cursor-pointer`}

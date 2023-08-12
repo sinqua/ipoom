@@ -1,8 +1,5 @@
 import Image from "next/image";
-import moopiLogo from "@/app/assets/logos/moopi.svg";
-import menuImg from "@/app/assets/images2/menu.svg";
 import searchImg from "@/app/assets/images2/search.svg";
-import Link from "next/link";
 
 export default function Header() {
   return (
