@@ -1,7 +1,7 @@
 import Card from "@/components/card/card";
 import CardHeader from "@/components/card/header";
 import CardBody from "@/components/card/body";
-import MainAvatarCard from "@/components/edit/body/main-avatar/card";
+import MainAvatarCard from "@/components/edit/main-avatar/card";
 
 export default function MainAvatar() {
   return (

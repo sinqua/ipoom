@@ -1,12 +1,10 @@
 "use client";
 import { useEffect, useMemo, useRef } from "react";
 import { NextPage } from "next";
-
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { RangeStatic } from "quill";
-
-import { CreateQuillUrl } from "@/lib/supabase";
+import { getQuillUrl } from "@/lib/supabase";
 
 var Image = Quill.import("formats/image");
 Image.className = "inline-block";
@@ -18,33 +16,12 @@ interface IEditor {
   setHtmlStr: any;
 }
 
-const Editor: NextPage<IEditor> = ({ content, htmlStr, setHtmlStr }) => {
+const QuillEditor: NextPage<IEditor> = ({ content, htmlStr, setHtmlStr }) => {
   const quillRef = useRef<ReactQuill>(null);
 
-  // useEffect(() => {
-  //   async function loadDescription() {
-  //     if (content) {
-  //       const descriptionObject = JSON.parse(content);
-
-  //       const arr: any[] = [];
-  //       Object.keys(descriptionObject).forEach((key) =>
-  //         arr.push(descriptionObject[key])
-  //       );
-
-  //       for (let i = 0; i < arr.length; i++) {
-  //         if (Object.keys(arr[i].insert).includes("image")) {
-  //           await CreateQuillUrl(arr[i].insert.image).then(async (url) => {
-  //             arr[i].insert.image = url!.publicUrl;
-  //           });
-  //         }
-  //       }
-
-  //       setHtmlStr({ ops: arr });
-  //     }
-  //   }
-
-  //   loadDescription();
-  // }, [content]);
+  useEffect(() => {
+    loadDescription(content, setHtmlStr);
+  }, [content, setHtmlStr]);
 
   // 이미지 업로드 핸들러, modules 설정보다 위에 있어야 정상 적용
   const imageHandler = () => {
@@ -108,27 +85,6 @@ const Editor: NextPage<IEditor> = ({ content, htmlStr, setHtmlStr }) => {
     []
   );
 
-  // toolbar에 사용되는 tool format
-  const formats = [
-    "font",
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "code-block",
-    "formula",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "video",
-    "align",
-    "color",
-    "background",
-  ];
 
   return (
     <ReactQuill
@@ -143,8 +99,51 @@ const Editor: NextPage<IEditor> = ({ content, htmlStr, setHtmlStr }) => {
         setHtmlStr(editor.getContents())
       }
     />
-    // onChange={(content, delta, source, editor) => {console.log("edtior", editor.getContents())}} />
   );
 };
 
-export default Editor;
+async function loadDescription(content: any, setHtmlStr: any) {
+  if (content) {
+    const descriptionObject = JSON.parse(content);
+
+    const arr: any[] = [];
+    Object.keys(descriptionObject).forEach((key) =>
+      arr.push(descriptionObject[key])
+    );
+
+    for (let i = 0; i < arr.length; i++) {
+      if (Object.keys(arr[i].insert).includes("image")) {
+        await getQuillUrl(arr[i].insert.image).then(async (url) => {
+          arr[i].insert.image = url!.publicUrl;
+        });
+      }
+    }
+
+    setHtmlStr({ ops: arr });
+  }
+}
+
+// toolbar에 사용되는 tool format
+const formats = [
+  "font",
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "code-block",
+  "formula",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+  "align",
+  "color",
+  "background",
+];
+
+
+export default QuillEditor;

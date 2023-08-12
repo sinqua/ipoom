@@ -8,17 +8,10 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import menuImg from "@/app/assets/images2/menu.svg";
 import moopiLogo from "@/app/assets/logos/moopi.svg";
-import homeImg from "@/app/assets/images2/home.svg";
-import searchImg from "@/app/assets/images2/search.svg";
-import messageImg from "@/app/assets/images2/message.svg";
-import alarmImg from "@/app/assets/images2/alram.svg";
-import followImg from "@/app/assets/images2/follow.svg";
-import settingImg from "@/app/assets/images2/setting.svg";
 
 import Profile from "./profile";
-import Button from "./button";
-import Menu from "./menu";
-import Item from "./menu-item";
+import MenuList from "./menu-list";
+import UploadWork from "./upload-work";
 
 export default function MobileNavbar() {
   const pathname = usePathname();
@@ -74,15 +67,8 @@ export default function MobileNavbar() {
                     />
                   </Link>
                 </div>
-                <Menu>
-                  <Item imgSrc={homeImg}>홈</Item>
-                  <Item imgSrc={searchImg}>검색</Item>
-                  <Item imgSrc={messageImg}>메시지</Item>
-                  <Item imgSrc={alarmImg}>알림</Item>
-                  <Item imgSrc={followImg}>팔로우</Item>
-                  <Item imgSrc={settingImg}>설정</Item>
-                </Menu>
-                <Button />
+                <MenuList />
+                <UploadWork />
                 <Profile />
               </div>
             </Dialog.Panel>

@@ -1,7 +1,7 @@
 import Card from "@/components/card/card";
 import CardHeader from "@/components/card/header";
 import CardBody from "@/components/card/body";
-import PortfolioCard from "@/components/edit/body/portfolio/card";
+import PortfolioCard from "@/components/edit/portfolio/card";
 
 export default function Portfolio() {
   return (
