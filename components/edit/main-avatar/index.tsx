@@ -1,4 +1,4 @@
-import Card from "@/components/card/card";
+import Card from "@/components/card";
 import CardHeader from "@/components/card/header";
 import CardBody from "@/components/card/body";
 import MainAvatarCard from "@/components/edit/main-avatar/card";
