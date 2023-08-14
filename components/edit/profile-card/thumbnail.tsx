@@ -32,7 +32,7 @@ export default function Thumbnail({ url }: { url: string | null }) {
         />
         <div className="flex space-x-[110px]">
           <UploadImage handler={setFileUrl} ref={inputRef} />
-          <SaveChange />
+          <SaveChange label="thumbnail" ref={inputRef} />
         </div>
       </div>
     </Card>

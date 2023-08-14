@@ -37,7 +37,7 @@ export default function Tags({ list }: { list: any[] }) {
             }),
           }}
         />
-        <SaveChange />
+        <SaveChange label="tags" tags={currentTags} />
       </div>
     </Card>
   );

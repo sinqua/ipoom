@@ -37,8 +37,8 @@ export default function Nickname() {
         <div className="flex items-center ph:w-[392px] w-auto h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
           <input
             type="text"
-            className="grow h-full outline-none text-sm"
             ref={inputRef}
+            className="grow h-full outline-none text-sm"
             placeholder="닉네임을 입력해주세요."
             defaultValue={session ? session?.user.nickname : ""}
             onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ export default function Nickname() {
             }}
           ></input>
         </div>
-        <SaveChange />
+        <SaveChange label="nickname" ref={inputRef} />
       </div>
       {empty ? (
         <></>
