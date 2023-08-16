@@ -1,8 +1,12 @@
 import Card from "@/components/card";
 import CardHeader from "@/components/card/header";
 import MainAvatarCard from "@/components/edit/main-avatar/card";
+import EmptyCard from "@/components/edit/main-avatar/empty-card";
+import { getMainAvatar } from "@/lib/supabase";
 
-export default function Page() {
+export default async function Page({ params }: { params: { user: string } }) {
+  const mainAvatar = await getMainAvatar(params.user);
+
   return (
     <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
       <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full space-y-[64px]">
@@ -14,7 +18,7 @@ export default function Page() {
             <br />
             썸네일은 1000 x 1000 이상의 JPEG 또는 PNG 파일을 권장합니다.
           </CardHeader>
-          <MainAvatarCard />
+          {mainAvatar ? <MainAvatarCard avatar={mainAvatar} /> : <EmptyCard />}
         </Card>
       </div>
     </div>

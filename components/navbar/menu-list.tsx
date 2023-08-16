@@ -1,9 +1,9 @@
-import homeImg from "@/app/assets/images2/home.svg";
-import searchImg from "@/app/assets/images2/search.svg";
-import messageImg from "@/app/assets/images2/message.svg";
-import alarmImg from "@/app/assets/images2/alram.svg";
-import followImg from "@/app/assets/images2/follow.svg";
-import settingImg from "@/app/assets/images2/setting.svg";
+import homeImg from "@/app/assets/images/home.svg";
+import searchImg from "@/app/assets/images/search.svg";
+import messageImg from "@/app/assets/images/message.svg";
+import alarmImg from "@/app/assets/images/alram.svg";
+import followImg from "@/app/assets/images/follow.svg";
+import settingImg from "@/app/assets/images/setting.svg";
 import Item from "./menu-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

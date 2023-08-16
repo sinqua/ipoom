@@ -13,8 +13,6 @@ export default function Nickname({ name }: { name: string }) {
   const [empty, setEmpty] = useState(true);
   const [duplication, setDuplication] = useState(false);
 
-  console.log("session", session);
-
   // 닉네임 중복 확인
   const onChangeNickname = async (nickname: string) => {
     setEmpty(nickname.length === 0 ? true : false);

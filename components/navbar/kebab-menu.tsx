@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 
-import moreImg from "@/app/assets/images2/more.svg";
+import moreImg from "@/app/assets/images/more.svg";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
 

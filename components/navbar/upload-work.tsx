@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-import uploadImg from "@/app/assets/images2/upload.svg";
+import uploadImg from "@/app/assets/images/upload.svg";
 
 export default async function UploadWork() {
   const session = await getServerSession(authOptions);
