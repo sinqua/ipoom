@@ -1,7 +1,3 @@
-import Image from "next/image";
-
-import uploadImg from "@/app/assets/images2/upload.svg";
-import Button from "./button";
 import Menu from "./menu";
 import Item from "./menu-item";
 
@@ -17,10 +13,9 @@ export default function Header() {
           <Menu>
             <Item>프로필 카드</Item>
             <Item>대표 아바타</Item>
-            <Item>설명</Item>
-            <Item>포트폴리오</Item>
-            <Item>가격정보</Item>
-            <Item>결제수단</Item>
+            <Item>작업</Item>
+            <Item>커미션 안내</Item>
+            <Item>비용 안내</Item>
           </Menu>
         </div>
         {/* <Button style="ph:flex hidden">저장하기</Button> */}

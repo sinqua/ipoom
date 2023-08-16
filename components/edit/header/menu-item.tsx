@@ -9,19 +9,17 @@ type menuMap = {
 const menus: menuMap = {
   '프로필 카드': undefined,
   '대표 아바타': 'main-avatar',
-  '설명': 'description',
-  '포트폴리오': 'portfolio',
-  '가격정보': 'price-info',
-  '결제수단': 'payment',
+  '커미션 안내': 'description',
+  '작업': 'portfolio',
+  '비용 안내': 'price-info',
 };
 
 const links: menuMap = {
   '프로필 카드': 'edit',
   '대표 아바타': 'edit/main-avatar',
-  '설명': 'edit/description',
-  '포트폴리오': 'edit/portfolio',
-  '가격정보': 'edit/price-info',
-  '결제수단': 'edit/payment',
+  '커미션 안내': 'edit/description',
+  '작업': 'edit/portfolio',
+  '비용 안내': 'edit/price-info',
 };
 
 export default function Item({ children }: { children: React.ReactNode }) {
