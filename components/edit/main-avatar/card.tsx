@@ -4,7 +4,7 @@ import useDrag from "@/hooks/useDrag";
 import { useEffect } from "react";
 import { formatDate } from "@/lib/string";
 
-export default async function Card({ avatar }: { avatar: any }) {
+export default function Card({ avatar }: { avatar: any }) {
   const { dragRef, dragEvents, mountedStatus, setMountedStatus } = useDrag();
 
   useEffect(() => {
