@@ -118,6 +118,7 @@ export interface Database {
           id: number
           image: string | null
           user_id: string | null
+          nickname: string | null
         }
         Insert: {
           created_at?: string | null
@@ -125,6 +126,7 @@ export interface Database {
           id?: number
           image?: string | null
           user_id?: string | null
+          nickname?: string | null
         }
         Update: {
           created_at?: string | null
@@ -132,6 +134,7 @@ export interface Database {
           id?: number
           image?: string | null
           user_id?: string | null
+          nickname?: string | null
         }
         Relationships: [
           {
