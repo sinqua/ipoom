@@ -33,36 +33,30 @@ export default function Page() {
 
   const onSubmit = async () => {
     if (status === "loading") return;
+
     if (duplication) {
       alert("이미 사용중인 닉네임입니다.");
       return;
     }
 
-    await supabaseAuth
+    const { data: userData, error: userError } = await supabaseAuth
       .from("users")
       .update({ nickname: inputRef.current.value })
       .eq("id", session?.user.id)
-      .select();
+      .select()
+      .limit(1)
+      .single();
 
     await supabase
       .from("profiles")
-      .insert([{ user_id: session?.user.id }])
+      .insert([{ user_id: session?.user.id, image: userData.image }])
       .select();
 
-    await supabase
-      .from("user_details")
-      .insert([{ user_id: session?.user.id }])
-      .select();
+    await supabase.from("user_details").insert([{ user_id: session?.user.id }]);
 
-    await supabase
-      .from("slots")
-      .insert([{ user_id: session?.user.id }])
-      .select();
+    await supabase.from("slots").insert([{ user_id: session?.user.id }]);
 
-    await supabase
-      .from("links")
-      .insert([{ user_id: session?.user.id }])
-      .select();
+    await supabase.from("links").insert([{ user_id: session?.user.id }]);
 
     update();
     router.push(`/${session?.user.id}`);
@@ -100,13 +94,9 @@ export default function Page() {
             {empty ? (
               <></>
             ) : duplication ? (
-              <p className="text-[#FF4848]">
-                이미 사용중인 닉네임입니다.
-              </p>
+              <p className="text-[#FF4848]">이미 사용중인 닉네임입니다.</p>
             ) : (
-              <p className="text-[#5333FF]">
-                사용 가능한 닉네임입니다.
-              </p>
+              <p className="text-[#5333FF]">사용 가능한 닉네임입니다.</p>
             )}
           </div>
         </div>

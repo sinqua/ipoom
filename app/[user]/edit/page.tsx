@@ -5,8 +5,9 @@ import Toss from "@/components/edit/profile-card/toss";
 import Tags from "@/components/edit/profile-card/tags";
 
 import { getProfile, getUserProfileImage, getLink, getUser } from "@/lib/supabase";
+import { useSession } from "next-auth/react";
 
-export default async function Page({ params }: { params: { user: string } }) {
+export default async function Page({ params }: { params: { user: string } }) {  
   const profileData = getProfile(params.user);
   const profileImageData = getUserProfileImage(params.user);
   const linkData = getLink(params.user);
