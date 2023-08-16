@@ -8,96 +8,36 @@ import { v4 as uuidv4 } from "uuid";
 const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
   const { data: session, status } = useSession();
 
-
   const handleClick = async () => {
     if (props.label === "thumbnail") {
-      const file = ref.current.files[0];
-
-      if (file) {
-        var uuid = uuidv4();
-
-        const filepath = `${session?.user.id}/${uuid}.png`;
-
-        const { data: fileData, error: fileError } = await supabase.storage
-          .from("profile-image")
-          .upload(filepath, file, {
-            cacheControl: "3600",
-            upsert: true,
-          });
-
-        const { data: thumbnailData, error: thumbnailError } =
-          await supabase
-            .from("profiles")
-            .update({ image: fileData?.path })
-            .eq("user_id", session?.user.id);
-      }
+      handleSaveThumbnail(session, ref);
 
       return;
     }
 
     if (props.label === "nickname") {
-      const nickname = ref.current.value;
-
-      if (nickname !== session?.user.nickname) {
-        const result = await validateNickname(nickname);
-
-        if (result) return;
-      }
-
-      const { data: nicknameData, error: nicknameError } = await supabaseAuth
-        .from("users")
-        .update({ nickname: nickname })
-        .eq("id", session?.user.id);
+      handleSaveNickname(session, ref);
 
       return;
     }
 
     if (props.label === "kakao") {
-      const kakao = ref.current.value;
-
-      const { data: kakaoLinkData, error: kakaoLinkError } = await supabase
-        .from("links")
-        .update({ kakao: kakao })
-        .eq("user_id", session?.user.id);
+      handleSaveKakaoLink(session, ref);
 
       return;
     }
 
     if (props.label === "toss") {
-      const toss = ref.current.value;
+      handleSaveTossLink(session, ref);
 
-      const { data: tossLinkData, error: tossLinkError } = await supabase
-        .from("links")
-        .update({ toss: toss })
-        .eq("user_id", session?.user.id);
       return;
     }
 
     if (props.label === "tags") {
-      const tags = props.tags;
-
-      const { data: profileData, error: error1 } = await supabase
-        .from("profiles")
-        .select(`*`)
-        .eq("user_id", session?.user.id)
-        .limit(1)
-        .single();
-
-      const { data: tagsData, error: tagsError } = await supabase
-        .from("tags")
-        .insert(
-          tags
-            .map((tag: any) => {
-              return tag.value;
-            })
-            .map((tag: any) => {
-              return { tag: tag, profile_id: profileData!.id };
-            })
-        );
+      handleSaveTags(session, props);
 
       return;
     }
-
   };
 
   return (
@@ -111,3 +51,81 @@ const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
 });
 
 export default SaveChange;
+
+const handleSaveThumbnail = async (session: any, ref: any) => {
+  const file = ref.current.files[0];
+
+  if (file) {
+    var uuid = uuidv4();
+
+    const filepath = `${session?.user.id}/${uuid}.png`;
+
+    const { data: fileData, error: fileError } = await supabase.storage
+      .from("profile-image")
+      .upload(filepath, file, {
+        cacheControl: "3600",
+        upsert: true,
+      });
+
+    const { data: thumbnailData, error: thumbnailError } = await supabase
+      .from("profiles")
+      .update({ image: fileData?.path })
+      .eq("user_id", session?.user.id);
+  }
+};
+
+const handleSaveNickname = async (session: any, ref: any) => {
+  const nickname = ref.current.value;
+
+  if (nickname !== session?.user.nickname) {
+    const result = await validateNickname(nickname);
+
+    if (result) return;
+  }
+
+  const { data: nicknameData, error: nicknameError } = await supabaseAuth
+    .from("users")
+    .update({ nickname: nickname })
+    .eq("id", session?.user.id);
+};
+
+const handleSaveKakaoLink = async (session: any, ref: any) => {
+  const kakao = ref.current.value;
+
+  const { data: kakaoLinkData, error: kakaoLinkError } = await supabase
+    .from("links")
+    .update({ kakao: kakao })
+    .eq("user_id", session?.user.id);
+};
+
+const handleSaveTossLink = async (session: any, ref: any) => {
+  const toss = ref.current.value;
+
+  const { data: tossLinkData, error: tossLinkError } = await supabase
+    .from("links")
+    .update({ toss: toss })
+    .eq("user_id", session?.user.id);
+};
+
+const handleSaveTags = async (session: any, props: any) => {
+  const tags = props.tags;
+
+  const { data: profileData, error: error1 } = await supabase
+    .from("profiles")
+    .select(`*`)
+    .eq("user_id", session?.user.id)
+    .limit(1)
+    .single();
+
+  const { data: tagsData, error: tagsError } = await supabase
+    .from("tags")
+    .insert(
+      tags
+        .map((tag: any) => {
+          return tag.value;
+        })
+        .map((tag: any) => {
+          return { tag: tag, profile_id: profileData!.id };
+        })
+    );
+};
