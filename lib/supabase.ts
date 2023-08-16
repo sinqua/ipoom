@@ -1,5 +1,19 @@
 import { supabase, supabaseAuth } from "./database";
 
+export const getUser = async (id: string) => {
+  const { data, error } = await supabaseAuth
+    .from("users")
+    .select(`*`)
+    .eq("id", id)
+    .limit(1)
+    .single();
+
+  if (data) return data;
+  else {
+    throw new Error("User not found");
+  }
+};
+
 export const getProfile = async (id: string) => {
   const { data, error } = await supabase
     .from("profiles")
