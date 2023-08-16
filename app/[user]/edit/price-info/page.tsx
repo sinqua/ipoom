@@ -1,9 +1,7 @@
 import Card from "@/components/card";
 import CardHeader from "@/components/card/header";
-import CardBody from "@/components/card/body";
 import { getUserDetail } from "@/lib/supabase";
 import RichTextEditor from "@/components/edit/rich-text-editor";
-
 
 export default async function Page({ params }: { params: { user: string } }) {
   const userDetail = await getUserDetail(params.user);
@@ -15,11 +13,9 @@ export default async function Page({ params }: { params: { user: string } }) {
           <CardHeader title={"가격정보"}>
             서비스에 대한 가격정보를 상세히 적어주세요.
           </CardHeader>
-          <CardBody>
-            <div className="h-[500px]">
-              <RichTextEditor content={userDetail.price_info} />
-            </div>
-          </CardBody>
+          <div className="h-[500px]">
+            <RichTextEditor content={userDetail.price_info} />
+          </div>
         </Card>
       </div>
     </div>

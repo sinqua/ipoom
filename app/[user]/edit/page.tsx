@@ -4,7 +4,6 @@ import Kakao from "@/components/edit/profile-card/kakao";
 import Toss from "@/components/edit/profile-card/toss";
 import Tags from "@/components/edit/profile-card/tags";
 
-import { supabase, supabaseAuth } from "@/lib/database";
 import { getProfile, getUserProfileImage, getLink } from "@/lib/supabase";
 
 export default async function Page({ params }: { params: { user: string } }) {
