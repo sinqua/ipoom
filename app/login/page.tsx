@@ -15,7 +15,7 @@ export default function Page() {
     <div className="flex flex-row h-full font-sans text-[#333333]">
       <div className="dt:block hidden grow-0 w-[514px]">
         <Image
-            className="object-cover w-full h-full"
+          className="object-cover w-full h-full"
           src={loginBg}
           alt=""
           loading="eager"
