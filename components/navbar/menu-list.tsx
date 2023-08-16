@@ -10,7 +10,7 @@ import { authOptions } from "@/lib/auth";
 
 export default async function MenuList() {
   const session = await getServerSession(authOptions);
-  const userId = session ? `${session?.user.id}` : "";
+  const userId = session ? `/${session?.user.id}` : "";
 
   return (
     <div className="grow flex flex-col">
