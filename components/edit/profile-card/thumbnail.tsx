@@ -27,7 +27,7 @@ export default function Thumbnail({ url }: { url: string | null }) {
           src={fileUrl ? fileUrl : emptyImg}
           width={160}
           height={160}
-          className="ph:h-[160px] h-[100px] ph:w-[160px] w-[100px] bg-gray-200 rounded-full border-none"
+          className="object-cover ph:h-[160px] h-[100px] ph:w-[160px] w-[100px] bg-gray-200 rounded-full border-none"
           alt=""
         />
         <div className="flex space-x-[110px]">
