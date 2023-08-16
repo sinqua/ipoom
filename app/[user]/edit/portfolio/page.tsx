@@ -14,8 +14,8 @@ export default async function Page({ params }: { params: { user: string } }) {
             업로드했던 작업물을 수정할 수 있어요.
           </CardHeader>
           <div className="flex flex-col space-y-[24px]">
-            {portfolios.map((portfolio: any) => {
-              return <PortfolioCard avatar={portfolio} />;
+            {portfolios.map((portfolio: any, index: any) => {
+              return <PortfolioCard avatar={portfolio} key={index} />;
             })}
           </div>
         </Card>
