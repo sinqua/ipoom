@@ -6,7 +6,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import React, { Fragment, useEffect, useState } from "react";
 
 import Image from "next/image";
-import menuImg from "@/app/assets/images2/menu.svg";
+import menuImg from "@/app/assets/images/menu.svg";
 import moopiLogo from "@/app/assets/logos/moopi.svg";
 
 import UploadWork from "./upload-work";

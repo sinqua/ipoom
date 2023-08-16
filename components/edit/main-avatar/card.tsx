@@ -2,17 +2,9 @@
 import Image from "next/image";
 import useDrag from "@/hooks/useDrag";
 import { useEffect } from "react";
+import { formatDate } from "@/lib/string";
 
-import emptyImg from "@/app/assets/images/empty.png";
-
-const avatarTags = [
-  { value: "VRC", label: "VRC" },
-  { value: "blender", label: "blender" },
-  { value: "트위치 방송", label: "트위치 방송" },
-  { value: "이세계아이돌", label: "이세계아이돌" },
-];
-
-export default function Card() {
+export default async function Card({ avatar }: { avatar: any }) {
   const { dragRef, dragEvents, mountedStatus, setMountedStatus } = useDrag();
 
   useEffect(() => {
@@ -21,44 +13,47 @@ export default function Card() {
 
   return (
     <div className="flex ph:flex-row flex-col p-[24px] ph:space-x-[24px] space-x-0 rounded-[10px] shadow-[0px_3px_10px_rgba(0,0,0,0.16)]">
-      <p className="ph:hidden block text-[20px] font-bold mb-[24px]">RRddang</p>
-      <Image
-        src={emptyImg}
-        className="shrink-0 ph:w-[394px] w-full h-fit aspect-[8/7] !m-0 rounded-[10px]"
-        width={0}
-        height={0}
-        alt=""
-      />
+      <p className="ph:hidden block text-[20px] font-bold mb-[24px]">
+        {avatar.name}
+      </p>
+      <div className="shrink-0 ph:w-[394px] w-full h-fit aspect-[8/7] !m-0 rounded-[10px]">
+        <Image
+          src={avatar.thumbnailUrl}
+          className="object-cover w-full h-full"
+          width={512}
+          height={512}
+          alt=""
+        />
+      </div>
       <div className="relative flex flex-col grow tb:h-[345px] h-auto justify-between tb:space-y-0 space-y-[40px]">
         <div className="flex flex-col w-full space-y-[16px]">
-          <p className="ph:block hidden text-[20px] font-bold">RRddang</p>
+          <p className="ph:block hidden text-[20px] font-bold">{avatar.name}</p>
           <div className="flex flex-wrap justify-between w-full">
             <div className="flex space-x-[8px]">
               <p className="text-[#7B7B7B]">업로드</p>
-              <p className="font-semibold">2023.01.01</p>
+              <p className="font-semibold">{formatDate(avatar.created_at)}</p>
             </div>
             <div className="flex space-x-[8px]">
               <p className="text-[#7B7B7B]">상태</p>
-              <p className="font-semibold">공개</p>
+              <p className="font-semibold">
+                {avatar.visible ? "공개" : "비공개"}
+              </p>
             </div>
             <div className="flex space-x-[8px]">
               <p className="text-[#7B7B7B]">애니메이션</p>
-              <p className="font-semibold">HiphopDance</p>
+              <p className="font-semibold">{avatar.animationData.name}</p>
             </div>
           </div>
         </div>
         <div className="relative flex tb:flex-row flex-col tb:space-x-[24px] space-x-0 tb:space-y-0 space-y-[24px]">
           <div className="relative flex flex-col w-full space-y-[16px]">
             <p className="text-[20px] font-bold">아바타 설명</p>
-            <p className="w-full break-all">
-              버츄얼 아이돌 이세돌의 주르르 입니다. ^~^ 생방송은 트위치에서! 앙
-              트위띠~
-            </p>
+            <p className="w-full break-all">{avatar.description}</p>
           </div>
           <div className="relative flex flex-col w-full space-y-[32px]">
             <div className="flex flex-col space-y-[16px]">
               <p className="text-[20px] font-bold">아바타</p>
-              <p>Anon.vrm</p>
+              <p>{avatar.vrm}</p>
             </div>
             <div className="relative flex flex-col space-y-[16px]">
               <p className="text-[20px] font-bold">태그</p>
@@ -68,13 +63,13 @@ export default function Card() {
                   {...dragEvents}
                   ref={dragRef}
                 >
-                  {avatarTags.map((tag: any, index: any) => {
+                  {avatar.tags.map((tag: any, index: any) => {
                     return (
                       <div
                         className="inline-flex px-[8px] py-[4px] bg-[#E9E9E9] rounded-[8px] whitespace-nowrap cursor-grabbing"
                         key={index}
                       >
-                        {tag.value}
+                        {tag}
                       </div>
                     );
                   })}

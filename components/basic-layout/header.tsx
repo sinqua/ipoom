@@ -1,5 +1,5 @@
 import Image from "next/image";
-import searchImg from "@/app/assets/images2/search.svg";
+import searchImg from "@/app/assets/images/search.svg";
 
 export default function Header() {
   return (
