@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { validateNickname } from "@/lib/supabase";
 import SaveChange from "./save-change";
 
-export default function Nickname() {
+export default function Nickname({ name }: { name: string }) {
   const { data: session, status } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -40,7 +40,7 @@ export default function Nickname() {
             ref={inputRef}
             className="grow h-full outline-none text-sm"
             placeholder="닉네임을 입력해주세요."
-            defaultValue={session ? session?.user.nickname : ""}
+            defaultValue={name ? name : ""}
             onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
               onChangeNickname(event.target.value);
             }}

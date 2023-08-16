@@ -1,5 +1,19 @@
 import { supabase, supabaseAuth } from "./database";
 
+export const getUser = async (id: string) => {
+  const { data, error } = await supabaseAuth
+    .from("users")
+    .select(`*`)
+    .eq("id", id)
+    .limit(1)
+    .single();
+
+  if (data) return data;
+  else {
+    throw new Error("User not found");
+  }
+};
+
 export const getProfile = async (id: string) => {
   const { data, error } = await supabase
     .from("profiles")
@@ -15,8 +29,6 @@ export const getProfile = async (id: string) => {
 };
 
 export const getUserProfileImage = async (id: string) => {
-  const SupabasePublicURL = "https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public"
-
   const { data: profileData, error: error1 } = await supabase
     .from("profiles")
     .select(`image`)
@@ -28,7 +40,7 @@ export const getUserProfileImage = async (id: string) => {
     .eq("id", id);
 
   if (profileData![0].image) {
-    return { image: `${SupabasePublicURL}/profile-image/${profileData![0].image}`}
+    return { image: `${profileData![0].image}`}
   } else {
     return authData![0];
   }
