@@ -41,7 +41,7 @@ export default function Card({ avatar }: { avatar: any }) {
             </div>
             <div className="flex space-x-[8px]">
               <p className="text-[#7B7B7B]">애니메이션</p>
-              <p className="font-semibold">{avatar.animationData.name}</p>
+              <p className="font-semibold">{avatar.animations.name}</p>
             </div>
           </div>
         </div>
@@ -63,13 +63,13 @@ export default function Card({ avatar }: { avatar: any }) {
                   {...dragEvents}
                   ref={dragRef}
                 >
-                  {avatar.tags.map((tag: any, index: any) => {
+                  {avatar.tags.map((item: any, index: any) => {
                     return (
                       <div
                         className="inline-flex px-[8px] py-[4px] bg-[#E9E9E9] rounded-[8px] whitespace-nowrap cursor-grabbing"
                         key={index}
                       >
-                        {tag}
+                        {item.tag}
                       </div>
                     );
                   })}
