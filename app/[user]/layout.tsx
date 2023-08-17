@@ -19,9 +19,9 @@ export default async function Layout({
   }
 
   return (
-    <div className="relative flex h-full min-h-full text-[#333333]">
+    <div className="relative flex h-auto text-[#333333]">
       <Navbar />
-      <div className="relative flex flex-col grow h-auto min-h-full">
+      <div className="relative flex flex-col grow h-auto">
         {children}
         <Footer />
       </div>
