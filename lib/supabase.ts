@@ -95,27 +95,13 @@ export const validateNickname = async (nickname: string) => {
 export const getMainAvatar = async (id: string) => {
   const { data: avatarData, error: avatarError } = await supabase
     .from("avatars")
-    .select(`*`)
+    .select(`*, tags (*), animations (*)`)
     .eq("user_id", id)
     .eq("is_profile", true)
     .limit(1)
     .single();
 
   if (avatarData) {
-    const { data: animationData, error: animationError } = await supabase
-      .from("animations")
-      .select("name")
-      .eq("id", avatarData.animation)
-      .limit(1)
-      .single();
-
-    const { data: tagData, error: tagError } = await supabase
-      .from("tags")
-      .select("tag")
-      .eq("avatar_id", avatarData.id);
-
-    const tags = tagData?.map((tag: any) => Object.values(tag)[0]) || [];
-
     const SupabasePublicURL =
       "https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public";
 
@@ -124,33 +110,19 @@ export const getMainAvatar = async (id: string) => {
     }`;
     if (avatarData.thumbnail === null) url = "/VerticalModel.png";
 
-    return { ...avatarData, tags, animationData, thumbnailUrl: url };
+    return { ...avatarData, thumbnailUrl: url };
   } else return null;
 };
 
 export const getPortfolios = async (id: string) => {
   const { data: portfoliosData, error: portfoliosError } = await supabase
     .from("avatars")
-    .select(`*`)
+    .select(`*, tags (*), animations (*)`)
     .eq("user_id", id)
     .eq("is_profile", false);
 
   const portfolios = [];
   for (const portfolio of portfoliosData!) {
-    const { data: animationData, error: animationError } = await supabase
-      .from("animations")
-      .select("name")
-      .eq("id", portfolio.animation)
-      .limit(1)
-      .single();
-
-    const { data: tagData, error: tagError } = await supabase
-      .from("tags")
-      .select("tag")
-      .eq("avatar_id", portfolio.id);
-
-    const tags = tagData?.map((tag: any) => Object.values(tag)[0]) || [];
-
     const SupabasePublicURL =
       "https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public";
 
@@ -161,8 +133,6 @@ export const getPortfolios = async (id: string) => {
 
     const newPortfolio = {
       ...portfolio,
-      tags,
-      animationData,
       thumbnailUrl: url,
     };
     portfolios.push(newPortfolio);
