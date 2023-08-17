@@ -1,16 +1,8 @@
-"use client";
 import Image from "next/image";
-import useDrag from "@/hooks/useDrag";
-import { useEffect } from "react";
 import { formatDate } from "@/lib/string";
+import Tag from "@/components/edit/portfolio/tag";
 
 export default function Card({ avatar }: { avatar: any }) {
-  const { dragRef, dragEvents, mountedStatus, setMountedStatus } = useDrag();
-
-  useEffect(() => {
-    setMountedStatus(true);
-  }, []);
-
   return (
     <div className="flex ph:flex-row flex-col p-[24px] ph:space-x-[24px] space-x-0 rounded-[10px] shadow-[0px_3px_10px_rgba(0,0,0,0.16)]">
       <p className="ph:hidden block text-[20px] font-bold mb-[24px]">
@@ -58,22 +50,7 @@ export default function Card({ avatar }: { avatar: any }) {
             <div className="relative flex flex-col space-y-[16px]">
               <p className="text-[20px] font-bold">태그</p>
               <div className="w-full h-[30px]">
-                <div
-                  className="absolute flex flex-row w-full space-x-[10px] whitespace-nowrap overflow-x-scroll scrollbar-hide text-[14px]"
-                  {...dragEvents}
-                  ref={dragRef}
-                >
-                  {avatar.tags.map((item: any, index: any) => {
-                    return (
-                      <div
-                        className="inline-flex px-[8px] py-[4px] bg-[#E9E9E9] rounded-[8px] whitespace-nowrap cursor-grabbing"
-                        key={index}
-                      >
-                        {item.tag}
-                      </div>
-                    );
-                  })}
-                </div>
+                <Tag tags={avatar.tags} />
               </div>
             </div>
           </div>
