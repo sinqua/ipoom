@@ -14,8 +14,8 @@ export default function Toss({ link }: { link: any }) {
         <br />
         {"예시) https://toss.me/istick"}
       </CardHeader>
-      <div className="flex space-x-[17px]">
-        <div className="flex items-center ph:w-[392px] w-auto h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
+      <div className="flex ph:w-auto w-full space-x-[16px]">
+        <div className="flex items-center ph:w-[392px] w-auto ph:grow-0 grow h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
           <input
             type="text"
             ref={inputRef}
