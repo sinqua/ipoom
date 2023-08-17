@@ -13,7 +13,7 @@ export default function Tags({ list }: { list: any[] }) {
       <CardHeader title={"태그"}>
         한 눈에 알아보기 쉽도록 태그를 추가해보아요. (최대 5개)
       </CardHeader>
-      <div className="flex space-x-[17px]">
+      <div className="flex ph:w-auto w-full space-x-[16px]">
         <CreatableSelect
           isMulti
           //   options={mostUsedTags}
@@ -22,7 +22,7 @@ export default function Tags({ list }: { list: any[] }) {
           onChange={(e: any) => {
             setCurrentTags(e);
           }}
-          className="flex w-full items-center ph:w-[392px] h-[47px]"
+          className="flex w-auto ph:grow-0 grow items-center ph:w-[392px] h-[47px]"
           placeholder={"태그를 입력해주세요"}
           styles={{
             control: (baseStyles, state) => ({

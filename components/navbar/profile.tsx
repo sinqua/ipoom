@@ -1,32 +1,21 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import Link from "next/link";
 import Image from "next/image";
+import loginImg from "@/app/assets/images/login.svg";
 import faceImg from "@/app/assets/images/face.png";
 import emptyImg from "@/app/assets/images/empty.png";
 
 import { getProfile, getUser, getUserProfileImage } from "@/lib/supabase";
 import KebabMenu from "./kebab-menu";
+import LoginButton from "./login-button";
+// import { useRouter } from "next/navigation";
 
 export default async function Profile() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return (
-      <div className="relative flex justify-between items-center h-[88px] space-x-[44px] px-[32px] pr-[24px] border-t-[1px]">
-        <div className="flex items-center space-x-[16px]">
-          <Image
-            src={faceImg}
-            className="w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
-            width={40}
-            height={40}
-            alt=""
-            priority
-          />
-          <p className="text-[16px] text-[#637381]">{"맥놀"}</p>
-        </div>
-        <KebabMenu />
-      </div>
-    );
+    return <LoginButton />;
   }
 
   const profileImageData = getUserProfileImage(session?.user.id);

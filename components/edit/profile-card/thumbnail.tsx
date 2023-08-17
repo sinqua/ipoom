@@ -21,7 +21,6 @@ export default function Thumbnail({ url }: { url: string | null }) {
         타인에게 불쾌감을 주는 프로필 사진은 고객지원센터에서 임의로 변경할 수
         있습니다.
       </CardHeader>
-      {/* <SaveChange ref={inputRef} /> */}
       <div className="flex items-center ph:space-x-[32px] space-x-[24px]">
         <Image
           src={fileUrl ? fileUrl : emptyImg}
@@ -30,7 +29,7 @@ export default function Thumbnail({ url }: { url: string | null }) {
           className="object-cover ph:h-[160px] h-[100px] ph:w-[160px] w-[100px] bg-gray-200 rounded-full border-none"
           alt=""
         />
-        <div className="flex space-x-[110px]">
+        <div className="flex ph:w-[276px] justify-between ph:grow-0 grow ">
           <UploadImage handler={setFileUrl} ref={inputRef} />
           <SaveChange label="thumbnail" ref={inputRef} />
         </div>

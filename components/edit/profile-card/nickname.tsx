@@ -33,8 +33,8 @@ export default function Nickname({ name }: { name: string }) {
         <br />
         닉네임 변경은 2달에 1회 진행할 수 있습니다.
       </CardHeader>
-      <div className="flex space-x-[17px]">
-        <div className="flex items-center ph:w-[392px] w-auto h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
+      <div className="flex ph:w-auto w-full space-x-[16px]">
+        <div className="flex items-center ph:w-[392px] w-auto ph:grow-0 grow h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
           <input
             type="text"
             ref={inputRef}
