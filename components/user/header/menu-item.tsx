@@ -7,19 +7,15 @@ type menuMap = {
 };
 
 const menus: menuMap = {
-  '프로필 카드': undefined,
-  '대표 아바타': 'main-avatar',
+  '작업': undefined,
   '커미션 안내': 'description',
-  '작업': 'portfolio',
   '비용 안내': 'price-info',
 };
 
 const links: menuMap = {
-  '프로필 카드': 'edit',
-  '대표 아바타': 'edit/main-avatar',
-  '커미션 안내': 'edit/description',
-  '작업': 'edit/portfolio',
-  '비용 안내': 'edit/price-info',
+  '작업': '',
+  '커미션 안내': 'description',
+  '비용 안내': 'price-info',
 };
 
 export default function Item({ children }: { children: React.ReactNode }) {
@@ -44,6 +40,6 @@ export default function Item({ children }: { children: React.ReactNode }) {
 }
 
 const checkUrl = (children: React.ReactNode, pathname: string) => {
-  if (menus[children!.toString()] === pathname.split("/")[3]) return true;
+  if (menus[children!.toString()] === pathname.split("/")[2]) return true;
   else return false;
 };

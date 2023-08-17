@@ -28,7 +28,7 @@ module.exports = {
       // // => @media (min-width: 1536px) { ... }
 
       // 'mc_md': '375px'
-      'mc_sm': '768px'
+      // 'mc_sm': '768px'
 
     },
     extend: {
