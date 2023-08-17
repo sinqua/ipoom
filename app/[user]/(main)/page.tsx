@@ -138,7 +138,7 @@ export default async function Page({ params }: { params: { user: string } }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-col shrink-0 ph:w-[360px] w-full ph:h-fit h-[432px] ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
+        <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
           <div className="w-full h-[180px] bg-[#ECECEC]"></div>
           <div className="flex justify-center items-center w-full h-0 overflow-visible z-10">
             <div className="flex justify-center items-center w-[128px] h-[128px] bg-[#2778C7] rounded-full">
