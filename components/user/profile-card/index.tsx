@@ -1,7 +1,7 @@
 import Image from "next/image";
 import kakaoLogo from "@/app/assets/logos/kakao.svg";
 import twitterLogo from "@/app/assets/logos/twitter.svg";
-import discordLogo from "@/app/assets/logos/discord.svg";
+import tossLogo from "@/app/assets/logos/toss.svg";
 
 import MenuBar from "./menu-bar";
 import Link from "next/link";
@@ -90,15 +90,15 @@ export default function ProfileCard({
             />
           </Link>
           <Link
-            href={link.discord ? link.twitter : ""}
+            href={link.toss ? link.toss : ""}
             rel="noopener noreferrer"
             target="_blank"
             className={`${
-              link.discord ? "pointer-events-auto" : "pointer-events-none"
+              link.toss ? "pointer-events-auto" : "pointer-events-none"
             } flex justify-center items-center w-[40px] h-[40px] rounded-full bg-[#0064FF] cursor-pointer`}
           >
             <Image
-              src={discordLogo}
+              src={tossLogo}
               className="w-[18px] h-[18px] rounded-full"
               alt=""
             />
