@@ -1,6 +1,6 @@
 "use client";
-import Card from "@/components/card";
-import CardHeader from "@/components/card/header";
+import Card from "@/components/edit/card";
+import CardHeader from "@/components/edit/card/header";
 import { useSession } from "next-auth/react";
 import { useRef, useState } from "react";
 import { validateNickname } from "@/lib/supabase";

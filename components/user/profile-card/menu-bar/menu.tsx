@@ -1,7 +1,4 @@
 "use client";
-import Image from "next/image";
-
-import uploadImg from "@/app/assets/images/upload.svg";
 import { useEffect } from "react";
 import useDrag from "@/hooks/useDrag";
 

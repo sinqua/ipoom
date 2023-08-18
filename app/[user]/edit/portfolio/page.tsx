@@ -1,5 +1,5 @@
-import Card from "@/components/card";
-import CardHeader from "@/components/card/header";
+import Card from "@/components/edit/card";
+import CardHeader from "@/components/edit/card/header";
 import PortfolioCard from "@/components/edit/portfolio/card";
 import { getPortfolios } from "@/lib/supabase";
 
