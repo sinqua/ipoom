@@ -43,7 +43,7 @@ export default function ProfileCard({
             <div className="flex flex-wrap w-full">
               {profile.tags.map((item: any, index: any) => {
                 return (
-                  <div className="flex justify-center items-center w-fit h-fit px-[8px] py-[4px] mr-[10px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap">
+                  <div className="flex justify-center items-center w-fit h-fit px-[8px] py-[4px] mr-[10px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap" key={index}>
                     {item.tag}
                   </div>
                 );
