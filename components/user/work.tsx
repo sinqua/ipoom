@@ -25,7 +25,7 @@ export default function Work({ avatar }: { avatar: any }) {
       <div className="absolute bottom-0 flex flex-col justify-between items-center w-full h-[61px] p-[8px] bg-black/20 backdrop-blur-[3px] text-[#FFFFFF]">
         <div className="flex justify-between w-full">
           <p>{avatar.name}</p>
-          <p>{betweenTimeWeek > 0 ? `${betweenTimeWeek}주 전` : `${betweenTimeDay}일 전`} </p>
+          <p>{betweenTimeWeek > 0 ? `${betweenTimeWeek}주 전` : (betweenTimeDay === 0 ? "오늘" : `${betweenTimeDay}일 전`)} </p>
         </div>
         <div className="w-full">
           <p className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">
