@@ -2,8 +2,8 @@
 import Image from "next/image";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 
-import Card from "@/components/card";
-import CardHeader from "@/components/card/header";
+import Card from "@/components/edit/card";
+import CardHeader from "@/components/edit/card/header";
 import UploadImage from "@/components/edit/profile-card/upload-image";
 import SaveChange from "@/components/edit/profile-card/save-change";
 

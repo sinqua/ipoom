@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import CreatableSelect from "react-select/creatable";
-import Card from "@/components/card";
-import CardHeader from "@/components/card/header";
+import Card from "@/components/edit/card";
+import CardHeader from "@/components/edit/card/header";
 import SaveChange from "./save-change";
 
 export default function Tags({ list }: { list: any[] }) {

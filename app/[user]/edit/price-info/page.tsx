@@ -1,5 +1,5 @@
-import Card from "@/components/card";
-import CardHeader from "@/components/card/header";
+import Card from "@/components/edit/card";
+import CardHeader from "@/components/edit/card/header";
 import { getUserDetail } from "@/lib/supabase";
 import RichTextEditor from "@/components/edit/rich-text-editor";
 

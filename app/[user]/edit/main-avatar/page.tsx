@@ -1,5 +1,5 @@
-import Card from "@/components/card";
-import CardHeader from "@/components/card/header";
+import Card from "@/components/edit/card";
+import CardHeader from "@/components/edit/card/header";
 import MainAvatarCard from "@/components/edit/main-avatar/card";
 import EmptyCard from "@/components/edit/main-avatar/empty-card";
 import { getMainAvatar } from "@/lib/supabase";
