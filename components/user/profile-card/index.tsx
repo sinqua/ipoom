@@ -43,7 +43,10 @@ export default function ProfileCard({
             <div className="flex flex-wrap w-full">
               {profile.tags.map((item: any, index: any) => {
                 return (
-                  <div className="flex justify-center items-center w-fit h-fit px-[8px] py-[4px] mr-[10px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap" key={index}>
+                  <div
+                    className="flex justify-center items-center w-fit h-fit px-[8px] py-[4px] mr-[10px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap"
+                    key={index}
+                  >
                     {item.tag}
                   </div>
                 );
@@ -52,12 +55,13 @@ export default function ProfileCard({
           </div>
         </div>
         <div className="ph:hidden flex flex-wrap justify-center w-full">
-          <p className="mr-[16px] mb-[10px] whitespace-nowrap">#VRC</p>
-          <p className="mr-[16px] mb-[10px] whitespace-nowrap">#blender</p>
-          <p className="mr-[16px] mb-[10px] whitespace-nowrap">#이세계아이돌</p>
-          <p className="mr-[16px] mb-[10px] whitespace-nowrap">#무요</p>
-          <p className="mr-[16px] mb-[10px] whitespace-nowrap">#모시깽이</p>
-          <p className="mr-[16px] mb-[10px] whitespace-nowrap">#야스야스야스</p>
+          {profile.tags.map((item: any, index: any) => {
+            return (
+              <p className="mr-[16px] mb-[10px] whitespace-nowrap" key={index}>
+                {item.tag}
+              </p>
+            );
+          })}
         </div>
         <div className="ph:block hidden w-full h-[1px] !mt-[8px] bg-[#D4D4D4]"></div>
         <div className="flex justify-center w-full space-x-[24px]">
