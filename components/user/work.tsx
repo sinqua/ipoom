@@ -1,5 +1,6 @@
+'use client'
 import Image from "next/image";
-import tempImg from "@/public/VerticalModel.png";
+import Link from "next/link";
 
 export default function Work({ avatar }: { avatar: any }) {
   const today = new Date();
@@ -11,10 +12,8 @@ export default function Work({ avatar }: { avatar: any }) {
   const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
   const betweenTimeWeek = Math.floor(betweenTime / 60 / 24 / 7);
 
-    console.log(betweenTimeDay, betweenTimeWeek);
-
   return (
-    <div className="relative w-full dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden cursor-pointer">
+    <>
       <Image
         src={avatar.thumbnailUrl}
         width={512}
@@ -29,16 +28,16 @@ export default function Work({ avatar }: { avatar: any }) {
         </div>
         <div className="w-full">
           <p className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">
-            {avatar.tags.map((item: any, index: any) => {
+            {/* {avatar.tags.map((item: any, index: any) => {
               return index === 0 ? (
-                `#${item.tag}`
+                <p key={index}>{`#${item.tag}`}</p>
               ) : (
-                <>&nbsp;&nbsp;#{item.tag}</>
+                <p key={index}>&nbsp;&nbsp;#{item.tag}</p>
               );
-            })}
+            })} */}
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
