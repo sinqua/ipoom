@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { user: string } }) {
         {works?.map((work: any, index: any) => {
           return (
             <Link 
-            href={'/29010302-e915-450a-aec8-d036c261a9ad/avatar/2'}
+            href={`/${params.user}/avatar/2`}
             className="relative w-full dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden cursor-pointer" key={index}>
               <Work avatar={work} />
             </Link>

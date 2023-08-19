@@ -1,6 +1,5 @@
 'use client'
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Work({ avatar }: { avatar: any }) {
   const today = new Date();
@@ -28,13 +27,13 @@ export default function Work({ avatar }: { avatar: any }) {
         </div>
         <div className="w-full">
           <p className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">
-            {/* {avatar.tags.map((item: any, index: any) => {
+            {avatar.tags.map((item: any, index: any) => {
               return index === 0 ? (
-                <p key={index}>{`#${item.tag}`}</p>
+                `#${item.tag}`
               ) : (
-                <p key={index}>&nbsp;&nbsp;#{item.tag}</p>
+                `\u00A0\u00A0#${item.tag}`
               );
-            })} */}
+            })}
           </p>
         </div>
       </div>

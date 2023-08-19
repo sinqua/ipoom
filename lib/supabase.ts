@@ -146,3 +146,32 @@ export const getPortfolios = async (id: string) => {
 
   return portfolios;
 };
+
+export const getAvatar = async (id: string) => {
+  const { data, error } = await supabase
+    .from("avatars")
+    .select('*, tags (tag)')
+    .eq("id", id)
+    .limit(1)
+    .single();
+
+  if (data) return data;
+  else {
+    throw new Error("Avatar not found");
+  }
+};
+
+export const createModelUrl = async (userId: string, filename: any) => {
+  if(!filename) return { signedUrl: "" };
+
+  const filepath = `${userId}/${filename}`;
+
+  const { data, error } = await supabase.storage
+    .from("optimize")
+    .createSignedUrl(filepath, 3600);
+
+  if (data) return data;
+  else{
+    throw new Error("Model not found");
+  }
+}
