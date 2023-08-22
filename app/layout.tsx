@@ -1,9 +1,7 @@
-import "./globals.css";
+import "./css/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
-import Footer from "@/components/basic-layout/footer";
-import Navbar from "@/components/navbar";
 
 import AuthProvider from "@/components/auth-provider";
 

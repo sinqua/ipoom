@@ -1,17 +1,26 @@
-import Navbar from "@/components/navbar";
-import Header from "@/components/basic-layout/header";
-import dynamic from "next/dynamic";
+import Hero from "@/components/landing-page/hero";
+import Features from "@/components/landing-page/features";
+import FeaturesBlocks from "@/components/landing-page/features-blocks";
+import Testimonials from "@/components/landing-page/testimonials";
+import Newsletter from "@/components/landing-page/newsletter";
+import Header from '@/components/landing-page/ui/header'
+import Banner from '@/components/landing-page/banner'
+import Footer from "@/components/basic-layout/footer";
 
-const Discord = dynamic(() => import("@/components/discord"), { ssr: false });
 
 export default function Home() {
   return (
-    <div className="relative flex h-full min-h-full">
-      <Navbar />
-      <div className="relative flex flex-col grow h-auto min-h-full">
+    <>
+      <div className="flex flex-col min-h-screen overflow-hidden antialiased bg-white text-gray-900 tracking-tight supports-[overflow:clip]:overflow-clip">
         <Header />
-        <Discord />
+        <Hero />
+        <Features />
+        <FeaturesBlocks />
+        <Testimonials />
+        <Newsletter />
+        <Banner />
+        <Footer />
       </div>
-    </div>
+    </>
   );
 }
