@@ -31,8 +31,8 @@ export default function Navbar() {
             />
           </Link>
         </div>
+        <MenuList />
         <Suspense>
-          <MenuList />
           <UploadWork />
           <Profile />
         </Suspense>
