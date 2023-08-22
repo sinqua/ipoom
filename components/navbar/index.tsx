@@ -1,3 +1,6 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -7,13 +10,15 @@ import Profile from "./profile";
 import MenuList from "./menu-list";
 import UploadWork from "./upload-work";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await getServerSession(authOptions);
+
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto">
       <div className="block flex-none dt:hidden">
         <MobileNavbar>
           <MenuList />
-          <UploadWork />
+          {session && <UploadWork />}
           <Profile />
         </MobileNavbar>
       </div>
@@ -29,7 +34,7 @@ export default function Navbar() {
           </Link>
         </div>
         <MenuList />
-        <UploadWork />
+        {session && <UploadWork />}
         <Profile />
       </div>
     </div>

@@ -10,6 +10,11 @@ import rotateImg from "@/app/assets/images/rotate.svg";
 import zoomImg from "@/app/assets/images/zoom.svg";
 import moveImg from "@/app/assets/images/move.svg";
 
+import cancelBlackImg from "@/app/assets/images/cancel_black.svg";
+import cameraImg from "@/app/assets/images/camera.svg";
+import playImg from "@/app/assets/images/play.svg";
+import stopImg from "@/app/assets/images/stop.svg";
+
 import refreshImg from "@/app/assets/images/refresh.svg";
 import helpImg from "@/app/assets/images/help.svg";
 import fullscreenImg from "@/app/assets/images/fullscreen.svg";
@@ -24,15 +29,18 @@ interface ModalCanvasProps {
   modelUrl: string | null;
   animation: number | null;
   setAnimation: any;
+  setCaptureMode: any;
 }
 
 const ModalCanvas = ({
   modelUrl,
   animation,
   setAnimation,
+  setCaptureMode
 }: ModalCanvasProps) => {
   const [modelInfo, setModelInfo] = useState<ModelProps>();
   const [fullScreen, setFullScreen] = useState(false);
+  const [playStatus, setPlayStauts] = useState(false);
   const [helpViewer, setHelpViewer] = useState(false);
   const [progress, setProgress] = useState(false);
 
@@ -113,9 +121,12 @@ const ModalCanvas = ({
         </div>
       )}
       <div className="absolute flex justify-center top-0 w-full h-full pointer-events-none z-10">
-        <div className="absolute top-0 flex justify-end sm:items-start items-end max-w-[1312px] w-full h-full md:px-0 sm:px-[30px] px-[20px]">
+        {/* <div className="absolute top-0 flex justify-end sm:items-start items-end max-w-[1312px] w-full h-full md:px-0 sm:px-[30px] px-[20px]"> */}
           {MenuButton(resetCamera, setHelpViewer, postMessage, fullScreen)}
-        </div>
+          {CaptureButton(setCaptureMode, setHelpViewer, postMessage, playStatus)}
+
+        {/* </div> */}
+
       </div>
     </div>
   );
@@ -150,6 +161,41 @@ function MenuButton(
         <Image
           className="w-[20px] h-[20px]"
           src={fullScreen ? originalscreenImg : fullscreenImg}
+          alt=""
+        />
+      </div>
+    </div>
+  );
+}
+
+function CaptureButton(
+  // resetCamera: () => void,
+  setCaptureMode: (flag: boolean) => void,
+  setHelpViewer: any,
+  postMessage: () => void,
+  playStatus: boolean
+) {
+  return (
+    <div className="absolute flex flex-row justify-center bottom-[40px] w-full space-x-[32px] pointer-events-auto">
+      <div
+        className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        onClick={() => setCaptureMode(false)}
+      >
+        <Image className="w-[24px] h-[24px]" src={cancelBlackImg} alt="" />
+      </div>
+      <div
+        className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#333333] hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        onClick={() => setHelpViewer(true)}
+      >
+        <Image className="w-[26px] h-[26px]" src={cameraImg} alt="" />
+      </div>
+      <div
+        className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        onClick={postMessage}
+      >
+        <Image
+          className="w-[24px] h-[24px]"
+          src={!playStatus ? stopImg : playImg}
           alt=""
         />
       </div>
