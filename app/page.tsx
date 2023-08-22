@@ -3,10 +3,9 @@ import Features from "@/components/landing-page/features";
 import FeaturesBlocks from "@/components/landing-page/features-blocks";
 import Testimonials from "@/components/landing-page/testimonials";
 import Newsletter from "@/components/landing-page/newsletter";
-import Header from '@/components/landing-page/ui/header'
-import Banner from '@/components/landing-page/banner'
+import Header from "@/components/landing-page/ui/header";
+import Banner from "@/components/landing-page/banner";
 import Footer from "@/components/basic-layout/footer";
-
 
 export default function Home() {
   return (
@@ -15,9 +14,11 @@ export default function Home() {
         <Header />
         <Hero />
         <Features />
-        <FeaturesBlocks />
-        <Testimonials />
-        <Newsletter />
+        {/* <FeaturesBlocks /> */}
+        {/* <Testimonials /> */}
+        <div className="pt-20">
+          <Newsletter />
+        </div>
         <Banner />
         <Footer />
       </div>
