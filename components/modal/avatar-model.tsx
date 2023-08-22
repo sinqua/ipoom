@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { MToonMaterial, MToonMaterialLoaderPlugin, VRM, VRMLoaderPlugin, VRMUtils } from "@pixiv/three-vrm";
 
-import { LoadMixamoAnimation } from "../utils/LoadMixamoAnimation";
+import { LoadMixamoAnimation } from "@/utils/LoadMixamoAnimation";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Circle } from "@react-three/drei";

@@ -148,30 +148,39 @@ export const getPortfolios = async (id: string) => {
 };
 
 export const getAvatar = async (id: string) => {
-  const { data, error } = await supabase
+  const { data: avatarData, error: avatarError } = await supabase
     .from("avatars")
-    .select('*, tags (tag)')
+    .select("*, tags (tag)")
     .eq("id", id)
     .limit(1)
     .single();
 
-  if (data) return data;
-  else {
-    throw new Error("Avatar not found");
-  }
+  if (avatarData) {
+    const SupabasePublicURL =
+      "https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public";
+
+    let url = `${SupabasePublicURL}/thumbnail/${
+      avatarData.user_id + "/" + avatarData.thumbnail
+    }`;
+    if (avatarData.thumbnail === null) url = "/VerticalModel.png";
+
+    return { ...avatarData, thumbnailUrl: url };
+  } else return null;
 };
 
 export const createModelUrl = async (userId: string, filename: any) => {
-  if(!filename) return { signedUrl: "" };
+  if (!filename) return { signedUrl: "" };
 
   const filepath = `${userId}/${filename}`;
+
+  console.log("filepath", filepath);
 
   const { data, error } = await supabase.storage
     .from("optimize")
     .createSignedUrl(filepath, 3600);
 
   if (data) return data;
-  else{
+  else {
     throw new Error("Model not found");
   }
-}
+};

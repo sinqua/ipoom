@@ -15,21 +15,17 @@ import helpImg from "@/app/assets/images/help.svg";
 import fullscreenImg from "@/app/assets/images/fullscreen.svg";
 import originalscreenImg from "@/app/assets/images/originalscreen.svg";
 
-
-import { ModelProps } from "./Model";
+import { ModelProps } from "@/components/modal/avatar-model";
 import BounceLoader from "react-spinners/BounceLoader";
 
-const ModelComponent = lazy(() => import("./Model"));
+const ModelComponent = lazy(() => import("./avatar-model"));
 
 interface ModalCanvasProps {
   modelUrl: string | undefined;
   animation: number | null;
 }
 
-const ModalCanvas = ({
-  modelUrl,
-  animation,
-}: ModalCanvasProps) => {
+const ModalCanvas = ({ modelUrl, animation }: ModalCanvasProps) => {
   const [modelInfo, setModelInfo] = useState<ModelProps>();
   const [fullScreen, setFullScreen] = useState(false);
   const [helpViewer, setHelpViewer] = useState(false);
@@ -59,7 +55,7 @@ const ModalCanvas = ({
 
   const postMessage = () => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+      document.getElementById("canvas")?.requestFullscreen();
       setFullScreen(true);
     } else {
       if (document.exitFullscreen) {
@@ -69,9 +65,24 @@ const ModalCanvas = ({
     }
   };
 
+  const fullscreenchanged = (e: any) => {
+    if (document.fullscreenElement) {
+      setFullScreen(true);
+    } else {
+      setFullScreen(false);
+    }
+  }
+
+  useEffect(() => {
+    document
+      .getElementById("canvas")
+      ?.addEventListener("fullscreenchange", fullscreenchanged);
+  }, []);
+
   return (
     <div
-      className="sm:absolute relative top-0 left-0 w-full h-full"
+      id="canvas"
+      className="ph:absolute relative w-full h-full"
       onContextMenu={handleContextMenu}
     >
       {helpViewer && HelpViewer(setHelpViewer, isMobile)}
@@ -95,11 +106,11 @@ const ModalCanvas = ({
           <BounceLoader color="#2778C7" />
         </div>
       )}
-      {/* <div className="absolute flex justify-center top-0 w-full h-full pointer-events-none z-10">
+      <div className="absolute flex justify-center top-0 w-full h-full pointer-events-none z-10">
         <div className="absolute top-0 flex justify-end sm:items-start items-end max-w-[1312px] w-full h-full md:px-0 sm:px-[30px] px-[20px]">
           {MenuButton(resetCamera, setHelpViewer, postMessage, fullScreen)}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
@@ -113,33 +124,25 @@ function MenuButton(
   fullScreen: boolean
 ) {
   return (
-    <div className="absolute flex flex-row sm:top-[50px] sm:right-0 bottom-[20px] right-[20px] space-x-[20px] pointer-events-auto">
+    <div className="absolute flex flex-row top-[40px] right-[40px] space-x-[16px] pointer-events-auto">
       <div
-        className="flex justify-center items-center sm:w-[40px] sm:h-[40px] w-[30px] h-[30px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        className="flex justify-center items-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
         onClick={resetCamera}
       >
-        <Image
-          className="sm:w-[20px] sm:h-[20px] w-[16px] h-[16px]"
-          src={refreshImg}
-          alt=""
-        />
+        <Image className="w-[20px] h-[20px]" src={refreshImg} alt="" />
       </div>
       <div
-        className="flex justify-center items-center sm:w-[40px] sm:h-[40px] w-[30px] h-[30px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        className="flex justify-center items-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
         onClick={() => setHelpViewer(true)}
       >
-        <Image
-          className="sm:w-[20px] sm:h-[20px] w-[16px] h-[16px]"
-          src={helpImg}
-          alt=""
-        />
+        <Image className="w-[20px] h-[20px]" src={helpImg} alt="" />
       </div>
       <div
-        className="flex justify-center items-center sm:w-[40px] sm:h-[40px] w-[30px] h-[30px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        className="flex justify-center items-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
         onClick={postMessage}
       >
         <Image
-          className="sm:w-[20px] sm:h-[20px] w-[16px] h-[16px]"
+          className="w-[20px] h-[20px]"
           src={fullScreen ? originalscreenImg : fullscreenImg}
           alt=""
         />
