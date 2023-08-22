@@ -1,6 +1,3 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-
 import Footer from "@/components/basic-layout/footer";
 import Navbar from "@/components/navbar";
 
