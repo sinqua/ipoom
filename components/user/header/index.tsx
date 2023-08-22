@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Menu from "./menu";
 import Item from "./menu-item";
 
@@ -10,11 +11,13 @@ export default function Header() {
             <p className="ph:text-[24px] text-[20px] font-bold">포트폴리오</p>
             {/* <Button style="absolute right-[16px] ph:hidden flex">저장</Button> */}
           </div>
-          <Menu>
-            <Item>작업</Item>
-            <Item>커미션 안내</Item>
-            <Item>비용 안내</Item>
-          </Menu>
+          <Suspense>
+            <Menu>
+              <Item>작업</Item>
+              <Item>커미션 안내</Item>
+              <Item>비용 안내</Item>
+            </Menu>
+          </Suspense>
         </div>
         {/* <Button style="ph:flex hidden">저장하기</Button> */}
       </div>
