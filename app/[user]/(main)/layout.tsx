@@ -6,6 +6,7 @@ import {
   getUser,
   getUserProfileImage,
 } from "@/lib/supabase";
+import { Suspense } from "react";
 
 export default async function Layout({
   children,
@@ -31,13 +32,15 @@ export default async function Layout({
       <Header />
       <div className="flex justify-center w-full grow dt:px-0 ph:px-[16px] ph:py-[40px]">
         <div className="relative flex ph:flex-row flex-col-reverse  dt:max-w-[1008px] w-full h-full dt:space-x-[64px] ph:space-x-[32px] space-x-0">
-          {children}
-          <ProfileCard
-            user={user}
-            profile={profile}
-            profileImage={profileImage}
-            link={link}
-          />
+          <Suspense>
+            {children}
+            <ProfileCard
+              user={user}
+              profile={profile}
+              profileImage={profileImage}
+              link={link}
+            />
+          </Suspense>
         </div>
       </div>
     </div>
