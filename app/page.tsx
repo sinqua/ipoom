@@ -16,10 +16,10 @@ export default function Home() {
         <Features />
         {/* <FeaturesBlocks /> */}
         {/* <Testimonials /> */}
-        <div className="pt-20">
+        <div className="">
           <Newsletter />
         </div>
-        <Banner />
+        {/* <Banner /> */}
         <Footer />
       </div>
     </>

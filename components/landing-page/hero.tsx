@@ -40,25 +40,92 @@ export default function Hero() {
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           {/* Section header */}
           <div className="text-center pb-12 md:pb-16">
+            {/* <h1
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+              data-aos="zoom-y-out"
+            >
+              버츄얼 캐릭터   
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+                포트폴리오
+              </span>
+            </h1> */}
             <h1
               className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
               data-aos="zoom-y-out"
             >
-              크리에이터 플랫폼{" "} 
+              캐릭터,포트폴리오,수익창출
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+                한 곳에서
+              </span>
+            </h1>
+            {/* <h1
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 whitespace-pre-line flex"
+              data-aos="zoom-y-out"
+            >
+              <span className="">캐릭터,</span>
+              <span className="">포트폴리오,</span>
+              <span className="">수익창출,</span>
+            </h1>
+            <h1
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 whitespace-pre-line"
+              data-aos="zoom-y-out"
+            >
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+                한 곳에서
+              </span>
+            </h1> */}
+            {/* <h1
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+              data-aos="zoom-y-out"
+            >
+              버츄얼 캐릭터 커뮤니티
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
                 무피
               </span>
             </h1>
+            <h1
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+              data-aos="zoom-y-out"
+            >
+              커뮤니티, 커미션
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+                버츄얼 캐릭터
+              </span>
+            </h1>
+            <h1
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+              data-aos="zoom-y-out"
+            >
+              캐릭터 크리에이터 커뮤니티
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+                무피
+              </span>
+            </h1>
+            <h1
+              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+              data-aos="zoom-y-out"
+            >
+              아바타 창작의 즐거움
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+                무피
+              </span>
+            </h1> */}
+
             <div className="max-w-3xl mx-auto">
-              <p
+              {/* <p
                 className="text-xl text-gray-600 mb-8"
                 data-aos="zoom-y-out"
                 data-aos-delay="150"
               >
                 Our landing page template works on all devices, so you only have
                 to set it up once, and get beautiful results forever.
-              </p>
+              </p> */}
               <p
                 className="text-xl text-gray-600 mb-8"
                 data-aos="zoom-y-out"
@@ -75,7 +142,11 @@ export default function Hero() {
                 <br />
                 몇번의 클릭만으로 자신의 작품을 소개하고, 직관적으로 정리된 포트폴리오를 만들 수 있습니다.
                 <br /> */}
-                직관적인 업로드 에디터를 통해 3D 아바타를 소개하고, 모든 기기에서 최적화된 포트폴리오를 공유하세요.
+                {/* 직관적인 업로드 에디터를 통해 3D 아바타를 게시하고, 어떤 기기에서도 깔끔한 포트폴리오를 공유하세요. */}
+                {/* 무피는 창작자의 노력을 응원하며, 다양한 최신기술로 당신의
+                아이디어와 창작을 더욱 가치 있게 만들어나가는 데 도움을
+                드립니다. 지금 바로 창작의 세계로 떠나보세요! */}
+                무피는 다양한 최신기술로 당신의 아이디어와 창작이 더 많은 사람을 만나도록 도와드립니다.
               </p>
               <div
                 className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center"
@@ -95,7 +166,7 @@ export default function Hero() {
                     className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
                     href="#0"
                   >
-                    알아보기
+                    둘러보기
                   </a>
                 </div>
               </div>
