@@ -6,17 +6,30 @@ import tossLogo from "@/app/assets/logos/toss.svg";
 import MenuBar from "./menu-bar";
 import Link from "next/link";
 
-export default function ProfileCard({
-  user,
-  profile,
-  profileImage,
-  link,
+import {
+  getLink,
+  getProfile,
+  getUser,
+  getUserProfileImage,
+} from "@/lib/supabase";
+
+export default async function ProfileCard({
+  userID,
 }: {
-  user: any;
-  profile: any;
-  profileImage: any;
-  link: any;
+  userID: string;
 }) {
+  const userData = getUser(userID);
+  const profileData = getProfile(userID);
+  const profileImageData = getUserProfileImage(userID);
+  const linkData = getLink(userID);
+
+  const [user, profile, profileImage, link] = await Promise.all([
+    userData,
+    profileData,
+    profileImageData,
+    linkData,
+  ]);
+
   return (
     <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
       <div className="w-full h-[180px] bg-[#ECECEC]"></div>

@@ -6,16 +6,19 @@ import MobileNavbar from "./mobile-navbar";
 import Profile from "./profile";
 import MenuList from "./menu-list";
 import UploadWork from "./upload-work";
+import { Suspense } from "react";
 
 export default function Navbar() {
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto">
       <div className="block flex-none dt:hidden">
-        <MobileNavbar>
-          <MenuList />
-          <UploadWork />
-          <Profile />
-        </MobileNavbar>
+        <Suspense>
+          <MobileNavbar>
+            <MenuList />
+            <UploadWork />
+            <Profile />
+          </MobileNavbar>
+        </Suspense>
       </div>
       <div className="fixed dt:flex hidden flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]">
         <div className="px-[32px] py-[24px]">
@@ -29,8 +32,10 @@ export default function Navbar() {
           </Link>
         </div>
         <MenuList />
-        <UploadWork />
-        <Profile />
+        <Suspense>
+          <UploadWork />
+          <Profile />
+        </Suspense>
       </div>
     </div>
   );
