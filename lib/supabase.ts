@@ -1,5 +1,10 @@
 import { supabase, supabaseAuth } from "./database";
 
+export const generatePublicUrl = (storage: string, path: string) => {
+  const supabasePublic = 'https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public'
+  return `${supabasePublic}/${storage}/${path}`;
+}
+
 export const getProfile = async (id: string) => {
   const { data, error } = await supabase
     .from("profiles")

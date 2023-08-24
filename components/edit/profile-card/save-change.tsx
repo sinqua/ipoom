@@ -1,6 +1,6 @@
 "use client";
 import { supabase, supabaseAuth } from "@/lib/database";
-import { validateNickname } from "@/lib/supabase";
+import { generatePublicUrl, validateNickname } from "@/lib/supabase";
 import { useSession } from "next-auth/react";
 import React, { forwardRef } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -67,9 +67,11 @@ const handleSaveThumbnail = async (session: any, ref: any) => {
         upsert: true,
       });
 
+    const url = generatePublicUrl('profile-image', fileData?.path!);
+
     const { data: thumbnailData, error: thumbnailError } = await supabase
       .from("profiles")
-      .update({ image: fileData?.path })
+      .update({ image: url })
       .eq("user_id", session?.user.id);
   }
 };

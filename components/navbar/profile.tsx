@@ -21,7 +21,7 @@ export default async function Profile() {
       <div className="flex grow items-center space-x-[16px]">
         <Image
           src={profile.image ? profile.image : emptyImg}
-          className="w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
+          className="object-cover w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
           width={40}
           height={40}
           alt=""
