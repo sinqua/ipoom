@@ -1,5 +1,5 @@
 import Image from "next/image";
-import moopiLogo from "@/app/assets/logos/moopi.svg";
+import moopiLogo from "@/app/assets/logos/offing.svg";
 
 export default function Footer() {
   return (
