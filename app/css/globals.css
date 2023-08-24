@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'utility-patterns.css';
+@import 'range-slider.css';
+@import 'toggle-switch.css';
+@import 'theme.css';
+
 html {
   height: 100%;
 
