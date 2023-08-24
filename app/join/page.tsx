@@ -22,8 +22,8 @@ export default function Page() {
   const onChangeNickname = async (nickname: string) => {
     setEmpty(nickname.length === 0 ? true : false);
 
-    const { data, error } = await supabaseAuth
-      .from("users")
+    const { data, error } = await supabase
+      .from("profile")
       .select()
       .eq("nickname", nickname);
 

@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useSession } from "next-auth/react";
+import { supabase } from "@/lib/database";
 
 export default function Page() {
   const router = useRouter();
-
   const searchParams = useSearchParams();
   const callbackUrl = ("/join?callbackUrl=" +
     searchParams.get("callbackUrl")) as string;
@@ -15,13 +15,29 @@ export default function Page() {
 
   useEffect(() => {
     if (status !== "loading") {
-      if (session?.user.nickname) {
-        router.push(searchParams.get("callbackUrl") ?? `/`);
-      } else {
-        router.push(callbackUrl);
-      }
+      verifyExist(session?.user.id).then((result) => {
+        if (result) {
+          router.push(searchParams.get("callbackUrl") ?? `/`);
+        } else {
+          router.push(callbackUrl);
+        }
+      });
     }
-  }, [session, status]);
+  }, []);
 
   return <div className="w-full h-full">확인중</div>;
 }
+
+const verifyExist = (userID: any) => {
+  return supabase
+    .from("profiles")
+    .select()
+    .eq("user_id", userID)
+    .then(({ data, error }) => {
+      if (data?.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+};

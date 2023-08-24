@@ -10,6 +10,10 @@ export default async function UploadWork() {
   const session = await getServerSession(authOptions);
   const url = session ? `/${session?.user.id}/upload` : "";
 
+  if (session === null) {
+    return null;
+  }
+
   return (
     <div className="px-[32px] py-[24px]">
       <div className="flex justify-center items-center w-full h-[46px] rounded-[10px] bg-[#368ADC] hover:bg-[#5EA1E3] text-white cursor-pointer">
