@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import AuthProvider from "@/components/auth-provider";
+import GoogleAnalytics from "@/components/google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Suspense>
           <main>
+            <GoogleAnalytics />
             <AuthProvider>{children}</AuthProvider>
           </main>
         </Suspense>
