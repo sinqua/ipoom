@@ -88,7 +88,7 @@ module.exports = {
         "3xl": "2rem",
         "4xl": "2.625rem",
         "5xl": "3.25rem",
-        "6xl": "5.5rem",
+        "6xl": "5.0rem",
       },
       inset: {
         "1/2": "50%",

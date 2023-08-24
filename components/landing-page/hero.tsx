@@ -3,7 +3,7 @@ import ModalVideo from "@/components/landing-page/modal-video";
 
 export default function Hero() {
   return (
-    <section className="relative">
+    <section className="grow relative">
       {/* Illustration behind hero content */}
       <div
         className="absolute left-1/2 transform -translate-x-1/2 bottom-0 pointer-events-none -z-1"
@@ -51,13 +51,26 @@ export default function Hero() {
               </span>
             </h1> */}
             <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
+              className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tighter mb-4"
               data-aos="zoom-y-out"
             >
-              캐릭터,포트폴리오,수익창출
+              {/* 캐릭터,포트폴리오,수익화 */}
+              {/* 어디서나 간단히 게시하는 */}
+              {/* 더욱 즐거운 버츄얼 작업 */}
+              {/* 어디서나 편하게 게시하는 */}
+              {/* 즐거운 창작과 가치 있는 만남 */}
+              {/* 창작을 즐겁고 가치 있게  */}
+              {/* 보상 받는 창작, 편리한  */}
+              {/* 창작을 더욱 자신있게 */}
+              {/* 새로운 창작에 대한 자신감 */}
+              
+              {/* 어디서나 편하게 공유하는 */}
+              어디서나 그대로 보여지는
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-                한 곳에서
+                {/* 한 곳에서 */}
+                3D 캐릭터
+                {/* 무피 */}
               </span>
             </h1>
             {/* <h1
@@ -118,35 +131,17 @@ export default function Hero() {
             </h1> */}
 
             <div className="max-w-3xl mx-auto">
-              {/* <p
-                className="text-xl text-gray-600 mb-8"
-                data-aos="zoom-y-out"
-                data-aos-delay="150"
-              >
-                Our landing page template works on all devices, so you only have
-                to set it up once, and get beautiful results forever.
-              </p> */}
+
               <p
                 className="text-xl text-gray-600 mb-8"
                 data-aos="zoom-y-out"
                 data-aos-delay="150"
               >
-                {/* 무피는 크리에이터들이 자신의 작품을 소개하고 판매할 수 있는 플랫폼입니다.
-                <br />
-                직관적인 UI와 편리한 기능을 통해 크리에이터들이 자신의 작품을 소개하고 판매할 수 있습니다.
-                <br />
-                작업한 아바타를 업로드해서 자신의 프로필을 꾸며보세요.
-                <br />
-                3D 컨텐츠에 최적화된 포트폴리오는 물론, 2D 컨텐츠도 손쉽게 업로드할 수 있습니다.
-                쉽고 편리한 무피의 기능을 통해 자신의 작품을 소개하고 판매해보세요.
-                <br />
-                몇번의 클릭만으로 자신의 작품을 소개하고, 직관적으로 정리된 포트폴리오를 만들 수 있습니다.
-                <br /> */}
-                {/* 직관적인 업로드 에디터를 통해 3D 아바타를 게시하고, 어떤 기기에서도 깔끔한 포트폴리오를 공유하세요. */}
+                직관적인 업로드 에디터를 통해 3D 캐릭터를 게시하고, 어떤 기기에서도 깔끔한 포트폴리오를 공유하세요.
                 {/* 무피는 창작자의 노력을 응원하며, 다양한 최신기술로 당신의
                 아이디어와 창작을 더욱 가치 있게 만들어나가는 데 도움을
                 드립니다. 지금 바로 창작의 세계로 떠나보세요! */}
-                무피는 다양한 최신기술로 당신의 아이디어와 창작이 더 많은 사람을 만나도록 도와드립니다.
+                {/* 무피는 다양한 최신기술로 당신의 아이디어와 창작이 더 많은 사람을 만나도록 도와드립니다. */}
               </p>
               <div
                 className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center"
@@ -156,17 +151,17 @@ export default function Hero() {
                 <div>
                   <a
                     className="btn text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0"
-                    href="#0"
+                    href="/6064c1dd-071b-42e4-92e4-d0989aed4ebc"
                   >
-                    체험하기
+                    둘러보기
                   </a>
                 </div>
                 <div>
                   <a
                     className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
-                    href="#0"
+                    href="/login"
                   >
-                    둘러보기
+                    시작하기
                   </a>
                 </div>
               </div>
