@@ -184,3 +184,58 @@ export const createModelUrl = async (userId: string, filename: any) => {
     throw new Error("Model not found");
   }
 };
+
+export const addAvatar = async (
+  userId: any,
+  avatarFile: any,
+  avatarName: any,
+  avatarDescription: any,
+  visible: any,
+  animation: any
+) => {
+  const { data: avatarData, error: avatarError } = await supabase
+    .from("avatars")
+    .insert([
+      {
+        vrm: avatarFile.name,
+        user_id: userId,
+        name: avatarName,
+        description: avatarDescription,
+        visible: visible,
+        animation: animation,
+      },
+    ])
+    .select();
+
+  if (avatarData) return avatarData;
+  else {
+    throw new Error("Upload Avatar Failed!");
+  }
+};
+
+export const addAvatarTags = async (avatar_id: any, avatarTags: any) => {
+  const { data: tagsData, error: tagsError } = await supabase
+    .from("tags")
+    .insert(
+      avatarTags
+        .map((tag: any) => {
+          return tag.value;
+        })
+        .map((tag: any) => {
+          return { tag: tag, avatar_id: avatar_id };
+        })
+    );
+
+  if (tagsError) throw new Error("Upload AvatarTags Failed!");
+};
+
+export const updateAvatarThumbnail = async (uuid: any, avatarId: any) => {
+  const { data, error } = await supabase
+    .from("avatars")
+    .update({
+      thumbnail: `${uuid}.png`,
+    })
+    .eq("id", avatarId);
+
+  if (error) throw new Error("Upload Avatar Failed!");
+};

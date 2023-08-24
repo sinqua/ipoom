@@ -10,40 +10,64 @@ import Select from "react-select";
 
 import emptyImg from "@/app/assets/images/empty.png";
 
+import { motion } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import {
+  UploadAvatarFile,
+  UploadAvatarThumbnailFile,
+  UploadBase64Image,
+} from "@/lib/storage";
+import {
+  addAvatar,
+  addAvatarTags,
+  updateAvatarThumbnail,
+} from "@/lib/supabase";
+import { ClipLoader } from "react-spinners";
+
 export default function UploadModal() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
   const [captureMode, setCaptureMode] = useState(false);
 
   const [modelUrl, setModelUrl] = useState<any>(null);
 
   const [avatarStatus, setAvatarStatus] = useState("전체 공개");
-  const [animation, setAnimation] = useState("Idle");
 
-  const titleInputRef = useRef<any>(null);
+  const [animation, setAnimation] = useState("Idle");
+  const [animationValue, setAnimationValue] = useState<any>(4);
+
+  const [avatarFile, setAvatarFile] = useState<any>(null);
+
+  const avatarTitleInputRef = useRef<any>(null);
   const avatarFileInputRef = useRef<any>(null);
   const avatarFileNameInputRef = useRef<any>(null);
-  const descriptionInputRef = useRef<any>(null);
+  const avatarDescriptionInputRef = useRef<any>(null);
 
   const thumbnailFileInputRef = useRef<any>(null);
-  const [thumnbailImage, setThumbnailImage] = useState<any>(null);
+  const [thumbnailImage, setThumbnailImage] = useState<any>(null);
 
-  const [currentTags, setCurrentTags] = useState<any>(null);
+  const [avatarTags, setAvatarTags] = useState<any>(null);
+
+  const [done, setDone] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
 
   const options = [
     { value: "전체 공개", label: "전체 공개" },
     { value: "나만 보기", label: "나만 보기" },
   ];
 
-  const [animationOptions, setAnimationOptions] = useState<any>([
+  const animationOptions = [
     { value: 4, label: "Idle" },
     { value: 1, label: "HipHopDancing" },
     { value: 2, label: "PutYourHandsUp" },
     { value: 3, label: "Thankful" },
-  ]);
+  ];
 
   const loadAnimation = (e: any) => {
-    // setAvatarAnimation(e);
+    setAnimationValue(e.value);
     setAnimation(e.label);
-    // setSelectedAnime(e.value);
   };
 
   const loadAvatarFile = (e: any) => {
@@ -53,7 +77,7 @@ export default function UploadModal() {
 
     if (!file) return;
 
-    // setAvatarFile(avatarFileInputRef.current.files[0]);
+    setAvatarFile(avatarFileInputRef.current.files[0]);
 
     avatarFileNameInputRef.current.value = file.name;
 
@@ -75,31 +99,108 @@ export default function UploadModal() {
     reader.readAsDataURL(file);
   };
 
+  const canvasRef = useRef<any>(null);
+
+  function takeCapture() {
+    const canvas = canvasRef.current;
+
+    // Check if the canvas element is available
+    if (!canvas) {
+      console.error("Canvas element not found");
+      return;
+    }
+
+    setThumbnailImage(canvas.toDataURL());
+  }
+
+  const onSavePortfolio = async () => {
+    setModal(true);
+
+    // if (!avatarNameRef.current.value || !avatarFile) {
+    //   setBorderColor("border-red-500 shadow-[inset_0_0_0_1px_rgb(239,68,68)]");
+    //   setIsEmpty(true);
+    //   return;
+    // }
+
+    /* Python 서버 파일 업로드 */
+    const formData = new FormData();
+    formData.append("file", avatarFile);
+    formData.append("name", avatarFile.name);
+    if (session) formData.append("id", session?.user.id);
+
+    try {
+      const response = await fetch("https://server.offing.me", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log("File uploaded successfully");
+      } else {
+        console.log("data ", formData);
+        console.error("Failed to upload file2");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+    /* Python 서버 파일 업로드 끝 */
+
+    UploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
+      async (data) => {
+        const avatarData = await addAvatar(
+          session?.user.id,
+          avatarFile,
+          avatarTitleInputRef.current.value,
+          avatarDescriptionInputRef.current.value,
+          avatarStatus === "전체 공개" ? true : false,
+          animationValue
+        );
+
+        if (avatarTags) {
+          await addAvatarTags(avatarData![0].id, avatarTags);
+        }
+
+        if (typeof thumbnailImage === "string") {
+          UploadAvatarThumbnailFile(session?.user.id, thumbnailImage).then(
+            async (uuid) => {
+              await updateAvatarThumbnail(uuid, avatarData![0].id);
+            }
+          );
+        }
+
+        setDone(true);
+
+        // router.back();
+      }
+    );
+  };
+
   return (
     <div className="fixed inset-0 w-full h-full z-50">
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
         <Background />
         <div className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]">
-          <div className="w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
-            <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
+          <div className={`relative w-full ${captureMode ? "h-full" : "ph:h-full h-auto"} flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden`}>
+            <div className={`relative ph:grow grow-0 ${captureMode ? "h-full" : "ph:h-full h-[550px]"}`}>
               <ModalCanvas
+                canvasRef={canvasRef}
                 modelUrl={modelUrl}
-                animation={null}
+                animation={animation}
                 setAnimation={setAnimation}
+                captureMode={captureMode}
                 setCaptureMode={setCaptureMode}
+                takeCapture={takeCapture}
               />
-              {/* <div className="w-full h-full bg-gray-200"></div> */}
             </div>
-
-            {!captureMode && (
-              <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto p-[24px] space-y-[24px] bg-[#FFFFFF] text-[14px] overflow-y-scroll scrollbar-hide">
+            <div className={`${captureMode ? "ph:block hidden" : "block"} p-[24px] bg-[#FFFFFF]`}>
+              <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto space-y-[24px] text-[14px] overflow-y-scroll scrollbar-hide">
                 <p className="text-[24px] font-semibold">업로드</p>
                 <div className="flex flex-col space-y-[40px]">
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">타이틀</p>
                     <input
                       type="text"
-                      ref={titleInputRef}
+                      ref={avatarTitleInputRef}
                       className="w-full h-[35px] px-[14px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
                       placeholder="타이틀을 입력해주세요."
                       // onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,8 +215,7 @@ export default function UploadModal() {
                         type="text"
                         ref={avatarFileNameInputRef}
                         disabled
-                        className="
-                      w-full h-full rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none"
+                        className="w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none"
                         placeholder="아바타 파일을 등록해주세요"
                       />
                       <form>
@@ -138,7 +238,7 @@ export default function UploadModal() {
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">설명</p>
                     <textarea
-                      ref={descriptionInputRef}
+                      ref={avatarDescriptionInputRef}
                       className="sm:w-[482px] w-full h-[126px] p-[16px] rounded-[10px] resize-none bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
                       placeholder="자기소개를 입력해주세요."
                       // value={profile.description}
@@ -152,10 +252,10 @@ export default function UploadModal() {
                     <CreatableSelect
                       isMulti
                       //   options={mostUsedTags}
-                      value={currentTags}
+                      value={avatarTags}
                       instanceId={""}
                       onChange={(e: any) => {
-                        setCurrentTags(e);
+                        setAvatarTags(e);
                       }}
                       className="flex items-center w-full h-[35px] "
                       placeholder={"태그를 입력해주세요"}
@@ -182,7 +282,7 @@ export default function UploadModal() {
                         return option.label === avatarStatus;
                       })}
                       options={options}
-                      onChange={(e: any) => setAvatarStatus(e)}
+                      onChange={(e: any) => setAvatarStatus(e.label)}
                       isSearchable={false}
                       theme={(theme) => ({
                         ...theme,
@@ -244,27 +344,28 @@ export default function UploadModal() {
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">썸네일</p>
                     <div className="flex flex-col space-y-[24px]">
-                      <div className="relative flex w-full aspect-[8/7] rounded-[10px] overflow-hidden">
+                      <div className="relative flex w-full aspect-[8/7] rounded-[10px] overflow-hidden border-solid border-[1px] border-[#CCCCCC] ">
                         <Image
-                          src={thumnbailImage ? thumnbailImage : emptyImg}
+                          src={thumbnailImage ? thumbnailImage : emptyImg}
                           className="object-cover w-full h-full"
                           width={512}
                           height={512}
                           alt=""
                         />
                       </div>
-                      <div className="flex flex-col space-y-[16px]">
+                      <div className="flex flex-row space-x-[16px]">
                         <div
                           className="flex justify-center items-center w-full h-[42px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer"
                           onClick={() => setCaptureMode(true)}
                         >
                           촬영하기
                         </div>
-                        <form>
-                          <label htmlFor="thumbnailFile">
-                            <div className="flex justify-center items-center w-full h-[42px] rounded-[10px] bg-[#FFFFFF] border-solid border-[1px] border-[#D4D4D4] cursor-pointer">
-                              업로드
-                            </div>
+                        <form className="w-full">
+                          <label
+                            htmlFor="thumbnailFile"
+                            className="flex justify-center items-center w-full h-[42px] rounded-[10px] bg-[#FFFFFF] border-solid border-[1px] border-[#D4D4D4] cursor-pointer"
+                          >
+                            업로드
                           </label>
                           <input
                             className="hidden"
@@ -280,6 +381,33 @@ export default function UploadModal() {
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">게시일</p>
                     <p>{formatFullDate(new Date().toString())}</p>
+                  </div>
+                  <div
+                    className="flex justify-center items-center w-full h-[42px] !mt-[56px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer"
+                    onClick={onSavePortfolio}
+                  >
+                    저장하기
+                  </div>
+                </div>
+              </div>
+            </div>
+            {modal && (
+              <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-0">
+                <div className="relative max-w-[250px] w-full flex flex-col box-border bg-white rounded-[10px] overflow-hidden">
+                  <div className="flex flex-col justify-center items-center grow space-y-[15px] box-border px-[60px] py-[30px]">
+                    <ClipLoader color={"#2778C7"} loading={!done} size={50} />
+                    {done && "업로드 완료"}
+                  </div>
+                  <div className="flex justify-center border-solid border-t-[1px] border-[#DFDFDF]">
+                    <div
+                      className="flex justify-center py-[20px] text-[#2778C7] border-solid  border-[#DFDFDF] cursor-pointer"
+                      onClick={() => {
+                        if (!done) return;
+                        router.back();
+                      }}
+                    >
+                      {done ? "확인" : "업로드 중..."}
+                    </div>
                   </div>
                 </div>
               </div>
