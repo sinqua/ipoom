@@ -5,12 +5,11 @@ import tossLogo from "@/app/assets/logos/toss.svg";
 
 import MenuBar from "./menu-bar";
 import Link from "next/link";
+import emptyImg from "@/app/assets/images/empty.png";
 
 import {
   getLink,
   getProfile,
-  getUser,
-  getUserProfileImage,
 } from "@/lib/supabase";
 
 export default async function ProfileCard({
@@ -18,15 +17,11 @@ export default async function ProfileCard({
 }: {
   userID: string;
 }) {
-  const userData = getUser(userID);
   const profileData = getProfile(userID);
-  const profileImageData = getUserProfileImage(userID);
   const linkData = getLink(userID);
 
-  const [user, profile, profileImage, link] = await Promise.all([
-    userData,
+  const [profile, link] = await Promise.all([
     profileData,
-    profileImageData,
     linkData,
   ]);
 
@@ -36,7 +31,7 @@ export default async function ProfileCard({
       <div className="flex justify-center items-center w-full h-0 overflow-visible z-10">
         <div className="flex justify-center items-center w-[128px] h-[128px] bg-[#2778C7] rounded-full">
           <Image
-            src={profileImage.image}
+            src={profile.image ? profile.image : emptyImg}
             width={512}
             height={512}
             className="object-cover w-[120px] h-[120px] rounded-full"
@@ -45,7 +40,7 @@ export default async function ProfileCard({
         </div>
       </div>
       <div className="flex flex-col justify-center w-full ph:p-[24px] p-[16px] !pt-[80px] space-y-[24px] bg-[#FFFFFF]">
-        <p className="text-[24px] font-bold text-center">{user.nickname}</p>
+        <p className="text-[24px] font-bold text-center">{profile.nickname}</p>
         <div className="ph:flex hidden flex-col space-y-[40px]">
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">설명</p>
