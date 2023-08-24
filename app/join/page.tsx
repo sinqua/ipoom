@@ -41,15 +41,14 @@ export default function Page() {
 
     const { data: userData, error: userError } = await supabaseAuth
       .from("users")
-      .update({ nickname: inputRef.current.value })
+      .select('*')
       .eq("id", session?.user.id)
-      .select()
       .limit(1)
       .single();
 
     await supabase
       .from("profiles")
-      .insert([{ user_id: session?.user.id, image: userData.image }])
+      .insert([{ user_id: session?.user.id, image: userData.image, nickname: inputRef.current.value }])
       .select();
 
     await supabase.from("user_details").insert([{ user_id: session?.user.id }]);
