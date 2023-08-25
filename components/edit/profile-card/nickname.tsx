@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { validateNickname } from "@/lib/supabase";
 import SaveChange from "./save-change";
 
-export default function Nickname({ name }: { name: string }) {
+export default function Nickname({ name }: { name: string | null }) {
   const { data: session, status } = useSession();
   const inputRef = useRef<HTMLInputElement>(null);
 

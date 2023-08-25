@@ -1,10 +1,8 @@
 import Image from "next/image";
-import moopiLogo from "@/app/assets/logos/moopi.svg";
-import moopiSmallLogo from "@/app/assets/logos/moopi_small.png";
+import moopiLogo from "@/app/assets/logos/offing.svg";
 
 export default function Footer() {
   return (
-    // <div className="w-full h-[466px] px-[144px] py-[80px] text-[14px] bg-[#F6F6F6] border-t-[1px] border-s2xyoon-gray font-sans">
     <div className="w-full dt:h-[239px] ph:h-[276px] h-[281px] ph:py-[60px] py-[50px] px-[17px] text-[14px] bg-[#F9F9F9] border-t-[1px] border-s2xyoon-gray font-sans">
       <div className="flex ph:justify-center ph:flex-row flex-col dt:h-[17px] h-auto ph:space-x-[28px] ph:space-y-0 space-y-[15px] font-semibold ph:mb-[40px] mb-[50px] flex-wrap">
         <div className="whitespace-nowrap">Terms of service</div>
@@ -35,48 +33,6 @@ export default function Footer() {
           <div>All Rights Reserved.</div>
         </div>
       </div>
-      {/* <div className="flex justify-between w-full h-full bg-transparent">
-        <div className="flex flex-col w-[310px]">
-          <Image
-            src={moopiSmallLogo}
-            className="w-[40px] h-[40px] mb-[24px]"
-            alt=""
-          />
-          <p className="mb-[40px]">
-            Moopy is a platform that helps people
-            <br />
-            access 3D content more easily. Find your
-            <br />
-            avatar right now
-          </p>
-          <div className="flex mb-[80px]">
-            <Image
-              src={moopiSmallLogo}
-              className="w-[20px] h-[20px] m-[8px]"
-              alt=""
-            />
-            <Image
-              src={moopiSmallLogo}
-              className="w-[20px] h-[20px] m-[8px]"
-              alt=""
-            />
-            <Image
-              src={moopiSmallLogo}
-              className="w-[20px] h-[20px] m-[8px]"
-              alt=""
-            />
-            <Image
-              src={moopiSmallLogo}
-              className="w-[20px] h-[20px] m-[8px]"
-              alt=""
-            />
-          </div>
-          <p>Copyright ⓒ MOOPI Corp. All rights reserved</p>
-        </div>
-        <div>
-            asdfasdf
-        </div>
-  </div> */}
     </div>
   );
 }

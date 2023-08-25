@@ -5,25 +5,33 @@ import tossLogo from "@/app/assets/logos/toss.svg";
 
 import MenuBar from "./menu-bar";
 import Link from "next/link";
+import emptyImg from "@/app/assets/images/empty.png";
 
-export default function ProfileCard({
-  user,
-  profile,
-  profileImage,
-  link,
+import {
+  getLink,
+  getProfile,
+} from "@/lib/supabase";
+
+export default async function ProfileCard({
+  userID,
 }: {
-  user: any;
-  profile: any;
-  profileImage: any;
-  link: any;
+  userID: string;
 }) {
+  const profileData = getProfile(userID);
+  const linkData = getLink(userID);
+
+  const [profile, link] = await Promise.all([
+    profileData,
+    linkData,
+  ]);
+
   return (
     <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
       <div className="w-full h-[180px] bg-[#ECECEC]"></div>
       <div className="flex justify-center items-center w-full h-0 overflow-visible z-10">
         <div className="flex justify-center items-center w-[128px] h-[128px] bg-[#2778C7] rounded-full">
           <Image
-            src={profileImage.image}
+            src={profile.image ? profile.image : emptyImg}
             width={512}
             height={512}
             className="object-cover w-[120px] h-[120px] rounded-full"
@@ -32,7 +40,7 @@ export default function ProfileCard({
         </div>
       </div>
       <div className="flex flex-col justify-center w-full ph:p-[24px] p-[16px] !pt-[80px] space-y-[24px] bg-[#FFFFFF]">
-        <p className="text-[24px] font-bold text-center">{user.nickname}</p>
+        <p className="text-[24px] font-bold text-center">{profile.nickname}</p>
         <div className="ph:flex hidden flex-col space-y-[40px]">
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">설명</p>
