@@ -1,3 +1,6 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -8,7 +11,8 @@ import MenuList from "./menu-list";
 import UploadWork from "./upload-work";
 import { Suspense } from "react";
 
-export default function Navbar() {
+export default async function Navbar() {
+
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto">
       <div className="block flex-none dt:hidden">

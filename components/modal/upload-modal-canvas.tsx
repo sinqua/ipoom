@@ -10,6 +10,11 @@ import rotateImg from "@/app/assets/images/rotate.svg";
 import zoomImg from "@/app/assets/images/zoom.svg";
 import moveImg from "@/app/assets/images/move.svg";
 
+import cancelBlackImg from "@/app/assets/images/cancel_black.svg";
+import cameraImg from "@/app/assets/images/camera.svg";
+import playImg from "@/app/assets/images/play.svg";
+import stopImg from "@/app/assets/images/stop.svg";
+
 import refreshImg from "@/app/assets/images/refresh.svg";
 import helpImg from "@/app/assets/images/help.svg";
 import fullscreenImg from "@/app/assets/images/fullscreen.svg";
@@ -17,22 +22,32 @@ import originalscreenImg from "@/app/assets/images/originalscreen.svg";
 
 import { ModelProps } from "@/components/modal/upload-model";
 import BounceLoader from "react-spinners/BounceLoader";
+import { motion } from "framer-motion";
 
 const ModelComponent = lazy(() => import("./upload-model"));
 
 interface ModalCanvasProps {
+  canvasRef: any;
   modelUrl: string | null;
-  animation: number | null;
+  animation: any;
   setAnimation: any;
+  captureMode: any;
+  setCaptureMode: any;
+  takeCapture: any;
 }
 
 const ModalCanvas = ({
+  canvasRef,
   modelUrl,
   animation,
   setAnimation,
+  captureMode,
+  setCaptureMode,
+  takeCapture,
 }: ModalCanvasProps) => {
   const [modelInfo, setModelInfo] = useState<ModelProps>();
   const [fullScreen, setFullScreen] = useState(false);
+  const [playStatus, setPlayStauts] = useState(false);
   const [helpViewer, setHelpViewer] = useState(false);
   const [progress, setProgress] = useState(false);
 
@@ -45,6 +60,9 @@ const ModalCanvas = ({
       setAnimation: setAnimation,
       setProgress,
     });
+
+    console.log("animation", animation);
+
   }, [modelUrl, animation]);
 
   const isMobile = () => "ontouchstart" in document.documentElement;
@@ -94,6 +112,8 @@ const ModalCanvas = ({
       {helpViewer && HelpViewer(setHelpViewer, isMobile)}
       <Suspense fallback={null}>
         <Canvas
+          ref={canvasRef}
+          gl={{ preserveDrawingBuffer: true }}
           camera={{ position: [0, 0, 1.1] }}
           style={{ backgroundColor: "#FAF9F6" }}
           shadows
@@ -113,9 +133,35 @@ const ModalCanvas = ({
         </div>
       )}
       <div className="absolute flex justify-center top-0 w-full h-full pointer-events-none z-10">
-        <div className="absolute top-0 flex justify-end sm:items-start items-end max-w-[1312px] w-full h-full md:px-0 sm:px-[30px] px-[20px]">
-          {MenuButton(resetCamera, setHelpViewer, postMessage, fullScreen)}
-        </div>
+        <motion.div
+          className="absolute w-full h-full top-0 right-0"
+          animate={captureMode ? { opacity: 1 } : { opacity: 0 }}
+        >
+          <div className="absolute flex justify-evenly w-full h-full">
+            <div className="w-[1px] h-full bg-[#B2B2B2]"></div>
+            <div className="w-[1px] h-full bg-[#B2B2B2]"></div>
+          </div>
+          <div className="absolute flex flex-col justify-evenly w-full h-full">
+            <div className="w-full h-[1px] bg-[#B2B2B2]"></div>
+            <div className="w-full h-[1px] bg-[#B2B2B2]"></div>
+          </div>
+        </motion.div>
+
+        {MenuButton(
+          captureMode,
+          resetCamera,
+          setHelpViewer,
+          postMessage,
+          fullScreen
+        )}
+        {CaptureButton(
+          captureMode,
+          takeCapture,
+          setCaptureMode,
+          setHelpViewer,
+          postMessage,
+          playStatus
+        )}
       </div>
     </div>
   );
@@ -124,13 +170,17 @@ const ModalCanvas = ({
 export default ModalCanvas;
 
 function MenuButton(
+  captureMode: boolean,
   resetCamera: () => void,
   setHelpViewer: any,
   postMessage: () => void,
   fullScreen: boolean
 ) {
   return (
-    <div className="absolute flex flex-row top-[40px] right-[40px] space-x-[16px] pointer-events-auto">
+    <motion.div
+      className="absolute flex flex-row ph:top-[40px] bottom-[24px] ph:right-[40px] right-[24px] space-x-[16px] pointer-events-auto"
+      animate={captureMode ? { opacity: 0 } : { opacity: 1 }}
+    >
       <div
         className="flex justify-center items-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
         onClick={resetCamera}
@@ -153,7 +203,46 @@ function MenuButton(
           alt=""
         />
       </div>
-    </div>
+    </motion.div>
+  );
+}
+
+function CaptureButton(
+  captureMode: boolean,
+  takeCapture: any,
+  setCaptureMode: (flag: boolean) => void,
+  setHelpViewer: any,
+  postMessage: () => void,
+  playStatus: boolean
+) {
+  return (
+    <motion.div
+      className="absolute flex flex-row justify-center bottom-[40px] w-full space-x-[32px] pointer-events-auto"
+      animate={captureMode ? { opacity: 1 } : { opacity: 0 }}
+    >
+      <div
+        className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        onClick={() => setCaptureMode(false)}
+      >
+        <Image className="w-[24px] h-[24px]" src={cancelBlackImg} alt="" />
+      </div>
+      <div
+        className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#333333] hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        onClick={takeCapture}
+      >
+        <Image className="w-[26px] h-[26px]" src={cameraImg} alt="" />
+      </div>
+      <div
+        className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-white hover:bg-[#E9E9E9] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] cursor-pointer"
+        onClick={postMessage}
+      >
+        <Image
+          className="w-[24px] h-[24px]"
+          src={!playStatus ? stopImg : playImg}
+          alt=""
+        />
+      </div>
+    </motion.div>
   );
 }
 

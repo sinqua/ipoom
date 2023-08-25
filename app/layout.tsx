@@ -9,8 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -18,7 +20,10 @@ export default function RootLayout({
         <Suspense>
           <main>
             <GoogleAnalytics />
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              {children}
+              {modal}
+            </AuthProvider>
           </main>
         </Suspense>
       </body>

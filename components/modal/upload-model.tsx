@@ -86,7 +86,7 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
   useEffect(() => {
     setVrm(null!);
     setActions({});
-    setAnimation("Idle");
+    // setAnimation("Idle");
     setCurrentAction("Idle");
   }, [modelUrl]);
 
