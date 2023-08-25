@@ -1,6 +1,3 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-
 import Link from "next/link";
 import Image from "next/image";
 
