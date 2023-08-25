@@ -46,7 +46,7 @@ export async function UploadAvatarThumbnailFile(
 }
 
 // Upload file using standard upload
-export async function UploadBase64Image(userId: any, filename: any, file: any) {
+export async function UploadQuillImage(userId: any, filename: any, file: any) {
   const filepath = `${userId}/${filename}`;
 
   // Convert base64 to binary data

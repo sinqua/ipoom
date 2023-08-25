@@ -6,7 +6,7 @@ import uploadImg from "@/app/assets/images/upload.svg";
 
 export default async function UploadWork() {
   const session = await getServerSession(authOptions);
-  const url = session ? `/${session?.user.id}/upload` : "";
+  const url = session ? `/upload` : "";
 
   if (session === null) {
     return null;

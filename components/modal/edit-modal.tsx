@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import ModalCanvas from "@/components/modal/upload-modal-canvas";
+import ModalCanvas from "@/components/modal/edit-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
 import { Dialog, Transition } from "@headlessui/react";
@@ -21,22 +21,49 @@ import {
 import {
   addAvatar,
   addAvatarTags,
+  updateAvatar,
+  updateAvatarName,
+  updateAvatarTags,
   updateAvatarThumbnail,
 } from "@/lib/supabase";
 import { ClipLoader } from "react-spinners";
 
-export default function UploadModal() {
+const options = [
+  { value: "전체 공개", label: "전체 공개" },
+  { value: "나만 보기", label: "나만 보기" },
+];
+
+const animationOptions = [
+  { value: 4, label: "Idle" },
+  { value: 1, label: "HipHopDancing" },
+  { value: 2, label: "PutYourHandsUp" },
+  { value: 3, label: "Thankful" },
+];
+
+export default function EditModal({
+  avatar,
+  model,
+}: {
+  avatar: any;
+  model: any;
+}) {
   const router = useRouter();
   const { data: session, status } = useSession();
 
   const [captureMode, setCaptureMode] = useState(false);
+  const [done, setDone] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
 
-  const [modelUrl, setModelUrl] = useState<any>(null);
+  const [modelUrl, setModelUrl] = useState<any>(model.signedUrl);
 
-  const [avatarStatus, setAvatarStatus] = useState("전체 공개");
+  const [avatarStatus, setAvatarStatus] = useState(
+    avatar.visible ? "전체 공개" : "나만 보기"
+  );
 
-  const [animation, setAnimation] = useState("Idle");
-  const [animationValue, setAnimationValue] = useState<any>(4);
+  const [animation, setAnimation] = useState(
+    animationOptions.find((item) => item.value === avatar.animation)?.label
+  );
+  const [animationValue, setAnimationValue] = useState<any>(avatar.animation);
 
   const [avatarFile, setAvatarFile] = useState<any>(null);
 
@@ -46,12 +73,14 @@ export default function UploadModal() {
   const avatarDescriptionInputRef = useRef<any>(null);
 
   const thumbnailFileInputRef = useRef<any>(null);
-  const [thumbnailImage, setThumbnailImage] = useState<any>(null);
+  const [thumbnailImage, setThumbnailImage] = useState<any>(avatar.thumbnail);
 
-  const [avatarTags, setAvatarTags] = useState<any>(null);
-
-  const [done, setDone] = useState<boolean>(false);
-  const [modal, setModal] = useState<boolean>(false);
+  const [avatarTags, setAvatarTags] = useState<any>(
+    avatar.tags.map((tag: any) => ({
+      label: tag.tag,
+      value: tag.tag,
+    }))
+  );
 
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
@@ -65,18 +94,6 @@ export default function UploadModal() {
   const onContent2Click = () => {
     content2Ref.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  const options = [
-    { value: "전체 공개", label: "전체 공개" },
-    { value: "나만 보기", label: "나만 보기" },
-  ];
-
-  const animationOptions = [
-    { value: 4, label: "Idle" },
-    { value: 1, label: "HipHopDancing" },
-    { value: 2, label: "PutYourHandsUp" },
-    { value: 3, label: "Thankful" },
-  ];
 
   const loadAnimation = (e: any) => {
     setAnimationValue(e.value);
@@ -129,69 +146,69 @@ export default function UploadModal() {
   }
 
   const onSavePortfolio = async () => {
-    if (!avatarTitleInputRef.current.value || !avatarFile) {
+    if (!avatarTitleInputRef.current.value) {
       setBorderColor("border-red-500");
       setIsEmpty(true);
       return;
     }
 
-    setModal(true);
-
-    /* Python 서버 파일 업로드 */
-    const formData = new FormData();
-    formData.append("file", avatarFile);
-    formData.append("name", avatarFile.name);
-    if (session) formData.append("id", session?.user.id);
-
-    try {
-      const response = await fetch("https://server.offing.me", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        console.log("File uploaded successfully");
-      } else {
-        console.log("data ", formData);
-        console.error("Failed to upload file2");
-      }
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-    /* Python 서버 파일 업로드 끝 */
-
-    UploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
-      async (data) => {
-        const avatarData = await addAvatar(
-          session?.user.id,
-          avatarFile,
-          avatarTitleInputRef.current.value,
-          avatarDescriptionInputRef.current.value,
-          avatarStatus === "전체 공개" ? true : false,
-          animationValue
-        );
-
-        if (avatarTags) {
-          await addAvatarTags(avatarData![0].id, avatarTags);
-        }
-
-        if (typeof thumbnailImage === "string") {
-          UploadAvatarThumbnailFile(session?.user.id, thumbnailImage).then(
-            async (uuid) => {
-              await updateAvatarThumbnail(
-                session?.user.id,
-                uuid,
-                avatarData![0].id
-              );
-            }
-          );
-        }
-
-        setDone(true);
-
-        // router.back();
-      }
+    const avatarData = await updateAvatar(
+      avatar.id,
+      avatarTitleInputRef.current.value,
+      avatarDescriptionInputRef.current.value,
+      avatarStatus === "전체 공개" ? true : false,
+      animationValue
     );
+
+    await updateAvatarTags(avatar.id, avatarTags);
+
+    if (thumbnailImage.includes("data:image/png;base64,")) {
+      UploadAvatarThumbnailFile(session?.user.id, thumbnailImage).then(
+        async (uuid) => {
+          await updateAvatarThumbnail(session?.user.id, uuid, avatar.id);
+        }
+      );
+    }
+
+    if (avatarFile) {
+      setModal(true);
+
+      /* Python 서버 파일 업로드 */
+      const formData = new FormData();
+      formData.append("file", avatarFile);
+      formData.append("name", avatarFile.name);
+      if (session) formData.append("id", session?.user.id);
+
+      try {
+        const response = await fetch("https://server.offing.me", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          console.log("File uploaded successfully");
+        } else {
+          console.log("data ", formData);
+          console.error("Failed to upload file2");
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
+      /* Python 서버 파일 업로드 끝 */
+
+      UploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
+        async (data) => {
+          console.log("avatarTags", avatarTags);
+
+          await updateAvatarName(avatar.id, avatarFile.name);
+
+          setDone(true);
+        }
+      );
+    }
+    
+    router.back();
+    router.refresh();
   };
 
   return (
@@ -228,9 +245,7 @@ export default function UploadModal() {
                         borderColor
                       )}
                       placeholder="타이틀을 입력해주세요."
-                      // onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      //   onChangeNickname(event.target.value);
-                      // }}
+                      defaultValue={avatar.name}
                     ></input>
                     <div className="!mt-[5px] pl-[5px] text-red-500">
                       {isEmpty ? "아바타 이름이 필요합니다" : ""}
@@ -243,11 +258,9 @@ export default function UploadModal() {
                         type="text"
                         ref={avatarFileNameInputRef}
                         disabled
-                        className={twMerge(
-                          "w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none",
-                          borderColor
-                        )}
+                        className="w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none"
                         placeholder="아바타 파일을 등록해주세요"
+                        defaultValue={avatar.vrm}
                       />
                       <form>
                         <label htmlFor="avatarFile">
@@ -265,9 +278,6 @@ export default function UploadModal() {
                         />
                       </form>
                     </div>
-                    <div className="!mt-[5px] pl-[5px] text-red-500">
-                      {isEmpty ? "아바타 파일이 필요합니다" : ""}
-                    </div>
                   </div>
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">설명</p>
@@ -275,6 +285,7 @@ export default function UploadModal() {
                       ref={avatarDescriptionInputRef}
                       className="w-full h-[126px] p-[16px] rounded-[10px] resize-none bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
                       placeholder="자기소개를 입력해주세요."
+                      defaultValue={avatar.description}
                       // value={profile.description}
                       // onChange={() =>
                       //   setTextareaCount(inputDescriptionRef.current.value.length)
@@ -420,7 +431,7 @@ export default function UploadModal() {
                   </div>
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">게시일</p>
-                    <p>{formatFullDate(new Date().toString())}</p>
+                    <p>{formatFullDate(avatar.created_at)}</p>
                   </div>
                   <div
                     className="flex justify-center items-center w-full h-[42px] !mt-[56px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer"

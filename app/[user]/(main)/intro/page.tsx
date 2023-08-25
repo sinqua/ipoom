@@ -1,14 +1,16 @@
 import Card from "@/components/edit/card";
 import CardHeader from "@/components/edit/card/header";
-import { getUserDetail } from "@/lib/supabase";
+import { getProfile, getUserDetail } from "@/lib/supabase";
 import RichTextEditor from "@/components/edit/rich-text-editor";
 
 export const revalidate = 0;
 
 export default async function Page({ params }: { params: { user: string } }) {
+  const profile = await getProfile(params.user);
+
   return (
-    <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
-      소개
+    <div className="flex grow w-full dt:px-0 px-[16px] py-[40px] !pt-0">
+      {profile.description}
     </div>
   );
 }

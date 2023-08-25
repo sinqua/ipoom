@@ -85,7 +85,6 @@ const QuillEditor: NextPage<IEditor> = ({ content, htmlStr, setHtmlStr }) => {
     []
   );
 
-
   return (
     <ReactQuill
       className="flex flex-col h-full w-full"

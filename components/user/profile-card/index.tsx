@@ -44,7 +44,7 @@ export default async function ProfileCard({
         <div className="ph:flex hidden flex-col space-y-[40px]">
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">설명</p>
-            <p className="leading-[24px]">{profile.description}</p>
+            <p className="whitespace-pre-line leading-[24px]">{profile.description}</p>
           </div>
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">태그</p>
