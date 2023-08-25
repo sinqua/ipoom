@@ -4,6 +4,8 @@ import { getUserDetail } from "@/lib/supabase";
 import RichTextEditor from "@/components/edit/rich-text-editor";
 import PriceInfo from "@/components/edit/price-info";
 
+export const revalidate = 0;
+
 export default async function Page({ params }: { params: { user: string } }) {
   const userDetail = await getUserDetail(params.user);
 

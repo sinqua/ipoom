@@ -1,10 +1,9 @@
 import Card from "@/components/edit/card";
 import CardHeader from "@/components/edit/card/header";
-import MainAvatarCard from "@/components/edit/main-avatar/card";
-import EmptyCard from "@/components/edit/main-avatar/empty-card";
+
+export const revalidate = 0;
 
 export default async function Page({ params }: { params: { user: string } }) {
-
   return (
     <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
       <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full space-y-[64px]">

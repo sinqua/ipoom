@@ -3,6 +3,8 @@ import CardHeader from "@/components/edit/card/header";
 import PortfolioCard from "@/components/edit/portfolio/card";
 import { getPortfolios } from "@/lib/supabase";
 
+export const revalidate = 0;
+
 export default async function Page({ params }: { params: { user: string } }) {
   const portfolios = await getPortfolios(params.user);
 

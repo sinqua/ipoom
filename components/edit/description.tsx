@@ -10,10 +10,6 @@ import SaveQuillChange from "./save-quill-change";
 export default function Description({ content }: { content: any }) {
   const [htmlStr, setHtmlStr] = useState<any>(null);
 
-  useEffect(() => {
-    console.log(htmlStr);
-  }, [htmlStr])
-
   return (
     <Card>
       <CardHeader

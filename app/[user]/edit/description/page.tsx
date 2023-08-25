@@ -5,6 +5,8 @@ import RichTextEditor from "@/components/edit/rich-text-editor";
 import SaveQuillChange from "@/components/edit/save-quill-change";
 import Description from "@/components/edit/description";
 
+export const revalidate = 0;
+
 export default async function Page({ params }: { params: { user: string } }) {
   const userDetail = await getUserDetail(params.user);
 
