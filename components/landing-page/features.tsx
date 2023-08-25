@@ -33,7 +33,7 @@ export default function Features() {
         <div className="pt-12 md:pt-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="h2 mb-4">작업을 공유하기 위한 모든 최신 기술</h1>
+            <h1 className="h2 mb-4 tracking-wide">창작을 공유하기 위한 모든 최신 기술</h1>
             <p className="text-xl text-gray-600">
               {/* 여러분이 창작에만 집중할 수 있도록 복잡한 기술은 우리에게
               맡기세요.  */}
@@ -53,9 +53,9 @@ export default function Features() {
               data-aos="fade-right"
             >
               <div className="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
-                <h3 className="h3 mb-3">창작이 다양한 사람을 만나도록</h3>
+                <h3 className="h3 mb-3">더 많은 사람이 응원하도록</h3>
                 <p className="text-xl text-gray-600">
-                  정성이 담긴 캐릭터를 업로드하고 자신의 실력을 세상에
+                  정성이 담긴 캐릭터를 업로드하고 당신의 실력을 세상에
                   보여주세요. 당신의 창작이 다양한 사람들과 소통하게 됩니다.
                 </p>
               </div>
@@ -169,51 +169,19 @@ export default function Features() {
                     <div className="relative inline-flex flex-col">
                       <Image
                         className="md:max-w-none mx-auto rounded"
-                        src={FeaturesBg}
+                        src={'/emma.PNG'}
                         width={500}
                         height="462"
                         alt="Features bg"
                       />
-                      <Image
+                      {/* <Image
                         className="md:max-w-none absolute w-full left-0 transform animate-float"
                         src={FeaturesElement}
                         width={500}
                         height="44"
                         alt="Element"
                         style={{ top: "30%" }}
-                      />
-                    </div>
-                  </Transition>
-                  {/* Item 2 */}
-                  <Transition
-                    show={tab === 2}
-                    appear={true}
-                    className="w-full"
-                    enter="transition ease-in-out duration-700 transform order-first"
-                    enterFrom="opacity-0 translate-y-16"
-                    enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in-out duration-300 transform absolute"
-                    leaveFrom="opacity-100 translate-y-0"
-                    leaveTo="opacity-0 -translate-y-16"
-                    beforeEnter={() => heightFix()}
-                    unmount={false}
-                  >
-                    <div className="relative inline-flex flex-col">
-                      <Image
-                        className="md:max-w-none mx-auto rounded"
-                        src={FeaturesBg}
-                        width={500}
-                        height="462"
-                        alt="Features bg"
-                      />
-                      <Image
-                        className="md:max-w-none absolute w-full left-0 transform animate-float"
-                        src={FeaturesElement}
-                        width={500}
-                        height="44"
-                        alt="Element"
-                        style={{ top: "30%" }}
-                      />
+                      /> */}
                     </div>
                   </Transition>
                   {/* Item 3 */}
@@ -233,19 +201,19 @@ export default function Features() {
                     <div className="relative inline-flex flex-col">
                       <Image
                         className="md:max-w-none mx-auto rounded"
-                        src={FeaturesBg}
+                        src={'/social.png'}
                         width={500}
                         height="462"
                         alt="Features bg"
                       />
-                      <Image
+                      {/* <Image
                         className="md:max-w-none absolute w-full left-0 transform animate-float"
                         src={FeaturesElement}
                         width={500}
                         height="44"
                         alt="Element"
                         style={{ top: "30%" }}
-                      />
+                      /> */}
                     </div>
                   </Transition>
                 </div>
