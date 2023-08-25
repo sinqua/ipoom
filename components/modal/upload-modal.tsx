@@ -266,7 +266,7 @@ export default function UploadModal() {
                     <p className="font-semibold text-[#333333]">설명</p>
                     <textarea
                       ref={avatarDescriptionInputRef}
-                      className="sm:w-[482px] w-full h-[126px] p-[16px] rounded-[10px] resize-none bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
+                      className="w-full h-[126px] p-[16px] rounded-[10px] resize-none bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
                       placeholder="자기소개를 입력해주세요."
                       // value={profile.description}
                       // onChange={() =>
