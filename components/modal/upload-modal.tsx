@@ -7,6 +7,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useRef, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
+import { twMerge } from "tailwind-merge";
 
 import emptyImg from "@/app/assets/images/empty.png";
 
@@ -52,6 +53,21 @@ export default function UploadModal() {
 
   const [done, setDone] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
+
+  const [borderColor, setBorderColor] = useState<string>(
+    "border-[#CCCCCC]"
+  );
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+
+  const content1Ref = useRef<HTMLDivElement>(null);
+  const content2Ref = useRef<HTMLDivElement>(null);
+
+  const onContent1Click = () => {
+    content1Ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const onContent2Click = () => {
+    content2Ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const options = [
     { value: "전체 공개", label: "전체 공개" },
@@ -111,16 +127,18 @@ export default function UploadModal() {
     }
 
     setThumbnailImage(canvas.toDataURL());
+
+    onContent2Click();
   }
 
   const onSavePortfolio = async () => {
-    setModal(true);
+    if (!avatarTitleInputRef.current.value || !avatarFile) {
+      setBorderColor("border-red-500");
+      setIsEmpty(true);
+      return;
+    }
 
-    // if (!avatarNameRef.current.value || !avatarFile) {
-    //   setBorderColor("border-red-500 shadow-[inset_0_0_0_1px_rgb(239,68,68)]");
-    //   setIsEmpty(true);
-    //   return;
-    // }
+    setModal(true);
 
     /* Python 서버 파일 업로드 */
     const formData = new FormData();
@@ -179,9 +197,12 @@ export default function UploadModal() {
     <div className="fixed inset-0 w-full h-full z-50">
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
         <Background />
-        <div className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]">
-          <div className={`relative w-full ${captureMode ? "h-full" : "ph:h-full h-auto"} flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden`}>
-            <div className={`relative ph:grow grow-0 ${captureMode ? "h-full" : "ph:h-full h-[550px]"}`}>
+        <div
+          ref={content1Ref}
+          className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]"
+        >
+          <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
+            <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
               <ModalCanvas
                 canvasRef={canvasRef}
                 modelUrl={modelUrl}
@@ -192,7 +213,7 @@ export default function UploadModal() {
                 takeCapture={takeCapture}
               />
             </div>
-            <div className={`${captureMode ? "ph:block hidden" : "block"} p-[24px] bg-[#FFFFFF]`}>
+            <div className="p-[24px] bg-[#FFFFFF]">
               <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto space-y-[24px] text-[14px] overflow-y-scroll scrollbar-hide">
                 <p className="text-[24px] font-semibold">업로드</p>
                 <div className="flex flex-col space-y-[40px]">
@@ -201,12 +222,15 @@ export default function UploadModal() {
                     <input
                       type="text"
                       ref={avatarTitleInputRef}
-                      className="w-full h-[35px] px-[14px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
+                      className={twMerge("w-full h-[35px] px-[14px] rounded-[10px] bg-white border-solid border-[1px] outline-none", borderColor)}
                       placeholder="타이틀을 입력해주세요."
                       // onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
                       //   onChangeNickname(event.target.value);
                       // }}
                     ></input>
+                    <div className="!mt-[5px] pl-[5px] text-red-500">
+                      {isEmpty ? "아바타 이름이 필요합니다" : ""}
+                    </div>
                   </div>
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">파일</p>
@@ -215,7 +239,7 @@ export default function UploadModal() {
                         type="text"
                         ref={avatarFileNameInputRef}
                         disabled
-                        className="w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none"
+                        className={twMerge("w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none", borderColor)}
                         placeholder="아바타 파일을 등록해주세요"
                       />
                       <form>
@@ -233,6 +257,9 @@ export default function UploadModal() {
                           ref={avatarFileInputRef}
                         />
                       </form>
+                    </div>
+                    <div className="!mt-[5px] pl-[5px] text-red-500">
+                      {isEmpty ? "아바타 파일이 필요합니다" : ""}
                     </div>
                   </div>
                   <div className="flex flex-col space-y-[16px]">
@@ -341,7 +368,10 @@ export default function UploadModal() {
                       }}
                     />
                   </div>
-                  <div className="flex flex-col space-y-[16px]">
+                  <div
+                    ref={content2Ref}
+                    className="flex flex-col space-y-[16px]"
+                  >
                     <p className="font-semibold text-[#333333]">썸네일</p>
                     <div className="flex flex-col space-y-[24px]">
                       <div className="relative flex w-full aspect-[8/7] rounded-[10px] overflow-hidden border-solid border-[1px] border-[#CCCCCC] ">
@@ -356,7 +386,10 @@ export default function UploadModal() {
                       <div className="flex flex-row space-x-[16px]">
                         <div
                           className="flex justify-center items-center w-full h-[42px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer"
-                          onClick={() => setCaptureMode(true)}
+                          onClick={() => {
+                            setCaptureMode(true);
+                            onContent1Click();
+                          }}
                         >
                           촬영하기
                         </div>
