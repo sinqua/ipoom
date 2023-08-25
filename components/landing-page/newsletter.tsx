@@ -95,9 +95,9 @@ export default function Newsletter() {
             <div className="relative flex flex-col lg:flex-row justify-between items-center">
               {/* CTA content */}
               <div className="text-center lg:text-left lg:max-w-xl">
-                <h3 className="h3 text-white mb-2">무피는 당신의 창작을 응원합니다</h3>
+                <h3 className="h3 text-white mb-2">창작을 더욱 가치 있게</h3>
                 <p className="text-gray-300 text-lg mb-6">
-                  당신이 작업에 오롯이 집중할 수 있도록 창작에 필요한 다양한 기술을 제공합니다
+                  열정과 노력이 담긴 당신의 창작을 무피에서 공유하세요. 무피는 당신의 창작을 응원합니다.
                 </p>
 
                 {/* CTA form */}
@@ -111,7 +111,7 @@ export default function Newsletter() {
                     /> */}
                     <a
                       className="btn text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0"
-                      href="#0"
+                      href="/login"
                     >
                       시작하기
                     </a>
