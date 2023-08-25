@@ -54,6 +54,7 @@ export default function Hero() {
               className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tighter mb-4"
               data-aos="zoom-y-out"
             >
+              {/* 포트폴리오를 만드는 이유는 뭘까? 커미션을 하고 돈을 얻기 위해서 */}
               {/* 캐릭터,포트폴리오,수익화 */}
               {/* 어디서나 간단히 게시하는 */}
               {/* 더욱 즐거운 버츄얼 작업 */}
@@ -64,8 +65,8 @@ export default function Hero() {
               {/* 창작을 더욱 자신있게 */}
               {/* 새로운 창작에 대한 자신감 */}
               
-              {/* 어디서나 편하게 공유하는 */}
-              어디서나 그대로 보여지는
+              한 곳에서 간편하게 공유하는
+              {/* 어디서나 그대로 보여지는 */}
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
                 {/* 한 곳에서 */}
@@ -137,7 +138,9 @@ export default function Hero() {
                 data-aos="zoom-y-out"
                 data-aos-delay="150"
               >
-                직관적인 업로드 에디터를 통해 3D 캐릭터를 게시하고, 어떤 기기에서도 깔끔한 포트폴리오를 공유하세요.
+                무피의 3D 포트폴리오는 당신이 만든 캐릭터를 더 많은 사람에게 보여줍니다. 
+                <br />
+                어떤 기기에서도 보기 좋도록 정돈된 레이아웃은 덤이죠.
                 {/* 무피는 창작자의 노력을 응원하며, 다양한 최신기술로 당신의
                 아이디어와 창작을 더욱 가치 있게 만들어나가는 데 도움을
                 드립니다. 지금 바로 창작의 세계로 떠나보세요! */}
