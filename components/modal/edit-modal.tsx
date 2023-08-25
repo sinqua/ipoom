@@ -17,7 +17,6 @@ import { useSession } from "next-auth/react";
 import {
   UploadAvatarFile,
   UploadAvatarThumbnailFile,
-  UploadBase64Image,
 } from "@/lib/storage";
 import {
   addAvatar,
