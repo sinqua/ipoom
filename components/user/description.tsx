@@ -1,0 +1,10 @@
+'use client'
+import parse from "html-react-parser";
+
+export default function Description({ content }: { content: string | undefined }) {
+  return (
+    <div className="ql-editor relative flex grow w-full dt:px-0 px-[16px] py-[40px] !pt-0">
+      {content && parse(content)}
+    </div>
+  );
+}

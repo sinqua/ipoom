@@ -2,6 +2,8 @@ import Card from "@/components/edit/card";
 import CardHeader from "@/components/edit/card/header";
 import { getUserDetail } from "@/lib/supabase";
 import RichTextEditor from "@/components/edit/rich-text-editor";
+import SaveQuillChange from "@/components/edit/save-quill-change";
+import Description from "@/components/edit/description";
 
 export default async function Page({ params }: { params: { user: string } }) {
   const userDetail = await getUserDetail(params.user);
@@ -9,14 +11,7 @@ export default async function Page({ params }: { params: { user: string } }) {
   return (
     <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
       <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full space-y-[64px]">
-        <Card>
-          <CardHeader title={"커미션 안내"}>
-            커미션에 대한 주의 사항을 상세히 적어주세요.
-          </CardHeader>
-          <div className="h-[500px]">
-            <RichTextEditor content={userDetail.description} />
-          </div>
-        </Card>
+        <Description content={userDetail.description} />
       </div>
     </div>
   );

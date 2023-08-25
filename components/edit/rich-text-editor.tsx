@@ -1,15 +1,19 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import QuillEditor from "../quill-editor";
+import dynamic from "next/dynamic";
 
-export default function RichTextEditor({ content }: { content: any }) {
-  const [htmlStr, setHtmlStr] = useState("");
+const QuillEditor = dynamic(() => import("../quill-editor"), { ssr: false });
 
+export default function RichTextEditor({
+  content,
+  htmlStr,
+  setHtmlStr,
+}: {
+  content: any;
+  htmlStr: any;
+  setHtmlStr: any;
+}) {
   return (
-    <QuillEditor
-      content={content}
-      htmlStr={htmlStr}
-      setHtmlStr={setHtmlStr}
-    />
+    <QuillEditor content={content} htmlStr={htmlStr} setHtmlStr={setHtmlStr} />
   );
 }

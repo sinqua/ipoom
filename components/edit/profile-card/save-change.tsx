@@ -21,6 +21,12 @@ const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
       return;
     }
 
+    if (props.label === "description") {
+      handleSaveDescription(session, ref);
+
+      return;
+    }
+
     if (props.label === "kakao") {
       handleSaveKakaoLink(session, ref);
 
@@ -89,6 +95,15 @@ const handleSaveNickname = async (session: any, ref: any) => {
     .from("users")
     .update({ nickname: nickname })
     .eq("id", session?.user.id);
+};
+
+const handleSaveDescription = async (session: any, ref: any) => {
+  const description = ref.current.value;
+
+  const { data: descriptionData, error: descriptionError } = await supabase
+    .from("profiles")
+    .update({ description: description })
+    .eq("user_id", session?.user.id);
 };
 
 const handleSaveKakaoLink = async (session: any, ref: any) => {

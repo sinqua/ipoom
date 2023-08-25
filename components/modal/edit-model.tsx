@@ -89,14 +89,14 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
     setVrm(null!);
     setActions({});
     // setAnimation("Idle");
-    setCurrentAction("Idle");
+    // setCurrentAction("Idle");
   }, [modelUrl]);
 
   useEffect(() => {
-    if (actions["Landing"] && actions["Idle"]) {
+    if (actions["Landing"] && actions[animation]) {
       setTimeout(() => {
         var landingAction = animationMixer.clipAction(actions["Landing"]);
-        var idleAction = animationMixer.clipAction(actions["Idle"]);
+        var idleAction = animationMixer.clipAction(actions[animation]);
 
         landingAction.loop = THREE.LoopOnce;
         landingAction.clampWhenFinished = true;
@@ -114,7 +114,7 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
             landingAction.fadeOut(0.5);
             idleAction.reset().fadeIn(0.5).play();
 
-            setCurrentAction("Idle");
+            setCurrentAction(animation);
           }
         });
       }, 500);

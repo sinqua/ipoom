@@ -1,10 +1,13 @@
 import Image from "next/image";
 import { formatDate } from "@/lib/string";
 import Tag from "@/components/edit/portfolio/tag";
+import Link from "next/link";
 
 export default function Card({ avatar }: { avatar: any }) {
+  console.log("avatar.thumbnailUrl", avatar.thumbnailUrl);
+
   return (
-    <div className="flex ph:flex-row flex-col p-[24px] ph:space-x-[24px] space-x-0 rounded-[10px] shadow-[0px_3px_10px_rgba(0,0,0,0.16)]">
+    <Link href={`/edit/${avatar.id}`} className="flex ph:flex-row flex-col p-[24px] ph:space-x-[24px] space-x-0 rounded-[10px] shadow-[0px_3px_10px_rgba(0,0,0,0.16)]">
       <p className="ph:hidden block text-[20px] font-bold mb-[24px]">
         {avatar.name}
       </p>
@@ -66,6 +69,6 @@ export default function Card({ avatar }: { avatar: any }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

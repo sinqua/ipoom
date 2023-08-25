@@ -1,9 +1,10 @@
 import { supabase, supabaseAuth } from "./database";
 
 export const generatePublicUrl = (storage: string, path: string) => {
-  const supabasePublic = 'https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public'
+  const supabasePublic =
+    "https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public";
   return `${supabasePublic}/${storage}/${path}`;
-}
+};
 
 export const getProfile = async (id: string) => {
   const { data, error } = await supabase
@@ -69,13 +70,15 @@ export const getPortfolios = async (id: string) => {
   const { data: portfoliosData, error: portfoliosError } = await supabase
     .from("avatars")
     .select(`*, tags (*), animations (*)`)
-    .eq("user_id", id)
+    .eq("user_id", id);
 
   const portfolios = [];
   for (const portfolio of portfoliosData!) {
     let url = "";
     if (portfolio.thumbnail === null) url = "/VerticalModel.png";
-    else { url = portfolio.thumbnail; }
+    else {
+      url = portfolio.thumbnail;
+    }
 
     const newPortfolio = {
       ...portfolio,
@@ -104,7 +107,9 @@ export const getAvatar = async (id: string) => {
   if (avatarData) {
     let url = "";
     if (avatarData.thumbnail === null) url = "/VerticalModel.png";
-    else { url = avatarData.thumbnail; }
+    else {
+      url = avatarData.thumbnail;
+    }
 
     return { ...avatarData, thumbnailUrl: url };
   } else return null;
@@ -168,13 +173,69 @@ export const addAvatarTags = async (avatar_id: any, avatarTags: any) => {
   if (tagsError) throw new Error("Upload AvatarTags Failed!");
 };
 
-export const updateAvatarThumbnail = async (uuid: any, avatarId: any) => {
+export const updateAvatarThumbnail = async (userId: any, uuid: any, avatarId: any) => {
   const { data, error } = await supabase
     .from("avatars")
     .update({
-      thumbnail: `${uuid}.png`,
+      thumbnail: generatePublicUrl("thumbnail", `${userId}/${uuid}.png`)
     })
     .eq("id", avatarId);
 
   if (error) throw new Error("Upload Avatar Failed!");
+};
+
+export const updateAvatar = async (
+  avatarId: any,
+  avatarName: any,
+  avatarDescription: any,
+  visible: any,
+  animation: any
+) => {
+  const { data: avatarData, error: avatarError } = await supabase
+    .from("avatars")
+    .update({
+      name: avatarName,
+      description: avatarDescription,
+      visible: visible,
+      animation: animation,
+    })
+    .eq("id", avatarId)
+    .select();
+
+  if (avatarData) return avatarData;
+  else {
+    throw new Error("Upload Avatar Failed!");
+  }
+};
+
+export const updateAvatarName = async (avatarId: any, avatarName: any) => {
+  const { error: avatarError } = await supabase
+    .from("avatars")
+    .update({
+      vrm: avatarName,
+    })
+    .eq("id", avatarId);
+
+  if (avatarError) throw new Error("Upload Avatar Failed!");
+};
+
+export const updateAvatarTags = async (avatarId: any, avatarTags: any) => {
+  const { error } = await supabase
+    .from("tags")
+    .delete()
+    .eq("avatar_id", avatarId);
+
+    const { data: tagsData, error: tagsError } = await supabase
+    .from("tags")
+    .insert(
+      avatarTags
+        .map((tag: any) => {
+          return tag.value;
+        })
+        .map((tag: any) => {
+          return { tag: tag, avatar_id: avatarId };
+        })
+    );
+
+  if (tagsError) throw tagsError;
 };

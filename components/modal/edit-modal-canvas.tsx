@@ -20,11 +20,11 @@ import helpImg from "@/app/assets/images/help.svg";
 import fullscreenImg from "@/app/assets/images/fullscreen.svg";
 import originalscreenImg from "@/app/assets/images/originalscreen.svg";
 
-import { ModelProps } from "@/components/modal/upload-model";
+import { ModelProps } from "@/components/modal/edit-model";
 import BounceLoader from "react-spinners/BounceLoader";
 import { motion } from "framer-motion";
 
-const ModelComponent = lazy(() => import("./upload-model"));
+const ModelComponent = lazy(() => import("./edit-model"));
 
 interface ModalCanvasProps {
   canvasRef: any;
