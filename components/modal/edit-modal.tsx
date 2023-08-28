@@ -75,10 +75,10 @@ export default function EditModal({
   const [thumbnailImage, setThumbnailImage] = useState<any>(avatar.thumbnail);
 
   const [avatarTags, setAvatarTags] = useState<any>(
-    avatar.tags.map((tag: any) => ({
-      label: tag.tag,
-      value: tag.tag,
-    }))
+    // avatar.tags.map((tag: any) => ({
+    //   label: tag.tag,
+    //   value: tag.tag,
+    // }))
   );
 
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
