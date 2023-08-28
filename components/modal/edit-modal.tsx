@@ -59,10 +59,10 @@ export default function EditModal({
     avatar.visible ? "전체 공개" : "나만 보기"
   );
 
-  // const [animation, setAnimation] = useState(
-  //   animationOptions.find((item: any) => item.value === avatar.animation)?.label
-  // );
-  const [animation, setAnimation] = useState("Idle");
+  const [animation, setAnimation] = useState(
+    animationOptions.find((item: any) => item.value === avatar.animation)?.label
+  );
+  // const [animation, setAnimation] = useState("Idle");
   const [animationValue, setAnimationValue] = useState<any>(avatar.animation);
 
   const [avatarFile, setAvatarFile] = useState<any>(null);
@@ -75,26 +75,26 @@ export default function EditModal({
   const thumbnailFileInputRef = useRef<any>(null);
   const [thumbnailImage, setThumbnailImage] = useState<any>(avatar.thumbnail);
 
-  // const [avatarTags, setAvatarTags] = useState<any>(
-  //   avatar.tags.map((tag: any) => ({
-  //     label: tag.tag,
-  //     value: tag.tag,
-  //   }))
-  // );
-  const [avatarTags, setAvatarTags] = useState<any>(null);
+  const [avatarTags, setAvatarTags] = useState<any>(
+    avatar.tags.map((tag: any) => ({
+      label: tag.tag,
+      value: tag.tag,
+    }))
+  );
+  // const [avatarTags, setAvatarTags] = useState<any>(null);
 
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
-  // const content1Ref = useRef<HTMLDivElement>(null);
-  // const content2Ref = useRef<HTMLDivElement>(null);
+  const content1Ref = useRef<HTMLDivElement>(null);
+  const content2Ref = useRef<HTMLDivElement>(null);
 
-  // const onContent1Click = () => {
-  //   content1Ref.current?.scrollIntoView({ behavior: "smooth" });
-  // };
-  // const onContent2Click = () => {
-  //   content2Ref.current?.scrollIntoView({ behavior: "smooth" });
-  // };
+  const onContent1Click = () => {
+    content1Ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const onContent2Click = () => {
+    content2Ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const loadAnimation = (e: any) => {
     setAnimationValue(e.value);
@@ -212,11 +212,11 @@ export default function EditModal({
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
         <Background />
         <div
-          // ref={content1Ref}
+          ref={content1Ref}
           className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]"
         >
           <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
-            {/* <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
+            <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
               <ModalCanvas
                 canvasRef={canvasRef}
                 modelUrl={modelUrl}
@@ -226,8 +226,8 @@ export default function EditModal({
                 setCaptureMode={setCaptureMode}
                 takeCapture={takeCapture}
               />
-            </div> */}
-            {/* <div className="p-[24px] bg-[#FFFFFF]">
+            </div>
+            <div className="p-[24px] bg-[#FFFFFF]">
               <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto space-y-[24px] text-[14px] overflow-y-scroll scrollbar-hide">
                 <p className="text-[24px] font-semibold">업로드</p>
                 <div className="flex flex-col space-y-[40px]">
@@ -436,8 +436,8 @@ export default function EditModal({
                   </div>
                 </div>
               </div>
-            </div> */}
-            {/* {modal && (
+            </div>
+            {modal && (
               <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-50">
                 <div className="relative max-w-[250px] w-full flex flex-col box-border bg-white rounded-[10px] overflow-hidden">
                   <div className="flex flex-col justify-center items-center grow space-y-[15px] box-border px-[60px] py-[30px]">
@@ -458,7 +458,7 @@ export default function EditModal({
                   </div>
                 </div>
               </div>
-            )} */}
+            )}
           </div>
         </div>
       </div>
