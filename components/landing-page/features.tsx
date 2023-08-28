@@ -5,6 +5,7 @@ import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import FeaturesBg from "@/public/images/features-bg.png";
 import FeaturesElement from "@/public/images/features-element.png";
+import ModalCanvas from "../modal/avatar-modal-canvas";
 
 export default function Features() {
   const [tab, setTab] = useState<number>(1);
@@ -33,12 +34,14 @@ export default function Features() {
         <div className="pt-12 md:pt-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="h2 mb-4 tracking-wide">창작을 공유하기 위한 모든 최신 기술</h1>
+            <h1 className="h2 mb-4 tracking-wide">
+              창작을 공유하기 위한 모든 최신 기술
+            </h1>
             <p className="text-xl text-gray-600">
               {/* 여러분이 창작에만 집중할 수 있도록 복잡한 기술은 우리에게
               맡기세요.  */}
-              3D 뷰어가 포함된 포트폴리오, 커미션 진행을 위한 메시지와
-              결제 시스템, 
+              3D 뷰어가 포함된 포트폴리오, 커미션 진행을 위한 메시지와 결제
+              시스템,
               <br />
               고객과의 관계를 강화할 데이터 분석까지.
               {/* 우리의 서비스는 아바타 업로드, 제작 의뢰, 좋아요 및 댓글, 포트폴리오, DM, 간편결제, 그리고 고객 데이터 분석 기능을 제공하여 당신의 창작을 응원합니다. */}
@@ -78,7 +81,8 @@ export default function Features() {
                       3D 캐릭터를 더욱 생생하게!
                     </div>
                     <div className="text-gray-600">
-                      캐릭터에 최적화된 3D 뷰어 덕분에, 당신의 캐릭터는 어디서나 생동감 있게 보입니다.
+                      캐릭터에 최적화된 3D 뷰어 덕분에, 당신의 캐릭터는 어디서나
+                      생동감 있게 보입니다.
                     </div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
@@ -123,8 +127,8 @@ export default function Features() {
                       소통의 끈을 더욱 단단히 맺어요!
                     </div>
                     <div className="text-gray-600">
-                      다양한 소셜 미디어를 지원하는 사용자 프로필. 선호하는 링크를 추가하고 더 많은
-                      사람들에게 자신을 알려보세요.
+                      다양한 소셜 미디어를 지원하는 사용자 프로필. 선호하는
+                      링크를 추가하고 더 많은 사람들에게 자신을 알려보세요.
                     </div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
@@ -146,7 +150,7 @@ export default function Features() {
 
             {/* Tabs items */}
             <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1">
-              <div className="transition-all">
+              <div className="transition-all h-full">
                 <div
                   className="relative flex flex-col text-center lg:text-right"
                   data-aos="zoom-y-out"
@@ -166,22 +170,8 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="relative inline-flex flex-col">
-                      <Image
-                        className="md:max-w-none mx-auto rounded"
-                        src={'/emma.PNG'}
-                        width={500}
-                        height="462"
-                        alt="Features bg"
-                      />
-                      {/* <Image
-                        className="md:max-w-none absolute w-full left-0 transform animate-float"
-                        src={FeaturesElement}
-                        width={500}
-                        height="44"
-                        alt="Element"
-                        style={{ top: "30%" }}
-                      /> */}
+                    <div className="w-full h-[430px] rounded border border-transparent overflow-hidden">
+                      <ModalCanvas modelUrl={"./hero.vrm"} animation={4} />
                     </div>
                   </Transition>
                   {/* Item 3 */}
@@ -201,7 +191,7 @@ export default function Features() {
                     <div className="relative inline-flex flex-col">
                       <Image
                         className="md:max-w-none mx-auto rounded"
-                        src={'/social.png'}
+                        src={"/social.png"}
                         width={500}
                         height="462"
                         alt="Features bg"
