@@ -1,12 +1,12 @@
 import homeImg from "@/app/assets/images/home.svg";
-import searchImg from "@/app/assets/images/search.svg";
-import messageImg from "@/app/assets/images/message.svg";
-import alarmImg from "@/app/assets/images/alram.svg";
-import followImg from "@/app/assets/images/follow.svg";
-import settingImg from "@/app/assets/images/setting.svg";
+import portfolioImg from "@/app/assets/images/portfolio.svg";
+import mypageImg from "@/app/assets/images/mypage.svg";
+import logoutImg from "@/app/assets/images/logout.svg";
+
 import Item from "./menu-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import LogoutButton from "./logout-button";
 
 export default async function MenuList() {
   const session = await getServerSession(authOptions);
@@ -14,12 +14,16 @@ export default async function MenuList() {
 
   return (
     <div className="grow flex flex-col">
-      <Item imgSrc={homeImg} url={userId}>홈</Item>
-      <Item imgSrc={searchImg} url={userId}>검색</Item>
-      <Item imgSrc={messageImg} url={userId}>메시지</Item>
-      <Item imgSrc={alarmImg} url={userId}>알림</Item>
-      <Item imgSrc={followImg} url={userId}>팔로우</Item>
-      <Item imgSrc={settingImg} url={`${userId}/edit`}>마이페이지</Item>
+      <Item imgSrc={homeImg} url={"/"}>
+        홈
+      </Item>
+      <Item imgSrc={portfolioImg} url={`${userId}`}>
+        포트폴리오
+      </Item>
+      <Item imgSrc={mypageImg} url={`${userId}/edit`}>
+        마이페이지
+      </Item>
+      <LogoutButton imgSrc={logoutImg} />
     </div>
   );
 }

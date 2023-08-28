@@ -16,6 +16,8 @@ export default function Page() {
   useEffect(() => {
     if (status !== "loading") {
       verifyExist(session?.user.id).then((result) => {
+        console.log("result", result);
+
         if (result) {
           router.push(searchParams.get("callbackUrl") ?? `/`);
         } else {
@@ -23,7 +25,7 @@ export default function Page() {
         }
       });
     }
-  }, []);
+  }, [status]);
 
   return <div className="w-full h-full">확인중</div>;
 }

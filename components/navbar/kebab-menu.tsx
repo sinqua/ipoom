@@ -25,7 +25,7 @@ export default function KebabMenu() {
       >
         <Image src={moreImg} className="w-[24px] h-[24px]" alt="" />
       </div>
-      <Transition className="absolute bottom-[77px] right-[24px]" show={isOpen}>
+      {/* <Transition className="absolute bottom-[77px] right-[24px]" show={isOpen}>
         <div className="flex flex-col w-[152px] border-solid border-[1px] rounded-[8px] bg-white ">
           <button className="w-[152px] h-[40px] text-[14px] text-[#333333]">
             <Link href={url}>마이페이지</Link>
@@ -37,7 +37,7 @@ export default function KebabMenu() {
             로그아웃
           </button>
         </div>
-      </Transition>
+      </Transition> */}
     </>
   );
 }
