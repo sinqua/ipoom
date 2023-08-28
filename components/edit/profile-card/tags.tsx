@@ -33,7 +33,7 @@ export default function Tags({
           onChange={(e: any) => {
             setCurrentTags(e);
           }}
-          className="flex w-auto ph:grow-0 grow items-center ph:w-[392px] h-[47px]"
+          className="flex w-auto ph:grow-0 grow items-center ph:w-[392px] min-h-[47px] h-auto"
           placeholder={"태그를 입력해주세요"}
           styles={{
             control: (baseStyles, state) => ({
