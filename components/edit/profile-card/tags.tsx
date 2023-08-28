@@ -5,8 +5,19 @@ import Card from "@/components/edit/card";
 import CardHeader from "@/components/edit/card/header";
 import SaveChange from "./save-change";
 
-export default function Tags({ list }: { list: any[] }) {
-  const [currentTags, setCurrentTags] = useState<any>(null);
+export default function Tags({
+  list,
+  mostUsedTags,
+}: {
+  list: any[];
+  mostUsedTags: any[];
+}) {
+  const [currentTags, setCurrentTags] = useState<any>(
+    list.map((tag: any) => ({
+      label: tag.tag,
+      value: tag.tag,
+    }))
+  );
 
   return (
     <Card>
@@ -16,7 +27,7 @@ export default function Tags({ list }: { list: any[] }) {
       <div className="flex ph:w-auto w-full space-x-[16px]">
         <CreatableSelect
           isMulti
-          //   options={mostUsedTags}
+          options={mostUsedTags}
           value={currentTags}
           instanceId={""}
           onChange={(e: any) => {

@@ -4,7 +4,7 @@ import Kakao from "@/components/edit/profile-card/kakao";
 import Toss from "@/components/edit/profile-card/toss";
 import Tags from "@/components/edit/profile-card/tags";
 
-import { getProfile, getLink } from "@/lib/supabase";
+import { getProfile, getLink, getMostUsedTags } from "@/lib/supabase";
 import Description from "@/components/edit/profile-card/description";
 import Twitter from "@/components/edit/profile-card/twitter";
 
@@ -13,8 +13,13 @@ export const revalidate = 0;
 export default async function Page({ params }: { params: { user: string } }) {
   const profileData = getProfile(params.user);
   const linkData = getLink(params.user);
+  const mostUsedTagsData = getMostUsedTags();
 
-  const [profile, link] = await Promise.all([profileData, linkData]);
+  const [profile, link, mostUsedTags] = await Promise.all([
+    profileData,
+    linkData,
+    mostUsedTagsData,
+  ]);
 
   return (
     <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
@@ -25,7 +30,7 @@ export default async function Page({ params }: { params: { user: string } }) {
         <Kakao link={link.kakao} />
         <Twitter link={link.twitter} />
         <Toss link={link.toss} />
-        <Tags list={profile.tags} />
+        <Tags list={profile.tags} mostUsedTags={mostUsedTags} />
       </div>
     </div>
   );
