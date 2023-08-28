@@ -6,6 +6,7 @@ import Tags from "@/components/edit/profile-card/tags";
 
 import { getProfile, getLink } from "@/lib/supabase";
 import Description from "@/components/edit/profile-card/description";
+import Twitter from "@/components/edit/profile-card/twitter";
 
 export const revalidate = 0;
 
@@ -22,6 +23,7 @@ export default async function Page({ params }: { params: { user: string } }) {
         <Nickname name={profile.nickname} />
         <Description description={profile.description} />
         <Kakao link={link.kakao} />
+        <Twitter link={link.twitter} />
         <Toss link={link.toss} />
         <Tags list={profile.tags} />
       </div>
