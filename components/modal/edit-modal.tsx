@@ -3,7 +3,6 @@ import Image from "next/image";
 import ModalCanvas from "@/components/modal/edit-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
-import { Dialog, Transition } from "@headlessui/react";
 import { useRef, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
@@ -11,8 +10,7 @@ import { twMerge } from "tailwind-merge";
 
 import emptyImg from "@/app/assets/images/empty.png";
 
-import { motion } from "framer-motion";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { UploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
 import {
@@ -62,7 +60,6 @@ export default function EditModal({
   const [animation, setAnimation] = useState(
     animationOptions.find((item: any) => item.value === avatar.animation)?.label
   );
-  // const [animation, setAnimation] = useState("Idle");
   const [animationValue, setAnimationValue] = useState<any>(avatar.animation);
 
   const [avatarFile, setAvatarFile] = useState<any>(null);
@@ -81,8 +78,6 @@ export default function EditModal({
       value: tag.tag,
     }))
   );
-  // const [avatarTags, setAvatarTags] = useState<any>(null);
-
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
@@ -143,7 +138,7 @@ export default function EditModal({
 
     setThumbnailImage(canvas.toDataURL());
 
-    // onContent2Click();
+    onContent2Click();
   }
 
   const onSavePortfolio = async () => {
