@@ -216,7 +216,7 @@ export default function EditModal({
           className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]"
         >
           <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
-            <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
+            {/* <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
               <ModalCanvas
                 canvasRef={canvasRef}
                 modelUrl={modelUrl}
@@ -226,7 +226,7 @@ export default function EditModal({
                 setCaptureMode={setCaptureMode}
                 takeCapture={takeCapture}
               />
-            </div>
+            </div> */}
             {/* <div className="p-[24px] bg-[#FFFFFF]">
               <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto space-y-[24px] text-[14px] overflow-y-scroll scrollbar-hide">
                 <p className="text-[24px] font-semibold">업로드</p>
@@ -437,7 +437,7 @@ export default function EditModal({
                 </div>
               </div>
             </div> */}
-            {modal && (
+            {/* {modal && (
               <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-50">
                 <div className="relative max-w-[250px] w-full flex flex-col box-border bg-white rounded-[10px] overflow-hidden">
                   <div className="flex flex-col justify-center items-center grow space-y-[15px] box-border px-[60px] py-[30px]">
@@ -458,7 +458,7 @@ export default function EditModal({
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
