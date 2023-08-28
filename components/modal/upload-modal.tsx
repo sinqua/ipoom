@@ -185,8 +185,6 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
         }
 
         setDone(true);
-
-        // router.back();
       }
     );
   };
@@ -429,7 +427,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
               </div>
             </div>
             {modal && (
-              <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-0">
+              <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-50">
                 <div className="relative max-w-[250px] w-full flex flex-col box-border bg-white rounded-[10px] overflow-hidden">
                   <div className="flex flex-col justify-center items-center grow space-y-[15px] box-border px-[60px] py-[30px]">
                     <ClipLoader color={"#2778C7"} loading={!done} size={50} />
@@ -441,6 +439,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                       onClick={() => {
                         if (!done) return;
                         router.back();
+                        router.refresh();
                       }}
                     >
                       {done ? "확인" : "업로드 중..."}

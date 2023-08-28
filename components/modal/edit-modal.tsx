@@ -151,6 +151,8 @@ export default function EditModal({
       return;
     }
 
+    setModal(true);
+
     const avatarData = await updateAvatar(
       avatar.id,
       avatarTitleInputRef.current.value,
@@ -170,8 +172,6 @@ export default function EditModal({
     }
 
     if (avatarFile) {
-      setModal(true);
-
       /* Python 서버 파일 업로드 */
       const formData = new FormData();
       formData.append("file", avatarFile);
@@ -200,14 +200,11 @@ export default function EditModal({
           console.log("avatarTags", avatarTags);
 
           await updateAvatarName(avatar.id, avatarFile.name);
-
-          setDone(true);
         }
       );
     }
 
-    router.back();
-    router.refresh();
+    setDone(true);
   };
 
   return (
@@ -442,7 +439,7 @@ export default function EditModal({
               </div>
             </div>
             {modal && (
-              <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-0">
+              <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-50">
                 <div className="relative max-w-[250px] w-full flex flex-col box-border bg-white rounded-[10px] overflow-hidden">
                   <div className="flex flex-col justify-center items-center grow space-y-[15px] box-border px-[60px] py-[30px]">
                     <ClipLoader color={"#2778C7"} loading={!done} size={50} />
@@ -454,6 +451,7 @@ export default function EditModal({
                       onClick={() => {
                         if (!done) return;
                         router.back();
+                        router.refresh();
                       }}
                     >
                       {done ? "확인" : "업로드 중..."}
