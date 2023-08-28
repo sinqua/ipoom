@@ -59,9 +59,10 @@ export default function EditModal({
     avatar.visible ? "전체 공개" : "나만 보기"
   );
 
-  const [animation, setAnimation] = useState(
-    animationOptions.find((item: any) => item.value === avatar.animation)?.label
-  );
+  // const [animation, setAnimation] = useState(
+  //   animationOptions.find((item: any) => item.value === avatar.animation)?.label
+  // );
+  const [animation, setAnimation] = useState("Idle");
   const [animationValue, setAnimationValue] = useState<any>(avatar.animation);
 
   const [avatarFile, setAvatarFile] = useState<any>(null);
@@ -74,12 +75,13 @@ export default function EditModal({
   const thumbnailFileInputRef = useRef<any>(null);
   const [thumbnailImage, setThumbnailImage] = useState<any>(avatar.thumbnail);
 
-  const [avatarTags, setAvatarTags] = useState<any>(
-    // avatar.tags.map((tag: any) => ({
-    //   label: tag.tag,
-    //   value: tag.tag,
-    // }))
-  );
+  // const [avatarTags, setAvatarTags] = useState<any>(
+  //   avatar.tags.map((tag: any) => ({
+  //     label: tag.tag,
+  //     value: tag.tag,
+  //   }))
+  // );
+  const [avatarTags, setAvatarTags] = useState<any>(null);
 
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
