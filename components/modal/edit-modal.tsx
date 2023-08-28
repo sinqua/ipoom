@@ -86,15 +86,15 @@ export default function EditModal({
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
-  const content1Ref = useRef<HTMLDivElement>(null);
-  const content2Ref = useRef<HTMLDivElement>(null);
+  // const content1Ref = useRef<HTMLDivElement>(null);
+  // const content2Ref = useRef<HTMLDivElement>(null);
 
-  const onContent1Click = () => {
-    content1Ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  const onContent2Click = () => {
-    content2Ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  // const onContent1Click = () => {
+  //   content1Ref.current?.scrollIntoView({ behavior: "smooth" });
+  // };
+  // const onContent2Click = () => {
+  //   content2Ref.current?.scrollIntoView({ behavior: "smooth" });
+  // };
 
   const loadAnimation = (e: any) => {
     setAnimationValue(e.value);
@@ -143,7 +143,7 @@ export default function EditModal({
 
     setThumbnailImage(canvas.toDataURL());
 
-    onContent2Click();
+    // onContent2Click();
   }
 
   const onSavePortfolio = async () => {
@@ -212,7 +212,7 @@ export default function EditModal({
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
         <Background />
         <div
-          ref={content1Ref}
+          // ref={content1Ref}
           className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]"
         >
           <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
