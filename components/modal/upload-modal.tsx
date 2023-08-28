@@ -254,7 +254,6 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                           className="hidden"
                           type="file"
                           id="avatarFile"
-                          // onChange={(e: any) => console.log(e)}
                           onChange={loadAvatarFile}
                           ref={avatarFileInputRef}
                         />

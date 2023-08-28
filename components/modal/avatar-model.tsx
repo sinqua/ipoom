@@ -62,7 +62,7 @@ const Model: FC<ModelProps> = ({
           }
         });
 
-        animationMixer.addEventListener('finished', (e) => {
+        animationMixer.addEventListener('finished', (e: any) => {
           if(e.action._clip.name === "Landing") {
             idleAction.stop();
             idleAction.crossFadeFrom( landingAction, 0.5, false).play();

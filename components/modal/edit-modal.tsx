@@ -3,7 +3,6 @@ import Image from "next/image";
 import ModalCanvas from "@/components/modal/edit-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
-import { Dialog, Transition } from "@headlessui/react";
 import { useRef, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
@@ -11,8 +10,7 @@ import { twMerge } from "tailwind-merge";
 
 import emptyImg from "@/app/assets/images/empty.png";
 
-import { motion } from "framer-motion";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { UploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
 import {
@@ -60,7 +58,7 @@ export default function EditModal({
   );
 
   const [animation, setAnimation] = useState(
-    animationOptions.find((item) => item.value === avatar.animation)?.label
+    animationOptions.find((item: any) => item.value === avatar.animation)?.label
   );
   const [animationValue, setAnimationValue] = useState<any>(avatar.animation);
 
@@ -80,7 +78,6 @@ export default function EditModal({
       value: tag.tag,
     }))
   );
-
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
@@ -197,8 +194,6 @@ export default function EditModal({
 
       UploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
         async (data) => {
-          console.log("avatarTags", avatarTags);
-
           await updateAvatarName(avatar.id, avatarFile.name);
         }
       );
@@ -268,7 +263,6 @@ export default function EditModal({
                           className="hidden"
                           type="file"
                           id="avatarFile"
-                          // onChange={(e: any) => console.log(e)}
                           onChange={loadAvatarFile}
                           ref={avatarFileInputRef}
                         />
