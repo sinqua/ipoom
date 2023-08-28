@@ -109,7 +109,7 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
           }
         });
 
-        animationMixer.addEventListener("finished", (e) => {
+        animationMixer.addEventListener("finished", (e: any) => {
           if (e.action._clip.name === "Landing") {
             landingAction.fadeOut(0.5);
             idleAction.reset().fadeIn(0.5).play();

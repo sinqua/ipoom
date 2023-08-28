@@ -197,8 +197,6 @@ export default function EditModal({
 
       UploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
         async (data) => {
-          console.log("avatarTags", avatarTags);
-
           await updateAvatarName(avatar.id, avatarFile.name);
         }
       );
@@ -268,7 +266,6 @@ export default function EditModal({
                           className="hidden"
                           type="file"
                           id="avatarFile"
-                          // onChange={(e: any) => console.log(e)}
                           onChange={loadAvatarFile}
                           ref={avatarFileInputRef}
                         />
