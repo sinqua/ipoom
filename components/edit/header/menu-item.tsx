@@ -7,16 +7,14 @@ type menuMap = {
 };
 
 const menus: menuMap = {
-  '프로필 카드': undefined,
-  '대표 아바타': 'main-avatar',
+  '마이페이지': undefined,
   '커미션 안내': 'description',
   '작업': 'portfolio',
   '비용 안내': 'price-info',
 };
 
 const links: menuMap = {
-  '프로필 카드': 'edit',
-  '대표 아바타': 'edit/main-avatar',
+  '마이페이지': 'edit',
   '커미션 안내': 'edit/description',
   '작업': 'edit/portfolio',
   '비용 안내': 'edit/price-info',
