@@ -60,7 +60,7 @@ export default function EditModal({
   );
 
   const [animation, setAnimation] = useState(
-    animationOptions.find((item) => item.value === avatar.animation)?.label
+    animationOptions.find((item: any) => item.value === avatar.animation)?.label
   );
   const [animationValue, setAnimationValue] = useState<any>(avatar.animation);
 
