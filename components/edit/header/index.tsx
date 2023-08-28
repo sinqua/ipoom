@@ -11,8 +11,7 @@ export default function Header() {
             {/* <Button style="absolute right-[16px] ph:hidden flex">저장</Button> */}
           </div>
           <Menu>
-            <Item>프로필 카드</Item>
-            <Item>대표 아바타</Item>
+            <Item>마이페이지</Item>
             <Item>작업</Item>
             <Item>커미션 안내</Item>
             <Item>비용 안내</Item>
