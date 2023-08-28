@@ -14,10 +14,7 @@ import emptyImg from "@/app/assets/images/empty.png";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import {
-  UploadAvatarFile,
-  UploadAvatarThumbnailFile,
-} from "@/lib/storage";
+import { UploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
 import {
   addAvatar,
   addAvatarTags,
@@ -25,7 +22,7 @@ import {
 } from "@/lib/supabase";
 import { ClipLoader } from "react-spinners";
 
-export default function UploadModal() {
+export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -285,13 +282,13 @@ export default function UploadModal() {
                     <p className="font-semibold text-[#333333]">태그</p>
                     <CreatableSelect
                       isMulti
-                      //   options={mostUsedTags}
+                      options={mostUsedTags}
                       value={avatarTags}
                       instanceId={""}
                       onChange={(e: any) => {
                         setAvatarTags(e);
                       }}
-                      className="flex items-center w-full h-[35px] "
+                      className="flex items-center w-full h-[35px] px-[1px]"
                       placeholder={"태그를 입력해주세요"}
                       styles={{
                         control: (baseStyles, state) => ({
@@ -310,7 +307,7 @@ export default function UploadModal() {
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">공개 범위</p>
                     <Select
-                      className="basic-single"
+                      className="basic-single px-[1px]"
                       classNamePrefix="select"
                       value={options.filter((option: any) => {
                         return option.label === avatarStatus;
@@ -344,7 +341,7 @@ export default function UploadModal() {
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">애니메이션</p>
                     <Select
-                      className="basic-single"
+                      className="basic-single px-[1px]"
                       classNamePrefix="select"
                       value={animationOptions.filter((option: any) => {
                         return option.label === animation;

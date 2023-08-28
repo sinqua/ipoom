@@ -1,7 +1,7 @@
 import React from "react";
 import { supabase, supabaseAuth } from "@/lib/database";
 import EditModal from "@/components/modal/edit-modal";
-import { createModelUrl, getAvatar } from "@/lib/supabase";
+import { createModelUrl, getAvatar, getMostUsedTags } from "@/lib/supabase";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
@@ -14,7 +14,9 @@ export default async function Edit(props: any) {
 
   const modelUrl = await createModelUrl(session?.user.id!, avatar?.vrm);
 
+  const mostUsedTags = await getMostUsedTags();
+
   return (
-    <EditModal avatar={avatar} model={modelUrl} />
+    <EditModal avatar={avatar} model={modelUrl} mostUsedTags={mostUsedTags} />
   );
 }
