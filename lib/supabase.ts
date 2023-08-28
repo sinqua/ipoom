@@ -60,12 +60,6 @@ export const getLink = async (id: string) => {
   }
 };
 
-export const getQuillUrl = async (filename: any) => {
-  const { data } = await supabase.storage.from("quill").getPublicUrl(filename);
-
-  return data;
-};
-
 export const getUserDetail = async (id: string) => {
   const { data, error } = await supabase
     .from("user_details")

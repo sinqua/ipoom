@@ -24,7 +24,7 @@ export default function Twitter({ link }: { link: any }) {
             defaultValue={link ? link : ""}
           ></input>
         </div>
-        <SaveChange label="kakao" ref={inputRef} />
+        <SaveChange label="twitter" ref={inputRef} />
       </div>
     </Card>
   );

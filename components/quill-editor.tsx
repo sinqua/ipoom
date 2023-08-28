@@ -4,7 +4,6 @@ import { NextPage } from "next";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { RangeStatic } from "quill";
-import { getQuillUrl } from "@/lib/supabase";
 
 var Image = Quill.import("formats/image");
 Image.className = "inline-block";
@@ -109,14 +108,6 @@ async function loadDescription(content: any, setHtmlStr: any) {
     Object.keys(descriptionObject).forEach((key) =>
       arr.push(descriptionObject[key])
     );
-
-    for (let i = 0; i < arr.length; i++) {
-      if (Object.keys(arr[i].insert).includes("image")) {
-        await getQuillUrl(arr[i].insert.image).then(async (url) => {
-          arr[i].insert.image = url!.publicUrl;
-        });
-      }
-    }
 
     setHtmlStr({ ops: arr });
   }
