@@ -177,6 +177,18 @@ export const addAvatar = async (
   }
 };
 
+export const deleteAvatar = async (
+  avatarId: any
+) => {
+  const { data, error } = await supabase
+    .from("avatars")
+    .delete()
+    .eq("id", avatarId);
+
+  if (error) throw new Error("Upload Avatar Failed!");
+};
+
+
 export const addAvatarTags = async (avatar_id: any, avatarTags: any) => {
   const { data: tagsData, error: tagsError } = await supabase
     .from("tags")
