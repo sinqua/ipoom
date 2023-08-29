@@ -3,12 +3,13 @@ import Image from "next/image";
 import ModalCanvas from "@/components/modal/edit-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { twMerge } from "tailwind-merge";
 
 import emptyImg from "@/app/assets/images/empty.png";
+import saveImg from "@/app/assets/images/save.svg";
 
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -21,7 +22,7 @@ import {
   updateAvatarTags,
   updateAvatarThumbnail,
 } from "@/lib/supabase";
-import { ClipLoader } from "react-spinners";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const options = [
   { value: "전체 공개", label: "전체 공개" },
@@ -45,11 +46,11 @@ export default function EditModal({
   mostUsedTags: any;
 }) {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const [captureMode, setCaptureMode] = useState(false);
-  const [done, setDone] = useState<boolean>(false);
-  const [modal, setModal] = useState<boolean>(false);
+
+  const [status, setStatus] = useState("");
 
   const [modelUrl, setModelUrl] = useState<any>(model.signedUrl);
 
@@ -148,7 +149,7 @@ export default function EditModal({
       return;
     }
 
-    setModal(true);
+    setStatus("save");
 
     const avatarData = await updateAvatar(
       avatar.id,
@@ -199,8 +200,17 @@ export default function EditModal({
       );
     }
 
-    setDone(true);
+    setStatus("done");
   };
+
+  useEffect(() => {
+    if (status === "done") {
+      setTimeout(() => {
+        router.back();
+        router.refresh();
+      }, 1000);
+    }
+  }, [status]);
 
   return (
     <div className="fixed inset-0 w-full h-full z-50">
@@ -432,24 +442,24 @@ export default function EditModal({
                 </div>
               </div>
             </div>
-            {modal && (
-              <div className="absolute w-full h-full flex justify-center items-center top-0 left-0 z-50">
-                <div className="relative max-w-[250px] w-full flex flex-col box-border bg-white rounded-[10px] overflow-hidden">
-                  <div className="flex flex-col justify-center items-center grow space-y-[15px] box-border px-[60px] py-[30px]">
-                    <ClipLoader color={"#2778C7"} loading={!done} size={50} />
-                    {done && "업로드 완료"}
-                  </div>
-                  <div className="flex justify-center border-solid border-t-[1px] border-[#DFDFDF]">
-                    <div
-                      className="flex justify-center py-[20px] text-[#2778C7] border-solid  border-[#DFDFDF] cursor-pointer"
-                      onClick={() => {
-                        if (!done) return;
-                        router.back();
-                        router.refresh();
-                      }}
-                    >
-                      {done ? "확인" : "업로드 중..."}
-                    </div>
+            {status !== "" && (
+              <div className="fixed inset-0 flex justify-center items-center w-full h-full z-50 !m-0">
+                <div className="flex justify-center items-center w-[180px] h-[180px] bg-[#FFFFFF] rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)]">
+                  <div className="flex flex-col items-center space-y-[24px]">
+                    {status === "save" ? (
+                      <>
+                        <FadeLoader
+                          color="#2778C7"
+                          className="!left-[22.5px] !w-[55px] !h-[55px]"
+                        />
+                        <p className="text-[18px] font-semibold">저장 중</p>
+                      </>
+                    ) : (
+                      <>
+                        <Image src={saveImg} alt="" />
+                        <p className="text-[18px] font-semibold">저장 완료</p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
