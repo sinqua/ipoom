@@ -24,7 +24,6 @@ const CreateHtml = async (descriptionObject: any) => {
   for (let i = 0; i < arr.length; i++) {
     if (Object.keys(arr[i].insert).includes("image")) {
       await CreateQuillUrl(arr[i].insert.image).then(async (url) => {
-        arr[i].insert.image = url!.publicUrl;
         arr[i].attributes = {
           display: "inline-block",
         };
