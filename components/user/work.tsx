@@ -29,9 +29,11 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
           <p>
             {betweenTimeWeek > 0
               ? `${betweenTimeWeek}주 전`
-              : betweenTimeDay === 0
+              : today.getDate() === createdDate.getDate()
               ? "오늘"
-              : `${betweenTimeDay}일 전`}{" "}
+              : betweenTimeDay === 0
+              ? "1일 전"
+              : `${betweenTimeDay}일 전`}
           </p>
         </div>
         <div className="w-full">
