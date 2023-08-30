@@ -143,7 +143,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
     if (session) formData.append("id", session?.user.id);
 
     try {
-      const response = await fetch("https://server.offing.me", {
+      const response = await fetch("http://127.0.0.1:8000", {
         method: "POST",
         body: formData,
       });
