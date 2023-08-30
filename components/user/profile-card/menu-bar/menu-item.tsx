@@ -2,24 +2,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type menuMap = {
-  [key: string]: any;
-};
-
-const menus: menuMap = {
-  '소개': 'intro',
-  '작업': undefined,
-  '커미션 안내': 'description',
-  '비용 안내': 'price-info',
-};
-
-const links: menuMap = {
-  '소개': 'intro',
-  '작업': '',
-  '커미션 안내': 'description',
-  '비용 안내': 'price-info',
-};
-
 export default function Item({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const url = `/${pathname.split("/")[1]}/${links[children!.toString()]}`
@@ -40,6 +22,24 @@ export default function Item({ children }: { children: React.ReactNode }) {
     </Link>
   );
 }
+
+type menuMap = {
+  [key: string]: any;
+};
+
+const menus: menuMap = {
+  '소개': 'intro',
+  '작업': undefined,
+  '커미션 안내': 'description',
+  '비용 안내': 'price-info',
+};
+
+const links: menuMap = {
+  '소개': 'intro',
+  '작업': '',
+  '커미션 안내': 'description',
+  '비용 안내': 'price-info',
+};
 
 const checkUrl = (children: React.ReactNode, pathname: string) => {
   if (menus[children!.toString()] === pathname.split("/")[2]) return true;

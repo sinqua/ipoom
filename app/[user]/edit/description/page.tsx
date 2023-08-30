@@ -1,8 +1,4 @@
-import Card from "@/components/edit/card";
-import CardHeader from "@/components/edit/card/header";
 import { getUserDetail } from "@/lib/supabase";
-import RichTextEditor from "@/components/edit/rich-text-editor";
-import SaveQuillChange from "@/components/edit/save-quill-change";
 import Description from "@/components/edit/description";
 
 export const revalidate = 0;

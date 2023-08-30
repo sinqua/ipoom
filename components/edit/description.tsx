@@ -1,6 +1,5 @@
 "use client";
-import Image from "next/image";
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 import Card from "@/components/edit/card";
 import CardHeader from "@/components/edit/card/header";
@@ -16,7 +15,7 @@ export default function Description({ content }: { content: any }) {
         title={"커미션 안내"}
         saveButton={<SaveQuillChange label={"description"} htmlStr={htmlStr} />}
       >
-        커미션에 대한 주의 사항을 상세히 적어주세요.
+        커미션 의뢰를 받을 수 있도록 필요한 정보를 게시합니다.
       </CardHeader>
       <div className="h-[500px]">
         <RichTextEditor

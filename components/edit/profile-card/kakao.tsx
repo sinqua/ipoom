@@ -9,8 +9,8 @@ export default function Kakao({ link }: { link: any }) {
 
   return (
     <Card>
-      <CardHeader title={"오픈카톡 링크"}>
-        사용중인 오픈카톡 전체 링크를 입력해주세요.
+      <CardHeader title={"오픈카톡"}>
+        형식에 맞지 않는 URL은 저장되지 않습니다.
         <br />
         {"예시) https://open.kakao.com/o/s7l8njtf"}
       </CardHeader>
@@ -20,7 +20,7 @@ export default function Kakao({ link }: { link: any }) {
             type="text"
             ref={inputRef}
             className="grow h-full outline-none text-sm"
-            placeholder="오픈카톡 링크를 입력해주세요."
+            placeholder="오픈카톡 URL 입력해주세요."
             defaultValue={link ? link : ""}
           ></input>
         </div>
