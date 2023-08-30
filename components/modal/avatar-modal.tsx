@@ -1,8 +1,10 @@
+"use client";
 import Image from "next/image";
 import ModalCanvas from "@/components/modal/avatar-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
 import { Dialog, Transition } from "@headlessui/react";
+import { useEffect } from "react";
 
 export default function AvatarModal({
   avatar,
@@ -11,13 +13,13 @@ export default function AvatarModal({
   avatar: any;
   modelUrl: any;
 }) {
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
 
-  //   return () => {
-  //     document.body.style.overflow = "auto";
-  //   };
-  // }, []);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <div className="fixed inset-0 w-full h-full z-50">

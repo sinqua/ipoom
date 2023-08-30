@@ -12,13 +12,13 @@ export default function Background() {
       onClick={() => router.back()}
     >
       <div className="relative w-full dt:max-w-[1288px] max-w-none h-full">
-      <Image
-        className="absolute dt:right-0 right-[16px] top-[44px] w-[20px] h-[20px] cursor-pointer"
-        src={cancelImg}
-        alt=""
-        loading="eager"
-        priority
-      />
+        <Image
+          className="absolute dt:right-0 right-[16px] top-[44px] w-[20px] h-[20px] cursor-pointer"
+          src={cancelImg}
+          alt=""
+          loading="eager"
+          priority
+        />
       </div>
     </div>
   );

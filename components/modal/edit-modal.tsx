@@ -204,6 +204,14 @@ export default function EditModal({
   };
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  useEffect(() => {
     if (status === "done") {
       setTimeout(() => {
         router.back();

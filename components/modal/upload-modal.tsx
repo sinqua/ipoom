@@ -192,6 +192,14 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
   };
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  useEffect(() => {
     if (status === "done") {
       setTimeout(() => {
         router.back();
