@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 import Card from "@/components/edit/card";
 import CardHeader from "@/components/edit/card/header";
@@ -16,7 +16,7 @@ export default function PriceInfo({ content }: { content: any }) {
         title={"비용 안내"}
         saveButton={<SaveQuillChange label={"price-info"} htmlStr={htmlStr} />}
       >
-        서비스에 대한 가격정보를 상세히 적어주세요.
+        견적 계산에 참고할 수 있도록 가격정보를 게시합니다.
       </CardHeader>
       <div className="h-[500px]">
         <RichTextEditor

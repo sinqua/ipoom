@@ -4,16 +4,12 @@ import { generatePublicUrl, validateNickname } from "@/lib/supabase";
 import { useSession } from "next-auth/react";
 import React, { forwardRef, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
 import Image from "next/image";
 import saveImg from "@/app/assets/images/save.svg";
-
 import FadeLoader from "react-spinners/FadeLoader";
-import { useRouter } from "next/navigation";
 
 const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
   const { data: session } = useSession();
-  const router = useRouter();
 
   const [status, setStatus] = useState("");
 

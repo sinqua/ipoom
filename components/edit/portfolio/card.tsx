@@ -67,12 +67,12 @@ export default function Card({ avatar }: { avatar: any }) {
           </div>
           <div className="relative flex tb:flex-row flex-col tb:space-x-[24px] space-x-0 tb:space-y-0 space-y-[24px]">
             <div className="relative flex flex-col w-full space-y-[16px]">
-              <p className="text-[20px] font-bold">아바타 설명</p>
+              <p className="text-[20px] font-bold">설명</p>
               <p className="w-full break-all">{avatar.description}</p>
             </div>
             <div className="relative flex flex-col w-full space-y-[32px]">
               <div className="flex flex-col space-y-[16px]">
-                <p className="text-[20px] font-bold">아바타</p>
+                <p className="text-[20px] font-bold">파일</p>
                 <p>{avatar.vrm}</p>
               </div>
               <div className="relative flex flex-col space-y-[16px]">
@@ -110,7 +110,7 @@ export default function Card({ avatar }: { avatar: any }) {
                   캐릭터를 삭제합니다.
                 </p>
                 <p className="text-[#7B7B7B] text-center">
-                  삭제된 캐릭터는 되돌릴 수 없습니다.
+                  삭제한 캐릭터는 복구할 수 없습니다.
                 </p>
               </div>
               <div className="flex w-full h-[50px]">

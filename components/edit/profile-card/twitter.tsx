@@ -9,8 +9,8 @@ export default function Twitter({ link }: { link: any }) {
 
   return (
     <Card>
-      <CardHeader title={"트위터 링크"}>
-        사용중인 트위터 전체 링크를 입력해주세요.
+      <CardHeader title={"트위터"}>
+        형식에 맞지 않는 URL은 저장되지 않습니다.
         <br />
         {"예시) https://twitter.com/shin_q_hwa"}
       </CardHeader>
@@ -20,7 +20,7 @@ export default function Twitter({ link }: { link: any }) {
             type="text"
             ref={inputRef}
             className="grow h-full outline-none text-sm"
-            placeholder="트위터 링크를 입력해주세요."
+            placeholder="트위터 URL을 입력해주세요."
             defaultValue={link ? link : ""}
           ></input>
         </div>

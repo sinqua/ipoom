@@ -22,7 +22,7 @@ export default function Tags({
   return (
     <Card>
       <CardHeader title={"태그"}>
-        한 눈에 알아보기 쉽도록 태그를 추가해보아요. (최대 5개)
+        기존의 태그를 선택하거나, 새로운 태그를 생성할 수 있습니다.
       </CardHeader>
       <div className="flex ph:w-auto w-full space-x-[16px]">
         <CreatableSelect
