@@ -149,9 +149,9 @@ export const createModelUrl = async (userId: string, filename: any) => {
   }
 };
 
-export const addAvatar = async (
+export const insertAvatar = async (
   userId: any,
-  avatarFile: any,
+  fileName: any,
   avatarName: any,
   avatarDescription: any,
   visible: any,
@@ -161,7 +161,7 @@ export const addAvatar = async (
     .from("avatars")
     .insert([
       {
-        vrm: avatarFile.name,
+        vrm: fileName,
         user_id: userId,
         name: avatarName,
         description: avatarDescription,
@@ -173,7 +173,7 @@ export const addAvatar = async (
 
   if (avatarData) return avatarData;
   else {
-    throw new Error("Upload Avatar Failed!");
+    throw new Error("Insert Avatar Failed!");
   }
 };
 

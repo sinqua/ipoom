@@ -13,6 +13,7 @@ export default function AvatarModal({
   avatar: any;
   modelUrl: any;
 }) {
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
