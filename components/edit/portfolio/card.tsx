@@ -23,6 +23,7 @@ export default function Card({ avatar }: { avatar: any }) {
   useEffect(() => {
     if (status === "done") {
       setTimeout(() => {
+        setStatus("");
         router.refresh();
       }, 1000);
     }
