@@ -49,7 +49,7 @@ const ModalCanvas = ({
   const [fullScreen, setFullScreen] = useState(false);
   const [playStatus, setPlayStauts] = useState(false);
   const [helpViewer, setHelpViewer] = useState(false);
-  const [progress, setProgress] = useState(false);
+  const [progress, setProgress] = useState(true);
 
   const cameraControlsRef = useRef<CameraControls>(null);
 
@@ -104,7 +104,7 @@ const ModalCanvas = ({
   return (
     <div
       id="canvas"
-      className="ph:absolute relative w-full h-full"
+      className="ph:absolute relative w-full h-full bg-[#FAF9F6]"
       onContextMenu={handleContextMenu}
     >
       {helpViewer && HelpViewer(setHelpViewer, isMobile)}
@@ -132,7 +132,7 @@ const ModalCanvas = ({
       )}
       <div className="absolute flex justify-center top-0 w-full h-full pointer-events-none z-10">
         <motion.div
-          className="absolute w-full h-full top-0 right-0"
+          className="absolute w-full h-full top-0 right-0 opacity-0"
           animate={captureMode ? { opacity: 1 } : { opacity: 0 }}
         >
           <div className="absolute flex justify-evenly w-full h-full">
@@ -215,7 +215,7 @@ function CaptureButton(
 ) {
   return (
     <motion.div
-      className="absolute flex flex-row justify-center bottom-[40px] w-full space-x-[32px] pointer-events-auto"
+      className="absolute flex flex-row justify-center bottom-[40px] w-full space-x-[32px] pointer-events-auto opacity-0"
       animate={captureMode ? { opacity: 1 } : { opacity: 0 }}
     >
       <div
