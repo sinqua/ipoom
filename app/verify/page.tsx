@@ -17,7 +17,11 @@ export default function Page() {
     if (status !== "loading") {
       verifyExist(session?.user.id).then((result) => {
         if (result) {
-          router.push(searchParams.get("callbackUrl") ?? `/${session?.user.id}`);
+          if (searchParams.get("callbackUrl") === "/") {
+            router.push(`/${session?.user.id}`);
+          } else {
+            router.push(`${searchParams.get("callbackUrl")}`);
+          }
         } else {
           router.push(callbackUrl);
         }
