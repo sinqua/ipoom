@@ -3,12 +3,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
+import clikemeGif from "@/public/clickme.gif";
+import featureImg from "@/public/feature.png";
+import socialImg from "@/public/social.png";
+
 import FeaturesBg from "@/public/images/features-bg.png";
 import FeaturesElement from "@/public/images/features-element.png";
 import ModalCanvas from "../modal/avatar-modal-canvas";
 
 export default function Features() {
   const [tab, setTab] = useState<number>(1);
+  const [clickme, setClickme] = useState(false);
 
   const tabs = useRef<HTMLDivElement>(null);
 
@@ -170,8 +175,26 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="w-full h-[430px] rounded border border-transparent overflow-hidden">
-                      <ModalCanvas modelUrl={"./hero.vrm"} animation={4} />
+                    <div className="relative w-full h-[430px] rounded border border-transparent overflow-hidden">
+                      {clickme ? (
+                        <ModalCanvas modelUrl={"./hero.vrm"} animation={4} />
+                      ) : (
+                        <div
+                          className="relative w-full h-full"
+                          onClick={() => setClickme(true)}
+                        >
+                          <Image
+                            src={featureImg}
+                            className="absolute top-0 left-0 w-full h-full"
+                            alt=""
+                          />
+                          <Image
+                            src={clikemeGif}
+                            className="object-cover absolute top-0 left-0 w-full h-full"
+                            alt=""
+                          />
+                        </div>
+                      )}
                     </div>
                   </Transition>
                   {/* Item 3 */}
@@ -188,10 +211,10 @@ export default function Features() {
                     beforeEnter={() => heightFix()}
                     unmount={false}
                   >
-                    <div className="relative inline-flex flex-col">
+                    <div className="relative inline-flex flex-col w-full h-[430px]">
                       <Image
-                        className="md:max-w-none mx-auto rounded"
-                        src={"/social.png"}
+                        className="w-full h-full"
+                        src={socialImg}
                         width={500}
                         height="462"
                         alt="Features bg"
