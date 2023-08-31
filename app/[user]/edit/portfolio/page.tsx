@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { user: string } }) {
       <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full space-y-[64px]">
         <Card>
           <CardHeader title={"작업"}>
-            업로드했던 작업물을 수정할 수 있어요.
+            저장된 캐릭터가 최신순으로 표시됩니다.
           </CardHeader>
           <div className="flex flex-col space-y-[24px]">
             {portfolios.map((portfolio: any, index: any) => {

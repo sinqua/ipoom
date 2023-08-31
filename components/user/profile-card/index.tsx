@@ -7,23 +7,13 @@ import MenuBar from "./menu-bar";
 import Link from "next/link";
 import emptyImg from "@/app/assets/images/empty.png";
 
-import {
-  getLink,
-  getProfile,
-} from "@/lib/supabase";
+import { getLink, getProfile } from "@/lib/supabase";
 
-export default async function ProfileCard({
-  userID,
-}: {
-  userID: string;
-}) {
+export default async function ProfileCard({ userID }: { userID: string }) {
   const profileData = getProfile(userID);
   const linkData = getLink(userID);
 
-  const [profile, link] = await Promise.all([
-    profileData,
-    linkData,
-  ]);
+  const [profile, link] = await Promise.all([profileData, linkData]);
 
   return (
     <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
@@ -43,8 +33,10 @@ export default async function ProfileCard({
         <p className="text-[24px] font-bold text-center">{profile.nickname}</p>
         <div className="ph:flex hidden flex-col space-y-[40px]">
           <div className="flex flex-col space-y-[16px]">
-            <p className="text-[16px] text-[#9D9D9D] font-semibold">설명</p>
-            <p className="whitespace-pre-line leading-[24px]">{profile.description}</p>
+            <p className="text-[16px] text-[#9D9D9D] font-semibold">소개</p>
+            <p className="whitespace-pre-line leading-[24px]">
+              {profile.description}
+            </p>
           </div>
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">태그</p>
@@ -65,7 +57,7 @@ export default async function ProfileCard({
         <div className="ph:hidden flex flex-wrap justify-center w-full">
           {profile.tags.map((item: any, index: any) => {
             return (
-              <p className="mr-[16px] mb-[10px] whitespace-nowrap" key={index}>
+              <p className="px-[8px] py-[4px] mr-[16px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap" key={index}>
                 {item.tag}
               </p>
             );

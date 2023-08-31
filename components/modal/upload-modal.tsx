@@ -55,14 +55,14 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
-  const content1Ref = useRef<HTMLDivElement>(null);
-  const content2Ref = useRef<HTMLDivElement>(null);
+  const pageTopRef = useRef<HTMLDivElement>(null);
+  const pageBottomRef = useRef<HTMLDivElement>(null);
 
-  const onContent1Click = () => {
-    content1Ref.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToTop = () => {
+    pageTopRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  const onContent2Click = () => {
-    content2Ref.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToBottom = () => {
+    pageBottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const options = [
@@ -124,7 +124,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
     setThumbnailImage(canvas.toDataURL());
 
-    onContent2Click();
+    scrollToBottom();
   }
 
   const onSavePortfolio = async () => {
@@ -173,6 +173,14 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
   };
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  useEffect(() => {
     if (status === "done") {
       setTimeout(() => {
         router.back();
@@ -186,7 +194,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
         <Background />
         <div
-          ref={content1Ref}
+          ref={pageTopRef}
           className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]"
         >
           <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
@@ -362,7 +370,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                     />
                   </div>
                   <div
-                    ref={content2Ref}
+                    ref={pageBottomRef}
                     className="flex flex-col space-y-[16px]"
                   >
                     <p className="font-semibold text-[#333333]">썸네일</p>
@@ -381,7 +389,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                           className="flex justify-center items-center w-full h-[42px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer"
                           onClick={() => {
                             setCaptureMode(true);
-                            onContent1Click();
+                            scrollToTop();
                           }}
                         >
                           촬영하기

@@ -13,7 +13,6 @@ export default function Nickname({ name }: { name: string | null }) {
   const [empty, setEmpty] = useState(true);
   const [duplication, setDuplication] = useState(false);
 
-  // 닉네임 중복 확인
   const onChangeNickname = async (nickname: string) => {
     setEmpty(nickname.length === 0 ? true : false);
 
@@ -28,10 +27,7 @@ export default function Nickname({ name }: { name: string | null }) {
   return (
     <Card>
       <CardHeader title={"닉네임"}>
-        타인에게 불쾌감을 주는 닉네임은 고객지원센터에서 임의로 변경할 수
-        있습니다.
-        <br />
-        닉네임 변경은 2달에 1회 진행할 수 있습니다.
+        한글, 영어, 띄어쓰기를 포함할 수 있습니다.
       </CardHeader>
       <div className="flex ph:w-auto w-full space-x-[16px]">
         <div className="flex items-center ph:w-[392px] w-auto ph:grow-0 grow h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
