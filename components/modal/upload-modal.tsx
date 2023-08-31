@@ -3,20 +3,20 @@ import Image from "next/image";
 import ModalCanvas from "@/components/modal/upload-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
-import { Dialog, Transition } from "@headlessui/react";
 import { useEffect, useRef, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { twMerge } from "tailwind-merge";
+import { v4 as uuidv4 } from "uuid";
 
 import emptyImg from "@/app/assets/images/empty.png";
 import saveImg from "@/app/assets/images/save.svg";
 
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { UploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
+import { uploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
 import {
-  addAvatar,
+  insertAvatar,
   addAvatarTags,
   updateAvatarThumbnail,
 } from "@/lib/supabase";
@@ -136,34 +136,13 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
     setStatus("save");
 
-    /* Python 서버 파일 업로드 */
-    const formData = new FormData();
-    formData.append("file", avatarFile);
-    formData.append("name", avatarFile.name);
-    if (session) formData.append("id", session?.user.id);
+    const uuid = uuidv4() + '.vrm';  
 
-    try {
-      const response = await fetch("http://127.0.0.1:8000", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        console.log("File uploaded successfully");
-      } else {
-        console.log("data ", formData);
-        console.error("Failed to upload file2");
-      }
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-    /* Python 서버 파일 업로드 끝 */
-
-    UploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
+    uploadAvatarFile(session?.user.id, uuid, avatarFile).then(
       async (data) => {
-        const avatarData = await addAvatar(
+        const avatarData = await insertAvatar(
           session?.user.id,
-          avatarFile,
+          uuid,
           avatarTitleInputRef.current.value,
           avatarDescriptionInputRef.current.value,
           avatarStatus === "전체 공개" ? true : false,
@@ -185,6 +164,8 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
             }
           );
         }
+
+        await optimizeAvatar(avatarFile, session, avatarData![0].id, uuid);
 
         setStatus("done");
       }
@@ -464,3 +445,28 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
     </div>
   );
 }
+async function optimizeAvatar(avatarFile: any, session: any, avatarId: number, uuid: string) {
+  const formData = new FormData();
+  formData.append("file", avatarFile);
+  formData.append("name", avatarFile.name);
+  formData.append("avatarId", avatarId.toString());
+  formData.append("uuid", uuid);
+  if (session) formData.append("id", session?.user.id);
+
+  try {
+    const response = await fetch("https://server.offing.me", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      console.log("File uploaded successfully");
+    } else {
+      console.log("data ", formData);
+      console.error("Failed to upload file2");
+    }
+  } catch (error) {
+    console.error("Error uploading file:", error);
+  }
+}
+

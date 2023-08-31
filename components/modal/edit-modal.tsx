@@ -13,9 +13,9 @@ import saveImg from "@/app/assets/images/save.svg";
 
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { UploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
+import { uploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
 import {
-  addAvatar,
+  insertAvatar,
   addAvatarTags,
   updateAvatar,
   updateAvatarName,
@@ -193,7 +193,7 @@ export default function EditModal({
       }
       /* Python 서버 파일 업로드 끝 */
 
-      UploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
+      uploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
         async (data) => {
           await updateAvatarName(avatar.id, avatarFile.name);
         }

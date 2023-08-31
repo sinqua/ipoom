@@ -11,7 +11,7 @@ export const CreateQuillUrl = async (filename: any) => {
 };
 
 // Upload file using standard upload
-export async function UploadAvatarFile(
+export async function uploadAvatarFile(
   userId: any,
   filename: any,
   file: any
