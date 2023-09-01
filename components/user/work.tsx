@@ -49,7 +49,7 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
           </div>
         </div>
       </Link>
-      <Cover avatar={avatar.id} status={avatar.optimized}/>
+      {/* <Cover avatar={avatar.id} status={avatar.optimized}/> */}
     </div>
   );
 }

@@ -9,8 +9,6 @@ import Image from "next/image";
 import menuImg from "@/app/assets/images/menu.svg";
 import moopiLogo from "@/app/assets/logos/moopi.svg";
 
-import UploadWork from "./upload-work";
-
 export default function MobileNavbar({
   children,
 }: {
@@ -57,7 +55,7 @@ export default function MobileNavbar({
             leaveFrom="translate-x-0"
             leaveTo="translate-x-[-100%]"
           >
-            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-[280px] flex-col bg-white dark:bg-black">
+            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-[100svh] w-[280px] flex-col bg-white dark:bg-black">
               <div className="flex flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]">
                 <div className="px-[32px] py-[24px]">
                   <Link href="/" title="Go to homepage">
