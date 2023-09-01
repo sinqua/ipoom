@@ -13,19 +13,20 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
   const betweenTimeWeek = Math.floor(betweenTime / 60 / 24 / 7);
 
   return (
-    <div className="relative w-full dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden">
-      <Link
-        href={`/${user}/avatar/${avatar.id}`}
+    <div className="relative w-auto dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden">
+      <div
         className="relative w-full h-full cursor-pointer rounded-[8px] overflow-hidden"
       >
-        <Image
-          src={avatar.thumbnailUrl}
-          width={512}
-          height={512}
-          className="object-cover w-full h-full"
-          alt=""
-        />
-        <div className="absolute bottom-0 flex flex-col justify-between items-center w-full h-[61px] p-[8px] bg-black/20 backdrop-blur-[3px] text-[#FFFFFF]">
+        <Link href={`/${user}/avatar/${avatar.id}`}>
+          <Image
+            src={avatar.thumbnailUrl}
+            width={512}
+            height={512}
+            className="object-cover w-full h-full"
+            alt=""
+          />
+        </Link>
+        <div className="absolute bottom-0 flex flex-col justify-between items-center w-full h-[61px] p-[8px] bg-black/20 backdrop-blur-[3px] text-[#FFFFFF] pointer-events-none">
           <div className="flex justify-between items-center w-full">
             <p className="text-[16px] font-semibold">{avatar.name}</p>
             <p className="text-[12px]">
@@ -48,8 +49,8 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
             </p>
           </div>
         </div>
-      </Link>
-      {/* <Cover avatar={avatar.id} status={avatar.optimized}/> */}
+      </div>
+      <Cover avatar={avatar.id} status={avatar.optimized}/>
     </div>
   );
 }
