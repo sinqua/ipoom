@@ -75,62 +75,6 @@ export default function Hero() {
                 {/* 무피 */}
               </span>
             </h1>
-            {/* <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 whitespace-pre-line flex"
-              data-aos="zoom-y-out"
-            >
-              <span className="">캐릭터,</span>
-              <span className="">포트폴리오,</span>
-              <span className="">수익창출,</span>
-            </h1>
-            <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 whitespace-pre-line"
-              data-aos="zoom-y-out"
-            >
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-                한 곳에서
-              </span>
-            </h1> */}
-            {/* <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
-              data-aos="zoom-y-out"
-            >
-              버츄얼 캐릭터 커뮤니티
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-                무피
-              </span>
-            </h1>
-            <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
-              data-aos="zoom-y-out"
-            >
-              커뮤니티, 커미션
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-                버츄얼 캐릭터
-              </span>
-            </h1>
-            <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
-              data-aos="zoom-y-out"
-            >
-              캐릭터 크리에이터 커뮤니티
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-                무피
-              </span>
-            </h1>
-            <h1
-              className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
-              data-aos="zoom-y-out"
-            >
-              아바타 창작의 즐거움
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-                무피
-              </span>
-            </h1> */}
 
             <div className="max-w-3xl mx-auto">
 
@@ -160,17 +104,17 @@ export default function Hero() {
                 <div>
                   <a
                     className="btn text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0"
-                    href="/6064c1dd-071b-42e4-92e4-d0989aed4ebc"
+                    href="/login"
                   >
-                    둘러보기
+                    시작하기
                   </a>
                 </div>
                 <div>
                   <a
                     className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
-                    href="/login"
+                    href="/6064c1dd-071b-42e4-92e4-d0989aed4ebc"
                   >
-                    시작하기
+                    둘러보기
                   </a>
                 </div>
               </div>
