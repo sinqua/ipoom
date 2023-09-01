@@ -167,6 +167,7 @@ export const insertAvatar = async (
         description: avatarDescription,
         visible: visible,
         animation: animation,
+        optimized: false,
       },
     ])
     .select();
