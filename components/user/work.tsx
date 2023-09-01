@@ -49,9 +49,7 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
           </div>
         </div>
       </Link>
-      {!avatar.optimized && (
-        <Cover />
-      )}
+      <Cover avatar={avatar.id} status={avatar.optimized}/>
     </div>
   );
 }

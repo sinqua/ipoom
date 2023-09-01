@@ -71,6 +71,7 @@ export interface Database {
           visible: boolean | null
           vrm: string | null
           updated_at: string | null
+          optimized: boolean | null
         }
         Insert: {
           animation?: number | null
@@ -83,6 +84,8 @@ export interface Database {
           user_id?: string | null
           visible?: boolean | null
           vrm?: string | null
+          optimized?: boolean | null
+
         }
         Update: {
           animation?: number | null
@@ -95,6 +98,8 @@ export interface Database {
           user_id?: string | null
           visible?: boolean | null
           vrm?: string | null
+          optimized?: boolean | null
+
         }
         Relationships: [
           {
