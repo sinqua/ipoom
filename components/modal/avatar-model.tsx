@@ -85,7 +85,7 @@ const Model: FC<ModelProps> = ({
     });
 
     loader.load(
-      modelUrl? modelUrl : "/Karin_spring.vrm",
+      modelUrl!,
       async (gltf) => {
         setProgress(true);
 

@@ -12,8 +12,6 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
   const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
   const betweenTimeWeek = Math.floor(betweenTime / 60 / 24 / 7);
 
-  console.log("avatar", avatar);
-
   return (
     <div className="relative w-full dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden">
       <Link
