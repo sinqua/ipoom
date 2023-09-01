@@ -20,7 +20,6 @@ import {
   addAvatarTags,
   updateAvatarThumbnail,
 } from "@/lib/supabase";
-
 import FadeLoader from "react-spinners/FadeLoader";
 
 export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
@@ -48,8 +47,6 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
   const [avatarTags, setAvatarTags] = useState<any>(null);
 
-  // const [done, setDone] = useState<boolean>(false);
-  // const [modal, setModal] = useState<boolean>(false);
   const [status, setStatus] = useState("");
 
   const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
@@ -65,18 +62,6 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
     pageBottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const options = [
-    { value: "전체 공개", label: "전체 공개" },
-    { value: "나만 보기", label: "나만 보기" },
-  ];
-
-  const animationOptions = [
-    { value: 4, label: "Idle" },
-    { value: 1, label: "HipHopDancing" },
-    { value: 2, label: "PutYourHandsUp" },
-    { value: 3, label: "Thankful" },
-  ];
-
   const loadAnimation = (e: any) => {
     setAnimationValue(e.value);
     setAnimation(e.label);
@@ -84,10 +69,16 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
   const loadAvatarFile = (e: any) => {
     setModelUrl(null);
-    // setProgress(false);
     const file = avatarFileInputRef.current.files[0];
 
     if (!file) return;
+
+    if (file.size >= MAX_FILE_SIZE) {
+      alert("50MB 이상의 파일은 업로드할 수 없습니다");
+      avatarFileNameInputRef.current.value = "";
+      avatarFileInputRef.current.value = "";
+      return;
+    }
 
     setAvatarFile(avatarFileInputRef.current.files[0]);
 
@@ -102,6 +93,14 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
   const handleFileInputChange = (event: any) => {
     const file = event.target.files[0];
+
+    if (file.size >= MAX_FILE_SIZE) {
+      alert("50MB 이상의 파일은 업로드할 수 없습니다");
+      avatarFileNameInputRef.current.value = "";
+      avatarFileInputRef.current.value = "";
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -222,10 +221,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                         "w-full h-[35px] px-[14px] rounded-[10px] bg-white border-solid border-[1px] outline-none",
                         borderColor
                       )}
-                      placeholder="타이틀을 입력해주세요."
-                      // onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      //   onChangeNickname(event.target.value);
-                      // }}
+                      placeholder="타이틀을 입력해주세요"
                     ></input>
                     <div className="!mt-[5px] pl-[5px] text-red-500">
                       {isEmpty ? "아바타 이름이 필요합니다" : ""}
@@ -242,7 +238,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                           "w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none",
                           borderColor
                         )}
-                        placeholder="아바타 파일을 등록해주세요"
+                        placeholder="VRM 파일을 등록해주세요"
                       />
                       <form>
                         <label htmlFor="avatarFile">
@@ -254,6 +250,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                           className="hidden"
                           type="file"
                           id="avatarFile"
+                          accept=".vrm"
                           onChange={loadAvatarFile}
                           ref={avatarFileInputRef}
                         />
@@ -268,11 +265,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                     <textarea
                       ref={avatarDescriptionInputRef}
                       className="w-full h-[126px] p-[16px] rounded-[10px] resize-none bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
-                      placeholder="자기소개를 입력해주세요."
-                      // value={profile.description}
-                      // onChange={() =>
-                      //   setTextareaCount(inputDescriptionRef.current.value.length)
-                      // }
+                      placeholder="설명을 입력해주세요"
                     />
                   </div>
                   <div className="flex flex-col space-y-[16px]">
@@ -478,3 +471,16 @@ async function optimizeAvatar(avatarFile: any, session: any, avatarId: number, u
   }
 }
 
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+
+const options = [
+  { value: "전체 공개", label: "전체 공개" },
+  { value: "나만 보기", label: "나만 보기" },
+];
+
+const animationOptions = [
+  { value: 4, label: "Idle" },
+  { value: 1, label: "HipHopDancing" },
+  { value: 2, label: "PutYourHandsUp" },
+  { value: 3, label: "Thankful" },
+];
