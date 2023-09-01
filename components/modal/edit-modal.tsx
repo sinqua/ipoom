@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { twMerge } from "tailwind-merge";
+import { v4 as uuidv4 } from "uuid";
 
 import emptyImg from "@/app/assets/images/empty.png";
 import saveImg from "@/app/assets/images/save.svg";
@@ -170,34 +171,17 @@ export default function EditModal({
     }
 
     if (avatarFile) {
-      /* Python 서버 파일 업로드 */
-      const formData = new FormData();
-      formData.append("file", avatarFile);
-      formData.append("name", avatarFile.name);
-      if (session) formData.append("id", session?.user.id);
+      const uuid = uuidv4() + ".vrm";
 
-      try {
-        const response = await fetch("https://server.offing.me", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (response.ok) {
-          console.log("File uploaded successfully");
-        } else {
-          console.log("data ", formData);
-          console.error("Failed to upload file2");
-        }
-      } catch (error) {
-        console.error("Error uploading file:", error);
-      }
-      /* Python 서버 파일 업로드 끝 */
-
-      uploadAvatarFile(session?.user.id, avatarFile.name, avatarFile).then(
+      uploadAvatarFile(session?.user.id, uuid, avatarFile).then(
         async (data) => {
-          await updateAvatarName(avatar.id, avatarFile.name);
+          await updateAvatarName(avatar.id, uuid);
         }
       );
+
+      setStatus("done");
+
+      await optimizeAvatar(avatarFile, session, avatar.id, uuid);
     }
 
     setStatus("done");
@@ -474,6 +458,30 @@ export default function EditModal({
       </div>
     </div>
   );
+}
+async function optimizeAvatar(avatarFile: any, session: any, avatarId: number, uuid: string) {
+  const formData = new FormData();
+  formData.append("file", avatarFile);
+  formData.append("name", avatarFile.name);
+  formData.append("avatarId", avatarId.toString());
+  formData.append("uuid", uuid);
+  if (session) formData.append("id", session?.user.id);
+
+  try {
+    const response = await fetch("https://server.offing.me", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      console.log("File uploaded successfully");
+    } else {
+      console.log("data ", formData);
+      console.error("Failed to upload file2");
+    }
+  } catch (error) {
+    console.error("Error uploading file:", error);
+  }
 }
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
