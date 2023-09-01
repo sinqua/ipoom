@@ -63,6 +63,11 @@ main {
   font-size: 0.67em;
 }
 
+.ql-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
