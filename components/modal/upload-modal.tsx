@@ -163,10 +163,9 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
             }
           );
         }
+        setStatus("done");
 
         await optimizeAvatar(avatarFile, session, avatarData![0].id, uuid);
-
-        setStatus("done");
       }
     );
   };
