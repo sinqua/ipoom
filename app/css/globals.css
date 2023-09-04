@@ -90,6 +90,10 @@ main {
   counter-increment: list-0;
 }
 
+.ql-container {
+  display: table;
+}
+
 .ql-video {
   width: 100%;
   aspect-ratio: 16 / 9;

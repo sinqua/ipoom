@@ -77,7 +77,7 @@ const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
   return (
     <>
       <button
-        className="flex justify-center items-center w-[60px] h-[47px] text-white bg-[#368ADC] rounded-[10px]"
+        className="flex justify-center items-center shrink-0 w-[60px] h-[47px] text-white bg-[#368ADC] rounded-[10px]"
         onClick={handleClick}
       >
         저장

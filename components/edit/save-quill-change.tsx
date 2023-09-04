@@ -40,7 +40,7 @@ export default function SaveQuillChange({
   return (
     <>
       <button
-        className="flex justify-center items-center w-[60px] h-[47px] text-white bg-[#368ADC] rounded-[10px]"
+        className="flex justify-center items-center w-[60px] ph:h-[47px] h-[34px] text-white bg-[#368ADC] rounded-[10px]"
         onClick={handleClick}
       >
         저장
