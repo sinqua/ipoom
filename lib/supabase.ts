@@ -76,7 +76,7 @@ export const getUserDetail = async (id: string) => {
 
 export const validateNickname = async (nickname: string) => {
   const { data, error } = await supabaseAuth
-    .from("users")
+    .from("profiles")
     .select(`*`)
     .eq("nickname", nickname);
 
