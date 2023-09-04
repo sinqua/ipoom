@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import moopiLogo from "@/app/assets/logos/moopi.svg";
+import moopiWhiteLogo from "@/app/assets/logos/moopi_white.svg";
 import offingLogo from "@/app/assets/logos/offing.svg";
 import KakaoLogin from "@/components/login/KakaoLogin";
 import TwitterLogin from "@/components/login/TwitterLogin";
@@ -13,7 +14,7 @@ import loginBg from "@/public/LoginBackground.png";
 export default function Page() {
   return (
     <div className="flex flex-row h-full font-sans text-[#333333]">
-      <div className="dt:block hidden grow-0 w-[514px]">
+      <div className="relative dt:block hidden grow-0 w-[514px]">
         <Image
           className="object-cover w-full h-full"
           src={loginBg}
@@ -21,6 +22,14 @@ export default function Page() {
           loading="eager"
           priority
         />
+        <Image
+          className="absolute top-[24px] left-[24px] w-auto h-[40px]"
+          src={moopiWhiteLogo}
+          alt=""
+          loading="eager"
+          priority
+        />
+        <p className="absolute bottom-[24px] left-[24px] text-[16px] text-[#FFFFFF]">Kyul by kuromi</p>
       </div>
       <div className="flex flex-col justify-center items-center grow space-y-[40px]">
         <Image
