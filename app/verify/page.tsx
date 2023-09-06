@@ -15,8 +15,9 @@ export default function Page() {
 
   useEffect(() => {
     if (status !== "loading") {
-      verifyExist(session?.user.id).then((result) => {
-        if (result) {
+      verifyExist(session?.user.id).then((isExist) => {
+        console.log("result", isExist)
+        if (isExist) {
           if (searchParams.get("callbackUrl") === "/") {
             router.push(`/${session?.user.id}`);
           } else {
@@ -33,15 +34,16 @@ export default function Page() {
 }
 
 const verifyExist = (userID: any) => {
+
   return supabase
     .from("profiles")
     .select()
     .eq("user_id", userID)
     .then(({ data, error }) => {
-      if (data?.length === 0) {
-        return false;
-      } else {
+      if (data) {
         return true;
+      } else {
+        return false;
       }
     });
 };
