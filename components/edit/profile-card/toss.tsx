@@ -19,7 +19,7 @@ export default function Toss({ link }: { link: any }) {
           <input
             type="text"
             ref={inputRef}
-            className="grow h-full outline-none text-sm"
+            className="w-full h-full outline-none text-sm"
             placeholder="토스아이디 URL을 입력해주세요."
             defaultValue={link ? link : ""}
           ></input>

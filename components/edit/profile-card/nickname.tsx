@@ -34,7 +34,7 @@ export default function Nickname({ name }: { name: string | null }) {
           <input
             type="text"
             ref={inputRef}
-            className="grow h-full outline-none text-sm"
+            className="w-full h-full outline-none text-sm"
             placeholder="닉네임을 입력해주세요."
             defaultValue={name ? name : ""}
             onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
