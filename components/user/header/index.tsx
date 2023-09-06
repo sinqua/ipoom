@@ -8,12 +8,12 @@ export default function Header() {
       <div className="relative dt:max-w-[1008px] w-full ph:h-[115px] h-auto flex justify-between items-center dt:px-0 px-[16px] bg-white font-sm text-[14px]">
         <div className="grid w-full h-full">
           <div className="flex dt:justify-start justify-center items-center dt:h-[80px] h-[64px]">
-            <p className="ph:text-[24px] text-[20px] font-bold">포트폴리오</p>
+            <p className="ph:text-[24px] text-[20px] font-bold">프로필</p>
             {/* <Button style="absolute right-[16px] ph:hidden flex">저장</Button> */}
           </div>
           <Suspense>
             <Menu>
-              <Item>작업</Item>
+              <Item>아바타</Item>
               <Item>커미션 안내</Item>
               <Item>비용 안내</Item>
             </Menu>

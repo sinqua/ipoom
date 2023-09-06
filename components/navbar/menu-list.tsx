@@ -18,7 +18,7 @@ export default async function MenuList() {
         홈
       </Item>
       <Item imgSrc={portfolioImg} url={`${userId}`}>
-        포트폴리오
+        프로필
       </Item>
       <Item imgSrc={mypageImg} url={`${userId}/edit`}>
         마이페이지
