@@ -20,6 +20,7 @@ export default async function Page({ params }: { params: { user: string } }) {
     linkData,
     mostUsedTagsData,
   ]);
+  
 
   return (
     <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
