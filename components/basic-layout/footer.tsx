@@ -6,9 +6,9 @@ export default function Footer() {
   return (
     <div className="flex justify-center w-full py-[80px] bg-[#F6F6F6] text-[14px]">
       <div className="flex ph:flex-row flex-col justify-between ph:items-start items-center dt:max-w-[1008px] w-full px-[32px] dt:space-x-0 ph:space-x-[150px] space-x-0 ph:space-y-0 space-y-[40px]">
-        <div className="flex flex-col ph:items-start items-center w-[310px]">
+        <div className="flex flex-col ph:items-start items-center ph:w-[310px] w-full">
           <Image src={moopiLogo} className="w-[40px] h-[40px]" alt="" />
-          <div className="w-[270px] mt-[24px] ph:text-left text-center">
+          <div className="w-full mt-[24px] ph:text-left text-center">
             Moopy is a platform that helps people access 3D content more easily.
             Find your avatar right now
           </div>

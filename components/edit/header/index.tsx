@@ -8,7 +8,6 @@ export default function Header() {
         <div className="grid w-full h-full">
           <div className="flex dt:justify-start justify-center items-center dt:h-[80px] h-[64px]">
             <p className="ph:text-[24px] text-[20px] font-bold">마이페이지</p>
-            {/* <Button style="absolute right-[16px] ph:hidden flex">저장</Button> */}
           </div>
           <Menu>
             <Item>프로필카드</Item>
@@ -17,7 +16,6 @@ export default function Header() {
             <Item>비용 안내</Item>
           </Menu>
         </div>
-        {/* <Button style="ph:flex hidden">저장하기</Button> */}
       </div>
     </div>
   );

@@ -9,7 +9,6 @@ export default function Header() {
         <div className="grid w-full h-full">
           <div className="flex dt:justify-start justify-center items-center dt:h-[80px] h-[64px]">
             <p className="ph:text-[24px] text-[20px] font-bold">프로필</p>
-            {/* <Button style="absolute right-[16px] ph:hidden flex">저장</Button> */}
           </div>
           <Suspense>
             <Menu>
@@ -19,7 +18,6 @@ export default function Header() {
             </Menu>
           </Suspense>
         </div>
-        {/* <Button style="ph:flex hidden">저장하기</Button> */}
       </div>
     </div>
   );
