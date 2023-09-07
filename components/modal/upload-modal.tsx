@@ -451,6 +451,7 @@ async function optimizeAvatar(avatarFile: any, session: any, avatarId: number, u
   formData.append("name", avatarFile.name);
   formData.append("avatarId", avatarId.toString());
   formData.append("uuid", uuid);
+  formData.append("supabaseUrl", process.env.NEXT_PUBLIC_SUPABASE_URL!);
   if (session) formData.append("id", session?.user.id);
 
   try {

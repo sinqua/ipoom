@@ -40,7 +40,7 @@ const verifyExist = (userID: any) => {
     .select()
     .eq("user_id", userID)
     .then(({ data, error }) => {
-      if (data) {
+      if (data!.length > 0) {
         return true;
       } else {
         return false;
