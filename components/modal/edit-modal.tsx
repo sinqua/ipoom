@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import ModalCanvas from "@/components/modal/edit-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
 import { useEffect, useRef, useState } from "react";
@@ -22,6 +21,9 @@ import {
   updateAvatarThumbnail,
 } from "@/lib/supabase";
 import FadeLoader from "react-spinners/FadeLoader";
+import Viewer from "./viewer";
+import Grid from "./grid";
+import Camera from "./camera";
 
 export default function EditModal({
   avatar,
@@ -214,15 +216,20 @@ export default function EditModal({
         >
           <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
             <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
-              <ModalCanvas
-                canvasRef={canvasRef}
+              <Viewer
                 modelUrl={modelUrl}
                 animation={animation}
-                setAnimation={setAnimation}
+                canvasRef={canvasRef}
                 captureMode={captureMode}
-                setCaptureMode={setCaptureMode}
-                takeCapture={takeCapture}
-              />
+                status={false}
+              >
+                <Grid captureMode={captureMode} />
+                <Camera
+                  captureMode={captureMode}
+                  takeCapture={takeCapture}
+                  setCaptureMode={setCaptureMode}
+                />
+              </Viewer>
             </div>
             <div className="p-[24px] bg-[#FFFFFF]">
               <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto space-y-[24px] text-[14px] overflow-y-scroll scrollbar-hide">
@@ -459,7 +466,12 @@ export default function EditModal({
     </div>
   );
 }
-async function optimizeAvatar(avatarFile: any, session: any, avatarId: number, uuid: string) {
+async function optimizeAvatar(
+  avatarFile: any,
+  session: any,
+  avatarId: number,
+  uuid: string
+) {
   const formData = new FormData();
   formData.append("file", avatarFile);
   formData.append("name", avatarFile.name);

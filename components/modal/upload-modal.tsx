@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import ModalCanvas from "@/components/modal/upload-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
 import { useEffect, useRef, useState } from "react";
@@ -21,6 +20,9 @@ import {
   updateAvatarThumbnail,
 } from "@/lib/supabase";
 import FadeLoader from "react-spinners/FadeLoader";
+import Viewer from "./viewer";
+import Grid from "./grid";
+import Camera from "./camera";
 
 export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
   const router = useRouter();
@@ -135,39 +137,37 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
     setStatus("save");
 
-    const uuid = uuidv4() + '.vrm';  
+    const uuid = uuidv4() + ".vrm";
 
-    uploadAvatarFile(session?.user.id, uuid, avatarFile).then(
-      async (data) => {
-        const avatarData = await insertAvatar(
-          session?.user.id,
-          uuid,
-          avatarTitleInputRef.current.value,
-          avatarDescriptionInputRef.current.value,
-          avatarStatus === "전체 공개" ? true : false,
-          animationValue
-        );
+    uploadAvatarFile(session?.user.id, uuid, avatarFile).then(async (data) => {
+      const avatarData = await insertAvatar(
+        session?.user.id,
+        uuid,
+        avatarTitleInputRef.current.value,
+        avatarDescriptionInputRef.current.value,
+        avatarStatus === "전체 공개" ? true : false,
+        animationValue
+      );
 
-        if (avatarTags) {
-          await addAvatarTags(avatarData![0].id, avatarTags);
-        }
-
-        if (typeof thumbnailImage === "string") {
-          UploadAvatarThumbnailFile(session?.user.id, thumbnailImage).then(
-            async (uuid) => {
-              await updateAvatarThumbnail(
-                session?.user.id,
-                uuid,
-                avatarData![0].id
-              );
-            }
-          );
-        }
-        setStatus("done");
-
-        await optimizeAvatar(avatarFile, session, avatarData![0].id, uuid);
+      if (avatarTags) {
+        await addAvatarTags(avatarData![0].id, avatarTags);
       }
-    );
+
+      if (typeof thumbnailImage === "string") {
+        UploadAvatarThumbnailFile(session?.user.id, thumbnailImage).then(
+          async (uuid) => {
+            await updateAvatarThumbnail(
+              session?.user.id,
+              uuid,
+              avatarData![0].id
+            );
+          }
+        );
+      }
+      setStatus("done");
+
+      await optimizeAvatar(avatarFile, session, avatarData![0].id, uuid);
+    });
   };
 
   useEffect(() => {
@@ -197,15 +197,20 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
         >
           <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
             <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
-              <ModalCanvas
-                canvasRef={canvasRef}
+              <Viewer
                 modelUrl={modelUrl}
                 animation={animation}
-                setAnimation={setAnimation}
+                canvasRef={canvasRef}
                 captureMode={captureMode}
-                setCaptureMode={setCaptureMode}
-                takeCapture={takeCapture}
-              />
+                status={true}
+              >
+                <Grid captureMode={captureMode} />
+                <Camera
+                  captureMode={captureMode}
+                  takeCapture={takeCapture}
+                  setCaptureMode={setCaptureMode}
+                />
+              </Viewer>
             </div>
             <div className="p-[24px] bg-[#FFFFFF]">
               <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto space-y-[24px] text-[14px] overflow-y-scroll scrollbar-hide">
@@ -445,7 +450,12 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
     </div>
   );
 }
-async function optimizeAvatar(avatarFile: any, session: any, avatarId: number, uuid: string) {
+async function optimizeAvatar(
+  avatarFile: any,
+  session: any,
+  avatarId: number,
+  uuid: string
+) {
   const formData = new FormData();
   formData.append("file", avatarFile);
   formData.append("name", avatarFile.name);
