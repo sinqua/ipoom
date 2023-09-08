@@ -23,7 +23,7 @@ export async function generateMetadata(
       description: avatar.description
         ? avatar.description!
         : `${profile.nickname}님의 아바타 [${avatar.name}] 입니다.`,
-      images: [...previousImages, image],
+      images: [image,...previousImages],
     },
   };
 }
