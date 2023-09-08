@@ -15,6 +15,7 @@ export async function generateMetadata(
   const avatar = await getAvatar(params.avatar);
 
   const previousImages = (await parent).openGraph?.images || []
+  const image = profile.background ? profile.background : ""
 
   return {
     openGraph: {
@@ -22,7 +23,7 @@ export async function generateMetadata(
       description: avatar.description
         ? avatar.description!
         : `${profile.nickname}님의 아바타 [${avatar.name}] 입니다.`,
-      images: [...previousImages, avatar.thumbnail!],
+      images: [...previousImages, image],
     },
   };
 }
