@@ -5,7 +5,7 @@ import Work from "@/components/user/work";
 export const revalidate = 0;
 
 type Props = {
-  params: { id: string }
+  params: { user: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
@@ -14,7 +14,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const id = params.id;
+  const user = params.user;
 
   // fetch data
 
@@ -23,9 +23,9 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: id,
+    title: user,
     openGraph: {
-      title: id
+      title: user
       // images: ["/some-specific-page-image.jpg", ...previousImages],
     },
   };
