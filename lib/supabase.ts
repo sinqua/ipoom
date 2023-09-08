@@ -2,7 +2,7 @@ import { supabase, supabaseAuth } from "./database";
 
 export const generatePublicUrl = (storage: string, path: string) => {
   const supabasePublic =
-    "https://tpwylybqvkzcsrmbctnj.supabase.co/storage/v1/object/public";
+    `https://${process.env.NEXT_PUBLIC_SUPABASE_NAME}/storage/v1/object/public`;
   return `${supabasePublic}/${storage}/${path}`;
 };
 
@@ -132,7 +132,9 @@ export const getAvatar = async (id: string) => {
     }
 
     return { ...avatarData, thumbnailUrl: url };
-  } else return null;
+  } else {
+    throw new Error("Avatar not found");
+  };
 };
 
 export const createModelUrl = async (userId: string, filename: any) => {
@@ -258,7 +260,7 @@ export const updateAvatarTags = async (avatarId: any, avatarTags: any) => {
     .delete()
     .eq("avatar_id", avatarId);
 
-    const { data: tagsData, error: tagsError } = await supabase
+  const { data: tagsData, error: tagsError } = await supabase
     .from("tags")
     .insert(
       avatarTags

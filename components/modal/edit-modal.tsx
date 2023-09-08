@@ -1,15 +1,10 @@
 "use client";
 import Image from "next/image";
-import ModalCanvas from "@/components/modal/edit-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
 import { useEffect, useRef, useState } from "react";
-import CreatableSelect from "react-select/creatable";
-import Select from "react-select";
-import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
 
-import emptyImg from "@/app/assets/images/empty.png";
 import saveImg from "@/app/assets/images/save.svg";
 
 import { useRouter } from "next/navigation";
@@ -22,6 +17,16 @@ import {
   updateAvatarThumbnail,
 } from "@/lib/supabase";
 import FadeLoader from "react-spinners/FadeLoader";
+import Viewer from "./viewer";
+import Grid from "./grid";
+import Camera from "./camera";
+import Title from "./input-field/title";
+import Avatar from "./input-field/avatar";
+import Description from "./input-field/description";
+import Tag from "./input-field/tag";
+import Visible from "./input-field/visible";
+import Animation from "./input-field/animation";
+import Thumbnail from "./input-field/thumbnail";
 
 export default function EditModal({
   avatar,
@@ -72,9 +77,6 @@ export default function EditModal({
   const pageTopRef = useRef<HTMLDivElement>(null);
   const pageBottomRef = useRef<HTMLDivElement>(null);
 
-  const scrollToTop = () => {
-    pageTopRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
   const scrollToBottom = () => {
     pageBottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -106,25 +108,6 @@ export default function EditModal({
     reader.onloadend = () => {
       setModelUrl(reader.result);
     };
-  };
-
-  const handleFileInputChange = (event: any) => {
-    const file = event.target.files[0];
-
-    if (file.size >= MAX_FILE_SIZE) {
-      alert("50MB 이상의 파일은 업로드할 수 없습니다");
-      avatarFileNameInputRef.current.value = "";
-      avatarFileInputRef.current.value = "";
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      setThumbnailImage(reader.result);
-    };
-
-    reader.readAsDataURL(file);
   };
 
   const canvasRef = useRef<any>(null);
@@ -214,210 +197,65 @@ export default function EditModal({
         >
           <div className="relative w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
             <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
-              <ModalCanvas
-                canvasRef={canvasRef}
+              <Viewer
                 modelUrl={modelUrl}
                 animation={animation}
-                setAnimation={setAnimation}
+                canvasRef={canvasRef}
                 captureMode={captureMode}
-                setCaptureMode={setCaptureMode}
-                takeCapture={takeCapture}
-              />
+                status={false}
+              >
+                <Grid captureMode={captureMode} />
+                <Camera
+                  captureMode={captureMode}
+                  takeCapture={takeCapture}
+                  setCaptureMode={setCaptureMode}
+                />
+              </Viewer>
             </div>
             <div className="p-[24px] bg-[#FFFFFF]">
               <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto space-y-[24px] text-[14px] overflow-y-scroll scrollbar-hide">
                 <p className="text-[24px] font-semibold">업로드</p>
                 <div className="flex flex-col space-y-[40px]">
-                  <div className="flex flex-col space-y-[16px]">
-                    <p className="font-semibold text-[#333333]">타이틀</p>
-                    <input
-                      type="text"
-                      ref={avatarTitleInputRef}
-                      className={twMerge(
-                        "w-full h-[35px] px-[14px] rounded-[10px] bg-white border-solid border-[1px] outline-none",
-                        borderColor
-                      )}
-                      placeholder="타이틀을 입력해주세요"
-                      defaultValue={avatar.name}
-                    ></input>
-                    <div className="!mt-[5px] pl-[5px] text-red-500">
-                      {isEmpty ? "아바타 이름이 필요합니다" : ""}
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-[16px]">
-                    <p className="font-semibold text-[#333333]">파일</p>
-                    <div className="flex space-x-[16px]">
-                      <input
-                        type="text"
-                        ref={avatarFileNameInputRef}
-                        disabled
-                        className="w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none"
-                        placeholder="VRM 파일을 등록해주세요"
-                        defaultValue={avatar.vrm}
-                      />
-                      <form>
-                        <label htmlFor="avatarFile">
-                          <div className="flex justify-center items-center w-[56px] h-[35px] bg-[#368ADC] rounded-[10px] text-[#FFFFFF] cursor-pointer">
-                            변경
-                          </div>
-                        </label>
-                        <input
-                          className="hidden"
-                          type="file"
-                          id="avatarFile"
-                          accept=".vrm"
-                          onChange={loadAvatarFile}
-                          ref={avatarFileInputRef}
-                        />
-                      </form>
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-[16px]">
-                    <p className="font-semibold text-[#333333]">설명</p>
-                    <textarea
-                      ref={avatarDescriptionInputRef}
-                      className="w-full h-[126px] p-[16px] rounded-[10px] resize-none bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
-                      placeholder="설명을 입력해주세요"
-                      defaultValue={avatar.description}
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-[16px]">
-                    <p className="font-semibold text-[#333333]">태그</p>
-                    <CreatableSelect
-                      isMulti
-                      options={mostUsedTags}
-                      value={avatarTags}
-                      instanceId={""}
-                      onChange={(e: any) => {
-                        setAvatarTags(e);
-                      }}
-                      className="flex items-center w-full h-[35px] px-[1px]"
-                      placeholder={"태그를 입력해주세요"}
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          height: "100%",
-                          width: "100%",
-                          borderRadius: "10px",
-                        }),
-                        placeholder: (baseStyles, state) => ({
-                          ...baseStyles,
-                          color: "#CCCCCC",
-                        }),
-                      }}
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-[16px]">
-                    <p className="font-semibold text-[#333333]">공개 범위</p>
-                    <Select
-                      className="basic-single px-[1px]"
-                      classNamePrefix="select"
-                      value={options.filter((option: any) => {
-                        return option.label === avatarStatus;
-                      })}
-                      options={options}
-                      onChange={(e: any) => setAvatarStatus(e.label)}
-                      isSearchable={false}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary: "#2778C7",
-                        },
-                      })}
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          height: "100%",
-                          width: "100%",
-                          backgroundColor: "#FFFFFF80",
-                          borderRadius: "10px",
-                          paddingLeft: "14px",
-                        }),
-                        valueContainer: (baseStyles, state) => ({
-                          ...baseStyles,
-                          padding: "0",
-                        }),
-                      }}
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-[16px]">
-                    <p className="font-semibold text-[#333333]">애니메이션</p>
-                    <Select
-                      className="basic-single px-[1px]"
-                      classNamePrefix="select"
-                      value={animationOptions.filter((option: any) => {
-                        return option.label === animation;
-                      })}
-                      options={animationOptions}
-                      onChange={(e: any) => loadAnimation(e)}
-                      isSearchable={false}
-                      theme={(theme) => ({
-                        ...theme,
-                        colors: {
-                          ...theme.colors,
-                          primary: "#2778C7",
-                        },
-                      })}
-                      styles={{
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          height: "100%",
-                          width: "100%",
-                          backgroundColor: "#FFFFFF80",
-                          borderRadius: "10px",
-                          paddingLeft: "14px",
-                        }),
-                        valueContainer: (baseStyles, state) => ({
-                          ...baseStyles,
-                          padding: "0",
-                        }),
-                      }}
-                    />
-                  </div>
-                  <div
-                    ref={pageBottomRef}
-                    className="flex flex-col space-y-[16px]"
-                  >
-                    <p className="font-semibold text-[#333333]">썸네일</p>
-                    <div className="flex flex-col space-y-[24px]">
-                      <div className="relative flex w-full aspect-[8/7] rounded-[10px] overflow-hidden border-solid border-[1px] border-[#CCCCCC] ">
-                        <Image
-                          src={thumbnailImage ? thumbnailImage : emptyImg}
-                          className="object-cover w-full h-full"
-                          width={512}
-                          height={512}
-                          alt=""
-                        />
-                      </div>
-                      <div className="flex flex-row space-x-[16px]">
-                        <div
-                          className="flex justify-center items-center w-full h-[42px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer"
-                          onClick={() => {
-                            setCaptureMode(true);
-                            scrollToTop();
-                          }}
-                        >
-                          촬영하기
-                        </div>
-                        <form className="w-full">
-                          <label
-                            htmlFor="thumbnailFile"
-                            className="flex justify-center items-center w-full h-[42px] rounded-[10px] bg-[#FFFFFF] border-solid border-[1px] border-[#D4D4D4] cursor-pointer"
-                          >
-                            업로드
-                          </label>
-                          <input
-                            className="hidden"
-                            type="file"
-                            id="thumbnailFile"
-                            onChange={handleFileInputChange}
-                            ref={thumbnailFileInputRef}
-                          />
-                        </form>
-                      </div>
-                    </div>
-                  </div>
+                  <Title
+                    avatarTitleInputRef={avatarTitleInputRef}
+                    borderColor={borderColor}
+                    avatarName={avatar.name}
+                    isEmpty={isEmpty}
+                  />
+                  <Avatar
+                    avatarFileNameInputRef={avatarFileNameInputRef}
+                    avatarFileName={avatar.vrm}
+                    avatarFileInputRef={avatarFileInputRef}
+                    loadAvatarFile={loadAvatarFile}
+                    isEmpty={isEmpty}
+                  />
+                  <Description
+                    avatarDescriptionInputRef={avatarDescriptionInputRef}
+                    description={avatar.description}
+                  />
+                  <Tag
+                    mostUsedTags={mostUsedTags}
+                    avatarTags={avatarTags}
+                    setAvatarTags={setAvatarTags}
+                  />
+                  <Visible
+                    options={options}
+                    avatarStatus={avatarStatus}
+                    setAvatarStatus={setAvatarStatus}
+                  />
+                  <Animation
+                    animationOptions={animationOptions}
+                    animation={animation}
+                    loadAnimation={loadAnimation}
+                  />
+                  <Thumbnail
+                    pageTopRef={pageTopRef}
+                    pageBottomRef={pageBottomRef}
+                    thumbnailImage={thumbnailImage}
+                    setThumbnailImage={setThumbnailImage}
+                    setCaptureMode={setCaptureMode}
+                    thumbnailFileInputRef={thumbnailFileInputRef}
+                  />
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">게시일</p>
                     <p>{formatFullDate(avatar.created_at)}</p>
@@ -459,7 +297,12 @@ export default function EditModal({
     </div>
   );
 }
-async function optimizeAvatar(avatarFile: any, session: any, avatarId: number, uuid: string) {
+async function optimizeAvatar(
+  avatarFile: any,
+  session: any,
+  avatarId: number,
+  uuid: string
+) {
   const formData = new FormData();
   formData.append("file", avatarFile);
   formData.append("name", avatarFile.name);

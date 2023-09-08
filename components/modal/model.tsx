@@ -14,89 +14,52 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Circle } from "@react-three/drei";
 import { Color } from "three";
-import { GLTF } from "three-stdlib";
 
 export interface ModelProps {
-  modelUrl: any;
-  animation: any;
-  setAnimation: any;
+  modelUrl: string;
+  animation: string;
   setProgress: (done: boolean) => void;
 }
 
-const Model: FC<ModelProps> = (props: ModelProps) => {
-  const { modelUrl, animation, setAnimation, setProgress } = props;
+export default function Model({
+  modelUrl,
+  animation,
+  setProgress,
+}: ModelProps) {
 
   const [vrm, setVrm] = useState<VRM>(null!);
   const vrmRef = useRef<any>();
   const [actions, setActions] = useState<any>({});
 
-  const [currentAction, setCurrentAction] = useState(animation);
+  const [currentAnimation, setCurrentAnimation] = useState(animation);
 
   const animationMixer = useMemo<THREE.AnimationMixer>(() => {
     if (!vrm) return null!;
 
     const mixer = new THREE.AnimationMixer(vrm.scene);
-
-    LoadMixamoAnimation("/animation/Landing.fbx", vrm).then((clip) => {
-      clip.name = "Landing";
-      setActions((prevActions: any) => ({ ...prevActions, Landing: clip }));
-    });
-
-    LoadMixamoAnimation("/animation/Idle.fbx", vrm).then((clip) => {
-      clip.name = "Idle";
-      setActions((prevActions: any) => ({ ...prevActions, Idle: clip }));
-    });
-
-    LoadMixamoAnimation("/animation/HipHopDancing.fbx", vrm).then((clip) => {
-      clip.name = "HipHopDancing";
-      setActions((prevActions: any) => ({
-        ...prevActions,
-        HipHopDancing: clip,
-      }));
-    });
-
-    LoadMixamoAnimation("/animation/PutYourHandsUp.fbx", vrm).then((clip) => {
-      clip.name = "PutYourHandsUp";
-      setActions((prevActions: any) => ({
-        ...prevActions,
-        PutYourHandsUp: clip,
-      }));
-    });
-
-    LoadMixamoAnimation("/animation/Thankful.fbx", vrm).then((clip) => {
-      clip.name = "Thankful";
-      setActions((prevActions: any) => ({ ...prevActions, Thankful: clip }));
-    });
+    loadDefaultAnimation(vrm, setActions);
 
     return mixer;
   }, [vrm]);
-
-  useEffect(() => {
-    if (Object.keys(actions).length === 5 && (currentAction !== animation)) {
-      var current = animationMixer.clipAction(actions[currentAction]);
-      var next = animationMixer.clipAction(actions[animation]);
-
-      current.fadeOut(0.5);
-      next.reset().fadeIn(0.5).play();
-
-      setCurrentAction(animation);
-    }
-
-
-  }, [animation]);
-
+  
   useEffect(() => {
     setVrm(null!);
     setActions({});
-    // setAnimation("Idle");
-    setCurrentAction("Idle");
   }, [modelUrl]);
 
   useEffect(() => {
-    if (actions["Landing"] && actions["Idle"]) {
+    if (Object.keys(actions).length !== 5) return;
+    if (currentAnimation === animation) return;
+
+    playNextAction(animationMixer, actions, currentAnimation, animation, setCurrentAnimation);
+  }, [animation]);
+
+
+  useEffect(() => {
+    if (actions["Landing"] && actions[animation]) {
       setTimeout(() => {
         var landingAction = animationMixer.clipAction(actions["Landing"]);
-        var idleAction = animationMixer.clipAction(actions["Idle"]);
+        var idleAction = animationMixer.clipAction(actions[animation]);
 
         landingAction.loop = THREE.LoopOnce;
         landingAction.clampWhenFinished = true;
@@ -114,7 +77,7 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
             landingAction.fadeOut(0.5);
             idleAction.reset().fadeIn(0.5).play();
 
-            setCurrentAction("Idle");
+            setCurrentAnimation(animation);
           }
         });
       }, 500);
@@ -122,8 +85,8 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
   }, [actions]);
 
   useEffect(() => {
-    if (!modelUrl){
-      setProgress(true)
+    if (!modelUrl) {
+      setProgress(true);
       return;
     }
 
@@ -144,15 +107,8 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
       async (gltf) => {
         setProgress(true);
 
-        const lessMorph = RemoveTooMuchMorphs(gltf);
-
-        const vrm: VRM = lessMorph.userData.vrm;
-        vrm.scene.traverse((child: any) => {
-          if (child instanceof THREE.Mesh) {
-            child.material.transparent = true;
-            child.material.opacity = 0;
-          }
-        });
+        const vrm: VRM = gltf.userData.vrm;
+        hideTPose(vrm);
 
         setVrm(OptimizeModel(vrm));
       },
@@ -188,9 +144,7 @@ const Model: FC<ModelProps> = (props: ModelProps) => {
       )}
     </>
   );
-};
-
-export default Model;
+}
 
 const gradientShader = {
   uniforms: {
@@ -217,30 +171,56 @@ const gradientShader = {
     `,
 };
 
-function TraverseSkinnedMeshNodes(node: any) {
-  if (node.type === "SkinnedMesh") {
-    /* Heuristic: face will be have more than 50 morphs */
-    if (node.geometry.morphAttributes.position?.length > 50) {
-      node.geometry.morphAttributes.position.length = 0;
-      node.geometry.morphAttributes.normal.length = 0;
-      node.geometry.morphTargetsRelative = false;
-      node.updateMorphTargets();
-    }
-  }
-
-  if (node.children) {
-    node.children.forEach((child: any) => {
-      TraverseSkinnedMeshNodes(child);
+function hideTPose(vrm: VRM) {
+    vrm.scene.traverse((child: any) => {
+        if (child instanceof THREE.Mesh) {
+            child.material.transparent = true;
+            child.material.opacity = 0;
+        }
     });
-  }
 }
 
-function RemoveTooMuchMorphs(gltf: GLTF) {
-  gltf.scene.traverse((node) => {
-    TraverseSkinnedMeshNodes(node);
+function playNextAction(animationMixer: THREE.AnimationMixer, actions: any, currentAnimation: string, animation: string, setCurrentAnimation: any) {
+    var currentAction = animationMixer.clipAction(actions[currentAnimation]);
+    var nextAction = animationMixer.clipAction(actions[animation]);
+
+    currentAction.fadeOut(0.5);
+    nextAction.reset().fadeIn(0.5).play();
+
+    setCurrentAnimation(animation);
+}
+
+function loadDefaultAnimation(vrm: VRM, setActions: any) {
+  LoadMixamoAnimation("/animation/Landing.fbx", vrm).then((clip) => {
+    clip.name = "Landing";
+    setActions((prevActions: any) => ({ ...prevActions, Landing: clip }));
   });
 
-  return gltf;
+  LoadMixamoAnimation("/animation/Idle.fbx", vrm).then((clip) => {
+    clip.name = "Idle";
+    setActions((prevActions: any) => ({ ...prevActions, Idle: clip }));
+  });
+
+  LoadMixamoAnimation("/animation/HipHopDancing.fbx", vrm).then((clip) => {
+    clip.name = "HipHopDancing";
+    setActions((prevActions: any) => ({
+      ...prevActions,
+      HipHopDancing: clip,
+    }));
+  });
+
+  LoadMixamoAnimation("/animation/PutYourHandsUp.fbx", vrm).then((clip) => {
+    clip.name = "PutYourHandsUp";
+    setActions((prevActions: any) => ({
+      ...prevActions,
+      PutYourHandsUp: clip,
+    }));
+  });
+
+  LoadMixamoAnimation("/animation/Thankful.fbx", vrm).then((clip) => {
+    clip.name = "Thankful";
+    setActions((prevActions: any) => ({ ...prevActions, Thankful: clip }));
+  });
 }
 
 function OptimizeModel(vrm: VRM) {

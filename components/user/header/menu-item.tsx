@@ -7,13 +7,13 @@ type menuMap = {
 };
 
 const menus: menuMap = {
-  '작업': undefined,
+  '아바타': undefined,
   '커미션 안내': 'description',
   '비용 안내': 'price-info',
 };
 
 const links: menuMap = {
-  '작업': '',
+  '아바타': '',
   '커미션 안내': 'description',
   '비용 안내': 'price-info',
 };

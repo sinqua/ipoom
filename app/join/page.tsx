@@ -23,7 +23,7 @@ export default function Page() {
     setEmpty(nickname.length === 0 ? true : false);
 
     const { data, error } = await supabase
-      .from("profile")
+      .from("profiles")
       .select()
       .eq("nickname", nickname);
 
@@ -52,8 +52,6 @@ export default function Page() {
       .select();
 
     await supabase.from("user_details").insert([{ user_id: session?.user.id }]);
-
-    await supabase.from("slots").insert([{ user_id: session?.user.id }]);
 
     await supabase.from("links").insert([{ user_id: session?.user.id }]);
 

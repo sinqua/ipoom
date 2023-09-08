@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
-import ModalCanvas from "@/components/modal/avatar-modal-canvas";
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
-import { Dialog, Transition } from "@headlessui/react";
 import { useEffect } from "react";
+import Viewer from "./viewer";
 
 export default function AvatarModal({
   avatar,
@@ -29,10 +28,7 @@ export default function AvatarModal({
         <div className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]">
           <div className="w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
             <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
-              <ModalCanvas
-                modelUrl={modelUrl?.signedUrl}
-                animation={avatar.animation}
-              />
+              <Viewer modelUrl={modelUrl?.signedUrl} animation={avatar.animation} />
             </div>
             <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto p-[24px] space-y-[24px] bg-[#FFFFFF]">
               <p className="text-[24px] font-semibold">{avatar.name}</p>

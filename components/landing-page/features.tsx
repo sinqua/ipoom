@@ -7,9 +7,7 @@ import clikemeGif from "@/public/clickme.gif";
 import featureImg from "@/public/feature.png";
 import socialImg from "@/public/social.png";
 
-import FeaturesBg from "@/public/images/features-bg.png";
-import FeaturesElement from "@/public/images/features-element.png";
-import ModalCanvas from "../modal/avatar-modal-canvas";
+import Viewer from "../modal/viewer";
 
 export default function Features() {
   const [tab, setTab] = useState<number>(1);
@@ -177,7 +175,7 @@ export default function Features() {
                   >
                     <div className="relative w-full h-[430px] rounded border border-transparent overflow-hidden">
                       {clickme ? (
-                        <ModalCanvas modelUrl={"./hero.vrm"} animation={4} />
+                        <Viewer modelUrl={"./hero.vrm"} animation={4} />
                       ) : (
                         <div
                           className="relative w-full h-full"
