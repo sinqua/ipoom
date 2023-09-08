@@ -174,10 +174,10 @@ const handleSaveNickname = async (session: any, ref: any) => {
     if (result) return;
   }
 
-  const { data: nicknameData, error: nicknameError } = await supabaseAuth
-    .from("users")
+  const { data: nicknameData, error: nicknameError } = await supabase
+    .from("profiles")
     .update({ nickname: nickname })
-    .eq("id", session?.user.id);
+    .eq("user_id", session?.user.id);
 };
 
 const handleSaveDescription = async (session: any, ref: any) => {
