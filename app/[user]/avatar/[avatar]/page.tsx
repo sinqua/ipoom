@@ -18,11 +18,11 @@ export async function generateMetadata(
 
   return {
     openGraph: {
-      title: avatar!.name!,
-      description: avatar!.description
-        ? avatar!.description!
-        : `${profile.nickname}님의 아바타 [${avatar!.name}] 입니다.`,
-      images: [avatar!.thumbnail!, ...previousImages],
+      title: avatar.name!,
+      description: avatar.description
+        ? avatar.description!
+        : `${profile.nickname}님의 아바타 [${avatar.name}] 입니다.`,
+      images: [...previousImages, avatar.thumbnail!],
     },
   };
 }

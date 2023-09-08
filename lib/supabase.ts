@@ -132,7 +132,9 @@ export const getAvatar = async (id: string) => {
     }
 
     return { ...avatarData, thumbnailUrl: url };
-  } else return null;
+  } else {
+    throw new Error("Avatar not found");
+  };
 };
 
 export const createModelUrl = async (userId: string, filename: any) => {
@@ -258,7 +260,7 @@ export const updateAvatarTags = async (avatarId: any, avatarTags: any) => {
     .delete()
     .eq("avatar_id", avatarId);
 
-    const { data: tagsData, error: tagsError } = await supabase
+  const { data: tagsData, error: tagsError } = await supabase
     .from("tags")
     .insert(
       avatarTags
