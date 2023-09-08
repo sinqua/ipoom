@@ -16,7 +16,6 @@ export default function Page() {
   useEffect(() => {
     if (status !== "loading") {
       verifyExist(session?.user.id).then((isExist) => {
-        console.log("result", isExist)
         if (isExist) {
           if (searchParams.get("callbackUrl") === "/") {
             router.push(`/${session?.user.id}`);
