@@ -23,6 +23,13 @@ const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
       return;
     }
 
+    if (props.label === "background") {
+      await handleSaveBackground(session, ref);
+      setStatus("done");
+
+      return;
+    }
+
     if (props.label === "nickname") {
       await handleSaveNickname(session, ref);
       setStatus("done");
@@ -130,6 +137,30 @@ const handleSaveThumbnail = async (session: any, ref: any) => {
     const { data: thumbnailData, error: thumbnailError } = await supabase
       .from("profiles")
       .update({ image: url })
+      .eq("user_id", session?.user.id);
+  }
+};
+
+const handleSaveBackground = async (session: any, ref: any) => {
+  const file = ref.current.files[0];
+
+  if (file) {
+    var uuid = uuidv4();
+
+    const filepath = `${session?.user.id}/${uuid}.png`;
+
+    const { data: fileData, error: fileError } = await supabase.storage
+      .from("background-image")
+      .upload(filepath, file, {
+        cacheControl: "3600",
+        upsert: true,
+      });
+
+    const url = generatePublicUrl("background-image", fileData?.path!);
+
+    const { data: thumbnailData, error: thumbnailError } = await supabase
+      .from("profiles")
+      .update({ background: url })
       .eq("user_id", session?.user.id);
   }
 };
