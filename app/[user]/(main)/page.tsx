@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { getPortfolios, getProfile } from "@/lib/supabase";
 import Work from "@/components/user/work";
 import { supabase } from "@/lib/database";
+import defaultImg from "@/public/default_background.png";
 
 export const revalidate = 0;
 
@@ -27,7 +28,10 @@ export async function generateMetadata(
   return {
     // title: user,
     openGraph: {
-      title: profile.description ? profile.background! : `${profile.nickname}님의 페이지입니다.`,
+      title: profile.nickname!,
+      description: profile.description
+        ? profile.description!
+        : `${profile.nickname}님의 페이지입니다.`,
       images: [profile.background!, ...previousImages],
     },
   };
