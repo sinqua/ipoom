@@ -6,6 +6,7 @@ import tossLogo from "@/app/assets/logos/toss.svg";
 import MenuBar from "./menu-bar";
 import Link from "next/link";
 import emptyImg from "@/app/assets/images/empty.png";
+import defaultBgImg from "@/public/default_background.png";
 
 import { getLink, getProfile } from "@/lib/supabase";
 
@@ -17,7 +18,13 @@ export default async function ProfileCard({ userID }: { userID: string }) {
 
   return (
     <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
-      <div className="w-full h-[180px] bg-[#ECECEC]"></div>
+      <Image
+        src={profile.background ? profile.background : defaultBgImg}
+        width={512}
+        height={512}
+        className="object-cover w-full h-[180px] bg-[#ECECEC]"
+        alt=""
+      />
       <div className="flex justify-center items-center w-full h-0 overflow-visible z-10">
         <div className="flex justify-center items-center w-[128px] h-[128px] bg-[#2778C7] rounded-full">
           <Image
@@ -57,7 +64,10 @@ export default async function ProfileCard({ userID }: { userID: string }) {
         <div className="ph:hidden flex flex-wrap justify-center w-full">
           {profile.tags.map((item: any, index: any) => {
             return (
-              <p className="px-[8px] py-[4px] mr-[16px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap" key={index}>
+              <p
+                className="px-[8px] py-[4px] mr-[16px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap"
+                key={index}
+              >
                 {item.tag}
               </p>
             );
