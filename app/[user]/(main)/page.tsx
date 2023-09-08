@@ -1,8 +1,6 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { getPortfolios, getProfile } from "@/lib/supabase";
 import Work from "@/components/user/work";
-import { supabase } from "@/lib/database";
-import defaultImg from "@/public/default_background.png";
 
 export const revalidate = 0;
 
@@ -15,24 +13,18 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // read route params
   const user = params.user;
-
-  // fetch data
-  // const product = await fetch(`https://.../${id}`).then((res) => res.json())
   const profile = await getProfile(user);
 
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
+  const previousImages = (await parent).openGraph?.images || []
 
   return {
-    // title: user,
     openGraph: {
       title: profile.nickname!,
       description: profile.description
         ? profile.description!
         : `${profile.nickname}님의 페이지입니다.`,
-      images: [profile.background!],
+      images: [profile.background!, ...previousImages],
     },
   };
 }
