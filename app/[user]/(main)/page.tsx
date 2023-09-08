@@ -24,7 +24,7 @@ export async function generateMetadata(
       description: profile.description
         ? profile.description!
         : `${profile.nickname}님의 페이지입니다.`,
-      images: [profile.background!, ...previousImages],
+      images: [...previousImages, profile.background!],
     },
   };
 }
