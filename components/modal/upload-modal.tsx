@@ -201,7 +201,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                 <p className="text-[24px] font-semibold">업로드</p>
                 <div className="flex flex-col space-y-[40px]">
                   <Title
-                    avatarTitleInputRef={avatarDescriptionInputRef}
+                    avatarTitleInputRef={avatarTitleInputRef}
                     borderColor={borderColor}
                     isEmpty={isEmpty}
                   />

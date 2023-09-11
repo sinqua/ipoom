@@ -175,7 +175,7 @@ export default function Features() {
                   >
                     <div className="relative w-full h-[430px] rounded border border-transparent overflow-hidden">
                       {clickme ? (
-                        <Viewer modelUrl={"./hero.vrm"} animation={4} />
+                        <Viewer modelUrl={"./hero.vrm"} animation={"Idle"} />
                       ) : (
                         <div
                           className="relative w-full h-full"

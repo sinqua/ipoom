@@ -14,7 +14,7 @@ const ModelComponent = lazy(() => import("./model"));
 
 interface ViewerProps {
   modelUrl: string | null;
-  animation: any;
+  animation: string | undefined;
   canvasRef?: any;
   captureMode?: any;
   status?: any;
