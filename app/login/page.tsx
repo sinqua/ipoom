@@ -1,15 +1,24 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import moopiLogo from "@/app/assets/logos/moopi.svg";
 import moopiWhiteLogo from "@/app/assets/logos/moopi_white.svg";
-import offingLogo from "@/app/assets/logos/offing.svg";
 import KakaoLogin from "@/components/login/KakaoLogin";
 import TwitterLogin from "@/components/login/TwitterLogin";
 import GoogleLogin from "@/components/login/GoogleLogin";
 import DiscordLogin from "@/components/login/DiscordLogin";
 import NaverLogin from "@/components/login/NaverLogin";
 import loginBg from "@/public/LoginBackground.png";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: `무피 - 로그인`,
+    openGraph: {
+      title: `무피 - 로그인`,
+      description: `무피 로그인 페이지입니다.`,
+    },
+  };
+}
 
 export default function Page() {
   return (
@@ -29,7 +38,9 @@ export default function Page() {
           loading="eager"
           priority
         />
-        <p className="absolute bottom-[24px] left-[24px] text-[16px] text-[#FFFFFF]">Kyul by kuromi</p>
+        <p className="absolute bottom-[24px] left-[24px] text-[16px] text-[#FFFFFF]">
+          Kyul by kuromi
+        </p>
       </div>
       <div className="flex flex-col justify-center items-center grow space-y-[40px]">
         <Image

@@ -7,6 +7,17 @@ import { useSession } from "next-auth/react";
 
 import Image from "next/image";
 import moopiLogo from "@/app/assets/logos/moopi.svg";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: `무피 - 회원가입`,
+    openGraph: {
+      title: `무피 - 회원가입`,
+      description: `무피 회원가입 페이지입니다.`,
+    },
+  };
+}
 
 export default function Page() {
   const router = useRouter();
