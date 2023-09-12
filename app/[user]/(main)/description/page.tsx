@@ -18,8 +18,8 @@ export async function generateMetadata(
   const image = profile.background ? profile.background : "";
 
   return {
-    title: `무피 - ${profile.nickname}님의 페이지 | 커미션 안내`,
-    description: `${profile.nickname}님의 커미션 안내 페이지입니다. | 무피`,
+    title: `커미션 안내 - ${profile.nickname}님의 페이지`,
+    description: `${profile.nickname}님의 커미션 안내 페이지입니다.`,
     openGraph: {
       title: profile.nickname!,
       description: profile.description

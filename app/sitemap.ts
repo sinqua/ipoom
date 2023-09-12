@@ -6,5 +6,9 @@ export default function sitemap() : MetadataRoute.Sitemap {
             url: 'https://moopi.offing.me',
             lastModified: new Date(),
         },
+        {
+            url: 'https://moopi.offing.me/login',
+            lastModified: new Date(),
+        },
     ]
 }
