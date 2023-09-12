@@ -1,9 +1,33 @@
-import { getUserDetail } from "@/lib/supabase";
+import { getProfile, getUserDetail } from "@/lib/supabase";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import { CreateQuillUrl } from "@/lib/storage";
 import PriceInfo from "@/components/user/price-info";
+import { Metadata, ResolvingMetadata } from "next";
 
 export const revalidate = 0;
+
+export async function generateMetadata(
+  { params }: { params: { user: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const user = params.user;
+  const profile = await getProfile(user);
+
+  const previousImages = (await parent).openGraph?.images || [];
+  const image = profile.background ? profile.background : "";
+
+  return {
+    title: `무피 - ${profile.nickname}님의 페이지 | 비용 안내`,
+    description: `${profile.nickname}님의 비용 안내 페이지입니다. | 무피`,
+    openGraph: {
+      title: profile.nickname!,
+      description: profile.description
+        ? profile.description!
+        : `${profile.nickname}님의 비용 안내 페이지입니다.`,
+      images: [image, ...previousImages],
+    },
+  };
+}
 
 export default async function Page({ params }: { params: { user: string } }) {
   const detail = await getUserDetail(params.user);
