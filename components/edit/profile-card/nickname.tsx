@@ -30,18 +30,16 @@ export default function Nickname({ name }: { name: string | null }) {
         한글, 영어, 띄어쓰기를 포함할 수 있습니다.
       </CardHeader>
       <div className="flex ph:w-auto w-full space-x-[16px]">
-        <div className="flex items-center ph:w-[392px] w-auto ph:grow-0 grow h-[47px] px-[20px] mb-[6px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
-          <input
-            type="text"
-            ref={inputRef}
-            className="w-full h-full outline-none text-sm"
-            placeholder="닉네임을 입력해주세요."
-            defaultValue={name ? name : ""}
-            onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-              onChangeNickname(event.target.value);
-            }}
-          ></input>
-        </div>
+        <input
+          type="text"
+          ref={inputRef}
+          className="ph:w-[392px] w-auto ph:grow-0 grow h-[47px] px-[20px] mb-[6px] text-sm bg-white rounded-[10px] border-[1px] border-[#CCCCCC] focus:border-[#CCCCCC] focus:ring-0"
+          placeholder="닉네임을 입력해주세요."
+          defaultValue={name ? name : ""}
+          onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChangeNickname(event.target.value);
+          }}
+        />
         <SaveChange label="nickname" ref={inputRef} />
       </div>
       {empty ? (

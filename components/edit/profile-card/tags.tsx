@@ -33,7 +33,7 @@ export default function Tags({
           onChange={(e: any) => {
             setCurrentTags(e);
           }}
-          className="flex w-auto ph:grow-0 grow items-center ph:w-[392px] min-h-[47px] h-auto"
+          className="flex w-auto ph:grow-0 grow items-center ph:w-[392px] min-h-[47px] h-auto text-sm"
           placeholder={"태그를 입력해주세요"}
           styles={{
             control: (baseStyles, state) => ({
@@ -41,10 +41,15 @@ export default function Tags({
               height: "100%",
               width: "100%",
               borderRadius: "10px",
+              padding: "0 15px",
+              // "borderColor:focus": "#CCCCCC",
+              // "boxShadow:focus":
+              //   "var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
             }),
             placeholder: (baseStyles, state) => ({
               ...baseStyles,
               color: "#CCCCCC",
+              padding: "0",
             }),
           }}
         />
