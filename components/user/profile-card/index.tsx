@@ -7,12 +7,20 @@ import MenuBar from "./menu-bar";
 import Link from "next/link";
 import emptyImg from "@/app/assets/images/empty.png";
 import defaultBgImg from "@/public/default_background.png";
+import followImg from "@/app/assets/images/follow_white.svg";
+import checkImg from "@/app/assets/images/check_black.svg";
 
 import { getLink, getProfile } from "@/lib/supabase";
+import ToastButton from "./toastButton";
+import { headers } from "next/headers";
 
 export default async function ProfileCard({ userID }: { userID: string }) {
   const profileData = getProfile(userID);
   const linkData = getLink(userID);
+
+  const headersList = headers();
+  console.log(headersList.get("host"));
+  console.log(headersList.get("next-url"));
 
   const [profile, link] = await Promise.all([profileData, linkData]);
 
@@ -74,7 +82,7 @@ export default async function ProfileCard({ userID }: { userID: string }) {
           })}
         </div>
         <div className="ph:block hidden w-full h-[1px] !mt-[8px] bg-[#D4D4D4]"></div>
-        <div className="flex justify-center w-full space-x-[24px]">
+        {/* <div className="flex justify-center w-full space-x-[24px]">
           <Link
             href={link.kakao ? link.kakao : ""}
             rel="noopener noreferrer"
@@ -117,6 +125,29 @@ export default async function ProfileCard({ userID }: { userID: string }) {
               alt=""
             />
           </Link>
+        </div> */}
+        <div className="flex space-x-[16px]">
+          <div className="flex grow justify-center items-center h-[42px] space-x-[16px] bg-[#368ADC] hover:bg-[#5EA1E3] rounded-[10px] cursor-pointer">
+            <Image
+              src={followImg}
+              width={512}
+              height={512}
+              className="w-[20px] h-[20px]"
+              alt=""
+            />
+            <p className="text-[14px] text-[#FFFFFF]">팔로우</p>
+          </div>
+          {/* <div className="flex justify-center items-center w-[200px] h-[42px] space-x-[16px] bg-[#E9E9E9] hover:bg-[#D4D4D4] rounded-[10px] cursor-pointer">
+            <Image
+              src={checkImg}
+              width={512}
+              height={512}
+              className="w-[20px] h-[20px]"
+              alt=""
+            />
+            <p className="text-[14px] text-[#333333]">팔로잉</p>
+          </div> */}
+          <ToastButton />
         </div>
         <MenuBar />
       </div>
