@@ -7,7 +7,7 @@ import FadeLoader from "react-spinners/FadeLoader";
 import { v4 as uuidv4 } from "uuid";
 
 import Image from "next/image";
-import saveImg from "@/app/assets/images/save.svg";
+import checkImg from "@/app/assets/images/check_blue.svg";
 import { generatePublicUrl } from "@/lib/supabase";
 
 export default function SaveQuillChange({
@@ -59,7 +59,7 @@ export default function SaveQuillChange({
                 </>
               ) : (
                 <>
-                  <Image src={saveImg} alt="" />
+                  <Image src={checkImg} alt="" />
                   <p className="text-[18px] font-semibold">저장 완료</p>
                 </>
               )}

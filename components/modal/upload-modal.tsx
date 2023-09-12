@@ -5,7 +5,7 @@ import { formatFullDate } from "@/lib/string";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import saveImg from "@/app/assets/images/save.svg";
+import checkImg from "@/app/assets/images/check_blue.svg";
 
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -264,7 +264,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                       </>
                     ) : (
                       <>
-                        <Image src={saveImg} alt="" />
+                        <Image src={checkImg} alt="" />
                         <p className="text-[18px] font-semibold">저장 완료</p>
                       </>
                     )}
