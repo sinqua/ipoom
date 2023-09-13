@@ -41,14 +41,17 @@ export default function Tags({
               height: "100%",
               width: "100%",
               borderRadius: "10px",
-              padding: "0 15px",
-              // "borderColor:focus": "#CCCCCC",
-              // "boxShadow:focus":
-              //   "var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color)",
+              paddingLeft: "20px",
+              borderColor: "#CCCCCC !important",
+              boxShadow: "none !important",
             }),
             placeholder: (baseStyles, state) => ({
               ...baseStyles,
-              color: "#CCCCCC",
+              color: "#898989",
+              padding: "0",
+            }),
+            valueContainer: (baseStyles, state) => ({
+              ...baseStyles,
               padding: "0",
             }),
           }}

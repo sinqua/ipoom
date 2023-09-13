@@ -80,15 +80,9 @@
   }
 }
 
-/* input {
-  border: none;
-}
-
 input:focus {
-  border-color: brown;
-  border: none !important;
-  outline: none !important;
-} */
+  box-shadow: none !important;
+}
 
 html {
   height: 100%;
