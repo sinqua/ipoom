@@ -24,7 +24,6 @@ import FollowButton from "./followButton";
 
 export default async function ProfileCard({ userId }: { userId: string }) {
   const session = await getServerSession(authOptions);
-  // const searchParams = useSearchParams();
 
   const profileData = getProfile(userId);
   const linkData = getLink(userId);

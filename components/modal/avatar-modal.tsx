@@ -1,17 +1,28 @@
 "use client";
 import Image from "next/image";
+
+import HeartLineImg from "@/app/assets/images/heart_line.svg";
+import HeartFillImg from "@/app/assets/images/heart_fill.svg";
+
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Viewer from "./viewer";
+import { useSession } from "next-auth/react";
+import CommentSection from "./comment-section";
+import CopyButton from "./copy-button";
 
 export default function AvatarModal({
   avatar,
   modelUrl,
+  comments,
 }: {
   avatar: any;
   modelUrl: any;
+  comments: any;
 }) {
+  const session = useSession();
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -32,8 +43,25 @@ export default function AvatarModal({
                 animation={numberToStringMap[avatar.animation]}
               />
             </div>
-            <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto p-[24px] space-y-[24px] bg-[#FFFFFF]">
-              <p className="text-[24px] font-semibold">{avatar.name}</p>
+            <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto p-[24px] space-y-[24px] bg-[#FFFFFF] overflow-y-scroll scrollbar-hide">
+              <div className="flex justify-between">
+                <p className="text-[24px] font-semibold">{avatar.name}</p>
+                <div className="flex space-x-[24px]">
+                  <CopyButton />
+                  <div className="flex space-x-[8px]">
+                    <Image
+                      src={HeartLineImg}
+                      className="w-[24px] h-[24px] cursor-pointer"
+                      width={512}
+                      height={512}
+                      alt=""
+                    />
+                    <p className="font-semibold text-[14px] text-[#FF4E4E]">
+                      0
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div className="flex flex-col space-y-[40px]">
                 <div className="flex flex-col space-y-[16px]">
                   <p className="font-semibold text-[#9D9D9D]">아바타 설명</p>
@@ -69,6 +97,16 @@ export default function AvatarModal({
                 <div className="flex flex-col space-y-[16px]">
                   <p className="font-semibold text-[#9D9D9D]">업로드</p>
                   <p>{formatFullDate(avatar.created_at)}</p>
+                </div>
+                <div className="flex flex-col space-y-[24px]">
+                  <p className="font-semibold text-[#9D9D9D]">댓글</p>
+                  {/* <Suspense> */}
+                  <CommentSection
+                    userId={session.data?.user.id}
+                    avatarId={avatar.id}
+                    comments={comments}
+                  />
+                  {/* </Suspense> */}
                 </div>
               </div>
             </div>
