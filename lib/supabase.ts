@@ -1,8 +1,7 @@
 import { supabase, supabaseAuth } from "./database";
 
 export const generatePublicUrl = (storage: string, path: string) => {
-  const supabasePublic =
-    `https://${process.env.NEXT_PUBLIC_SUPABASE_NAME}/storage/v1/object/public`;
+  const supabasePublic = `https://${process.env.NEXT_PUBLIC_SUPABASE_NAME}/storage/v1/object/public`;
   return `${supabasePublic}/${storage}/${path}`;
 };
 
@@ -58,6 +57,19 @@ export const getLink = async (id: string) => {
   else {
     throw new Error("Links not found");
   }
+};
+
+export const getFollowStatus = async (sessionId: string, userId: string) => {
+  const { data, error } = await supabase
+    .from("follows")
+    .select(`*`)
+    .eq("source_user_id", sessionId)
+    .eq("target_user_id", userId)
+    .limit(1)
+    .single();
+
+  if (data) return true;
+  else return false;
 };
 
 export const getUserDetail = async (id: string) => {
@@ -134,7 +146,7 @@ export const getAvatar = async (id: string) => {
     return { ...avatarData, thumbnailUrl: url };
   } else {
     throw new Error("Avatar not found");
-  };
+  }
 };
 
 export const createModelUrl = async (userId: string, filename: any) => {
@@ -180,17 +192,14 @@ export const insertAvatar = async (
   }
 };
 
-export const deleteAvatar = async (
-  avatarId: any
-) => {
+export const deleteAvatar = async (avatarId: any) => {
   const { data, error } = await supabase
     .from("avatars")
     .delete()
     .eq("id", avatarId);
 
-  if (error) throw new Error("Upload Avatar Failed!");
+  if (error) throw new Error("Delete Avatar Failed!");
 };
-
 
 export const addAvatarTags = async (avatar_id: any, avatarTags: any) => {
   const { data: tagsData, error: tagsError } = await supabase
@@ -208,11 +217,15 @@ export const addAvatarTags = async (avatar_id: any, avatarTags: any) => {
   if (tagsError) throw new Error("Upload AvatarTags Failed!");
 };
 
-export const updateAvatarThumbnail = async (userId: any, uuid: any, avatarId: any) => {
+export const updateAvatarThumbnail = async (
+  userId: any,
+  uuid: any,
+  avatarId: any
+) => {
   const { data, error } = await supabase
     .from("avatars")
     .update({
-      thumbnail: generatePublicUrl("thumbnail", `${userId}/${uuid}.png`)
+      thumbnail: generatePublicUrl("thumbnail", `${userId}/${uuid}.png`),
     })
     .eq("id", avatarId);
 
@@ -273,4 +286,29 @@ export const updateAvatarTags = async (avatarId: any, avatarTags: any) => {
     );
 
   if (tagsError) throw tagsError;
+};
+
+export const addFollow = async (sessionId: string, userId: string) => {
+  const { data, error } = await supabase
+    .from("follows")
+    .insert([
+      {
+        source_user_id: sessionId,
+        target_user_id: userId,
+      },
+    ])
+    .select();
+
+  if (data) return true;
+  else return false;
+};
+
+export const deleteFollow = async (sessionId: string, userId: string) => {
+  const { data, error } = await supabase
+    .from("follows")
+    .delete()
+    .eq("source_user_id", sessionId)
+    .eq("target_user_id", userId);
+
+  if (error) throw new Error("Delete Foolow Failed!");
 };
