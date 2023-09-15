@@ -9,23 +9,34 @@ import emptyImg from "@/app/assets/images/empty.png";
 import defaultBgImg from "@/public/default_background.png";
 import followImg from "@/app/assets/images/follow_white.svg";
 import checkImg from "@/app/assets/images/check_black.svg";
+import userImg from "@/app/assets/images/user_white.svg";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-import { getLink, getProfile } from "@/lib/supabase";
+import {
+  getFollowStatus,
+  getLink,
+  getProfile,
+} from "@/lib/supabase";
 import ToastButton from "./toastButton";
+import FollowButton from "./followButton";
 
-export default async function ProfileCard({ userID }: { userID: string }) {
+export default async function ProfileCard({ userId }: { userId: string }) {
   const session = await getServerSession(authOptions);
   // const searchParams = useSearchParams();
 
-  console.log(userID);
+  const profileData = getProfile(userId);
+  const linkData = getLink(userId);
+  const followStatusData = session?.user.id
+    ? getFollowStatus(session?.user.id, userId)
+    : false;
 
-  const profileData = getProfile(userID);
-  const linkData = getLink(userID);
-
-  const [profile, link] = await Promise.all([profileData, linkData]);
+  const [profile, link, followStatus] = await Promise.all([
+    profileData,
+    linkData,
+    followStatusData,
+  ]);
 
   return (
     <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
@@ -130,32 +141,11 @@ export default async function ProfileCard({ userID }: { userID: string }) {
           </Link>
         </div> */}
         <div className="flex space-x-[16px]">
-          {session?.user.id !== userID ? (
-            <div className="flex grow justify-center items-center h-[42px] space-x-[16px] bg-[#368ADC] hover:bg-[#5EA1E3] rounded-[10px] cursor-pointer">
-              <Image
-                src={followImg}
-                width={512}
-                height={512}
-                className="w-[20px] h-[20px]"
-                alt=""
-              />
-              <p className="text-[14px] text-[#FFFFFF]">팔로우</p>
-            </div>
-          ) : (
-            /* <div className="flex justify-center items-center w-[200px] h-[42px] space-x-[16px] bg-[#E9E9E9] hover:bg-[#D4D4D4] rounded-[10px] cursor-pointer">
-            <Image
-              src={checkImg}
-              width={512}
-              height={512}
-              className="w-[20px] h-[20px]"
-              alt=""
-            />
-            <p className="text-[14px] text-[#333333]">팔로잉</p>
-          </div> */
-            <Link href={`${userID}/edit`} className="flex justify-center items-center w-[200px] h-[42px] space-x-[16px] bg-[#E9E9E9] hover:bg-[#D4D4D4] rounded-[10px] cursor-pointer">
-              <p className="text-[14px] text-[#333333]">프로필 수정</p>
-            </Link>
-          )}
+          <FollowButton
+            sessionId={session?.user.id}
+            userId={userId}
+            status={followStatus}
+          />
           <ToastButton />
         </div>
         <MenuBar />
