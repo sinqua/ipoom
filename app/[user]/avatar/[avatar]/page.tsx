@@ -13,8 +13,8 @@ import HeartLineImg from "@/app/assets/images/heart_line.svg";
 import HeartFillImg from "@/app/assets/images/heart_fill.svg";
 import { formatFullDate } from "@/lib/string";
 import CommentSection from "@/components/modal/comment-section";
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 type Props = {
   params: { user: string; avatar: string };
@@ -47,7 +47,7 @@ type Props = {
 export default async function Avatar(props: any) {
   const { params } = props;
 
-  // const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
   const profile = await getProfile(params.user);
   const avatar = await getAvatar(params.avatar);
@@ -71,11 +71,11 @@ export default async function Avatar(props: any) {
           modelUrl={modelUrl?.signedUrl}
           animation={numberToStringMap[avatar.animation!]}
           toolbarCss={
-            "absolute flex flex-row ph:top-[40px] bottom-[24px] ph:right-0 right-[24px] space-x-[16px] pointer-events-auto"
+            "absolute flex flex-row h-fit ph:top-[40px] bottom-[24px] ph:right-0 right-[24px] space-x-[16px] pointer-events-auto"
           }
         />
-        <div className="relative dt:max-w-[1008px] w-full h-full">
-          <div className="absolute bottom-[24px] left-0">
+        <div className="relative dt:max-w-[1008px] w-full h-full pointer-events-none">
+          <div className="absolute bottom-[24px] left-0 pointer-events-auto">
             <div className="flex flex-col space-y-[8px]">
               <div className="flex items-center space-x-[8px]">
                 <div className="flex items-center space-x-[16px]">
@@ -164,7 +164,7 @@ export default async function Avatar(props: any) {
             <div className="flex flex-col space-y-[24px]">
               <p className="text-[16px] font-semibold text-[#9D9D9D]">댓글</p>
               <CommentSection
-                userId={"9"}
+                userId={session?.user.id}
                 avatarId={avatar.id}
                 comments={comments}
               />

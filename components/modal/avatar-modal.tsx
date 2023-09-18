@@ -42,7 +42,7 @@ export default function AvatarModal({
                 modelUrl={modelUrl?.signedUrl}
                 animation={numberToStringMap[avatar.animation]}
                 toolbarCss={
-                  "absolute flex flex-row ph:top-[40px] bottom-[24px] ph:right-[40px] right-[24px] space-x-[16px] pointer-events-auto"
+                  "absolute flex flex-row h-fit ph:top-[40px] bottom-[24px] ph:right-[40px] right-[24px] space-x-[16px] pointer-events-auto"
                 }
               />
             </div>

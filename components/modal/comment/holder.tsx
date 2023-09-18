@@ -5,7 +5,7 @@ interface HolderProps {
   comments: any;
 }
 
-export default async function Holder({
+export default function Holder({
   userId,
   comments,
 }: HolderProps) {

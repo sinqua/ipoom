@@ -39,8 +39,6 @@ export default function CommentSection({
   };
 
   const onClickCommentButton = async () => {
-    console.log("userId", userId);
-
     if (userId) {
       const result = await addComment(
         userId,
@@ -60,13 +58,25 @@ export default function CommentSection({
 
   return (
     <>
-      {initial ? (
+      {/* {initial ? (
         <Holder userId={userId} comments={data} />
       ) : (
         <Suspense>
           <Holder userId={userId} comments={data} />
         </Suspense>
-      )}
+      )} */}
+      <div className="flex flex-col">
+        {data.map((item: any, index: number) => {
+          return index === 0 ? (
+            <Comment userId={userId} comment={item} key={item.id} />
+          ) : (
+            <div className="flex flex-col" key={item.id}>
+              <div className="w-full h-[1px] bg-[#D4D4D4] mt-[24px] mb-[24px]"></div>
+              <Comment userId={userId} comment={item} />
+            </div>
+          );
+        })}
+      </div>
       <div className="flex flex-col items-end space-y-[40px] h-auto p-[16px] bg-[#FFFFFF] rounded-[8px] border-[1px] border-[#D4D4D4]">
         <textarea
           ref={inputRef}
