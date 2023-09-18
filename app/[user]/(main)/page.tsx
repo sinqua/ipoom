@@ -1,6 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { getPortfolios, getProfile } from "@/lib/supabase";
 import Work from "@/components/user/work";
+import InputGuide from "@/components/user/input-guide";
 
 export const revalidate = 0;
 
@@ -16,8 +17,8 @@ export async function generateMetadata(
   const user = params.user;
   const profile = await getProfile(user);
 
-  const previousImages = (await parent).openGraph?.images || []
-  const image = profile.background ? profile.background : ""
+  const previousImages = (await parent).openGraph?.images || [];
+  const image = profile.background ? profile.background : "";
 
   return {
     openGraph: {
@@ -38,6 +39,7 @@ export default async function Page({ params }: { params: { user: string } }) {
       {works?.map((work: any, index: any) => {
         return <Work user={params.user} avatar={work} key={index} />;
       })}
+      {works?.length === 0 && <InputGuide />}
     </div>
   );
 }
