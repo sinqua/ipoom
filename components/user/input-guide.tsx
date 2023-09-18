@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import icon from "@/app/assets/images3/add-thick-gray.svg";
+import icon from "@/app/assets/images/add-thick-gray.svg";
 
 export default function InputGuide() {
   return (
