@@ -13,8 +13,8 @@ export default function Header() {
           <Suspense>
             <Menu>
               <Item>아바타</Item>
-              <Item>커미션 안내</Item>
-              <Item>비용 안내</Item>
+              {/* <Item>커미션 안내</Item> */}
+              {/* <Item>비용 안내</Item> */}
             </Menu>
           </Suspense>
         </div>
