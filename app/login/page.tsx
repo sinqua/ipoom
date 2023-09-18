@@ -56,7 +56,7 @@ export default function Page() {
         <div className="space-y-[18px] text-sm text-white">
           <KakaoLogin />
           <TwitterLogin />
-          <GoogleLogin />
+          {/* <GoogleLogin /> */}
           <DiscordLogin />
           <NaverLogin />
         </div>
