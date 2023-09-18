@@ -26,7 +26,7 @@ export default function Item({ children }: { children: React.ReactNode }) {
     <Link
       href={url}
       className={`${
-        checkUrl(children, pathname) ? "text-[#333333]" : "text-[#9D9D9D]"
+        checkUrl(children, pathname) ? "text-[#333333]" : "text-[#9D9D9D] hover:text-[#333333]"
       } flex flex-col justify-between h-[35px] cursor-pointer`}
     >
       <p>{children}</p>

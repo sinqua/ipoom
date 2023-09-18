@@ -7,14 +7,36 @@ import MenuBar from "./menu-bar";
 import Link from "next/link";
 import emptyImg from "@/app/assets/images/empty.png";
 import defaultBgImg from "@/public/default_background.png";
+import followImg from "@/app/assets/images/follow_white.svg";
+import checkImg from "@/app/assets/images/check_black.svg";
+import userImg from "@/app/assets/images/user_white.svg";
 
-import { getLink, getProfile } from "@/lib/supabase";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-export default async function ProfileCard({ userID }: { userID: string }) {
-  const profileData = getProfile(userID);
-  const linkData = getLink(userID);
+import {
+  getFollowStatus,
+  getLink,
+  getProfile,
+} from "@/lib/supabase";
+import ToastButton from "./toastButton";
+import FollowButton from "./followButton";
 
-  const [profile, link] = await Promise.all([profileData, linkData]);
+export default async function ProfileCard({ userId }: { userId: string }) {
+  const session = await getServerSession(authOptions);
+  // const searchParams = useSearchParams();
+
+  const profileData = getProfile(userId);
+  const linkData = getLink(userId);
+  const followStatusData = session?.user.id
+    ? getFollowStatus(session?.user.id, userId)
+    : false;
+
+  const [profile, link, followStatus] = await Promise.all([
+    profileData,
+    linkData,
+    followStatusData,
+  ]);
 
   return (
     <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
@@ -74,7 +96,7 @@ export default async function ProfileCard({ userID }: { userID: string }) {
           })}
         </div>
         <div className="ph:block hidden w-full h-[1px] !mt-[8px] bg-[#D4D4D4]"></div>
-        <div className="flex justify-center w-full space-x-[24px]">
+        {/* <div className="flex justify-center w-full space-x-[24px]">
           <Link
             href={link.kakao ? link.kakao : ""}
             rel="noopener noreferrer"
@@ -117,6 +139,14 @@ export default async function ProfileCard({ userID }: { userID: string }) {
               alt=""
             />
           </Link>
+        </div> */}
+        <div className="flex space-x-[16px]">
+          <FollowButton
+            sessionId={session?.user.id}
+            userId={userId}
+            status={followStatus}
+          />
+          <ToastButton />
         </div>
         <MenuBar />
       </div>

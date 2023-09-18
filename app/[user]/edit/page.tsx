@@ -8,8 +8,32 @@ import { getProfile, getLink, getMostUsedTags } from "@/lib/supabase";
 import Description from "@/components/edit/profile-card/description";
 import Twitter from "@/components/edit/profile-card/twitter";
 import Background from "@/components/edit/profile-card/background";
+import { Metadata, ResolvingMetadata } from "next";
 
 export const revalidate = 0;
+
+export async function generateMetadata(
+  { params }: { params: { user: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const user = params.user;
+  const profile = await getProfile(user);
+
+  const previousImages = (await parent).openGraph?.images || [];
+  const image = profile.background ? profile.background : "";
+
+  return {
+    title: `마이페이지 - ${profile.nickname}님의 페이지`,
+    description: `${profile.nickname}님의 마이페이지입니다. | 무피`,
+    openGraph: {
+      title: profile.nickname!,
+      description: profile.description
+        ? profile.description!
+        : `${profile.nickname}님의 마이페이지입니다.`,
+      images: [image, ...previousImages],
+    },
+  };
+}
 
 export default async function Page({ params }: { params: { user: string } }) {
   const profileData = getProfile(params.user);

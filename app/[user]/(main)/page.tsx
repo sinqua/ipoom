@@ -21,6 +21,8 @@ export async function generateMetadata(
   const image = profile.background ? profile.background : "";
 
   return {
+    title: `${profile.nickname}님의 페이지`,
+    description: `${profile.nickname}님의 페이지입니다. | 무피`,
     openGraph: {
       title: profile.nickname!,
       description: profile.description

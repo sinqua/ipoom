@@ -14,7 +14,7 @@ export default function Description({ description }: { description: any }) {
       <div className="flex ph:w-auto w-full space-x-[16px]">
         <textarea
           ref={inputRef}
-          className="flex items-center ph:w-[392px] w-auto h-[200px] ph:grow-0 grow p-[16px] rounded-[10px] resize-none bg-white border-solid border-[1px] border-[#CCCCCC] outline-none"
+          className="flex items-center ph:w-[392px] w-auto h-[200px] ph:grow-0 grow p-[20px] rounded-[10px] resize-none text-sm bg-white border-solid border-[1px] border-[#CCCCCC] focus:border-[#CCCCCC] focus:ring-0"
           placeholder="소개를 입력해주세요."
           defaultValue={description}
         />

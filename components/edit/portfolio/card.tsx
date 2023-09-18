@@ -6,7 +6,7 @@ import Link from "next/link";
 import { deleteAvatar } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
-import saveImg from "@/app/assets/images/save.svg";
+import checkImg from "@/app/assets/images/check_blue.svg";
 import { useEffect, useState } from "react";
 
 export default function Card({ avatar }: { avatar: any }) {
@@ -132,7 +132,7 @@ export default function Card({ avatar }: { avatar: any }) {
           ) : (
             <div className="flex justify-center items-center w-[180px] h-[180px] bg-[#FFFFFF] rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)]">
               <div className="flex flex-col items-center space-y-[24px]">
-                <Image src={saveImg} alt="" />
+                <Image src={checkImg} alt="" />
                 <p className="text-[18px] font-semibold">삭제 완료</p>
               </div>
             </div>
