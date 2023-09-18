@@ -46,7 +46,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
         className="object-cover w-full h-[180px] bg-[#ECECEC]"
         alt=""
       />
-      <div className="flex justify-center items-center w-full h-0 overflow-visible z-10">
+      <div className="flex justify-center items-center w-full h-0 overflow-visible">
         <div className="flex justify-center items-center w-[128px] h-[128px] bg-[#2778C7] rounded-full">
           <Image
             src={profile.image ? profile.image : emptyImg}
@@ -139,7 +139,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
             />
           </Link>
         </div> */}
-        <div className="flex space-x-[16px]">
+        <div className="flex w-full space-x-[16px]">
           <FollowButton
             sessionId={session?.user.id}
             userId={userId}

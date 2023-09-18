@@ -29,7 +29,7 @@ export default function MobileNavbar({
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="relative top-[12px] left-[16px] dt:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#F6F6F6] z-10"
+        className="dt:relative fixed top-[12px] left-[16px] dt:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#F6F6F6] z-10"
       >
         <Image src={menuImg} className="w-[20px] h-[20px]" alt="" />
       </button>
@@ -55,7 +55,7 @@ export default function MobileNavbar({
             leaveFrom="translate-x-0"
             leaveTo="translate-x-[-100%]"
           >
-            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-[100dvh] w-[280px] flex-col bg-white dark:bg-black">
+            <Dialog.Panel className="fixed inset-0 flex h-[100dvh] w-[280px] flex-col bg-white dark:bg-black">
               <div className="flex flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]">
                 <div className="px-[32px] py-[24px]">
                   <Link href="/" title="Go to homepage">

@@ -96,6 +96,11 @@ main {
   height: 100%;
 }
 
+p {
+  line-height: normal;
+  font-size: 14px;
+}
+
 .ql-editor img {
   display: inline-block;
 }
