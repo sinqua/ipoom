@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import AuthProvider from "@/components/auth-provider";
 import GoogleAnalytics from "@/components/google-analytics";
+import Discord from "@/components/discord";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
               {children}
               {modal}
             </AuthProvider>
+            <Discord />
           </main>
         </Suspense>
       </body>
