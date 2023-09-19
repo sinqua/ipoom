@@ -3,7 +3,6 @@
 import { addComment } from "@/lib/supabase";
 import { Suspense, useEffect, useRef, useState } from "react";
 import Comment from "./comment/comment";
-import Holder from "./comment/holder";
 
 interface CommenSectiontProps {
   userId: any;
@@ -18,7 +17,6 @@ export default function CommentSection({
 }: CommenSectiontProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const [initial, setInitial] = useState(true);
   const [data, setData] = useState<any>(comments);
 
   // 모달 렌더링 시, Textarea 높이 초기화
@@ -49,8 +47,6 @@ export default function CommentSection({
       setData([...data, result]);
 
       inputRef.current!.value = "";
-
-      setInitial(false);
     } else {
       console.log("로그인이 필요한 기능입니다.");
     }
@@ -58,13 +54,6 @@ export default function CommentSection({
 
   return (
     <>
-      {/* {initial ? (
-        <Holder userId={userId} comments={data} />
-      ) : (
-        <Suspense>
-          <Holder userId={userId} comments={data} />
-        </Suspense>
-      )} */}
       <div className="flex flex-col">
         {data.map((item: any, index: number) => {
           return index === 0 ? (

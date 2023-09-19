@@ -131,7 +131,7 @@ export const getPortfolios = async (id: string) => {
 export const getAvatar = async (id: string) => {
   const { data: avatarData, error: avatarError } = await supabase
     .from("avatars")
-    .select("*, tags (tag)")
+    .select("*, tags (tag), likes (*)")
     .eq("id", id)
     .limit(1)
     .single();
@@ -310,7 +310,7 @@ export const deleteFollow = async (sessionId: string, userId: string) => {
     .eq("source_user_id", sessionId)
     .eq("target_user_id", userId);
 
-  if (error) throw new Error("Delete Foolow Failed!");
+  if (error) throw new Error("Delete Follow Failed!");
 };
 
 export const getComments = async (avatarId: string) => {
@@ -383,4 +383,32 @@ export const addReply = async (
   else {
     throw new Error("Insert Reply Failed!");
   }
+};
+
+export const addLike = async (id: string, avatarId: string) => {
+  console.log("here");
+  const { data, error } = await supabase
+    .from("likes")
+    .insert([
+      {
+        user_id: id,
+        target_avatar_id: avatarId,
+      },
+    ])
+    .select();
+
+  if (data) return data;
+  else {
+    throw new Error("Insert Like Failed!");
+  }
+};
+
+export const deleteLike = async (id: string, avatarId: string) => {
+  const { data, error } = await supabase
+    .from("likes")
+    .delete()
+    .eq("user_id", id)
+    .eq("target_avatar_id", avatarId);
+
+  if (error) throw new Error("Delete Like Failed!");
 };

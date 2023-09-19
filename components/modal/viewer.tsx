@@ -88,7 +88,7 @@ export default function Viewer({
           <BounceLoader color="#2778C7" />
         </div>
       )}
-      <div className="absolute left-1/2 -translate-x-1/2 flex justify-center top-0 max-w-[1008px] w-full h-full pointer-events-none z-10">
+      <div className="absolute left-1/2 -translate-x-1/2 flex justify-center top-0 dt:max-w-[1008px] w-full h-full pointer-events-none z-10">
         <ToolBar
           captureMode={captureMode}
           resetCamera={resetCamera}

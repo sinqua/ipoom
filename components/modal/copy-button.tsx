@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { addComment, getCommentProfile } from "@/lib/supabase";
 import { useEffect, useRef, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
@@ -23,7 +23,7 @@ export default function CopyButton() {
 
     toast({
       className:
-        "flex justify-center max-w-[350px] w-full h-[47px] mx-[36px] bg-[#368ADC] rounded-[8px] border-none text-[#FFFFFF]",
+        "flex justify-center max-w-[350px] w-full h-[47px] mx-[36px] bg-[#368ADC] rounded-[8px] border-none text-[#FFFFFF] z-50",
       description: "링크가 복사되었습니다.",
     });
   };
