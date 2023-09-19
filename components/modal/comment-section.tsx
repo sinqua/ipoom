@@ -1,8 +1,26 @@
 "use client";
-
 import { addComment } from "@/lib/supabase";
 import { Suspense, useEffect, useRef, useState } from "react";
 import Comment from "./comment/comment";
+
+import Image from "next/image";
+import DownImg from "@/app/assets/images/down.svg";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Separator } from "@/components/ui/separator";
+
+import { useRouter } from "next/navigation";
+import { comment } from "postcss";
 
 interface CommenSectiontProps {
   userId: any;
@@ -15,9 +33,12 @@ export default function CommentSection({
   avatarId,
   comments,
 }: CommenSectiontProps) {
+  const router = useRouter();
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<any>(comments);
+  const [commentCount, setCommentCount] = useState(5);
 
   // 모달 렌더링 시, Textarea 높이 초기화
   useEffect(() => {
@@ -48,23 +69,40 @@ export default function CommentSection({
 
       inputRef.current!.value = "";
     } else {
-      console.log("로그인이 필요한 기능입니다.");
+      setIsOpen(true);
     }
   };
 
   return (
     <>
       <div className="flex flex-col">
-        {data.map((item: any, index: number) => {
+        {data.slice(0, commentCount).map((item: any, index: number) => {
           return index === 0 ? (
             <Comment userId={userId} comment={item} key={item.id} />
           ) : (
-            <div className="flex flex-col" key={item.id}>
-              <div className="w-full h-[1px] bg-[#D4D4D4] mt-[24px] mb-[24px]"></div>
+            <>
+              <Separator className="my-[24px]" />
               <Comment userId={userId} comment={item} />
-            </div>
+            </>
           );
         })}
+        {data.length > commentCount && (
+          <div className="flex justify-center mt-[24px]">
+            <div
+              className="flex justify-center items-center w-fit space-x-[8px] px-[16px] py-[11px] bg-[#FFFFFF] hover:bg-[#F6F6F6] border-[1px] border-[#D4D4D4] rounded-[8px] cursor-pointer"
+              onClick={() => setCommentCount(commentCount + 5)}
+            >
+              <p>더보기</p>
+              <Image
+                src={DownImg}
+                className="w-[16px] h-[16px]"
+                width={512}
+                height={512}
+                alt=""
+              />
+            </div>
+          </div>
+        )}
       </div>
       <div className="flex flex-col items-end space-y-[40px] h-auto p-[16px] bg-[#FFFFFF] rounded-[8px] border-[1px] border-[#D4D4D4]">
         <textarea
@@ -80,6 +118,26 @@ export default function CommentSection({
           게시
         </div>
       </div>
+      <AlertDialog open={isOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>로그인이 필요한 서비스입니다.</AlertDialogTitle>
+            <AlertDialogDescription>
+              로그인 페이지로 이동합니다.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <Separator />
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => router.push("/login")}>
+              이동
+            </AlertDialogAction>
+            <Separator orientation="vertical" />
+            <AlertDialogCancel onClick={() => setIsOpen(false)}>
+              취소
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

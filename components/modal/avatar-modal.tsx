@@ -11,6 +11,7 @@ import Viewer from "./viewer";
 import { useSession } from "next-auth/react";
 import CommentSection from "./comment-section";
 import CopyButton from "./copy-button";
+import LikeButton from "./like-button";
 
 export default function AvatarModal({
   avatar,
@@ -49,29 +50,26 @@ export default function AvatarModal({
             <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto p-[24px] space-y-[24px] bg-[#FFFFFF] overflow-y-scroll scrollbar-hide">
               <div className="flex justify-between">
                 <p className="text-[24px] font-semibold">{avatar.name}</p>
-                <div className="flex space-x-[24px]">
+                <div className="flex items-center space-x-[24px]">
                   <CopyButton />
-                  <div className="flex space-x-[8px]">
-                    <Image
-                      src={HeartLineImg}
-                      className="w-[24px] h-[24px] cursor-pointer"
-                      width={512}
-                      height={512}
-                      alt=""
-                    />
-                    <p className="font-semibold text-[14px] text-[#FF4E4E]">
-                      0
-                    </p>
-                  </div>
+                  <LikeButton
+                    userId={session.data?.user.id}
+                    avatarId={avatar.id}
+                    likes={avatar.likes}
+                  />
                 </div>
               </div>
               <div className="flex flex-col space-y-[40px]">
                 <div className="flex flex-col space-y-[16px]">
-                  <p className="text-[16px] font-semibold text-[#9D9D9D]">아바타 설명</p>
+                  <p className="text-[16px] font-semibold text-[#9D9D9D]">
+                    아바타 설명
+                  </p>
                   <p className="leading-[25px]">{avatar.description}</p>
                 </div>
                 <div className="flex flex-col space-y-[16px]">
-                  <p className="text-[16px] font-semibold text-[#9D9D9D]">태그</p>
+                  <p className="text-[16px] font-semibold text-[#9D9D9D]">
+                    태그
+                  </p>
                   <div className="flex flex-wrap w-full">
                     {avatar.tags.map((item: any, index: any) => {
                       return (
@@ -86,7 +84,9 @@ export default function AvatarModal({
                   </div>
                 </div>
                 <div className="flex flex-col space-y-[16px]">
-                  <p className="text-[16px] font-semibold text-[#9D9D9D]">썸네일</p>
+                  <p className="text-[16px] font-semibold text-[#9D9D9D]">
+                    썸네일
+                  </p>
                   <div className="relative flex w-full aspect-[8/7] rounded-[10px] overflow-hidden">
                     <Image
                       src={avatar.thumbnailUrl}
@@ -98,11 +98,15 @@ export default function AvatarModal({
                   </div>
                 </div>
                 <div className="flex flex-col space-y-[16px]">
-                  <p className="text-[16px] font-semibold text-[#9D9D9D]">업로드</p>
+                  <p className="text-[16px] font-semibold text-[#9D9D9D]">
+                    업로드
+                  </p>
                   <p>{formatFullDate(avatar.created_at)}</p>
                 </div>
                 <div className="flex flex-col space-y-[24px]">
-                  <p className="text-[16px] font-semibold text-[#9D9D9D]">댓글</p>
+                  <p className="text-[16px] font-semibold text-[#9D9D9D]">
+                    댓글
+                  </p>
                   <CommentSection
                     userId={session.data?.user.id}
                     avatarId={avatar.id}

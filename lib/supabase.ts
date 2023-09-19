@@ -386,7 +386,6 @@ export const addReply = async (
 };
 
 export const addLike = async (id: string, avatarId: string) => {
-  console.log("here");
   const { data, error } = await supabase
     .from("likes")
     .insert([

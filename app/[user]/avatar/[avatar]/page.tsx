@@ -91,11 +91,10 @@ export default async function Avatar(props: any) {
                   />
                   <p className="text-[16px] font-bold">{profile.nickname}</p>
                 </div>
-                <Link
-                  href={`/${profile.user_id}`}
-                  className="text-[12px] font-semibold text-[#368ADC] cursor-pointer"
-                >
-                  • 페이지 이동
+                <Link href={`/${profile.user_id}`}>
+                  <p className="text-[12px] font-semibold text-[#368ADC]">
+                    • 페이지 이동
+                  </p>
                 </Link>
               </div>
               <div className="flex space-x-[16px]">
@@ -116,7 +115,7 @@ export default async function Avatar(props: any) {
             <div className="flex items-center space-x-[24px]">
               <CopyButton />
               <LikeButton
-                session={session}
+                userId={session?.user.id}
                 avatarId={avatar.id}
                 likes={avatar.likes}
               />
