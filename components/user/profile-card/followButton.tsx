@@ -54,7 +54,7 @@ export default function FollowButton({
       </div>
     ) : (
       <div
-        className="flex justify-center items-center w-[200px] h-[42px] space-x-[16px] bg-[#E9E9E9] hover:bg-[#D4D4D4] rounded-[10px] cursor-pointer"
+        className="flex grow justify-center items-center h-[42px] space-x-[16px] bg-[#E9E9E9] hover:bg-[#D4D4D4] rounded-[10px] cursor-pointer"
         onClick={() => onClickUnfollowButton(sessionId!, userId)}
       >
         <Image
@@ -70,7 +70,7 @@ export default function FollowButton({
   ) : (
     <Link
       href={`${userId}/edit`}
-      className="flex justify-center items-center w-[200px] h-[42px] space-x-[16px] bg-[#368ADC] hover:bg-[#5EA1E3] rounded-[10px] cursor-pointer"
+      className="flex grow justify-center items-center h-[42px] space-x-[16px] bg-[#368ADC] hover:bg-[#5EA1E3] rounded-[10px] cursor-pointer"
     >
       <Image
         src={userImg}

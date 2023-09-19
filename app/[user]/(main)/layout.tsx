@@ -16,7 +16,7 @@ export default async function Layout({
       <Header />
       <Suspense>
         <div className="flex justify-center w-full grow dt:px-0 ph:px-[16px] ph:py-[40px]">
-          <div className="relative flex ph:flex-row flex-col-reverse  dt:max-w-[1008px] w-full h-full dt:space-x-[64px] ph:space-x-[32px] space-x-0">
+          <div className="relative flex ph:flex-row flex-col-reverse dt:max-w-[1008px] w-full h-full dt:space-x-[64px] ph:space-x-[32px] space-x-0">
             {children}
             <ProfileCard userId={params.user} />
           </div>

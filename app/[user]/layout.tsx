@@ -1,9 +1,10 @@
 import Footer from "@/components/basic-layout/footer";
 import Navbar from "@/components/navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 export default async function Layout({
   children,
-  modal
+  modal,
 }: {
   children: React.ReactNode;
   modal: React.ReactNode;
@@ -14,6 +15,7 @@ export default async function Layout({
       <div className="relative flex flex-col grow h-auto">
         {children}
         {modal}
+        <Toaster />
         <Footer />
       </div>
     </div>

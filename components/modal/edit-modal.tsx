@@ -203,6 +203,9 @@ export default function EditModal({
                 canvasRef={canvasRef}
                 captureMode={captureMode}
                 status={false}
+                toolbarCss={
+                  "absolute flex flex-row ph:top-[40px] bottom-[24px] ph:right-[40px] right-[24px] space-x-[16px] pointer-events-auto"
+                }
               >
                 <Grid captureMode={captureMode} />
                 <Camera

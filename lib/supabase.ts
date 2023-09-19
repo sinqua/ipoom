@@ -131,7 +131,7 @@ export const getPortfolios = async (id: string) => {
 export const getAvatar = async (id: string) => {
   const { data: avatarData, error: avatarError } = await supabase
     .from("avatars")
-    .select("*, tags (tag)")
+    .select("*, tags (tag), likes (*)")
     .eq("id", id)
     .limit(1)
     .single();
@@ -310,5 +310,104 @@ export const deleteFollow = async (sessionId: string, userId: string) => {
     .eq("source_user_id", sessionId)
     .eq("target_user_id", userId);
 
-  if (error) throw new Error("Delete Foolow Failed!");
+  if (error) throw new Error("Delete Follow Failed!");
+};
+
+export const getComments = async (avatarId: string) => {
+  const { data, error } = await supabase
+    .from("comments")
+    .select("*, replies (*)")
+    .eq("avatar_id", avatarId);
+
+  if (data) return data;
+  else {
+    throw new Error("Comments not Found!");
+  }
+};
+
+export const getCommentProfile = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select()
+    .eq("user_id", userId)
+    .limit(1)
+    .single();
+
+  if (data) return data;
+  else {
+    throw new Error("User not found");
+  }
+};
+
+export const addComment = async (
+  id: string,
+  avatarId: string,
+  content: string
+) => {
+  const { data, error } = await supabase
+    .from("comments")
+    .insert([
+      {
+        writer_id: id,
+        avatar_id: avatarId,
+        content: content,
+      },
+    ])
+    .select("*, replies (*)")
+    .limit(1)
+    .single();
+
+  if (data) return data;
+  else {
+    throw new Error("Insert Comment Failed!");
+  }
+};
+
+export const addReply = async (
+  id: string,
+  commentId: string,
+  content: string
+) => {
+  const { data, error } = await supabase
+    .from("replies")
+    .insert([
+      {
+        writer_id: id,
+        comment_id: commentId,
+        content: content,
+      },
+    ])
+    .select();
+
+  if (data) return data;
+  else {
+    throw new Error("Insert Reply Failed!");
+  }
+};
+
+export const addLike = async (id: string, avatarId: string) => {
+  const { data, error } = await supabase
+    .from("likes")
+    .insert([
+      {
+        user_id: id,
+        target_avatar_id: avatarId,
+      },
+    ])
+    .select();
+
+  if (data) return data;
+  else {
+    throw new Error("Insert Like Failed!");
+  }
+};
+
+export const deleteLike = async (id: string, avatarId: string) => {
+  const { data, error } = await supabase
+    .from("likes")
+    .delete()
+    .eq("user_id", id)
+    .eq("target_avatar_id", avatarId);
+
+  if (error) throw new Error("Delete Like Failed!");
 };

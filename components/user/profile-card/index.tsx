@@ -24,7 +24,6 @@ import FollowButton from "./followButton";
 
 export default async function ProfileCard({ userId }: { userId: string }) {
   const session = await getServerSession(authOptions);
-  // const searchParams = useSearchParams();
 
   const profileData = getProfile(userId);
   const linkData = getLink(userId);
@@ -140,7 +139,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
             />
           </Link>
         </div> */}
-        <div className="flex space-x-[16px]">
+        <div className="flex w-full space-x-[16px]">
           <FollowButton
             sessionId={session?.user.id}
             userId={userId}
