@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface FollowProps {
@@ -30,6 +30,8 @@ export default function Follow({
   setFollowStatus,
 }: FollowProps) {
   const router = useRouter();
+  const pathname = usePathname();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickFollowButton = async (sessionId: string, userId: string) => {
@@ -46,11 +48,7 @@ export default function Follow({
     <>
       <div
         className="flex grow justify-center items-center h-[42px] space-x-[16px] bg-[#368ADC] hover:bg-[#5EA1E3] rounded-[10px] cursor-pointer"
-        onClick={() =>
-          sessionId
-            ? onClickFollowButton(sessionId!, userId)
-            : console.log("로그인이 필요한 기능입니다.")
-        }
+        onClick={() => onClickFollowButton(sessionId!, userId)}
       >
         <Image
           src={followImg}
@@ -71,7 +69,9 @@ export default function Follow({
           </AlertDialogHeader>
           <Separator />
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => router.push("/login")}>
+            <AlertDialogAction
+              onClick={() => router.push(`/login?callbackUrl=${pathname}`)}
+            >
               이동
             </AlertDialogAction>
             <Separator orientation="vertical" />

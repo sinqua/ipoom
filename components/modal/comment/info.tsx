@@ -1,28 +1,43 @@
 "use client";
-import { addComment, addReply, getCommentProfile } from "@/lib/supabase";
-import { useEffect, useRef, useState } from "react";
+import { addReply } from "@/lib/supabase";
+import { useRef, useState } from "react";
 
-import Image from "next/image";
-import moreImg from "@/app/assets/images/more.svg";
+import { getTimeAgo } from "@/lib/utils";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Separator } from "@/components/ui/separator";
+
+import { usePathname, useRouter } from "next/navigation";
 
 interface CommentInfoProps {
   userId: any;
   comment: any;
+  replies: any;
+  setReplies: any;
 }
 
-export default function CommentInfo({ userId, comment }: CommentInfoProps) {
+export default function CommentInfo({
+  userId,
+  comment,
+  replies,
+  setReplies,
+}: CommentInfoProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const [isOpen, setIsOpen] = useState(false);
   const [showInput, setShowInput] = useState(false);
-
-  const today = new Date();
-  const createdDate = new Date(comment.created_at);
-
-  const betweenTime = Math.floor(
-    (today.getTime() - createdDate.getTime()) / 1000 / 60
-  );
-  const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-  const betweenTimeWeek = Math.floor(betweenTime / 60 / 24 / 7);
 
   const handleTextareaSizeChange = () => {
     const textarea = inputRef.current;
@@ -31,50 +46,69 @@ export default function CommentInfo({ userId, comment }: CommentInfoProps) {
   };
 
   const onClickReplyButton = async () => {
-    if (userId) {
-      await addReply(userId, comment.id, inputRef.current!.value);
-
-      setShowInput(false);
-    } else {
-      console.log("로그인이 필요한 기능입니다.");
+    if (!userId) {
+      setIsOpen(true);
+      return;
     }
+
+    const result = await addReply(userId, comment.id, inputRef.current!.value);
+    setReplies([...replies, result]);
+    setShowInput(false);
   };
 
   return (
-    <div className="flex flex-col mt-[16px] space-y-[24px]">
-      <div className="flex space-x-[16px]">
-        <p className="text-[14px] text-[#CCCCCC]">
-          {betweenTimeWeek > 0
-            ? `${betweenTimeWeek}주 전`
-            : today.getDate() === createdDate.getDate()
-            ? "오늘"
-            : betweenTimeDay === 0
-            ? "1일 전"
-            : `${betweenTimeDay}일 전`}
-        </p>
-        <p
-          className="text-[14px] text-[#CCCCCC] hover:text-[#333333] cursor-pointer"
-          onClick={() => setShowInput(!showInput)}
-        >
-          답글달기
-        </p>
-      </div>
-      {showInput && (
-        <div className="left-0 flex flex-col items-end space-y-[20px] h-auto p-[16px] bg-[#FFFFFF] rounded-[8px] border-[1px] border-[#D4D4D4]">
-          <textarea
-            ref={inputRef}
-            className="flex items-center w-full !p-0 resize-none text-[14px] bg-white border-none focus:ring-0 overflow-hidden"
-            placeholder="# 댓글에 답글을 남겨주세요."
-            onChange={handleTextareaSizeChange}
-          />
-          <div
-            className="flex justify-center items-center w-[60px] h-[40px] bg-[#368ADC] rounded-[10px] text-[#FFFFFF] cursor-pointer"
-            onClick={onClickReplyButton}
+    <>
+      <div className="flex flex-col mt-[16px] space-y-[24px]">
+        <div className="flex space-x-[16px]">
+          <p className="text-[14px] text-[#CCCCCC]">
+            {getTimeAgo(comment.created_at)}
+          </p>
+          <p
+            className="text-[14px] text-[#CCCCCC] hover:text-[#333333] cursor-pointer"
+            onClick={() => setShowInput(!showInput)}
           >
-            게시
-          </div>
+            답글달기
+          </p>
         </div>
-      )}
-    </div>
+        {showInput && (
+          <div className="left-0 flex flex-col items-end space-y-[20px] h-auto p-[16px] bg-[#FFFFFF] rounded-[8px] border-[1px] border-[#D4D4D4]">
+            <textarea
+              ref={inputRef}
+              className="flex items-center w-full !p-0 resize-none text-[14px] bg-white border-none focus:ring-0 overflow-hidden"
+              placeholder="# 댓글에 답글을 남겨주세요."
+              onChange={handleTextareaSizeChange}
+            />
+            <div
+              className="flex justify-center items-center w-[60px] h-[40px] bg-[#368ADC] rounded-[10px] text-[#FFFFFF] cursor-pointer"
+              onClick={onClickReplyButton}
+            >
+              게시
+            </div>
+          </div>
+        )}
+      </div>
+      <AlertDialog open={isOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>로그인이 필요한 서비스입니다.</AlertDialogTitle>
+            <AlertDialogDescription>
+              로그인 페이지로 이동합니다.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <Separator />
+          <AlertDialogFooter>
+            <AlertDialogAction
+              onClick={() => router.push(`/login?callbackUrl=${pathname}`)}
+            >
+              이동
+            </AlertDialogAction>
+            <Separator orientation="vertical" />
+            <AlertDialogCancel onClick={() => setIsOpen(false)}>
+              취소
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { comment } from "postcss";
 
 interface CommenSectiontProps {
@@ -34,6 +34,7 @@ export default function CommentSection({
   comments,
 }: CommenSectiontProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -58,34 +59,34 @@ export default function CommentSection({
   };
 
   const onClickCommentButton = async () => {
-    if (userId) {
-      const result = await addComment(
-        userId,
-        avatarId,
-        inputRef.current!.value
-      );
-
-      setData([...data, result]);
-
-      inputRef.current!.value = "";
-    } else {
+    if (!userId) {
       setIsOpen(true);
+      return;
     }
+
+    const result = await addComment(userId, avatarId, inputRef.current!.value);
+    setData([...data, result]);
+
+    inputRef.current!.value = "";
   };
 
   return (
     <>
       <div className="flex flex-col">
-        {data.slice(0, commentCount).map((item: any, index: number) => {
-          return index === 0 ? (
-            <Comment userId={userId} comment={item} key={item.id} />
-          ) : (
-            <>
-              <Separator className="my-[24px]" />
-              <Comment userId={userId} comment={item} />
-            </>
-          );
-        })}
+        {data
+          .slice(0)
+          .reverse()
+          .slice(0, commentCount)
+          .map((item: any, index: number) => {
+            return index === 0 ? (
+              <Comment userId={userId} comment={item} key={item.id} />
+            ) : (
+              <>
+                <Separator className="my-[24px]" />
+                <Comment userId={userId} comment={item} />
+              </>
+            );
+          })}
         {data.length > commentCount && (
           <div className="flex justify-center mt-[24px]">
             <div
@@ -128,7 +129,9 @@ export default function CommentSection({
           </AlertDialogHeader>
           <Separator />
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => router.push("/login")}>
+            <AlertDialogAction
+              onClick={() => router.push(`/login?callbackUrl=${pathname}`)}
+            >
               이동
             </AlertDialogAction>
             <Separator orientation="vertical" />

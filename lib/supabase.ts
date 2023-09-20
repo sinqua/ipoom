@@ -377,7 +377,9 @@ export const addReply = async (
         content: content,
       },
     ])
-    .select();
+    .select()
+    .limit(1)
+    .single();
 
   if (data) return data;
   else {

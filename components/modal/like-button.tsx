@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface LikeButtonProps {
   userId: any;
@@ -33,6 +33,7 @@ export default function LikeButton({
   likes,
 }: LikeButtonProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const checkLikeStatus = (): Boolean => {
     if (!userId) return false;
@@ -48,20 +49,21 @@ export default function LikeButton({
   const [likeStatus, setLikeStatus] = useState(checkLikeStatus());
 
   const onClickLikeButton = async () => {
-    if (userId) {
-      if (likeStatus) {
-        await deleteLike(userId, avatarId);
-
-        setLikeCount(likeCount - 1);
-        setLikeStatus(false);
-      } else {
-        await addLike(userId, avatarId);
-
-        setLikeCount(likeCount + 1);
-        setLikeStatus(true);
-      }
-    } else {
+    if (!userId) {
       setIsOpen(true);
+      return;
+    }
+
+    if (likeStatus) {
+      await deleteLike(userId, avatarId);
+
+      setLikeCount(likeCount - 1);
+      setLikeStatus(false);
+    } else {
+      await addLike(userId, avatarId);
+
+      setLikeCount(likeCount + 1);
+      setLikeStatus(true);
     }
   };
 
@@ -90,7 +92,9 @@ export default function LikeButton({
           </AlertDialogHeader>
           <Separator />
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => router.push("/login")}>
+            <AlertDialogAction
+              onClick={() => router.push(`/login?callbackUrl=${pathname}`)}
+            >
               이동
             </AlertDialogAction>
             <Separator orientation="vertical" />
