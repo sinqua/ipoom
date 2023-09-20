@@ -1,6 +1,6 @@
 "use client";
-import { addComment, getCommentProfile } from "@/lib/supabase";
-import { useEffect, useRef, useState } from "react";
+import { getCommentProfile } from "@/lib/supabase";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import emptyImg from "@/app/assets/images/empty.png";
@@ -12,8 +12,6 @@ interface ReplyProps {
   userId: any;
   reply: any;
 }
-
-// reply 실시간 업데이트
 
 export default function Reply({ userId, reply }: ReplyProps) {
   const [profile, setProfile] = useState<any>(null);

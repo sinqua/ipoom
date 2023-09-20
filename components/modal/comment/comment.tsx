@@ -7,15 +7,12 @@ import emptyImg from "@/app/assets/images/empty.png";
 import moreImg from "@/app/assets/images/more.svg";
 import CommentInfo from "./info";
 import Reply from "./reply";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CommentProps {
   userId: any;
   comment: any;
 }
-
-// useSession 이용해서 userId 받기
-// useSWR 이용해서 fetch에 대한 캐시남기기
 
 export default function Comment({ userId, comment }: CommentProps) {
   const [profile, setProfile] = useState<any>(null);

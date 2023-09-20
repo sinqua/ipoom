@@ -19,8 +19,8 @@ import {
   getLink,
   getProfile,
 } from "@/lib/supabase";
-import ToastButton from "./toastButton";
-import FollowButton from "./followButton";
+import ToastButton from "./toast-button";
+import FollowButton from "./follow-button";
 
 export default async function ProfileCard({ userId }: { userId: string }) {
   const session = await getServerSession(authOptions);
