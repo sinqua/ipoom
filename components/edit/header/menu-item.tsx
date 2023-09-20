@@ -15,7 +15,7 @@ export default function Item({ children }: { children: React.ReactNode }) {
           : "text-[#9D9D9D] hover:text-[#333333]"
       } flex flex-col justify-between h-[35px] cursor-pointer`}
     >
-      <p>{children}</p>
+      <p className="text-[18px]">{children}</p>
       <div
         className={`${
           checkUrl(children, pathname) ? "block" : "hidden"
