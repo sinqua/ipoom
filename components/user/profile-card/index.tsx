@@ -7,9 +7,6 @@ import MenuBar from "./menu-bar";
 import Link from "next/link";
 import emptyImg from "@/app/assets/images/empty.png";
 import defaultBgImg from "@/public/default_background.png";
-import followImg from "@/app/assets/images/follow_white.svg";
-import checkImg from "@/app/assets/images/check_black.svg";
-import userImg from "@/app/assets/images/user_white.svg";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
