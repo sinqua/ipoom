@@ -41,14 +41,20 @@ export default function Page() {
 
     const { data: userData, error: userError } = await supabaseAuth
       .from("users")
-      .select('*')
+      .select("*")
       .eq("id", session?.user.id)
       .limit(1)
       .single();
 
     await supabase
       .from("profiles")
-      .insert([{ user_id: session?.user.id, image: userData.image, nickname: inputRef.current.value }])
+      .insert([
+        {
+          user_id: session?.user.id,
+          image: userData.image,
+          nickname: inputRef.current.value,
+        },
+      ])
       .select();
 
     await supabase.from("user_details").insert([{ user_id: session?.user.id }]);
@@ -76,17 +82,15 @@ export default function Page() {
           있습니다.
         </p>
         <div className="space-y-[8px]">
-          <div className="flex items-center w-full h-[47px] px-[25px] rounded-[10px] bg-white border-solid border-[1px] border-[#CCCCCC]">
-            <input
-              type="text"
-              className="grow h-full outline-none text-sm"
-              ref={inputRef}
-              placeholder="사용하실 닉네임을 입력해주세요."
-              onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                onChangeNickname(event.target.value);
-              }}
-            ></input>
-          </div>
+          <input
+            type="text"
+            className="w-full h-[47px] px-[14px] text-sm rounded-[10px] bg-white border-[1px] border-[#CCCCCC] focus:border-[#CCCCCC] focus:ring-0"
+            ref={inputRef}
+            placeholder="사용하실 닉네임을 입력해주세요."
+            onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChangeNickname(event.target.value);
+            }}
+          />
           <div className="h-[19px]">
             {empty ? (
               <></>
