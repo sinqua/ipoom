@@ -1,5 +1,5 @@
 "use client";
-import { getCommentProfile } from "@/lib/supabase";
+import { getProfile } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
@@ -18,7 +18,7 @@ export default function Reply({ userId, reply }: ReplyProps) {
   const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
-    getCommentProfile(reply.writer_id).then((profile: any) => {
+    getProfile(reply.writer_id).then((profile: any) => {
       setProfile(profile);
     });
   }, []);

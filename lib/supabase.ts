@@ -325,20 +325,6 @@ export const getComments = async (avatarId: string) => {
   }
 };
 
-export const getCommentProfile = async (userId: string) => {
-  const { data, error } = await supabase
-    .from("profiles")
-    .select()
-    .eq("user_id", userId)
-    .limit(1)
-    .single();
-
-  if (data) return data;
-  else {
-    throw new Error("User not found");
-  }
-};
-
 export const addComment = async (
   id: string,
   avatarId: string,

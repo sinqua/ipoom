@@ -1,5 +1,5 @@
 "use client";
-import { getCommentProfile } from "@/lib/supabase";
+import { getProfile } from "@/lib/supabase";
 
 import Image from "next/image";
 import emptyImg from "@/app/assets/images/empty.png";
@@ -26,7 +26,7 @@ export default function Comment({ userId, comment }: CommentProps) {
   const [replyCount, setReplyCount] = useState(5);
 
   useEffect(() => {
-    getCommentProfile(comment.writer_id).then((profile: any) => {
+    getProfile(comment.writer_id).then((profile: any) => {
       setProfile(profile);
     });
   }, []);

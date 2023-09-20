@@ -1,6 +1,5 @@
 "use client";
-import { addComment, getCommentProfile } from "@/lib/supabase";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { usePathname } from "next/navigation";
 
