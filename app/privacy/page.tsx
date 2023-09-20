@@ -13,12 +13,14 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() {
   return (
     <div className="flex flex-col h-auto min-h-screen">
-      <div className="flex justify-center items-center w-full h-[80px] border-b-[1px] border-[#D4D4D4]">
-        <p className="text-[24px] font-semibold">개인정보처리방침</p>
+      <div className="relative flex justify-center w-full ph:h-[80px] h-[65px]">
+        <div className="dt:relative fixed top-0 flex justify-center items-center w-full ph:h-[80px] h-[65px] bg-[#FFFFFF] border-b-[1px] border-[#D4D4D4]">
+          <p className="ph:text-[24px] text-[20px] font-semibold">개인정보처리방침</p>
+        </div>
       </div>
       <div className="flex justify-center py-[40px] pb-[80px]">
         <div className="flex flex-col dt:max-w-[1008px] w-full dt:px-0 px-[16px] space-y-[32px]">
-          <p className="text-[24px] font-semibold">개인정보처리방침</p>
+          <p className="ph:text-[24px] text-[20px] font-semibold">개인정보처리방침</p>
           <div className="flex flex-col space-y-[40px]">
             <div className="flex flex-col space-y-[16px]">
               <p className="text-[18px] font-semibold">{`제1조(목적)`}</p>
