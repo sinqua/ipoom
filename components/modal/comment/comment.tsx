@@ -11,6 +11,7 @@ import moreImg from "@/app/assets/images/more.svg";
 import CommentInfo from "./info";
 import Reply from "./reply";
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 interface CommentProps {
   userId: any;
@@ -18,6 +19,9 @@ interface CommentProps {
 }
 
 export default function Comment({ userId, comment }: CommentProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [profile, setProfile] = useState<any>(null);
 
   const [replies, setReplies] = useState(comment.replies);
@@ -34,7 +38,14 @@ export default function Comment({ userId, comment }: CommentProps) {
   return (
     <div className="flex flex-col space-y-[8px]">
       <div className="flex justify-between items-center">
-        <div className="flex items-center space-x-[16px] cursor-pointer">
+        <div
+          className="flex items-center space-x-[16px] cursor-pointer"
+          onClick={() => {
+            pathname.includes(profile?.user_id)
+              ? router.back()
+              : router.push(`/${profile?.user_id}`);
+          }}
+        >
           <Image
             src={profile ? profile.image : emptyImg}
             className="w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
@@ -55,6 +66,7 @@ export default function Comment({ userId, comment }: CommentProps) {
           comment={comment}
           replies={replies}
           setReplies={setReplies}
+          setIsShowReply={setIsShowReply}
         />
         {replies.length > 0 && (
           <div
