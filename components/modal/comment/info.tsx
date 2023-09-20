@@ -24,6 +24,7 @@ interface CommentInfoProps {
   comment: any;
   replies: any;
   setReplies: any;
+  setIsShowReply: any;
 }
 
 export default function CommentInfo({
@@ -31,6 +32,7 @@ export default function CommentInfo({
   comment,
   replies,
   setReplies,
+  setIsShowReply
 }: CommentInfoProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -54,6 +56,7 @@ export default function CommentInfo({
     const result = await addReply(userId, comment.id, inputRef.current!.value);
     setReplies([...replies, result]);
     setShowInput(false);
+    setIsShowReply(true);
   };
 
   return (

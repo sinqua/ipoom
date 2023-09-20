@@ -161,14 +161,11 @@ export default async function Avatar(props: any) {
               <p className="text-[16px] font-semibold text-[#9D9D9D]">업로드</p>
               <p>{formatFullDate(avatar.created_at)}</p>
             </div>
-            <div className="flex flex-col space-y-[24px]">
-              <p className="text-[16px] font-semibold text-[#9D9D9D]">댓글</p>
-              <CommentSection
-                userId={session?.user.id}
-                avatarId={avatar.id}
-                comments={comments}
-              />
-            </div>
+            <CommentSection
+              userId={session?.user.id}
+              avatarId={avatar.id}
+              comments={comments}
+            />
           </div>
         </div>
       </div>
