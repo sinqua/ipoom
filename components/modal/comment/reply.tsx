@@ -7,6 +7,7 @@ import emptyImg from "@/app/assets/images/empty.png";
 
 import moreImg from "@/app/assets/images/more.svg";
 import CommentInfo from "./info";
+import { getTimeAgo } from "@/lib/utils";
 
 interface ReplyProps {
   userId: any;
@@ -41,7 +42,9 @@ export default function Reply({ userId, reply }: ReplyProps) {
       </div>
       <div className="flex flex-col pl-[56px] space-y-[16px]">
         <p className="text-[14px] whitespace-pre-line">{reply.content}</p>
-        {/* <CommentInfo userId={userId} comment={comment} /> */}
+        <p className="text-[14px] text-[#CCCCCC]">
+          {getTimeAgo(reply.created_at)}
+        </p>
       </div>
     </div>
   );
