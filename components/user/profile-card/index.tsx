@@ -7,24 +7,16 @@ import MenuBar from "./menu-bar";
 import Link from "next/link";
 import emptyImg from "@/app/assets/images/empty.png";
 import defaultBgImg from "@/public/default_background.png";
-import followImg from "@/app/assets/images/follow_white.svg";
-import checkImg from "@/app/assets/images/check_black.svg";
-import userImg from "@/app/assets/images/user_white.svg";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-import {
-  getFollowStatus,
-  getLink,
-  getProfile,
-} from "@/lib/supabase";
-import ToastButton from "./toastButton";
-import FollowButton from "./followButton";
+import { getFollowStatus, getLink, getProfile } from "@/lib/supabase";
+import ToastButton from "./toast-button";
+import FollowButton from "./follow-button";
 
 export default async function ProfileCard({ userId }: { userId: string }) {
   const session = await getServerSession(authOptions);
-  // const searchParams = useSearchParams();
 
   const profileData = getProfile(userId);
   const linkData = getLink(userId);
@@ -69,11 +61,11 @@ export default async function ProfileCard({ userId }: { userId: string }) {
           </div>
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">태그</p>
-            <div className="flex flex-wrap w-full">
+            <div className="ph:flex hidden flex-wrap w-full">
               {profile.tags.map((item: any, index: any) => {
                 return (
                   <div
-                    className="flex justify-center items-center w-fit h-fit px-[8px] py-[4px] mr-[10px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap"
+                    className="flex justify-center items-center w-fit h-fit px-[8px] py-[4px] mr-[10px] mb-[10px] text-[14px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap"
                     key={index}
                   >
                     {item.tag}
@@ -87,10 +79,10 @@ export default async function ProfileCard({ userId }: { userId: string }) {
           {profile.tags.map((item: any, index: any) => {
             return (
               <p
-                className="px-[8px] py-[4px] mr-[16px] mb-[10px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap"
+                className="m-[5px] text-[14px] whitespace-nowrap"
                 key={index}
               >
-                {item.tag}
+                {`#${item.tag}`}
               </p>
             );
           })}
@@ -140,7 +132,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
             />
           </Link>
         </div> */}
-        <div className="flex space-x-[16px]">
+        <div className="flex w-full space-x-[16px]">
           <FollowButton
             sessionId={session?.user.id}
             userId={userId}

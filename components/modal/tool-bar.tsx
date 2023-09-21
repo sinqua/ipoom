@@ -11,12 +11,14 @@ interface ToolBarProps {
   captureMode: boolean;
   resetCamera: () => void;
   setHelpViewer: any;
+  css: any;
 }
 
 export default function ToolBar({
   captureMode,
   resetCamera,
   setHelpViewer,
+  css,
 }: ToolBarProps) {
   const [fullscreen, setFullscreen] = useState(false);
 
@@ -47,7 +49,7 @@ export default function ToolBar({
   }, []);
   return (
     <motion.div
-      className="absolute flex flex-row ph:top-[40px] bottom-[24px] ph:right-[40px] right-[24px] space-x-[16px] pointer-events-auto"
+      className={css}
       animate={captureMode ? { opacity: 0 } : { opacity: 1 }}
     >
       <div

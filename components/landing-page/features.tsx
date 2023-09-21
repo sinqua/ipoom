@@ -175,7 +175,13 @@ export default function Features() {
                   >
                     <div className="relative w-full h-[430px] rounded border border-transparent overflow-hidden">
                       {clickme ? (
-                        <Viewer modelUrl={"./hero.vrm"} animation={"Idle"} />
+                        <Viewer
+                          modelUrl={"./hero.vrm"}
+                          animation={"Idle"}
+                          toolbarCss={
+                            "absolute flex flex-row ph:top-[40px] bottom-[24px] ph:right-[40px] right-[24px] space-x-[16px] pointer-events-auto"
+                          }
+                        />
                       ) : (
                         <div
                           className="relative w-full h-full"

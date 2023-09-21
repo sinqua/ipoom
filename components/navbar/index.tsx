@@ -11,7 +11,7 @@ import { Suspense } from "react";
 export default async function Navbar() {
 
   return (
-    <div className="dt:relative absolute dt:w-[280px] w-auto">
+    <div className="dt:relative absolute dt:w-[280px] w-auto z-50">
       <div className="block flex-none dt:hidden">
         <Suspense>
           <MobileNavbar>
