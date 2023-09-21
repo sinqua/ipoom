@@ -80,10 +80,10 @@ export default function CommentSection({
               return index === 0 ? (
                 <Comment userId={userId} comment={item} key={item.id} />
               ) : (
-                <>
+                <div key={item.id}>
                   <Separator className="my-[24px]" />
                   <Comment userId={userId} comment={item} />
-                </>
+                </div>
               );
             })}
           {data.length > commentCount && (
