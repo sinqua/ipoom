@@ -1,11 +1,11 @@
 "use client";
 import { addComment } from "@/lib/supabase";
 import { useEffect, useRef, useState } from "react";
-import Comment from "./comment/comment";
+import Comment from "./comment";
 import Image from "next/image";
 import DownImg from "@/app/assets/images/down.svg";
 import { Separator } from "@/components/ui/separator";
-import AlertLogin from "../aler-login";
+import AlertLogin from "../../aler-login";
 
 interface CommenSectiontProps {
   userId: any;
