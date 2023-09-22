@@ -11,7 +11,7 @@ export default function Cover({
   status: boolean | null;
 }) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!status);
 
   useEffect(() => {
     if (status === true) {
