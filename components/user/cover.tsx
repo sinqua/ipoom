@@ -1,8 +1,8 @@
 "use client";
 import { SyncLoader } from "react-spinners";
-import { useState } from "react";
 import { supabase } from "@/lib/database";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 export default function Cover({
   avatar,
   status,
@@ -11,9 +11,15 @@ export default function Cover({
   status: boolean | null;
 }) {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (status === false) {
-    setInterval(() => {
+  useEffect(() => {
+    if (status === true) {
+      setIsLoading(false);
+      return;
+    }
+
+    const interval = setInterval(() => {
       supabase
         .from("avatars")
         .select("optimized")
@@ -25,6 +31,10 @@ export default function Cover({
         });
     }, 1000);
 
+    return () => clearInterval(interval);
+  }, [avatar, router, status]);
+
+  if (isLoading) {
     return (
       <div className="absolute inset-0 flex justify-center items-center w-full h-full bg-white/30 backdrop-blur-[1.5px]">
         <SyncLoader color="#2778C7" />
