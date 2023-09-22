@@ -14,7 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() {
   return (
     <div className="flex flex-col h-auto min-h-screen">
-      <Carousel />
       <div className="relative flex justify-center w-full ph:h-[80px] h-[65px]">
         <div className="dt:relative fixed top-0 flex justify-center items-center w-full ph:h-[80px] h-[65px] bg-[#FFFFFF] border-b-[1px] border-[#D4D4D4]">
           <p className="ph:text-[24px] text-[20px] font-semibold">

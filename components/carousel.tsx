@@ -83,6 +83,7 @@ export default function Carousel() {
           width={512}
           height={512}
           alt=""
+          key={index}
         />
       ))}
       <div className="absolute top-0 left-0 w-full h-full !m-0 bg-white/50 backdrop-blur-[55px]"></div>
@@ -103,6 +104,7 @@ export default function Carousel() {
             width={512}
             height={512}
             alt=""
+            key={index}
           />
         ))}
       </div>
