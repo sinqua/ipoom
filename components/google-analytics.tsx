@@ -1,7 +1,7 @@
 import Script from "next/script";
 
 export default function GoogleAnalytics() {
-  if(!process.env.NEXT_PUBLIC_GA_ID) return null
+  if(!process.env.NEXT_PUBLIC_GA_ID) return <></>;
 
   return (
     <div className="container">
