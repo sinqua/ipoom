@@ -118,7 +118,7 @@ export default function Hero() {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
 
           {/* Hero image */}
