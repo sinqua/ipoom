@@ -8,7 +8,7 @@ import Follow from "@/components/main/follow";
 import Popular from "@/components/main/popular";
 import Recent from "@/components/main/recent";
 
-export default async function Main({ modal }: { modal: React.ReactNode }) {
+export default async function Main() {
   const avatars = await getAllAvatars();
 
   return (
@@ -26,7 +26,6 @@ export default async function Main({ modal }: { modal: React.ReactNode }) {
             </div>
           </div>
         </div>
-        {modal}
         <Toaster />
         <Footer />
       </div>
