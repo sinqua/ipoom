@@ -27,9 +27,12 @@ export default async function Follow({ avatars }: FollowProps) {
           </p>
         </div>
         <div className="grid grid-cols-5 gap-x-[16px] gap-y-[24px]">
-          {avatars.slice(0, 10).map((avatar: any) => {
+          {avatars.slice(0, 10).map((avatar: any, index: number) => {
             return (
-              <div className="w-full rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden cursor-pointer">
+              <div
+                className="w-full rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden cursor-pointer"
+                key={index}
+              >
                 <div className="relative overflow-hidden">
                   <Image
                     draggable={false}
