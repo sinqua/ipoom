@@ -1,27 +1,35 @@
-import Hero from "@/components/landing-page/hero";
-import Features from "@/components/landing-page/features";
-import FeaturesBlocks from "@/components/landing-page/features-blocks";
-import Testimonials from "@/components/landing-page/testimonials";
-import Newsletter from "@/components/landing-page/newsletter";
-import Header from "@/components/landing-page/ui/header";
-import Banner from "@/components/landing-page/banner";
+import Header from "@/components/main/header";
 import Footer from "@/components/basic-layout/footer";
+import Navbar from "@/components/navbar";
+import { Toaster } from "@/components/ui/toaster";
+import Carousel from "@/components/carousel";
+import { getAllAvatars } from "@/lib/supabase";
+import Follow from "@/components/main/follow";
+import Popular from "@/components/main/popular";
+import Recent from "@/components/main/recent";
 
-export default function Home() {
+export default async function Main({ modal }: { modal: React.ReactNode }) {
+  const avatars = await getAllAvatars();
+
   return (
-    <>
-      <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
-        <Header />
-        <Hero />
-        <Features />
-        {/* <FeaturesBlocks /> */}
-        {/* <Testimonials /> */}
-        <div className="">
-          <Newsletter />
+    <div className="relative flex h-auto text-[#333333]">
+      <Navbar />
+      <div className="relative flex flex-col grow h-auto">
+        <div className="flex flex-col h-auto min-h-screen">
+          <Header />
+          <div className="flex flex-col items-center w-full grow">
+            <Carousel />
+            <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full pt-[60px] pb-[80px] space-y-[64px]">
+              <Follow avatars={avatars} />
+              <Popular avatars={avatars} />
+              <Recent avatars={avatars} />
+            </div>
+          </div>
         </div>
-        {/* <Banner /> */}
+        {modal}
+        <Toaster />
         <Footer />
       </div>
-    </>
+    </div>
   );
 }

@@ -106,17 +106,10 @@ export const getPortfolios = async (id: string) => {
 
   const portfolios = [];
   for (const portfolio of portfoliosData!) {
-    let url = "";
-    if (portfolio.thumbnail === null) url = "/VerticalModel.png";
-    else {
-      url = portfolio.thumbnail;
-    }
+    if (portfolio.thumbnail === null)
+      portfolio.thumbnail = "/VerticalModel.png";
 
-    const newPortfolio = {
-      ...portfolio,
-      thumbnailUrl: url,
-    };
-    portfolios.push(newPortfolio);
+    portfolios.push(portfolio);
   }
 
   portfolios.sort((a, b) => {
@@ -128,6 +121,32 @@ export const getPortfolios = async (id: string) => {
   return portfolios;
 };
 
+export const getAllAvatars = async () => {
+  const { data: avatarsData, error: avatarsError } = await supabase
+    .from("avatars")
+    .select("*, tags (tag), likes (*)");
+
+  if (avatarsData) {
+    const avatars = [];
+
+    for (const avatar of avatarsData!) {
+      const user = await getProfile(avatar.user_id!);
+
+      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...avatar,
+        user: user,
+      };
+      avatars.push(newAvatar);
+    }
+
+    return avatars;
+  } else {
+    throw new Error("Avatar not found");
+  }
+};
+
 export const getAvatar = async (id: string) => {
   const { data: avatarData, error: avatarError } = await supabase
     .from("avatars")
@@ -137,13 +156,10 @@ export const getAvatar = async (id: string) => {
     .single();
 
   if (avatarData) {
-    let url = "";
-    if (avatarData.thumbnail === null) url = "/VerticalModel.png";
-    else {
-      url = avatarData.thumbnail;
-    }
+    if (avatarData.thumbnail === null)
+      avatarData.thumbnail = "/VerticalModel.png";
 
-    return { ...avatarData, thumbnailUrl: url };
+    return avatarData;
   } else {
     throw new Error("Avatar not found");
   }

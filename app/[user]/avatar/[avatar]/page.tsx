@@ -59,7 +59,7 @@ export default async function Avatar(props: any) {
     <div className="flex flex-col h-auto min-h-screen">
       <div className="flex justify-center items-center w-full dt:h-[80px] h-[65px] space-x-[16px]">
         <Image
-          src={avatar.thumbnailUrl}
+          src={avatar.thumbnail!}
           className="ph:w-[40px] ph:h-[40px] w-[32px] h-[32px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
           width={512}
           height={512}
@@ -149,7 +149,7 @@ export default async function Avatar(props: any) {
               <p className="text-[16px] font-semibold text-[#9D9D9D]">썸네일</p>
               <div className="relative flex w-[304px] aspect-[8/7] rounded-[10px] overflow-hidden">
                 <Image
-                  src={avatar.thumbnailUrl}
+                  src={avatar.thumbnail!}
                   className="object-cover w-full h-full"
                   width={512}
                   height={512}
