@@ -39,22 +39,24 @@ export default async function Main() {
     <div className="relative flex h-auto text-[#333333]">
       <Navbar />
       <div className="relative flex flex-col grow h-auto">
-        <Suspense fallback={<div>Loading...</div>}>
-          <div className="relative flex flex-col h-auto min-h-screen">
+        <div className="relative flex flex-col h-auto min-h-screen">
+          <Suspense fallback={<div>Loading...</div>}>
             <Header tags={tags} />
-            <div className="flex flex-col items-center w-full grow">
-              {/* <Tags tags={tags} /> */}
+          </Suspense>
+          <div className="flex flex-col items-center w-full grow">
+            {/* <Tags tags={tags} /> */}
+            <Suspense fallback={<div>Loading...</div>}>
               <Carousel />
-              <Suspense fallback={<div>cardssssssss...</div>}>
-                <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
-                  <Popular avatars={popularAvatars} />
-                  {session && <Follow avatars={followAvatars} />}
-                  <Recent avatars={recentAvatars} />
-                </div>
-              </Suspense>
-            </div>
+            </Suspense>
+            <Suspense fallback={<div>cardssssssss...</div>}>
+              <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
+                <Popular avatars={popularAvatars} />
+                {session && <Follow avatars={followAvatars} />}
+                <Recent avatars={recentAvatars} />
+              </div>
+            </Suspense>
           </div>
-        </Suspense>
+        </div>
         <Toaster />
         <Footer />
       </div>
