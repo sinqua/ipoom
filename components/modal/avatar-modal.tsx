@@ -89,7 +89,7 @@ export default function AvatarModal({
                   </p>
                   <div className="relative flex w-full aspect-[8/7] rounded-[10px] overflow-hidden">
                     <Image
-                      src={avatar.thumbnailUrl}
+                      src={avatar.thumbnail}
                       className="object-cover w-full h-full"
                       width={512}
                       height={512}

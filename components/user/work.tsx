@@ -19,7 +19,7 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
       >
         <Link href={`/${user}/avatar/${avatar.id}`}>
           <Image
-            src={avatar.thumbnailUrl}
+            src={avatar.thumbnail}
             width={512}
             height={512}
             className="object-cover w-full h-full"
