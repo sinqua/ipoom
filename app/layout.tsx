@@ -35,7 +35,7 @@ export default function RootLayout({
 
 export const metadata: Metadata = {
   title: {
-    default: "무피 - 3D 캐릭터 커뮤니케이션 플랫폼",
+    default: "무피 - 3D 아바타 커뮤니케이션 플랫폼",
     template: "%s | 무피",
   },
   description: "당신이 만든 캐릭터가 더 많은 사람을 만나는 무피. 어떤 기기에서도 생동감 있고 자연스러운 캐릭터를 보여줍니다.",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://moopi.offing.me/"),
   openGraph: {
-    title: "무피",
+    title: "무피 - 3D 아바타 커뮤니케이션 플랫폼",
     description: "당신이 만든 캐릭터가 더 많은 사람을 만나는 무피. 어떤 기기에서도 생동감 있고 자연스러운 캐릭터를 보여줍니다.",
     url: "https://moopi.offing.me/",
     siteName: "무피",
