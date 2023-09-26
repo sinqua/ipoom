@@ -19,7 +19,6 @@ export default async function Card({ index, avatar }: CardProps) {
         "w-full rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden cursor-pointer",
         index < 4 ? "block" : index < 8 ? "tb:block hidden" : "dt:block hidden"
       )}
-      key={index}
     >
       <div className="relative overflow-hidden">
         <Image

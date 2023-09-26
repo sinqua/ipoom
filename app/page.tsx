@@ -15,6 +15,7 @@ import Recent from "@/components/main/recent";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { Suspense } from "react";
+import Tags from "@/components/main/header/tags";
 
 export default async function Main() {
   const session = await getServerSession(authOptions);
@@ -41,6 +42,7 @@ export default async function Main() {
         <div className="relative flex flex-col h-auto min-h-screen">
           <Header tags={tags} />
           <div className="flex flex-col items-center w-full grow">
+            {/* <Tags tags={tags} /> */}
             <Carousel />
             <Suspense>
               <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">

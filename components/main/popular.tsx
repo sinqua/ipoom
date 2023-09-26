@@ -21,7 +21,7 @@ export default async function Popular({ avatars }: PopularProps) {
         </div>
         <div className="grid dt:grid-cols-5 tb:grid-cols-4 grid-cols-2 gap-x-[16px] gap-y-[24px]">
           {avatars.slice(0, 10).map((avatar: any, index: number) => {
-            return <Card index={index} avatar={avatar} />;
+            return <Card index={index} avatar={avatar} key={index} />;
           })}
         </div>
       </div>
