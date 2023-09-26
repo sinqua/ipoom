@@ -40,15 +40,11 @@ export default async function Main() {
       <Navbar />
       <div className="relative flex flex-col grow h-auto">
         <div className="relative flex flex-col h-auto min-h-screen">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Header tags={tags} />
-          </Suspense>
-          <div className="flex flex-col items-center w-full grow">
-            {/* <Tags tags={tags} /> */}
-            <Suspense fallback={<div>Loading...</div>}>
-              <Carousel />
-            </Suspense>
-            <Suspense fallback={<div>cardssssssss...</div>}>
+          <Header />
+          <div className="relative flex flex-col items-center w-full grow">
+            <Tags tags={tags} />
+            <Carousel />
+            <Suspense>
               <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
                 <Popular avatars={popularAvatars} />
                 {session && <Follow avatars={followAvatars} />}

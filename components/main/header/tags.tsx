@@ -2,7 +2,7 @@
 import Image from "next/image";
 import leftImg from "@/app/assets/images/left_white.svg";
 import rightImg from "@/app/assets/images/right_white.svg";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export default function Tags({ tags }: { tags: any }) {
@@ -35,14 +35,14 @@ export default function Tags({ tags }: { tags: any }) {
   };
 
   return (
-    <div className="relative flex justify-center tb:h-[85px] h-[60px] dt:mx-0 mx-[16px]">
+    <div className="relative flex shrink-0 justify-center w-full tb:h-[85px] h-[60px]">
       <div
         className={cn(
           "absolute flex dt:max-w-[1008px] w-full tb:h-[85px] h-[60px]",
           isMobile() ? "overflow-x-scroll scrollbar-hide" : "overflow-hidden"
         )}
       >
-        <div ref={scrollLeftRef}></div>
+        <div ref={scrollLeftRef} className="shrink-0 ph:w-0 w-[16px]"></div>
         <div className="flex items-center h-full space-x-[16px]">
           {tags.map((item: any, index: number) => {
             return (
@@ -56,7 +56,7 @@ export default function Tags({ tags }: { tags: any }) {
             );
           })}
         </div>
-        <div ref={scrollRightRef}></div>
+        <div ref={scrollRightRef} className="shrink-0 ph:w-0 w-[16px]"></div>
       </div>
       {!isMobile() && (
         <div className="absolute top-0 flex justify-between items-center dt:max-w-[1008px] w-full tb:h-[85px] h-[60px] overflow-x-scroll scrollbar-hide pointer-events-none">
