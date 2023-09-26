@@ -4,7 +4,6 @@ import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
 import Carousel from "@/components/carousel";
 import {
-  getAllAvatars,
   getMainFollowAvatars,
   getMainPopularAvatars,
   getMainRecentAvatars,
@@ -15,17 +14,25 @@ import Popular from "@/components/main/popular";
 import Recent from "@/components/main/recent";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { Suspense } from "react";
 
 export default async function Main() {
   const session = await getServerSession(authOptions);
 
-  const tags = await getMainTags();
-  // const avatars = await getAllAvatars();
-  const popularAvatars = await getMainPopularAvatars();
-  const followAvatars = session
-    ? await getMainFollowAvatars(session?.user.id)
+  const tagsData = getMainTags();
+  const popularAvatarsData = getMainPopularAvatars();
+  const followAvatarsData = session
+    ? getMainFollowAvatars(session?.user.id)
     : null;
-  const recentAvatars = await getMainRecentAvatars();
+  const recentAvatarsData = getMainRecentAvatars();
+
+  const [tags, popularAvatars, followAvatars, recentAvatars] =
+    await Promise.all([
+      tagsData,
+      popularAvatarsData,
+      followAvatarsData,
+      recentAvatarsData,
+    ]);
 
   return (
     <div className="relative flex h-auto text-[#333333]">
@@ -35,11 +42,13 @@ export default async function Main() {
           <Header tags={tags} />
           <div className="flex flex-col items-center w-full grow">
             <Carousel />
-            <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
-              <Popular avatars={popularAvatars} />
-              {session && <Follow avatars={followAvatars} />}
-              <Recent avatars={recentAvatars} />
-            </div>
+            <Suspense>
+              <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
+                <Popular avatars={popularAvatars} />
+                {session && <Follow avatars={followAvatars} />}
+                <Recent avatars={recentAvatars} />
+              </div>
+            </Suspense>
           </div>
         </div>
         <Toaster />

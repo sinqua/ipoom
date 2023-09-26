@@ -103,7 +103,7 @@ export default function Carousel() {
             alt=""
           />
         </div>
-        <div className="relative tb:w-[640px] w-full tb:h-[280px] h-full rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
+        <div className="relative tb:w-[640px] w-full tb:h-[280px] h-full tb:rounded-[8px] rounded-none tb:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] shadow-none overflow-hidden">
           {Object.keys(numberToImageMap).map((key: any, index: number) => (
             <Image
               draggable={false}
