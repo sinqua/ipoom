@@ -1,8 +1,7 @@
 import Image from "next/image";
 import searchImg from "@/app/assets/images/search.svg";
-import Tags from "./tags";
 
-export default function Header({ tags }: { tags: any }) {
+export default function Header() {
   return (
     <div className="relative flex flex-col w-full">
       <div className="relative flex justify-center w-full dt:h-[80px] h-[65px]">
@@ -25,7 +24,6 @@ export default function Header({ tags }: { tags: any }) {
           </div>
         </div>
       </div>
-      <Tags tags={tags} />
     </div>
   );
 }
