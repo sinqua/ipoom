@@ -3,26 +3,42 @@ import Footer from "@/components/basic-layout/footer";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
 import Carousel from "@/components/carousel";
-import { getAllAvatars } from "@/lib/supabase";
+import {
+  getAllAvatars,
+  getMainFollowAvatars,
+  getMainPopularAvatars,
+  getMainRecentAvatars,
+  getMainTags,
+} from "@/lib/supabase";
 import Follow from "@/components/main/follow";
 import Popular from "@/components/main/popular";
 import Recent from "@/components/main/recent";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export default async function Main() {
-  const avatars = await getAllAvatars();
+  const session = await getServerSession(authOptions);
+
+  const tags = await getMainTags();
+  // const avatars = await getAllAvatars();
+  const popularAvatars = await getMainPopularAvatars();
+  const followAvatars = session
+    ? await getMainFollowAvatars(session?.user.id)
+    : null;
+  const recentAvatars = await getMainRecentAvatars();
 
   return (
     <div className="relative flex h-auto text-[#333333]">
       <Navbar />
       <div className="relative flex flex-col grow h-auto">
-        <div className="flex flex-col h-auto min-h-screen">
-          <Header />
+        <div className="relative flex flex-col h-auto min-h-screen">
+          <Header tags={tags} />
           <div className="flex flex-col items-center w-full grow">
             <Carousel />
-            <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full pt-[60px] pb-[80px] space-y-[64px]">
-              <Follow avatars={avatars} />
-              <Popular avatars={avatars} />
-              <Recent avatars={avatars} />
+            <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
+              <Popular avatars={popularAvatars} />
+              {session && <Follow avatars={followAvatars} />}
+              <Recent avatars={recentAvatars} />
             </div>
           </div>
         </div>

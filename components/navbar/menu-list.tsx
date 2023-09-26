@@ -23,7 +23,7 @@ export default async function MenuList() {
       <Item imgSrc={mypageImg} url={`${userId}/edit`}>
         마이페이지
       </Item>
-      <LogoutButton imgSrc={logoutImg} />
+      {session && <LogoutButton imgSrc={logoutImg} />}
     </div>
   );
 }

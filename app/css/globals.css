@@ -144,7 +144,7 @@
 
 @keyframes slideLeftIn {
   from {
-    transform: translateX(640px);
+    transform: translateX(100%);
   }
 
   to {
@@ -158,13 +158,13 @@
   }
 
   to {
-    transform: translateX(-640px);
+    transform: translateX(-100%);
   }
 }
 
 @keyframes slideRightIn {
   from {
-    transform: translateX(-640px);
+    transform: translateX(-100%);
   }
 
   to {
@@ -178,7 +178,7 @@
   }
 
   to {
-    transform: translateX(640px);
+    transform: translateX(100%);
   }
 }
 

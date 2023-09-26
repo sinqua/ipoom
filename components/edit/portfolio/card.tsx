@@ -87,14 +87,14 @@ export default function Card({ avatar }: { avatar: any }) {
           <div className="flex justify-end w-full">
             <div className="flex ph:w-auto w-full space-x-[16px]">
               <div
-                className="flex justify-center items-center ph:w-[116px] w-1/2 h-[42px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-solid border-[#D4D4D4] cursor-pointer"
+                className="flex justify-center items-center ph:w-[116px] w-1/2 h-[42px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-solid border-[#D4D4D4] cursor-pointer text-[14px]"
                 onClick={() => setStatus("check")}
               >
                 삭제하기
               </div>
               <Link
                 href={`/edit/${avatar.id}`}
-                className="flex justify-center items-center ph:w-[116px] w-1/2 h-[42px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF]"
+                className="flex justify-center items-center ph:w-[116px] w-1/2 h-[42px] rounded-[10px] bg-[#368ADC] text-[14px] text-[#FFFFFF]"
               >
                 수정하기
               </Link>

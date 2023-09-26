@@ -26,7 +26,7 @@ export default async function Popular({ avatars }: PopularProps) {
             최근 유저들에게 가장 많은 호응을 얻은 아바타입니다.
           </p>
         </div>
-        <div className="grid grid-cols-5 gap-x-[16px] gap-y-[24px]">
+        <div className="grid dt:grid-cols-5 tb:grid-cols-4 grid-cols-2 gap-x-[16px] gap-y-[24px]">
           {avatars.slice(0, 10).map((avatar: any, index: number) => {
             return (
               <div
