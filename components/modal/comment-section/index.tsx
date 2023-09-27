@@ -1,25 +1,11 @@
 "use client";
 import { addComment } from "@/lib/supabase";
 import { useEffect, useRef, useState } from "react";
-import Comment from "./comment/comment";
-
+import Comment from "./comment";
 import Image from "next/image";
 import DownImg from "@/app/assets/images/down.svg";
-
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
-
-import { usePathname, useRouter } from "next/navigation";
+import AlertLogin from "../../aler-login";
 
 interface CommenSectiontProps {
   userId: any;
@@ -32,8 +18,6 @@ export default function CommentSection({
   avatarId,
   comments,
 }: CommenSectiontProps) {
-  const router = useRouter();
-  const pathname = usePathname();
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const commentTopRef = useRef<HTMLDivElement>(null);
 
@@ -96,10 +80,10 @@ export default function CommentSection({
               return index === 0 ? (
                 <Comment userId={userId} comment={item} key={item.id} />
               ) : (
-                <>
+                <div key={item.id}>
                   <Separator className="my-[24px]" />
                   <Comment userId={userId} comment={item} />
-                </>
+                </div>
               );
             })}
           {data.length > commentCount && (
@@ -135,28 +119,7 @@ export default function CommentSection({
           </div>
         </div>
       </div>
-      <AlertDialog open={isOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>로그인이 필요한 서비스입니다.</AlertDialogTitle>
-            <AlertDialogDescription>
-              로그인 페이지로 이동합니다.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <Separator />
-          <AlertDialogFooter>
-            <AlertDialogAction
-              onClick={() => router.push(`/login?callbackUrl=${pathname}`)}
-            >
-              이동
-            </AlertDialogAction>
-            <Separator orientation="vertical" />
-            <AlertDialogCancel onClick={() => setIsOpen(false)}>
-              취소
-            </AlertDialogCancel>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <AlertLogin isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }

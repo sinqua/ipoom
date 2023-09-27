@@ -31,7 +31,9 @@ export default function LikeButton({
   const [likeCount, setLikeCount] = useState(likes.length);
   const [likeStatus, setLikeStatus] = useState(checkLikeStatus());
 
-  const onClickLikeButton = async () => {
+  const onClickLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
     if (!userId) {
       setIsOpen(true);
       return;
@@ -52,19 +54,14 @@ export default function LikeButton({
 
   return (
     <>
-      <div
-        className="flex items-center space-x-[8px]"
+      <Image
+        src={likeStatus ? HeartFillImg : HeartLineImg}
+        className="absolute top-[8px] right-[8px] w-[24px] h-[24px] cursor-pointer"
+        width={512}
+        height={512}
+        alt=""
         onClick={onClickLikeButton}
-      >
-        <Image
-          src={likeStatus ? HeartFillImg : HeartLineImg}
-          className="w-[24px] h-[24px] cursor-pointer"
-          width={512}
-          height={512}
-          alt=""
-        />
-        <p className="font-semibold text-[14px] text-[#FF4E4E]">{likeCount}</p>
-      </div>
+      />
       <AlertLogin isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );

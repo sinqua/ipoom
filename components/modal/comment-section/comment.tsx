@@ -7,11 +7,12 @@ import replyOpenImg from "@/app/assets/images/reply_open.svg";
 import replyCloseImg from "@/app/assets/images/reply_close.svg";
 import replyMoreImg from "@/app/assets/images/reply_more.svg";
 
-import moreImg from "@/app/assets/images/more.svg";
 import CommentInfo from "./info";
 import Reply from "./reply";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CommentProps {
   userId: any;
@@ -23,7 +24,6 @@ export default function Comment({ userId, comment }: CommentProps) {
   const pathname = usePathname();
 
   const [profile, setProfile] = useState<any>(null);
-
   const [replies, setReplies] = useState(comment.replies);
 
   const [isShowReply, setIsShowReply] = useState(false);
@@ -34,6 +34,8 @@ export default function Comment({ userId, comment }: CommentProps) {
       setProfile(profile);
     });
   }, []);
+
+  if (!profile) return <CommentSkeleton />;
 
   return (
     <div className="flex flex-col space-y-[8px]">
@@ -55,9 +57,6 @@ export default function Comment({ userId, comment }: CommentProps) {
           />
           <p className="font-semibold text-[18px]">{profile?.nickname}</p>
         </div>
-        {/* <div className="flex justify-center items-center w-[32px] h-[32px] rounded-full bg-white hover:bg-[#F6F6F6] cursor-pointer">
-          <Image src={moreImg} className="w-[20px] h-[20px]" alt="" />
-        </div> */}
       </div>
       <div className="flex flex-col pl-[56px]">
         <p className="text-[14px] whitespace-pre-line">{comment.content}</p>
@@ -111,6 +110,23 @@ export default function Comment({ userId, comment }: CommentProps) {
             )}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function CommentSkeleton() {
+  return (
+    <div className="flex flex-col space-y-[8px]">
+      <div className="flex justify-between">
+        <div className="flex items-center space-x-[16px]">
+          <Skeleton className="w-[40px] h-[40px] rounded-full" />
+          <Skeleton className="w-[100px] h-[15px] " />
+        </div>
+      </div>
+      <div className="flex flex-col pl-[56px] space-y-[16px]">
+        <Skeleton className="w-full h-[12px]" />
+        <Skeleton className="w-[50px] h-[12px]" />
       </div>
     </div>
   );

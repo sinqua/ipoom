@@ -18,7 +18,7 @@ import Link from "next/link";
 import LikeButton from "@/components/modal/like-button";
 
 type Props = {
-  params: { user: string; avatar: string };
+  params: { avatar: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -26,8 +26,8 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const profile = await getProfile(params.user);
   const avatar = await getAvatar(params.avatar);
+  const profile = await getProfile(avatar.user_id!);
 
   const previousImages = (await parent).openGraph?.images || [];
   const image = profile.background ? profile.background : "";
@@ -50,10 +50,10 @@ export default async function Avatar(props: any) {
 
   const session = await getServerSession(authOptions);
 
-  const profile = await getProfile(params.user);
   const avatar = await getAvatar(params.avatar);
+  const profile = await getProfile(avatar.user_id!);
   const comments = await getComments(params.avatar);
-  const modelUrl = await createModelUrl(params.user, avatar?.vrm);
+  const modelUrl = await createModelUrl(avatar.user_id!, avatar?.vrm);
 
   return (
     <div className="flex flex-col h-auto min-h-screen">

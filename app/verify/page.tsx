@@ -19,11 +19,7 @@ export default function Page() {
     if (status !== "loading") {
       verifyExist(session?.user.id).then((isExist) => {
         if (isExist) {
-          if (searchParams.get("callbackUrl") === "/") {
-            router.push(`/${session?.user.id}`);
-          } else {
-            router.push(`${searchParams.get("callbackUrl")}`);
-          }
+          router.push(`${searchParams.get("callbackUrl")}`);
         } else {
           router.push(callbackUrl);
         }
@@ -35,7 +31,6 @@ export default function Page() {
 }
 
 const verifyExist = (userID: any) => {
-
   return supabase
     .from("profiles")
     .select()

@@ -24,13 +24,13 @@ export default function AvatarModal({
 }) {
   const session = useSession();
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
+  // useEffect(() => {
+  //   document.body.style.overflow = "hidden";
 
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  //   return () => {
+  //     document.body.style.overflow = "auto";
+  //   };
+  // }, []);
 
   return (
     <div className="fixed inset-0 w-full h-full z-50">
@@ -89,7 +89,7 @@ export default function AvatarModal({
                   </p>
                   <div className="relative flex w-full aspect-[8/7] rounded-[10px] overflow-hidden">
                     <Image
-                      src={avatar.thumbnailUrl}
+                      src={avatar.thumbnail}
                       className="object-cover w-full h-full"
                       width={512}
                       height={512}

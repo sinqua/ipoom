@@ -10,7 +10,7 @@ export default function Card({ avatar }: { avatar: any }) {
       </p>
       <div className="shrink-0 ph:w-[394px] w-full h-fit aspect-[8/7] !m-0 rounded-[10px]">
         <Image
-          src={avatar.thumbnailUrl}
+          src={avatar.thumbnail}
           className="object-cover w-full h-full"
           width={512}
           height={512}

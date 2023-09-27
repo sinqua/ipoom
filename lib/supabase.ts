@@ -98,6 +98,7 @@ export const validateNickname = async (nickname: string) => {
   }
 };
 
+// rename
 export const getPortfolios = async (id: string) => {
   const { data: portfoliosData, error: portfoliosError } = await supabase
     .from("avatars")
@@ -106,17 +107,10 @@ export const getPortfolios = async (id: string) => {
 
   const portfolios = [];
   for (const portfolio of portfoliosData!) {
-    let url = "";
-    if (portfolio.thumbnail === null) url = "/VerticalModel.png";
-    else {
-      url = portfolio.thumbnail;
-    }
+    if (portfolio.thumbnail === null)
+      portfolio.thumbnail = "/VerticalModel.png";
 
-    const newPortfolio = {
-      ...portfolio,
-      thumbnailUrl: url,
-    };
-    portfolios.push(newPortfolio);
+    portfolios.push(portfolio);
   }
 
   portfolios.sort((a, b) => {
@@ -128,6 +122,174 @@ export const getPortfolios = async (id: string) => {
   return portfolios;
 };
 
+// rename
+export const getMainTags = async () => {
+  const { data, error } = await supabase
+    .from("tags")
+    .select("*", { count: "exact" });
+
+  const countByGroupTag: any = {};
+  data!.forEach((row) => {
+    const tag = row.tag!;
+    if (countByGroupTag[tag]) {
+      countByGroupTag[tag]++;
+    } else {
+      countByGroupTag[tag] = 1;
+    }
+  });
+  const countArray = Object.entries(countByGroupTag);
+  countArray.sort((a: any, b: any) => b[1] - a[1]);
+
+  const slicedCountByGroupTag = Object.fromEntries(countArray);
+
+  const options = Object.keys(slicedCountByGroupTag).map((tag: any) => {
+    return { tag: tag, count: slicedCountByGroupTag[tag] };
+  });
+
+  return options.slice(0, 10);
+};
+
+// rename
+export const getAllAvatars = async () => {
+  const { data: avatarsData, error: avatarsError } = await supabase
+    .from("avatars")
+    .select("*, tags (tag), likes (*)");
+
+  if (avatarsData) {
+    const avatars = [];
+
+    for (const avatar of avatarsData!) {
+      const user = await getProfile(avatar.user_id!);
+
+      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...avatar,
+        user: user,
+      };
+      avatars.push(newAvatar);
+    }
+
+    return avatars;
+  } else {
+    throw new Error("Avatar not found");
+  }
+};
+
+// rename
+export const getMainPopularAvatars = async () => {
+  const { data: avatarsData, error: avatarsError } = await supabase
+    .from("avatars")
+    .select("*, tags (*), likes (*)")
+    .order("created_at", { ascending: false });
+
+  if (avatarsData) {
+    const sortedAvatars = avatarsData
+      .sort((a, b) => {
+        if (a.likes.length < b.likes.length) return 1;
+        if (a.likes.length > b.likes.length) return -1;
+        return 0;
+      })
+      .slice(0, 10);
+
+    const avatars = [];
+
+    for (const avatar of sortedAvatars!) {
+      const user = await getProfile(avatar.user_id!);
+
+      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...avatar,
+        user: user,
+      };
+      avatars.push(newAvatar);
+    }
+
+    return avatars;
+  } else {
+    throw new Error("Avatar not found");
+  }
+};
+
+// rename
+export const getMainFollowAvatars = async (userId: string) => {
+  if (userId === "") return null;
+
+  const { data: followsData, error: followsError } = await supabase
+    .from("follows")
+    .select("*")
+    .eq("source_user_id", userId);
+
+  let followAvatars: any[] = [];
+
+  if (followsData) {
+    for (const follow of followsData) {
+      const { data: avatarsData, error: avatarsError } = await supabase
+        .from("avatars")
+        .select("*, tags (*), likes (*)")
+        .eq("user_id", follow.target_user_id)
+        .order("created_at", { ascending: false });
+
+      followAvatars = [...followAvatars, ...avatarsData!];
+    }
+
+    const sortedAvatars = followAvatars
+      .sort((a, b) => {
+        if (a.created_at < b.created_at) return 1;
+        if (a.created_at > b.created_at) return -1;
+        return 0;
+      })
+      .slice(0, 10);
+
+    const avatars = [];
+
+    for (const avatar of sortedAvatars!) {
+      const user = await getProfile(avatar.user_id!);
+
+      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...avatar,
+        user: user,
+      };
+      avatars.push(newAvatar);
+    }
+
+    return avatars;
+  } else {
+    throw new Error("Avatars not found");
+  }
+};
+
+// rename
+export const getMainRecentAvatars = async () => {
+  const { data: avatarsData, error: avatarsError } = await supabase
+    .from("avatars")
+    .select("*, tags (*), likes (*)")
+    .order("created_at", { ascending: false });
+
+  if (avatarsData) {
+    const avatars = [];
+
+    for (const avatar of avatarsData.slice(0, 10)!) {
+      const user = await getProfile(avatar.user_id!);
+
+      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...avatar,
+        user: user,
+      };
+      avatars.push(newAvatar);
+    }
+
+    return avatars;
+  } else {
+    throw new Error("Avatar not found");
+  }
+};
+
 export const getAvatar = async (id: string) => {
   const { data: avatarData, error: avatarError } = await supabase
     .from("avatars")
@@ -137,13 +299,10 @@ export const getAvatar = async (id: string) => {
     .single();
 
   if (avatarData) {
-    let url = "";
-    if (avatarData.thumbnail === null) url = "/VerticalModel.png";
-    else {
-      url = avatarData.thumbnail;
-    }
+    if (avatarData.thumbnail === null)
+      avatarData.thumbnail = "/VerticalModel.png";
 
-    return { ...avatarData, thumbnailUrl: url };
+    return avatarData;
   } else {
     throw new Error("Avatar not found");
   }
