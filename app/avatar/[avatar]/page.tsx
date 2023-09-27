@@ -57,17 +57,20 @@ export default async function Avatar(props: any) {
 
   return (
     <div className="flex flex-col h-auto min-h-screen">
-      <div className="flex justify-center items-center w-full dt:h-[80px] h-[65px] space-x-[16px]">
-        <Image
-          src={avatar.thumbnail!}
-          className="ph:w-[40px] ph:h-[40px] w-[32px] h-[32px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
-          width={512}
-          height={512}
-          alt=""
-        />
-        <p className="ph:text-[24px] text-[20px] font-semibold">
-          {avatar.name}
-        </p>
+      <div className="relative flex justify-center w-full dt:h-[80px] h-[65px] border-b-[1px] border-[#D4D4D4]">
+        <div className="fixed top-0 left-0 w-full dt:h-[80px] h-[65px] bg-[#FFFFFF] border-b-[1px] border-[#D4D4D4] z-20" />
+        <div className="fixed top-0 flex justify-center items-center w-full dt:h-[80px] h-[65px] space-x-[16px] z-20">
+          <Image
+            src={avatar.thumbnail!}
+            className="ph:w-[40px] ph:h-[40px] w-[32px] h-[32px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
+            width={512}
+            height={512}
+            alt=""
+          />
+          <p className="ph:text-[24px] text-[20px] font-semibold">
+            {avatar.name}
+          </p>
+        </div>
       </div>
       <div className="relative flex justify-center h-[600px]">
         <Viewer

@@ -10,14 +10,16 @@ export default async function Layout({
   modal: React.ReactNode;
 }) {
   return (
-    <div className="relative flex h-auto text-[#333333]">
-      <Navbar />
-      <div className="relative flex flex-col grow h-auto">
-        {children}
-        {modal}
-        <Toaster />
-        <Footer />
+    <>
+      <div className="relative flex h-auto text-[#333333]">
+        <Navbar />
+        <div className="relative flex flex-col grow h-auto">
+          {children}
+          <Footer />
+        </div>
       </div>
-    </div>
+      {modal}
+      <Toaster />
+    </>
   );
 }
