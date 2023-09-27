@@ -11,9 +11,10 @@ export default function Cover({
   status: boolean | null;
 }) {
   const router = useRouter();
+  let interval: any = null;
 
   if (status === false) {
-    setInterval(() => {
+    interval = setInterval(() => {
       supabase
         .from("avatars")
         .select("optimized")
@@ -31,6 +32,8 @@ export default function Cover({
       </div>
     );
   }
+
+  clearInterval(interval);
 
   return null;
 }
