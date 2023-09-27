@@ -31,7 +31,9 @@ export default function LikeButton({
   const [likeCount, setLikeCount] = useState(likes.length);
   const [likeStatus, setLikeStatus] = useState(checkLikeStatus());
 
-  const onClickLikeButton = async () => {
+  const onClickLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
     if (!userId) {
       setIsOpen(true);
       return;
