@@ -6,6 +6,7 @@ import AuthProvider from "@/components/auth-provider";
 import GoogleAnalytics from "@/components/google-analytics";
 import Discord from "@/components/discord";
 import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,10 @@ export default function RootLayout({
           <main>
             <GoogleAnalytics />
             <AuthProvider>
-              {children}
+              <div className="relative flex h-auto text-[#333333]">
+                <Navbar />
+                {children}
+              </div>
               {modal}
               <Toaster />
             </AuthProvider>
