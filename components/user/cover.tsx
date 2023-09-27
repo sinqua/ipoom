@@ -33,6 +33,7 @@ export default function Cover({
 
     return () => clearInterval(interval);
   }, [avatar, router, status]);
+  
 
   if (isLoading) {
     return (
