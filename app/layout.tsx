@@ -7,6 +7,7 @@ import GoogleAnalytics from "@/components/google-analytics";
 import Discord from "@/components/discord";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/basic-layout/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,13 +25,16 @@ export default function RootLayout({
           <main>
             <GoogleAnalytics />
             <AuthProvider>
-              <div className="relative flex h-auto text-[#333333]">
+              <div className="relative flex h-auto">
                 <Navbar />
-                {children}
+                <div className="relative flex flex-col grow h-auto">
+                  {children}
+                  <Footer />
+                </div>
               </div>
               {modal}
-              <Toaster />
             </AuthProvider>
+            <Toaster />
             <Discord />
           </main>
         </Suspense>

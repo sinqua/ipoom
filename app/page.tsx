@@ -36,8 +36,6 @@ export default async function Main() {
     ]);
 
   return (
-    // <div className="relative flex h-auto text-[#333333]">
-    //   <Navbar />
     <div className="relative flex flex-col grow h-auto">
       <div className="relative flex flex-col h-auto min-h-screen">
         <Header />
@@ -57,9 +55,7 @@ export default async function Main() {
           </Suspense>
         </div>
       </div>
-      {/* <Toaster /> */}
       <Footer />
     </div>
-    // </div>
   );
 }
