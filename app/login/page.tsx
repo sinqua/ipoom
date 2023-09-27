@@ -2,13 +2,16 @@ import Image from "next/image";
 
 import moopiLogo from "@/app/assets/logos/moopi.svg";
 import moopiWhiteLogo from "@/app/assets/logos/moopi_white.svg";
-import KakaoLogin from "@/components/login/KakaoLogin";
-import TwitterLogin from "@/components/login/TwitterLogin";
-import GoogleLogin from "@/components/login/GoogleLogin";
-import DiscordLogin from "@/components/login/DiscordLogin";
-import NaverLogin from "@/components/login/NaverLogin";
+import KakaoLogin from "@/components/login/kakao-login";
+import TwitterLogin from "@/components/login/twitter-login";
+import GoogleLogin from "@/components/login/google-login";
+import DiscordLogin from "@/components/login/discord-login";
+import NaverLogin from "@/components/login/naver-login";
 import loginBg from "@/public/LoginBackground.png";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import Redirect from "@/components/login/redirect";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -20,7 +23,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Page() {
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+
+  if (session) return <Redirect />;
+
   return (
     <div className="flex flex-row h-full font-sans text-[#333333]">
       <div className="relative dt:block hidden grow-0 w-[514px]">
