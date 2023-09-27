@@ -24,13 +24,13 @@ export default function AvatarModal({
 }) {
   const session = useSession();
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
+  // useEffect(() => {
+  //   document.body.style.overflow = "hidden";
 
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  //   return () => {
+  //     document.body.style.overflow = "auto";
+  //   };
+  // }, []);
 
   return (
     <div className="fixed inset-0 w-full h-full z-50">
