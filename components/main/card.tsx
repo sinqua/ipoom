@@ -16,7 +16,6 @@ export default async function Card({ index, avatar }: CardProps) {
 
   return (
     <Link
-      // href={`/${avatar.user.user_id}/avatar/${avatar.id}`}
       href={`/avatar/${avatar.id}`}
       className={cn(
         "w-full rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden cursor-pointer",
