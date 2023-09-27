@@ -11,13 +11,9 @@ export default function Cover({
   status: boolean | null;
 }) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(!status);
-
+  
   useEffect(() => {
-    if (status === true) {
-      setIsLoading(false);
-      return;
-    }
+    if (status) return;
 
     const interval = setInterval(() => {
       supabase
@@ -34,13 +30,10 @@ export default function Cover({
     return () => clearInterval(interval);
   }, [avatar, router, status]);
 
-  if (isLoading) {
-    return (
-      <div className="absolute inset-0 flex justify-center items-center w-full h-full bg-white/30 backdrop-blur-[1.5px]">
-        <SyncLoader color="#2778C7" />
-      </div>
-    );
-  }
-
-  return null;
+  if (status) return null;
+  return (
+    <div className="absolute inset-0 flex justify-center items-center w-full h-full bg-white/30 backdrop-blur-[1.5px]">
+      <SyncLoader color="#2778C7" />
+    </div>
+  );
 }
