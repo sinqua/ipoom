@@ -3,6 +3,7 @@
 import { lazy, useEffect, useRef, useState, FC, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { CameraControls, useGLTF } from "@react-three/drei";
+import { isMobile } from "react-device-detect";
 
 import { ModelProps } from "@/components/modal/model";
 import BounceLoader from "react-spinners/BounceLoader";
@@ -44,8 +45,6 @@ export default function Viewer({
       setProgress,
     });
   }, [modelUrl, animation]);
-
-  const isMobile = () => "ontouchstart" in document.documentElement;
 
   // Prevent the default right-click behavior
   const handleContextMenu = (event: any) => {
