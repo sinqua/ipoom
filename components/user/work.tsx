@@ -12,7 +12,7 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
             src={avatar.thumbnail}
             width={512}
             height={512}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full hover:scale-110 duration-200"
             alt=""
           />
         </Link>
