@@ -42,7 +42,7 @@ export default function Tags({ tags }: { tags: any }) {
           isMobile() ? "overflow-x-scroll scrollbar-hide" : "overflow-hidden"
         )}
       >
-        <div ref={scrollLeftRef} className="shrink-0 ph:w-0 w-[16px]"></div>
+        <div ref={scrollLeftRef} className="shrink-0 dt:w-0 w-[16px]"></div>
         <div className="flex items-center h-full space-x-[16px]">
           {tags.map((item: any, index: number) => {
             return (
@@ -56,7 +56,7 @@ export default function Tags({ tags }: { tags: any }) {
             );
           })}
         </div>
-        <div ref={scrollRightRef} className="shrink-0 ph:w-0 w-[16px]"></div>
+        <div ref={scrollRightRef} className="shrink-0 dt:w-0 w-[16px]"></div>
       </div>
       {!isMobile() && (
         <div className="absolute top-0 flex justify-between items-center dt:max-w-[1008px] w-full tb:h-[85px] h-[60px] overflow-x-scroll scrollbar-hide pointer-events-none">

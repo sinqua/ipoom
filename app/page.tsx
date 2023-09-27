@@ -42,7 +42,11 @@ export default async function Main() {
         <div className="relative flex flex-col h-auto min-h-screen">
           <Header />
           <div className="relative flex flex-col items-center w-full grow">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <div className="shrink-0 w-full tb:h-[85px] h-[60px]" />
+              }
+            >
               <Tags tags={tags} />
             </Suspense>
             <Carousel />

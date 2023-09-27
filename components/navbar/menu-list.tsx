@@ -1,6 +1,10 @@
 import homeImg from "@/app/assets/images/home.svg";
 import portfolioImg from "@/app/assets/images/portfolio.svg";
-import mypageImg from "@/app/assets/images/mypage.svg";
+import alarmImg from "@/app/assets/images/alram.svg";
+import profileImg from "@/app/assets/images/profile.svg";
+import followImg from "@/app/assets/images/follow.svg";
+import likeImg from "@/app/assets/images/like.svg";
+import editImg from "@/app/assets/images/edit.svg";
 import logoutImg from "@/app/assets/images/logout.svg";
 
 import Item from "./menu-item";
@@ -17,11 +21,20 @@ export default async function MenuList() {
       <Item imgSrc={homeImg} url={"/"}>
         홈
       </Item>
-      <Item imgSrc={portfolioImg} url={`${userId}`}>
+      <Item imgSrc={alarmImg} url={"/"}>
+        알림
+      </Item>
+      <Item imgSrc={profileImg} url={`${userId}`}>
         프로필
       </Item>
-      <Item imgSrc={mypageImg} url={`${userId}/edit`}>
-        마이페이지
+      <Item imgSrc={followImg} url={`${userId}`}>
+        팔로우 목록
+      </Item>
+      <Item imgSrc={likeImg} url={`${userId}`}>
+        좋아요 목록
+      </Item>
+      <Item imgSrc={editImg} url={`${userId}/edit`}>
+        프로필 수정
       </Item>
       {session && <LogoutButton imgSrc={logoutImg} />}
     </div>
