@@ -14,6 +14,9 @@ export default function Cover({
   const [optimized, setOptimized] = useState(status);
 
   useEffect(() => {
+    if (status) return;
+    if (optimized) return;
+    
     const interval = setInterval(() => {
       supabase
         .from("avatars")
