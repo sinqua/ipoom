@@ -72,7 +72,7 @@ export default function Carousel() {
   };
 
   return (
-    <div className="relative flex shrink-0 justify-center items-center w-full tb:h-[360px] h-auto tb:aspect-auto aspect-video bg-pink-100">
+    <div className="relative flex shrink-0 justify-center items-center w-full tb:h-[360px] h-auto tb:aspect-auto aspect-[16/7] bg-pink-100">
       {Object.keys(numberToImageMap).map((key: any, index: number) => (
         <Image
           draggable={false}
