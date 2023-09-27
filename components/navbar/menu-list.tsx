@@ -33,10 +33,14 @@ export default async function MenuList() {
       <Item imgSrc={likeImg} url={`${userId}`}>
         좋아요 목록
       </Item>
-      <Item imgSrc={editImg} url={`${userId}/edit`}>
-        프로필 수정
-      </Item>
-      {session && <LogoutButton imgSrc={logoutImg} />}
+      {session && (
+        <>
+          <Item imgSrc={editImg} url={`${userId}/edit`}>
+            프로필 수정
+          </Item>
+          <LogoutButton imgSrc={logoutImg} />
+        </>
+      )}
     </div>
   );
 }
