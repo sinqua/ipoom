@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 
 import Image from "next/image";
 import LikeButton from "./like-button";
+import Link from "next/link";
 
 interface CardProps {
   index: number;
@@ -14,7 +15,9 @@ export default async function Card({ index, avatar }: CardProps) {
   const session = await getServerSession(authOptions);
 
   return (
-    <div
+    <Link
+      // href={`/${avatar.user.user_id}/avatar/${avatar.id}`}
+      href={`/avatar/${avatar.id}`}
       className={cn(
         "w-full rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden cursor-pointer",
         index < 4 ? "block" : index < 8 ? "tb:block hidden" : "dt:block hidden"
@@ -63,6 +66,6 @@ export default async function Card({ index, avatar }: CardProps) {
           <p className="text-[12px] font-semibold">{avatar.user.nickname}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
