@@ -1,4 +1,3 @@
-import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/user/header";
 import ProfileCard from "@/components/user/profile-card";
 
@@ -22,7 +21,6 @@ export default async function Layout({
           </div>
         </div>
       </Suspense>
-      <Toaster />
     </div>
   );
 }
