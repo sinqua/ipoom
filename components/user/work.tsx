@@ -1,22 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import Cover from "./cover";
+import { getTimeAgo } from "@/lib/utils";
 
 export default function Work({ user, avatar }: { user: any; avatar: any }) {
-  const today = new Date();
-  const createdDate = new Date(avatar.created_at);
-
-  const betweenTime = Math.floor(
-    (today.getTime() - createdDate.getTime()) / 1000 / 60
-  );
-  const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-  const betweenTimeWeek = Math.floor(betweenTime / 60 / 24 / 7);
-
   return (
     <div className="relative w-auto dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden">
-      <div
-        className="relative w-full h-full cursor-pointer rounded-[8px] overflow-hidden"
-      >
+      <div className="relative w-full h-full cursor-pointer rounded-[8px] overflow-hidden">
         <Link href={`/${user}/avatar/${avatar.id}`}>
           <Image
             src={avatar.thumbnail}
@@ -29,15 +19,7 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
         <div className="absolute bottom-0 flex flex-col justify-between items-center w-full h-[61px] p-[8px] bg-black/20 backdrop-blur-[3px] text-[#FFFFFF] pointer-events-none">
           <div className="flex justify-between items-center w-full">
             <p className="text-[16px] font-semibold">{avatar.name}</p>
-            <p className="text-[12px]">
-              {betweenTimeWeek > 0
-                ? `${betweenTimeWeek}주 전`
-                : today.getDate() === createdDate.getDate()
-                ? "오늘"
-                : betweenTimeDay === 0
-                ? "1일 전"
-                : `${betweenTimeDay}일 전`}
-            </p>
+            <p className="text-[12px]">{getTimeAgo(avatar.created_at)}</p>
           </div>
           <div className="w-full">
             <p className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">
@@ -50,7 +32,7 @@ export default function Work({ user, avatar }: { user: any; avatar: any }) {
           </div>
         </div>
       </div>
-      <Cover avatar={avatar.id} status={avatar.optimized}/>
+      <Cover avatar={avatar.id} status={avatar.optimized} />
     </div>
   );
 }
