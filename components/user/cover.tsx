@@ -11,12 +11,10 @@ export default function Cover({
   status: boolean | null;
 }) {
   const router = useRouter();
-  const [optimized, setOptimized] = useState(status);
-
+  
   useEffect(() => {
     if (status) return;
-    if (optimized) return;
-    
+
     const interval = setInterval(() => {
       supabase
         .from("avatars")
@@ -24,7 +22,7 @@ export default function Cover({
         .eq("id", avatar)
         .then(({ data, error }) => {
           if (data![0].optimized === true) {
-            setOptimized(true);
+            router.refresh();
           }
         });
     }, 1000);
@@ -33,12 +31,9 @@ export default function Cover({
   }, [avatar, router, status]);
 
   if (status) return null;
-  if (optimized) return null;
-
   return (
     <div className="absolute inset-0 flex justify-center items-center w-full h-full bg-white/30 backdrop-blur-[1.5px]">
       <SyncLoader color="#2778C7" />
     </div>
   );
-
 }
