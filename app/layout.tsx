@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import AuthProvider from "@/components/auth-provider";
 import GoogleAnalytics from "@/components/google-analytics";
+import Discord from "@/components/discord";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
               {children}
               {modal}
             </AuthProvider>
+            <Discord />
           </main>
         </Suspense>
       </body>
@@ -33,10 +35,10 @@ export default function RootLayout({
 
 export const metadata: Metadata = {
   title: {
-    default: "무피 - 3D 캐릭터 커뮤니케이션 플랫폼",
+    default: "무피 - 3D 아바타 커뮤니케이션 플랫폼",
     template: "%s | 무피",
   },
-  description: "무피는 3D 캐릭터의 게시 및 커미션 의뢰가 가능한 플랫폼입니다",
+  description: "당신이 만든 캐릭터가 더 많은 사람을 만나는 무피. 어떤 기기에서도 생동감 있고 자연스러운 캐릭터를 보여줍니다.",
   applicationName: "무피",
   keywords: [
     "3D",
@@ -54,15 +56,15 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://moopi.offing.me/"),
   openGraph: {
-    title: "무피",
-    description: "무피는 3D 캐릭터의 게시 및 커미션 의뢰가 가능한 플랫폼입니다",
+    title: "무피 - 3D 아바타 커뮤니케이션 플랫폼",
+    description: "당신이 만든 캐릭터가 더 많은 사람을 만나는 무피. 어떤 기기에서도 생동감 있고 자연스러운 캐릭터를 보여줍니다.",
     url: "https://moopi.offing.me/",
     siteName: "무피",
     images: [
       {
         url: "https://moopi.offing.me/og-image.png",
         width: 600,
-        height: 800,
+        height: 600,
         alt: "무피",
       },
     ],

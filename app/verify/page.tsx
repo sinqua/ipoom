@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { supabase } from "@/lib/database";
 
+export const revalidate = 0;
+
 export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
