@@ -19,20 +19,20 @@ export default async function Profile() {
 
   return (
     <div className="relative flex justify-between items-center h-[88px] px-[32px] pr-[24px] border-t-[1px]">
-      <Link
-        href={`/${session.user.id}`}
-        className="flex grow items-center space-x-[16px]"
-      >
-        <Image
-          src={profile.image ? profile.image : emptyImg}
-          className="object-cover w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
-          width={40}
-          height={40}
-          alt=""
-          priority
-        />
-        <p className="text-[16px] text-[#637381]">{profile.nickname}</p>
+      <Link href={`/${session.user.id}`}>
+        <div className="flex grow items-center space-x-[16px]">
+          <Image
+            src={profile.image ? profile.image : emptyImg}
+            className="object-cover w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
+            width={40}
+            height={40}
+            alt=""
+            priority
+          />
+          <p className="text-[16px] text-[#637381]">{profile.nickname}</p>
+        </div>
       </Link>
+
       {/* <KebabMenu /> */}
     </div>
   );

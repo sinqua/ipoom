@@ -9,7 +9,6 @@ import UploadWork from "./upload-work";
 import { Suspense } from "react";
 
 export default async function Navbar() {
-
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto z-50">
       <div className="block flex-none dt:hidden">
@@ -24,12 +23,14 @@ export default async function Navbar() {
       <div className="fixed dt:flex hidden flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]">
         <div className="px-[32px] py-[24px]">
           <Link href="/" title="Go to homepage">
-            <Image
-              src={moopiLogo}
-              className="w-auto ph:h-[40px] h-[30px]"
-              alt=""
-              priority
-            />
+            <div>
+              <Image
+                src={moopiLogo}
+                className="w-auto ph:h-[40px] h-[30px]"
+                alt=""
+                priority
+              />
+            </div>
           </Link>
         </div>
         <MenuList />
