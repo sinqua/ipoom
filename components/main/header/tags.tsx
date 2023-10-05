@@ -5,9 +5,12 @@ import rightImg from "@/app/assets/images/right_white.svg";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { isMobile } from 'react-device-detect';
+import { useRouter } from "next/navigation";
 
 
 export default function Tags({ tags }: { tags: any }) {
+  const router = useRouter();
+
   const scrollLeftRef = useRef<HTMLDivElement>(null);
   const scrollRightRef = useRef<HTMLDivElement>(null);
 
@@ -49,6 +52,7 @@ export default function Tags({ tags }: { tags: any }) {
               <div
                 className="flex flex-col items-center tb:px-[24px] px-[8px] tb:py-[8px] py-[4px] space-y-[3px] bg-[#8B55D1] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap"
                 key={index}
+                onClick={() => router.push("/login")}
               >
                 <p>{`#${item.tag}`}</p>
                 <p className="tb:block hidden">{item.count}</p>
