@@ -52,7 +52,7 @@ export default function Tags({ tags }: { tags: any }) {
               <div
                 className="flex flex-col items-center tb:px-[24px] px-[8px] tb:py-[8px] py-[4px] space-y-[3px] bg-[#8B55D1] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap"
                 key={index}
-                onClick={() => router.push("/login")}
+                onClick={() => router.push("/privacy")}
               >
                 <p>{`#${item.tag}`}</p>
                 <p className="tb:block hidden">{item.count}</p>
