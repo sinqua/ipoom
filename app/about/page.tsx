@@ -16,7 +16,7 @@ export default function Home() {
         <Features />
         {/* <FeaturesBlocks /> */}
         {/* <Testimonials /> */}
-        <div className="">
+        <div>
           <Newsletter />
         </div>
         {/* <Banner /> */}

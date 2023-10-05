@@ -14,7 +14,7 @@ import LogoutButton from "./logout-button";
 
 export default async function MenuList() {
   const session = await getServerSession(authOptions);
-  const userId = session ? `/${session?.user.id}` : "";
+  const userId = session ? `/${session?.user.id}` : "/login";
 
   return (
     <div className="grow flex flex-col">
