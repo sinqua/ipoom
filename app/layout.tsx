@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Suspense>
           <main>
-            <GoogleAnalytics />
+            {/* <GoogleAnalytics /> */}
             <AuthProvider>
               <div className="relative flex h-auto">
                 <Navbar />
