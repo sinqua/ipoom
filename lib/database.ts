@@ -6,7 +6,7 @@ export const supabaseAuth = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY as string,
   {
     auth: {
-      persistSession: false,
+      persistSession: true,
       detectSessionInUrl: false,
       autoRefreshToken: false,
     },
@@ -21,7 +21,7 @@ export const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
   {
     auth: {
-      persistSession: false,
+      persistSession: true,
       detectSessionInUrl: false,
       autoRefreshToken: false,
     },
