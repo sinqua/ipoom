@@ -13,8 +13,9 @@ import { authOptions } from "@/lib/auth";
 import LogoutButton from "./logout-button";
 
 export default async function MenuList() {
-  const session = await getServerSession(authOptions);
-  const userId = session ? `/${session?.user.id}` : "/login";
+  // const session = await getServerSession(authOptions);
+  // const userId = session ? `/${session?.user.id}` : "/login";
+  const userId = "3a021b56-49d2-4a79-a260-ba1b5fb00d0e";
 
   return (
     <div className="grow flex flex-col">
@@ -33,14 +34,14 @@ export default async function MenuList() {
       <Item imgSrc={likeImg} url={`${userId}`}>
         좋아요 목록
       </Item>
-      {session && (
+      {/* {session && (
         <>
           <Item imgSrc={editImg} url={`${userId}/edit`}>
             프로필 수정
           </Item>
           <LogoutButton imgSrc={logoutImg} />
         </>
-      )}
+      )} */}
     </div>
   );
 }
