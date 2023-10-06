@@ -5,7 +5,7 @@ import KakaoProvider from "next-auth/providers/kakao"
 import NaverProvider from "next-auth/providers/naver"
 import GoogleProvider from "next-auth/providers/google"
 import { SupabaseAdapter } from "@next-auth/supabase-adapter"
-
+import { randomBytes, randomUUID } from 'crypto';
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -31,6 +31,14 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  session: {
+    strategy: 'database',
+    maxAge: 30 * 24 * 60 * 60,
+    generateSessionToken: () => {
+      return randomUUID?.() ?? randomBytes(32).toString('hex');
+    },
+  },
+  secret: process.env.SECRET,
   adapter: SupabaseAdapter({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL as string,
     secret: process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY as string,
