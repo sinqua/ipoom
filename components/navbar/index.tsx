@@ -22,7 +22,7 @@ export default async function Navbar() {
       </div>
       <div className="fixed dt:flex hidden flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]">
         <div className="px-[32px] py-[24px]">
-          <Link href="/?=new" title="Go to homepage">
+          <Link href="/home" title="Go to homepage">
             <div>
               <Image
                 src={moopiLogo}

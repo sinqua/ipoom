@@ -18,10 +18,10 @@ export default async function MenuList() {
 
   return (
     <div className="grow flex flex-col">
-      <Item imgSrc={homeImg} url={"/"}>
+      <Item imgSrc={homeImg} url={"/home"}>
         홈
       </Item>
-      <Item imgSrc={alarmImg} url={"/"}>
+      <Item imgSrc={alarmImg} url={"/home"}>
         알림
       </Item>
       <Item imgSrc={profileImg} url={`${userId}`}>
