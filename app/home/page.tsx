@@ -17,6 +17,8 @@ import { authOptions } from "@/lib/auth";
 import { Suspense } from "react";
 import Tags from "@/components/main/header/tags";
 
+export const revalidate = 0;
+
 export default async function Main() {
   const session = await getServerSession(authOptions);
 
