@@ -1,8 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { supabaseAuth } from "@/lib/database";
-import { supabase } from "@/lib/database";
+
+import { getSupabaseAuth, getSupabase } from "@/lib/database";
 import { useSession } from "next-auth/react";
 
 import Image from "next/image";
@@ -22,7 +22,7 @@ export default function Page() {
   const onChangeNickname = async (nickname: string) => {
     setEmpty(nickname.length === 0 ? true : false);
 
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("profiles")
       .select()
       .eq("nickname", nickname);
@@ -39,14 +39,14 @@ export default function Page() {
       return;
     }
 
-    const { data: userData, error: userError } = await supabaseAuth
+    const { data: userData, error: userError } = await getSupabaseAuth()
       .from("users")
       .select("*")
       .eq("id", session?.user.id)
       .limit(1)
       .single();
 
-    await supabase
+    await getSupabase()
       .from("profiles")
       .insert([
         {
@@ -57,9 +57,9 @@ export default function Page() {
       ])
       .select();
 
-    await supabase.from("user_details").insert([{ user_id: session?.user.id }]);
+    await getSupabase().from("user_details").insert([{ user_id: session?.user.id }]);
 
-    await supabase.from("links").insert([{ user_id: session?.user.id }]);
+    await getSupabase().from("links").insert([{ user_id: session?.user.id }]);
 
     update();
     router.push(`/${session?.user.id}`);

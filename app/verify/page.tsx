@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useSession } from "next-auth/react";
-import { supabase } from "@/lib/database";
+import { getSupabase } from "@/lib/database";
 
 export const revalidate = 0;
 
@@ -31,7 +31,7 @@ export default function Page() {
 }
 
 const verifyExist = (userID: any) => {
-  return supabase
+  return getSupabase()
     .from("profiles")
     .select()
     .eq("user_id", userID)

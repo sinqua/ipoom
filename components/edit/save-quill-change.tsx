@@ -1,5 +1,5 @@
 "use client";
-import { supabase, supabaseAuth } from "@/lib/database";
+import { getSupabaseAuth, getSupabase } from "@/lib/database";
 import { UploadQuillImage } from "@/lib/storage";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
@@ -89,7 +89,7 @@ const handleSaveQuill = async (session: any, label: any, htmlStr: any) => {
       }
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("user_details")
       .update({ description: JSON.stringify({ ...htmlStr.ops }) })
       .eq("user_id", session?.user.id)
@@ -115,7 +115,7 @@ const handleSaveQuill = async (session: any, label: any, htmlStr: any) => {
       }
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("user_details")
       .update({ price_info: JSON.stringify({ ...htmlStr.ops }) })
       .eq("user_id", session?.user.id)

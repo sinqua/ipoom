@@ -1,4 +1,4 @@
-import { supabase, supabaseAuth } from "./database";
+import { getSupabase, getSupabaseAuth } from "./database";
 
 export const generatePublicUrl = (storage: string, path: string) => {
   const supabasePublic = `https://${process.env.NEXT_PUBLIC_SUPABASE_NAME}/storage/v1/object/public`;
@@ -6,7 +6,7 @@ export const generatePublicUrl = (storage: string, path: string) => {
 };
 
 export const getMostUsedTags = async () => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("tags")
     .select("*", { count: "exact" });
 
@@ -32,7 +32,7 @@ export const getMostUsedTags = async () => {
 };
 
 export const getProfile = async (id: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("profiles")
     .select(`*,  tags (tag)`)
     .eq("user_id", id)
@@ -46,7 +46,7 @@ export const getProfile = async (id: string) => {
 };
 
 export const getLink = async (id: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("links")
     .select(`*`)
     .eq("user_id", id)
@@ -60,7 +60,7 @@ export const getLink = async (id: string) => {
 };
 
 export const getFollowStatus = async (sessionId: string, userId: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("follows")
     .select(`*`)
     .eq("source_user_id", sessionId)
@@ -73,7 +73,7 @@ export const getFollowStatus = async (sessionId: string, userId: string) => {
 };
 
 export const getUserDetail = async (id: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("user_details")
     .select(`*`)
     .eq("user_id", id)
@@ -87,7 +87,7 @@ export const getUserDetail = async (id: string) => {
 };
 
 export const validateNickname = async (nickname: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("profiles")
     .select(`*`)
     .eq("nickname", nickname);
@@ -100,7 +100,7 @@ export const validateNickname = async (nickname: string) => {
 
 // rename
 export const getPortfolios = async (id: string) => {
-  const { data: portfoliosData, error: portfoliosError } = await supabase
+  const { data: portfoliosData, error: portfoliosError } = await getSupabase()
     .from("avatars")
     .select(`*, tags (*), animations (*)`)
     .eq("user_id", id);
@@ -124,7 +124,7 @@ export const getPortfolios = async (id: string) => {
 
 // rename
 export const getMainTags = async () => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("tags")
     .select("*", { count: "exact" });
 
@@ -151,7 +151,7 @@ export const getMainTags = async () => {
 
 // rename
 export const getAllAvatars = async () => {
-  const { data: avatarsData, error: avatarsError } = await supabase
+  const { data: avatarsData, error: avatarsError } = await getSupabase()
     .from("avatars")
     .select("*, tags (tag), likes (*)");
 
@@ -178,7 +178,7 @@ export const getAllAvatars = async () => {
 
 // rename
 export const getMainPopularAvatars = async () => {
-  const { data: avatarsData, error: avatarsError } = await supabase
+  const { data: avatarsData, error: avatarsError } = await getSupabase()
     .from("avatars")
     .select("*, tags (*), likes (*)")
     .order("created_at", { ascending: false });
@@ -216,7 +216,7 @@ export const getMainPopularAvatars = async () => {
 export const getMainFollowAvatars = async (userId: string) => {
   if (userId === "") return null;
 
-  const { data: followsData, error: followsError } = await supabase
+  const { data: followsData, error: followsError } = await getSupabase()
     .from("follows")
     .select("*")
     .eq("source_user_id", userId);
@@ -225,7 +225,7 @@ export const getMainFollowAvatars = async (userId: string) => {
 
   if (followsData) {
     for (const follow of followsData) {
-      const { data: avatarsData, error: avatarsError } = await supabase
+      const { data: avatarsData, error: avatarsError } = await getSupabase()
         .from("avatars")
         .select("*, tags (*), likes (*)")
         .eq("user_id", follow.target_user_id)
@@ -264,7 +264,7 @@ export const getMainFollowAvatars = async (userId: string) => {
 
 // rename
 export const getMainRecentAvatars = async () => {
-  const { data: avatarsData, error: avatarsError } = await supabase
+  const { data: avatarsData, error: avatarsError } = await getSupabase()
     .from("avatars")
     .select("*, tags (*), likes (*)")
     .order("created_at", { ascending: false });
@@ -291,7 +291,7 @@ export const getMainRecentAvatars = async () => {
 };
 
 export const getAvatar = async (id: string) => {
-  const { data: avatarData, error: avatarError } = await supabase
+  const { data: avatarData, error: avatarError } = await getSupabase()
     .from("avatars")
     .select("*, tags (tag), likes (*)")
     .eq("id", id)
@@ -312,7 +312,7 @@ export const createModelUrl = async (userId: string, filename: any) => {
   if (!filename) return { signedUrl: "" };
 
   const filepath = `${userId}/${filename}`;
-  const { data, error } = await supabase.storage
+  const { data, error } = await getSupabase().storage
     .from("optimize")
     .createSignedUrl(filepath, 3600);
 
@@ -330,7 +330,7 @@ export const insertAvatar = async (
   visible: any,
   animation: any
 ) => {
-  const { data: avatarData, error: avatarError } = await supabase
+  const { data: avatarData, error: avatarError } = await getSupabase()
     .from("avatars")
     .insert([
       {
@@ -352,7 +352,7 @@ export const insertAvatar = async (
 };
 
 export const deleteAvatar = async (avatarId: any) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("avatars")
     .delete()
     .eq("id", avatarId);
@@ -361,7 +361,7 @@ export const deleteAvatar = async (avatarId: any) => {
 };
 
 export const addAvatarTags = async (avatar_id: any, avatarTags: any) => {
-  const { data: tagsData, error: tagsError } = await supabase
+  const { data: tagsData, error: tagsError } = await getSupabase()
     .from("tags")
     .insert(
       avatarTags
@@ -381,7 +381,7 @@ export const updateAvatarThumbnail = async (
   uuid: any,
   avatarId: any
 ) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("avatars")
     .update({
       thumbnail: generatePublicUrl("thumbnail", `${userId}/${uuid}.png`),
@@ -398,7 +398,7 @@ export const updateAvatar = async (
   visible: any,
   animation: any
 ) => {
-  const { data: avatarData, error: avatarError } = await supabase
+  const { data: avatarData, error: avatarError } = await getSupabase()
     .from("avatars")
     .update({
       name: avatarName,
@@ -416,7 +416,7 @@ export const updateAvatar = async (
 };
 
 export const updateAvatarName = async (avatarId: any, avatarName: any) => {
-  const { error: avatarError } = await supabase
+  const { error: avatarError } = await getSupabase()
     .from("avatars")
     .update({
       vrm: avatarName,
@@ -427,12 +427,12 @@ export const updateAvatarName = async (avatarId: any, avatarName: any) => {
 };
 
 export const updateAvatarTags = async (avatarId: any, avatarTags: any) => {
-  const { error } = await supabase
+  const { error } = await getSupabase()
     .from("tags")
     .delete()
     .eq("avatar_id", avatarId);
 
-  const { data: tagsData, error: tagsError } = await supabase
+  const { data: tagsData, error: tagsError } = await getSupabase()
     .from("tags")
     .insert(
       avatarTags
@@ -448,7 +448,7 @@ export const updateAvatarTags = async (avatarId: any, avatarTags: any) => {
 };
 
 export const addFollow = async (sessionId: string, userId: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("follows")
     .insert([
       {
@@ -463,7 +463,7 @@ export const addFollow = async (sessionId: string, userId: string) => {
 };
 
 export const deleteFollow = async (sessionId: string, userId: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("follows")
     .delete()
     .eq("source_user_id", sessionId)
@@ -473,7 +473,7 @@ export const deleteFollow = async (sessionId: string, userId: string) => {
 };
 
 export const getComments = async (avatarId: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("comments")
     .select("*, replies (*)")
     .eq("avatar_id", avatarId);
@@ -489,7 +489,7 @@ export const addComment = async (
   avatarId: string,
   content: string
 ) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("comments")
     .insert([
       {
@@ -513,7 +513,7 @@ export const addReply = async (
   commentId: string,
   content: string
 ) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("replies")
     .insert([
       {
@@ -533,7 +533,7 @@ export const addReply = async (
 };
 
 export const addLike = async (id: string, avatarId: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("likes")
     .insert([
       {
@@ -550,7 +550,7 @@ export const addLike = async (id: string, avatarId: string) => {
 };
 
 export const deleteLike = async (id: string, avatarId: string) => {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("likes")
     .delete()
     .eq("user_id", id)

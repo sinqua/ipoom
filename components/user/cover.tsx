@@ -1,6 +1,6 @@
 "use client";
 import { SyncLoader } from "react-spinners";
-import { supabase } from "@/lib/database";
+import { getSupabase } from "@/lib/database";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function Cover({
@@ -16,7 +16,7 @@ export default function Cover({
     if (status) return;
 
     const interval = setInterval(() => {
-      supabase
+      getSupabase()
         .from("avatars")
         .select("optimized")
         .eq("id", avatar)
