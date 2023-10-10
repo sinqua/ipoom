@@ -1,16 +1,10 @@
-import { NextAuthOptions, SessionOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import TwitterProvider from "next-auth/providers/twitter";
 import KakaoProvider from "next-auth/providers/kakao";
 import NaverProvider from "next-auth/providers/naver";
 import GoogleProvider from "next-auth/providers/google";
 import { SupabaseAdapter } from "@next-auth/supabase-adapter";
-import { randomBytes, randomUUID } from "crypto";
-
-const jwt = {
-  secret: process.env.SUPABASE_JWT_SECRET,
-  encryption: true,
-};
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -60,17 +54,5 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/login",
-  },
-  session: {
-    strategy: "database",
-    maxAge: 30 * 24 * 60 * 60,
-    ...(jwt && { jwt }), // Spread the jwt object conditionally
-    generateSessionToken: () => {
-      return `${randomUUID?.()}-${randomBytes(32).toString(
-        "hex"
-      )}-${randomBytes(32).toString("hex")}-${randomBytes(32).toString(
-        "hex"
-      )}-${randomBytes(32).toString("hex")}`;
-    },
   },
 };
