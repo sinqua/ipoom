@@ -37,6 +37,10 @@ export async function generateMetadata(
   };
   }catch(error){
     console.error("Error fetching profile:", error);
+    return {
+      title: "Default Title",
+      description: "Default Description",
+    };
   }
 }
 
