@@ -1,10 +1,10 @@
 import { cn, getTimeAgo } from "@/lib/utils";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 import Image from "next/image";
 import LikeButton from "./like-button";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface CardProps {
   index: number;
@@ -12,7 +12,11 @@ interface CardProps {
 }
 
 export default async function Card({ index, avatar }: CardProps) {
-  const session = await getServerSession(authOptions);
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <Link
@@ -32,7 +36,7 @@ export default async function Card({ index, avatar }: CardProps) {
           alt=""
         />
         <LikeButton
-          userId={session?.user.id}
+          userId={user?.id}
           avatarId={avatar.id}
           likes={avatar.likes}
         />

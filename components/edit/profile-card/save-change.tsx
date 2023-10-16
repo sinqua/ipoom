@@ -1,72 +1,76 @@
 "use client";
-import { supabase, supabaseAuth } from "@/lib/database";
+import { supabase } from "@/lib/database";
 import { generatePublicUrl, validateNickname } from "@/lib/supabase";
-import { useSession } from "next-auth/react";
 import React, { forwardRef, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 import checkImg from "@/app/assets/images/check_black.svg";
 import FadeLoader from "react-spinners/FadeLoader";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
-  const { data: session } = useSession();
-
   const [status, setStatus] = useState("");
 
+  const supabase = createClientComponentClient();
+
   const handleClick = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     setStatus("save");
 
     if (props.label === "thumbnail") {
-      await handleSaveThumbnail(session, ref);
+      await handleSaveThumbnail(user?.id, ref);
       setStatus("done");
 
       return;
     }
 
     if (props.label === "background") {
-      await handleSaveBackground(session, ref);
+      await handleSaveBackground(user?.id, ref);
       setStatus("done");
 
       return;
     }
 
     if (props.label === "nickname") {
-      await handleSaveNickname(session, ref);
+      await handleSaveNickname(user?.id, ref);
       setStatus("done");
 
       return;
     }
 
     if (props.label === "description") {
-      await handleSaveDescription(session, ref);
+      await handleSaveDescription(user?.id, ref);
       setStatus("done");
 
       return;
     }
 
     if (props.label === "kakao") {
-      await handleSaveKakaoLink(session, ref);
+      await handleSaveKakaoLink(user?.id, ref);
       setStatus("done");
 
       return;
     }
 
     if (props.label === "twitter") {
-      await handleSaveTwitterLink(session, ref);
+      await handleSaveTwitterLink(user?.id, ref);
       setStatus("done");
 
       return;
     }
 
     if (props.label === "toss") {
-      await handleSaveTossLink(session, ref);
+      await handleSaveTossLink(user?.id, ref);
       setStatus("done");
 
       return;
     }
 
     if (props.label === "tags") {
-      await handleSaveTags(session, props);
+      await handleSaveTags(user?.id, props);
       setStatus("done");
 
       return;
@@ -117,13 +121,13 @@ const SaveChange = forwardRef(function SaveChange(props: any, ref: any) {
 
 export default SaveChange;
 
-const handleSaveThumbnail = async (session: any, ref: any) => {
+const handleSaveThumbnail = async (userId: any, ref: any) => {
   const file = ref.current.files[0];
 
   if (file) {
     var uuid = uuidv4();
 
-    const filepath = `${session?.user.id}/${uuid}.png`;
+    const filepath = `${userId}/${uuid}.png`;
 
     const { data: fileData, error: fileError } = await supabase.storage
       .from("profile-image")
@@ -137,17 +141,17 @@ const handleSaveThumbnail = async (session: any, ref: any) => {
     const { data: thumbnailData, error: thumbnailError } = await supabase
       .from("profiles")
       .update({ image: url })
-      .eq("user_id", session?.user.id);
+      .eq("user_id", userId);
   }
 };
 
-const handleSaveBackground = async (session: any, ref: any) => {
+const handleSaveBackground = async (userId: any, ref: any) => {
   const file = ref.current.files[0];
 
   if (file) {
     var uuid = uuidv4();
 
-    const filepath = `${session?.user.id}/${uuid}.png`;
+    const filepath = `${userId}/${uuid}.png`;
 
     const { data: fileData, error: fileError } = await supabase.storage
       .from("background-image")
@@ -161,14 +165,21 @@ const handleSaveBackground = async (session: any, ref: any) => {
     const { data: thumbnailData, error: thumbnailError } = await supabase
       .from("profiles")
       .update({ background: url })
-      .eq("user_id", session?.user.id);
+      .eq("user_id", userId);
   }
 };
 
-const handleSaveNickname = async (session: any, ref: any) => {
+const handleSaveNickname = async (userId: any, ref: any) => {
   const nickname = ref.current.value;
 
-  if (nickname !== session?.user.nickname) {
+  const { data: profileData } = await supabase
+    .from("profiles")
+    .select()
+    .eq("user_id", userId)
+    .limit(1)
+    .single();
+
+  if (nickname !== profileData!.nickname) {
     const result = await validateNickname(nickname);
 
     if (result) return;
@@ -177,52 +188,52 @@ const handleSaveNickname = async (session: any, ref: any) => {
   const { data: nicknameData, error: nicknameError } = await supabase
     .from("profiles")
     .update({ nickname: nickname })
-    .eq("user_id", session?.user.id);
+    .eq("user_id", userId);
 };
 
-const handleSaveDescription = async (session: any, ref: any) => {
+const handleSaveDescription = async (userId: any, ref: any) => {
   const description = ref.current.value;
 
   const { data: descriptionData, error: descriptionError } = await supabase
     .from("profiles")
     .update({ description: description })
-    .eq("user_id", session?.user.id);
+    .eq("user_id", userId);
 };
 
-const handleSaveKakaoLink = async (session: any, ref: any) => {
+const handleSaveKakaoLink = async (userId: any, ref: any) => {
   const kakao = ref.current.value;
 
   const { data: kakaoLinkData, error: kakaoLinkError } = await supabase
     .from("links")
     .update({ kakao: kakao })
-    .eq("user_id", session?.user.id);
+    .eq("user_id", userId);
 };
 
-const handleSaveTwitterLink = async (session: any, ref: any) => {
+const handleSaveTwitterLink = async (userId: any, ref: any) => {
   const twitter = ref.current.value;
 
   const { data: twitterLinkData, error: twitterLinkError } = await supabase
     .from("links")
     .update({ twitter: twitter })
-    .eq("user_id", session?.user.id);
+    .eq("user_id", userId);
 };
 
-const handleSaveTossLink = async (session: any, ref: any) => {
+const handleSaveTossLink = async (userId: any, ref: any) => {
   const toss = ref.current.value;
 
   const { data: tossLinkData, error: tossLinkError } = await supabase
     .from("links")
     .update({ toss: toss })
-    .eq("user_id", session?.user.id);
+    .eq("user_id", userId);
 };
 
-const handleSaveTags = async (session: any, props: any) => {
+const handleSaveTags = async (userId: any, props: any) => {
   const tags = props.tags;
 
   const { data: profileData, error: error1 } = await supabase
     .from("profiles")
     .select(`*`)
-    .eq("user_id", session?.user.id)
+    .eq("user_id", userId)
     .limit(1)
     .single();
 
