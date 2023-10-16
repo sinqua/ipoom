@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   const code = requestUrl.searchParams.get("code");
   const urlTo = requestUrl.searchParams.get("urlTo");
 
-
+  console.log("들어와");
   console.log("requestUrl", requestUrl);
 
   if (code) {
@@ -21,7 +21,9 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
+  return NextResponse.json({"asdf" : requestUrl});
+
   // URL to redirect to after sign in process completes
   // return NextResponse.redirect(requestUrl.origin)
-  return NextResponse.redirect(`${requestUrl.origin}/${urlTo}`);
+  // return NextResponse.redirect(`${requestUrl.origin}/${urlTo}`);
 }
