@@ -1,4 +1,12 @@
-import { supabase, supabaseAuth } from "./database";
+import { supabase } from "./database";
+// import { cookies } from "next/headers";
+// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+// const cookieStore = cookies();
+// const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
+console.log("asdfasdfasdf");
+
 
 export const generatePublicUrl = (storage: string, path: string) => {
   const supabasePublic = `https://${process.env.NEXT_PUBLIC_SUPABASE_NAME}/storage/v1/object/public`;
@@ -39,10 +47,13 @@ export const getProfile = async (id: string) => {
     .limit(1)
     .single();
 
-  if (data) return data;
-  else {
-    throw new Error("Profile not found");
-  }
+  return data;
+
+  // if (data) return data;
+  // else {
+  //   // throw new Error("Profile not found");
+  //   return null;
+  // }
 };
 
 export const getLink = async (id: string) => {

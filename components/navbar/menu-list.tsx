@@ -8,13 +8,18 @@ import editImg from "@/app/assets/images/edit.svg";
 import logoutImg from "@/app/assets/images/logout.svg";
 
 import Item from "./menu-item";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import LogoutButton from "./logout-button";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default async function MenuList() {
-  const session = await getServerSession(authOptions);
-  const userId = session ? `/${session?.user.id}` : "/login";
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const userId = user ? `/${user.id}` : "/login";
 
   return (
     <div className="grow flex flex-col">
@@ -33,7 +38,7 @@ export default async function MenuList() {
       <Item imgSrc={likeImg} url={`${userId}`}>
         좋아요 목록
       </Item>
-      {session && (
+      {user && (
         <>
           <Item imgSrc={editImg} url={`${userId}/edit`}>
             프로필 수정

@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import checkImg from "@/app/assets/images/check_blue.svg";
 
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { uploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
 import {
   insertAvatar,
@@ -26,10 +25,12 @@ import Tag from "./input-field/tag";
 import Visible from "./input-field/visible";
 import Animation from "./input-field/animation";
 import Thumbnail from "./input-field/thumbnail";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const supabase = createClientComponentClient<Database>();
 
   const [captureMode, setCaptureMode] = useState(false);
 
@@ -113,6 +114,10 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
   }
 
   const onSavePortfolio = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     if (!avatarTitleInputRef.current.value || !avatarFile) {
       setBorderColor("border-red-500");
       setIsEmpty(true);
@@ -123,9 +128,9 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
     const uuid = uuidv4() + ".vrm";
 
-    uploadAvatarFile(session?.user.id, uuid, avatarFile).then(async (data) => {
+    uploadAvatarFile(user?.id, uuid, avatarFile).then(async (data) => {
       const avatarData = await insertAvatar(
-        session?.user.id,
+        user?.id,
         uuid,
         avatarTitleInputRef.current.value,
         avatarDescriptionInputRef.current.value,
@@ -138,19 +143,15 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
       }
 
       if (typeof thumbnailImage === "string") {
-        UploadAvatarThumbnailFile(session?.user.id, thumbnailImage).then(
+        UploadAvatarThumbnailFile(user?.id, thumbnailImage).then(
           async (uuid) => {
-            await updateAvatarThumbnail(
-              session?.user.id,
-              uuid,
-              avatarData![0].id
-            );
+            await updateAvatarThumbnail(user?.id, uuid, avatarData![0].id);
           }
         );
       }
       setStatus("done");
 
-      optimizeAvatar(avatarFile, session, avatarData![0].id, uuid);
+      optimizeAvatar(avatarFile, user?.id, avatarData![0].id, uuid);
     });
   };
 
@@ -283,7 +284,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 }
 async function optimizeAvatar(
   avatarFile: any,
-  session: any,
+  userId: any,
   avatarId: number,
   uuid: string
 ) {
@@ -293,7 +294,7 @@ async function optimizeAvatar(
   formData.append("avatarId", avatarId.toString());
   formData.append("uuid", uuid);
   formData.append("supabaseUrl", process.env.NEXT_PUBLIC_SUPABASE_URL!);
-  if (session) formData.append("id", session?.user.id);
+  formData.append("id", userId);
 
   try {
     const response = await fetch("https://server.offing.me", {

@@ -1,10 +1,6 @@
 "use client";
 import Image from "next/image";
-import useDrag from "@/hooks/useDrag";
-import { useEffect } from "react";
-
 import garyPlusImg from "@/app/assets/images/plus_gray.svg";
-import { useSession } from "next-auth/react";
 
 export default async function EmptyCard() {
   return (

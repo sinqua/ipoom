@@ -2,7 +2,7 @@ import "./css/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
-import AuthProvider from "@/components/auth-provider";
+// import AuthProvider from "@/components/auth-provider";
 import GoogleAnalytics from "@/components/google-analytics";
 import Discord from "@/components/discord";
 import { Toaster } from "@/components/ui/toaster";
@@ -24,16 +24,10 @@ export default function RootLayout({
         <Suspense>
           <main>
             <GoogleAnalytics />
-            <AuthProvider>
-              <div className="relative flex h-auto">
-                <Navbar />
-                <div className="relative flex flex-col grow h-auto">
-                  {children}
-                  <Footer />
-                </div>
-              </div>
-              {modal}
-            </AuthProvider>
+            {/* <AuthProvider> */}
+            {children}
+            {modal}
+            {/* </AuthProvider> */}
             <Toaster />
             <Discord />
           </main>
