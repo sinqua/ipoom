@@ -5,9 +5,6 @@ import { supabase } from "./database";
 // const cookieStore = cookies();
 // const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
-console.log("asdfasdfasdf");
-
-
 export const generatePublicUrl = (storage: string, path: string) => {
   const supabasePublic = `https://${process.env.NEXT_PUBLIC_SUPABASE_NAME}/storage/v1/object/public`;
   return `${supabasePublic}/${storage}/${path}`;
