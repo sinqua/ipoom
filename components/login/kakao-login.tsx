@@ -16,7 +16,6 @@ export default function KakaoLogin() {
     (searchParams.get("callbackUrl") ?? "/")) as string;
 
   const signInWithKakao = async () => {
-    console.log("location", location)
     await supabase.auth.signInWithOAuth({
       provider: "kakao",
       options: {
