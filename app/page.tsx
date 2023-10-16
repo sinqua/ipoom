@@ -45,7 +45,7 @@ export default function Home() {
         {/* <FeaturesBlocks /> */}
         {/* <Testimonials /> */}
         <div>
-          <Newsletter />
+          {/* <Newsletter /> */}
         </div>
         {/* <Banner /> */}
         <Footer />
