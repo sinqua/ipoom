@@ -10,6 +10,9 @@ export async function GET(request: NextRequest) {
   const code = requestUrl.searchParams.get("code");
   const urlTo = requestUrl.searchParams.get("urlTo");
 
+
+  console.log("requestUrl", requestUrl);
+
   if (code) {
     const cookieStore = cookies();
     const supabase = createRouteHandlerClient<Database>({
