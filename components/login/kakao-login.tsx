@@ -27,6 +27,8 @@ export default function KakaoLogin() {
     return url;
   };
 
+  console.log("getUrl()", getURL());
+
   const signInWithKakao = async () => {
     console.log("location", location);
     await supabase.auth.signInWithOAuth({
