@@ -40,6 +40,7 @@ export default async function Main() {
       recentAvatarsData,
     ]);
 
+  console.log("here home");
   return (
     <div className="relative flex flex-col h-auto min-h-screen">
       <Header />

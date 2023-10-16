@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: false,
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
@@ -16,8 +17,7 @@ const nextConfig = {
       "ssl.pstatic.net",
       "lh3.googleusercontent.com",
     ],
-  },
-  reactStrictMode: false
+  }
 };
 
 module.exports = nextConfig;

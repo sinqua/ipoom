@@ -14,9 +14,13 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  try{
   const user = params.user;
+  
+  console.log("here profile0");
   const profile = await getProfile(user);
 
+  console.log("here profile1");
   const previousImages = (await parent).openGraph?.images || [];
   const image = profile!.background ? profile!.background : "";
 
@@ -31,11 +35,17 @@ export async function generateMetadata(
       images: [image, ...previousImages],
     },
   };
+  }catch(error){
+    console.error("Error fetching profile:", error);
+  }
 }
 
 export default async function Page({ params }: { params: { user: string } }) {
+  
+  console.log("here profile2");
   const works = await getPortfolios(params.user);
 
+  console.log("here profile3");
   return (
     <div className="grid ph:grid-cols-3 grid-cols-2 gap-[16px] grow h-fit ph:p-0 p-[16px] pb-[80px]">
       {works?.map((work: any, index: any) => {

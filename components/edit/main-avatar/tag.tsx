@@ -6,6 +6,7 @@ export default function Tag({ tags }: { tags: any }) {
   const { dragRef, dragEvents, mountedStatus, setMountedStatus } = useDrag();
 
   useEffect(() => {
+    console.log("tag");
     setMountedStatus(true);
   }, []);
 

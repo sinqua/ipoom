@@ -21,6 +21,8 @@ export default function Card({ avatar }: { avatar: any }) {
   };
 
   useEffect(() => {
+    
+    console.log("card");
     if (status === "done") {
       setTimeout(() => {
         setStatus("");

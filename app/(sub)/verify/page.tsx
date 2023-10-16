@@ -12,6 +12,7 @@ export default function Page() {
   const supabase = createClientComponentClient<Database>();
 
   useEffect(() => {
+    
     const getUserData = async () => {
       const {
         data: { user },

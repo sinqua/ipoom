@@ -40,6 +40,7 @@ export default async function Page({ params }: { params: { user: string } }) {
   const linkData = getLink(params.user);
   const mostUsedTagsData = getMostUsedTags();
 
+  console.log("here edit");
   const [profile, link, mostUsedTags] = await Promise.all([
     profileData,
     linkData,

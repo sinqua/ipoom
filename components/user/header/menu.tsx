@@ -6,6 +6,8 @@ export default function Menu({ children }: { children: React.ReactNode }) {
   let { dragRef, dragEvents, mountedStatus, setMountedStatus } = useDrag();
 
   useEffect(() => {
+    
+    console.log("menu2");
     setMountedStatus(true);
   }, []);
 

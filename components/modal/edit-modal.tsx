@@ -172,6 +172,8 @@ export default function EditModal({
   };
 
   useEffect(() => {
+    
+    console.log("editmodal");
     document.body.style.overflow = "hidden";
 
     return () => {
