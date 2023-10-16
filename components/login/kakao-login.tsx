@@ -16,14 +16,15 @@ export default function KakaoLogin() {
     (searchParams.get("callbackUrl") ?? "/")) as string;
 
   const signInWithKakao = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "kakao",
-      options: {
-        redirectTo: `${location.origin}/auth/callback?urlTo=${callbackUrl}`,
-      },
-    });
+    console.log("location", location)
+    // await supabase.auth.signInWithOAuth({
+    //   provider: "kakao",
+    //   options: {
+    //     redirectTo: `${location.origin}/auth/callback?urlTo=${callbackUrl}`,
+    //   },
+    // });
 
-    router.refresh();
+    // router.refresh();
   };
 
   return (
