@@ -3,7 +3,7 @@ import ProfileCard from "@/components/user/profile-card";
 
 import { Suspense } from "react";
 
-export default async function Layout({
+export default function Layout({
   children,
   params,
 }: {

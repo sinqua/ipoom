@@ -1,5 +1,6 @@
-import Carousel from "@/components/carousel";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -11,7 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Page() {
+export default async function Page() {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div className="flex flex-col h-auto min-h-screen">
       <div className="relative flex justify-center w-full ph:h-[80px] h-[65px]">

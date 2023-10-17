@@ -32,7 +32,7 @@ export default async function MenuList() {
       <Item imgSrc={profileImg} url={`${userId}`}>
         프로필
       </Item>
-      <Item imgSrc={followImg} url={`${userId}`}>
+      <Item imgSrc={followImg} url={`${userId}/follow`}>
         팔로우 목록
       </Item>
       <Item imgSrc={likeImg} url={`${userId}`}>

@@ -10,6 +10,7 @@ import type { Database } from "@/lib/database.types";
 
 export default function KakaoLogin() {
   const router = useRouter();
+
   const supabase = createClientComponentClient<Database>();
   const searchParams = useSearchParams();
   const callbackUrl = ("verify?callbackUrl=" +

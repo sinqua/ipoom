@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 export default function Redirect() {
   const router = useRouter();
-  router.push("/");
+  router.push("/home");
 
   return <></>;
 }

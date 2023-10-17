@@ -8,17 +8,15 @@ import MenuList from "./menu-list";
 import UploadWork from "./upload-work";
 import { Suspense } from "react";
 
-export default async function Navbar() {
+export default function Navbar() {
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto z-50">
       <div className="block flex-none dt:hidden">
-        <Suspense>
-          <MobileNavbar>
-            <MenuList />
-            <UploadWork />
-            <Profile />
-          </MobileNavbar>
-        </Suspense>
+        <MobileNavbar>
+          <MenuList />
+          <UploadWork />
+          <Profile />
+        </MobileNavbar>
       </div>
       <div className="fixed dt:flex hidden flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]">
         <div className="px-[32px] py-[24px]">
@@ -34,10 +32,8 @@ export default async function Navbar() {
           </Link>
         </div>
         <MenuList />
-        <Suspense>
-          <UploadWork />
-          <Profile />
-        </Suspense>
+        <UploadWork />
+        <Profile />
       </div>
     </div>
   );

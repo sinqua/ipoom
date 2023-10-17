@@ -1,9 +1,10 @@
 import type { Metadata, ResolvingMetadata } from "next";
 
-import { getProfile, getUserDetail } from "@/lib/supabase";
+import { getUserDetail } from "@/lib/supabase";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import { CreateQuillUrl } from "@/lib/storage";
 import Description from "@/components/user/description";
+import { getProfile } from "@/lib/supabase-server";
 
 export const revalidate = 0;
 

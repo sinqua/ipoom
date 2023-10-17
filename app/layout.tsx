@@ -1,13 +1,9 @@
 import "./css/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
-// import AuthProvider from "@/components/auth-provider";
 import GoogleAnalytics from "@/components/google-analytics";
 import Discord from "@/components/discord";
 import { Toaster } from "@/components/ui/toaster";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/basic-layout/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,17 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Suspense>
-          <main>
-            <GoogleAnalytics />
-            {/* <AuthProvider> */}
-            {children}
-            {modal}
-            {/* </AuthProvider> */}
-            <Toaster />
-            <Discord />
-          </main>
-        </Suspense>
+        <main>
+          <GoogleAnalytics />
+          {children}
+          {modal}
+          <Toaster />
+          <Discord />
+        </main>
       </body>
     </html>
   );

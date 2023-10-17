@@ -17,7 +17,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
     ],
   },
-  reactStrictMode: false
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;
