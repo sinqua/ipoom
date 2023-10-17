@@ -10,6 +10,7 @@ export default async function Layout({
   children: React.ReactNode;
   params: { user: string };
 }) {
+  console.log("here profile layout")
   return (
     <div className="flex flex-col h-auto min-h-screen">
       <Header />

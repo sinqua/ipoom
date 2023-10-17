@@ -21,6 +21,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 export const revalidate = 0;
 
 export default async function Main() {
+  try{
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
@@ -61,4 +62,11 @@ export default async function Main() {
       </div>
     </div>
   );
+  }catch(error){
+    console.error("Error fetching home:", error);
+    return {
+      title: "Default Title",
+      description: "Default Description",
+    };
+  }
 }
