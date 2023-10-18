@@ -34,20 +34,20 @@ export default function ToolBar({
     }
   };
 
-  const fullscreenchanged = (e: any) => {
-    if (document.fullscreenElement) {
-      setFullscreen(true);
-    } else {
-      setFullscreen(false);
-    }
-  };
-
   useEffect(() => {
+    const fullscreenchanged = (e: any) => {
+      if (document.fullscreenElement) {
+        setFullscreen(true);
+      } else {
+        setFullscreen(false);
+      }
+    };
+
     document
       .getElementById("canvas")
       ?.addEventListener("fullscreenchange", fullscreenchanged);
   }, []);
-  
+
   return (
     <motion.div
       className={css}
