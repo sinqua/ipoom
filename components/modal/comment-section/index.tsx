@@ -27,6 +27,12 @@ export default function CommentSection({
 
   // 모달 렌더링 시, Textarea 높이 초기화
   useEffect(() => {
+    const setDefaultTextareaSize = () => {
+      const textarea = inputRef.current;
+      textarea!.style.height = "auto"; // 높이를 초기화합니다
+      textarea!.style.minHeight = `${textarea!.scrollHeight}px`; // 스크롤 높이에 따라 높이를 설정합니다
+    };
+
     setDefaultTextareaSize();
   }, []);
 
@@ -34,12 +40,6 @@ export default function CommentSection({
     commentTopRef.current?.scrollIntoView({
       block: "center",
     });
-  };
-
-  const setDefaultTextareaSize = () => {
-    const textarea = inputRef.current;
-    textarea!.style.height = "auto"; // 높이를 초기화합니다
-    textarea!.style.minHeight = `${textarea!.scrollHeight}px`; // 스크롤 높이에 따라 높이를 설정합니다
   };
 
   const handleTextareaSizeChange = () => {

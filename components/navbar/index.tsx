@@ -8,11 +8,11 @@ import MenuList from "./menu-list";
 import UploadWork from "./upload-work";
 import { Suspense } from "react";
 
-export default async function Navbar() {
+export default function Navbar() {
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto z-50">
       <div className="block flex-none dt:hidden">
-        <Suspense>
+        <Suspense fallback={<></>}>
           <MobileNavbar>
             <MenuList />
             <UploadWork />
@@ -34,10 +34,8 @@ export default async function Navbar() {
           </Link>
         </div>
         <MenuList />
-        <Suspense>
-          <UploadWork />
-          <Profile />
-        </Suspense>
+        <UploadWork />
+        <Profile />
       </div>
     </div>
   );

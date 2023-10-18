@@ -2,11 +2,16 @@
 import Image from "next/image";
 import leftImg from "@/app/assets/images/left_white.svg";
 import rightImg from "@/app/assets/images/right_white.svg";
-import { useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { isMobile } from "react-device-detect";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
-export default function Tags({ tags }: { tags: any }) {
+export default function Tags() {
+  const supabase = createClientComponentClient<Database>();
+  const [tags, setTags] = useState<any>([]);
+
   const scrollLeftRef = useRef<HTMLDivElement>(null);
   const scrollRightRef = useRef<HTMLDivElement>(null);
 
@@ -33,6 +38,38 @@ export default function Tags({ tags }: { tags: any }) {
     setIsInit(false);
   };
 
+  useEffect(() => {
+    const getMainTags = async () => {
+      const { data, error } = await supabase
+        .from("tags")
+        .select("*", { count: "exact" });
+
+      const countByGroupTag: any = {};
+      data!.forEach((row) => {
+        const tag = row.tag!;
+        if (countByGroupTag[tag]) {
+          countByGroupTag[tag]++;
+        } else {
+          countByGroupTag[tag] = 1;
+        }
+      });
+      const countArray = Object.entries(countByGroupTag);
+      countArray.sort((a: any, b: any) => b[1] - a[1]);
+
+      const slicedCountByGroupTag = Object.fromEntries(countArray);
+
+      const options = Object.keys(slicedCountByGroupTag).map((tag: any) => {
+        return { tag: tag, count: slicedCountByGroupTag[tag] };
+      });
+
+      return options.slice(0, 10);
+    };
+
+    getMainTags().then((result) => {
+      setTags(result);
+    });
+  }, []);
+
   return (
     <div className="relative flex shrink-0 justify-center w-full tb:h-[85px] h-[60px]">
       <div
@@ -43,17 +80,21 @@ export default function Tags({ tags }: { tags: any }) {
       >
         <div ref={scrollLeftRef} className="shrink-0 dt:w-0 w-[16px]"></div>
         <div className="flex items-center h-full space-x-[16px]">
-          {tags.map((item: any, index: number) => {
-            return (
-              <div
-                className="flex flex-col items-center tb:px-[24px] px-[8px] tb:py-[8px] py-[4px] space-y-[3px] bg-[#8B55D1] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap"
-                key={index}
-              >
-                <p>{`#${item.tag}`}</p>
-                <p className="tb:block hidden">{item.count}</p>
-              </div>
-            );
-          })}
+          {tags.length > 0 ? (
+            tags.map((item: any, index: number) => {
+              return (
+                <div
+                  className="flex flex-col items-center tb:px-[24px] px-[8px] tb:py-[8px] py-[4px] space-y-[3px] bg-[#8B55D1] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap"
+                  key={index}
+                >
+                  <p>{`#${item.tag}`}</p>
+                  <p className="tb:block hidden">{item.count}</p>
+                </div>
+              );
+            })
+          ) : (
+            <p>없음 ㅋㅋ</p>
+          )}
         </div>
         <div ref={scrollRightRef} className="shrink-0 dt:w-0 w-[16px]"></div>
       </div>
@@ -95,7 +136,7 @@ export default function Tags({ tags }: { tags: any }) {
               </div>
             </div>
           ) : (
-            <div></div>
+            <></>
           )}
         </div>
       )}

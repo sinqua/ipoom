@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 import type { Database } from "@/lib/database.types";
 
 export async function POST(request: Request) {
-  console.log("여기는?")
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
   const cookieStore = cookies();
@@ -15,9 +14,9 @@ export async function POST(request: Request) {
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "kakao",
-    options: {
-      redirectTo: `${location.origin}/auth/callback`,
-    },
+    // options: {
+    //   redirectTo: `${location.origin}/auth/callback`,
+    // },
   });
 
   return NextResponse.redirect(data.url!, {

@@ -29,7 +29,7 @@ export default function MobileNavbar({
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="dt:relative fixed top-[12px] left-[16px] dt:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#F6F6F6] z-10"
+        className="dt:relative fixed top-[12px] left-[16px] dt:hidden flex justify-center items-center w-[40px] h-[40px] rounded-full z-10"
       >
         <Image src={menuImg} className="w-[20px] h-[20px]" alt="" />
       </button>

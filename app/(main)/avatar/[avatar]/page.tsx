@@ -35,7 +35,9 @@ export async function generateMetadata(
 
   return {
     title: `아바타 [${avatar.name}]`,
-    description: `${profile!.nickname}님의 아바타 [${avatar.name}] 입니다. | 무피`,
+    description: `${profile!.nickname}님의 아바타 [${
+      avatar.name
+    }] 입니다. | 무피`,
     openGraph: {
       title: avatar.name!,
       description: avatar.description

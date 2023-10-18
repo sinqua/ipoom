@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import clikemeGif from "@/public/clickme.gif";
@@ -15,10 +15,14 @@ export default function Features() {
 
   const tabs = useRef<HTMLDivElement>(null);
 
-  const heightFix = () => {
+  // const heightFix = () => {
+  //   if (tabs.current && tabs.current.parentElement)
+  //     tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`;
+  // };
+  const heightFix = useCallback(() => {
     if (tabs.current && tabs.current.parentElement)
       tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`;
-  };
+  }, []);
 
   useEffect(() => {
     heightFix();

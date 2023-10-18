@@ -1,10 +1,58 @@
+import { cookies } from "next/headers";
 import Card from "./card";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
-interface FollowProps {
-  avatars: any;
-}
+export default async function Follow() {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-export default async function Follow({ avatars }: FollowProps) {
+  const avatars = [];
+
+  const { data: followsData, error: followsError } = await supabase
+    .from("follows")
+    .select("*")
+    .eq("source_user_id", user?.id);
+
+  let followAvatars: any[] = [];
+
+  if (followsData) {
+    for (const follow of followsData) {
+      const { data: avatarsData, error: avatarsError } = await supabase
+        .from("avatars")
+        .select("*, tags (*), likes (*)")
+        .eq("user_id", follow.target_user_id)
+        .order("created_at", { ascending: false });
+
+      followAvatars = [...followAvatars, ...avatarsData!];
+    }
+
+    const sortedAvatars = followAvatars
+      .sort((a, b) => {
+        if (a.created_at < b.created_at) return 1;
+        if (a.created_at > b.created_at) return -1;
+        return 0;
+      })
+      .slice(0, 10);
+
+    for (const avatar of sortedAvatars!) {
+      const { data: user } = await supabase
+        .from("profiles")
+        .select(`*,  tags (tag)`)
+        .eq("user_id", avatar.user_id)
+        .single();
+      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...avatar,
+        user: user,
+      };
+      avatars.push(newAvatar);
+    }
+  }
+
   return (
     <div className="flex flex-col w-full space-y-[24px]">
       <div className="flex flex-col space-y-[16px]">

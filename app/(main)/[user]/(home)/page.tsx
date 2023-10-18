@@ -2,6 +2,8 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { getPortfolios, getProfile } from "@/lib/supabase";
 import Work from "@/components/user/work";
 import InputGuide from "@/components/user/input-guide";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export const revalidate = 0;
 
@@ -14,8 +16,15 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const user = params.user;
-  const profile = await getProfile(user);
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
+  const userId = params.user;
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select(`*,  tags (tag)`)
+    .eq("user_id", userId)
+    .single();
 
   const previousImages = (await parent).openGraph?.images || [];
   const image = profile!.background ? profile!.background : "";

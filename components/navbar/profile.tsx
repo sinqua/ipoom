@@ -1,4 +1,3 @@
-// "use client";
 import Image from "next/image";
 import emptyImg from "@/app/assets/images/empty.png";
 
@@ -13,7 +12,6 @@ import Redirect from "./redirect";
 export default async function Profile() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
-
   const {
     data: { user },
   } = await supabase.auth.getUser();

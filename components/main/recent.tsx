@@ -1,10 +1,36 @@
+import { cookies } from "next/headers";
 import Card from "./card";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
-interface RecentProps {
-  avatars: any;
-}
+export default async function Recent() {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
-export default async function Recent({ avatars }: RecentProps) {
+  const avatars = [];
+
+  const { data: avatarsData, error: avatarsError } = await supabase
+    .from("avatars")
+    .select("*, tags (*), likes (*)")
+    .order("created_at", { ascending: false });
+
+  if (avatarsData) {
+    for (const avatar of avatarsData.slice(0, 10)!) {
+      const { data: user } = await supabase
+        .from("profiles")
+        .select(`*,  tags (tag)`)
+        .eq("user_id", avatar.user_id)
+        .single();
+
+      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...avatar,
+        user: user,
+      };
+      avatars.push(newAvatar);
+    }
+  }
+
   return (
     <div className="flex flex-col w-full space-y-[24px]">
       <div className="flex flex-col space-y-[16px]">
