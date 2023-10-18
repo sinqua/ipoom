@@ -6,18 +6,18 @@ import leftImg from "@/app/assets/images/left_gray.svg";
 import rightImg from "@/app/assets/images/right_gray.svg";
 import { cn } from "@/lib/utils";
 
-interface FollowProps {
-  users: any;
+interface LikesProps {
+  avatars: any;
 }
 
-export default function Follow({ users }: FollowProps) {
+export default function Likes({ avatars }: LikesProps) {
   const myRef = useRef<any>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
   const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
 
-  const totalPageCount = Math.ceil(users.length / 10);
+  const totalPageCount = Math.ceil(avatars.length / 20);
 
   useEffect(() => {
     const pageNumArray: number[] = Array.from(
@@ -62,16 +62,14 @@ export default function Follow({ users }: FollowProps) {
   return (
     <div ref={myRef} className="flex flex-col w-full space-y-[24px]">
       <div className="flex flex-col space-y-[16px]">
-        <p className="text-[20px] font-semibold">팔로우</p>
-        <p className="text-[#9D9D9D]">
-          회원님이 팔로우한 유저들의 최근 아바타입니다.
-        </p>
+        <p className="text-[20px] font-semibold">좋아요</p>
+        <p className="text-[#9D9D9D]">회원님이 관심을 보였던 아바타입니다.</p>
       </div>
-      <div className="grid ph:grid-cols-2 grid-cols-1 gap-x-[16px] ph:gap-y-[24px] gap-y-[36px]">
-        {users
-          .slice(10 * (currentPage - 1), 10 * currentPage)
-          .map((user: any, index: number) => {
-            return <Card userData={user} key={index} />;
+      <div className="grid dt:grid-cols-5 ph:grid-cols-4 grid-cols-2 gap-x-[16px] gap-y-[24px]">
+        {avatars
+          .slice(20 * (currentPage - 1), 20 * currentPage)
+          .map((avatar: any, index: number) => {
+            return <Card avatar={avatar} key={index} />;
           })}
       </div>
       <div className="flex justify-center items-center h-[32px] space-x-[8px] !mt-[64px]">

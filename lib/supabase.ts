@@ -482,13 +482,47 @@ export const getFollowingUsers = async (userId: string) => {
       };
 
       followingUsers.push(newUser);
-      followingUsers.push(newUser);
-      followingUsers.push(newUser);
-      followingUsers.push(newUser);
-      followingUsers.push(newUser);
     }
 
     return followingUsers;
+  } else {
+    throw new Error("Users not found");
+  }
+};
+
+export const getLikesAvatars = async (userId: string) => {
+  const { data: likesData } = await supabase
+    .from("likes")
+    .select("*, avatars (*)")
+    .eq("user_id", userId);
+
+  let likesAvatars: any[] = [];
+
+  if (likesData) {
+    for (const like of likesData) {
+      const { data: tagsData } = await supabase
+        .from("tags")
+        .select("*")
+        .eq("avatar_id", like.avatars.id);
+
+      const { data: user } = await supabase
+        .from("profiles")
+        .select(`*,  tags (tag)`)
+        .eq("user_id", like.avatars.user_id)
+        .single();
+
+      if (like.avatars.thumbnail === null) like.avatars.thumbnail = "/VerticalModel.png";
+
+      const newAvatar: any = {
+        ...like.avatars,
+        user: user,
+        tags: tagsData,
+      };
+
+      likesAvatars.push(newAvatar);
+    }
+
+    return likesAvatars;
   } else {
     throw new Error("Avatars not found");
   }

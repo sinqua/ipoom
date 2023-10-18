@@ -5,29 +5,16 @@ import Follow from "./follow";
 import Unfollow from "./unfollow";
 
 interface FollowButtonProps {
-  sessionId: string | undefined;
   userId: string;
   status: boolean;
 }
 
-export default function FollowButton({
-  sessionId,
-  userId,
-  status,
-}: FollowButtonProps) {
+export default function FollowButton({ userId, status }: FollowButtonProps) {
   const [followStatus, setFollowStatus] = useState(status);
 
   return followStatus ? (
-    <Unfollow
-      sessionId={sessionId}
-      userId={userId}
-      setFollowStatus={setFollowStatus}
-    />
+    <Unfollow userId={userId} setFollowStatus={setFollowStatus} />
   ) : (
-    <Follow
-      sessionId={sessionId}
-      userId={userId}
-      setFollowStatus={setFollowStatus}
-    />
+    <Follow userId={userId} setFollowStatus={setFollowStatus} />
   );
 }
