@@ -24,7 +24,7 @@ export default function MobileMenu() {
     };
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
-  });
+  }, []);
 
   // close the mobile menu if the esc key is pressed
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function MobileMenu() {
     };
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
-  });
+  }, []);
 
   return (
     <div className="flex md:hidden">

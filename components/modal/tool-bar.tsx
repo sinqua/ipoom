@@ -47,6 +47,7 @@ export default function ToolBar({
       .getElementById("canvas")
       ?.addEventListener("fullscreenchange", fullscreenchanged);
   }, []);
+  
   return (
     <motion.div
       className={css}
