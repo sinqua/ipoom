@@ -12,11 +12,13 @@ export default function Navbar() {
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto z-50">
       <div className="block flex-none dt:hidden">
-        <MobileNavbar>
-          <MenuList />
-          <UploadWork />
-          <Profile />
-        </MobileNavbar>
+        <Suspense fallback={<></>}>
+          <MobileNavbar>
+            <MenuList />
+            <UploadWork />
+            <Profile />
+          </MobileNavbar>
+        </Suspense>
       </div>
       <div className="fixed dt:flex hidden flex-col w-[280px] h-full bg-white border-r-[1px] border-[#D4D4D4] z-20 text-[#333333]">
         <div className="px-[32px] py-[24px]">
