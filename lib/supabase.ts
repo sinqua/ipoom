@@ -184,34 +184,6 @@ export const getAllAvatars = async () => {
   }
 };
 
-// rename
-export const getMainRecentAvatars = async () => {
-  const { data: avatarsData, error: avatarsError } = await supabase
-    .from("avatars")
-    .select("*, tags (*), likes (*)")
-    .order("created_at", { ascending: false });
-
-  if (avatarsData) {
-    const avatars = [];
-
-    for (const avatar of avatarsData.slice(0, 10)!) {
-      const user = await getProfile(avatar.user_id!);
-
-      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
-
-      const newAvatar: any = {
-        ...avatar,
-        user: user,
-      };
-      avatars.push(newAvatar);
-    }
-
-    return avatars;
-  } else {
-    throw new Error("Avatar not found");
-  }
-};
-
 export const getAvatar = async (id: string) => {
   const { data: avatarData, error: avatarError } = await supabase
     .from("avatars")

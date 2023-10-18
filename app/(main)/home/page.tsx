@@ -3,9 +3,7 @@ import Footer from "@/components/basic-layout/footer";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
 import Carousel from "@/components/carousel";
-import {
-  getMainRecentAvatars,
-} from "@/lib/supabase";
+
 import Follow from "@/components/main/follow";
 import Popular from "@/components/main/popular";
 import Recent from "@/components/main/recent";
@@ -24,10 +22,6 @@ export default async function Home() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const recentAvatarsData = getMainRecentAvatars();
-
-  const [recentAvatars] = await Promise.all([recentAvatarsData]);
-
   return (
     <div className="relative flex flex-col h-auto min-h-screen">
       <Header />
@@ -38,7 +32,7 @@ export default async function Home() {
           <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
             <Popular />
             {user && <Follow />}
-            <Recent avatars={recentAvatars} />
+            <Recent />
           </div>
         </Suspense>
       </div>

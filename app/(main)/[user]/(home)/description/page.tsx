@@ -1,10 +1,9 @@
 import type { Metadata, ResolvingMetadata } from "next";
 
-import { getUserDetail } from "@/lib/supabase";
+import { getUserDetail, getProfile } from "@/lib/supabase";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import { CreateQuillUrl } from "@/lib/storage";
 import Description from "@/components/user/description";
-import { getProfile } from "@/lib/supabase-server";
 
 export const revalidate = 0;
 
@@ -49,7 +48,7 @@ const CreateHtml = async (descriptionObject: any) => {
 
   for (let i = 0; i < arr.length; i++) {
     if (Object.keys(arr[i].insert).includes("image")) {
-      await CreateQuillUrl(arr[i].insert.image).then(async (url) => {
+      await CreateQuillUrl(arr[i].insert.image).then((url) => {
         arr[i].attributes = {
           display: "inline-block",
         };

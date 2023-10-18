@@ -2,7 +2,7 @@
 import Image from "next/image";
 import garyPlusImg from "@/app/assets/images/plus_gray.svg";
 
-export default async function EmptyCard() {
+export default function EmptyCard() {
   return (
     <div className="flex justify-center items-center w-[150px] h-[150px] bg-[#F1F1F1] rounded-[5px] cursor-pointer">
       <div className="flex flex-col items-center space-y-[16px]">

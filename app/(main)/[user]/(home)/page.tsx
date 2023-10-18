@@ -1,8 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import { getPortfolios } from "@/lib/supabase";
+import { getPortfolios, getProfile } from "@/lib/supabase";
 import Work from "@/components/user/work";
 import InputGuide from "@/components/user/input-guide";
-import { getProfile } from "@/lib/supabase-server";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 

@@ -6,10 +6,9 @@ interface FollowProps {
   users: any;
 }
 
-export default async function Follow({ users }: FollowProps) {
-    // const [currentPage, setCurrentPage] = useState(1);
-
-    // console.log("total", users.length / 10);
+export default function Follow({ users }: FollowProps) {
+  // const [currentPage, setCurrentPage] = useState(1);
+  // console.log("total", users.length / 10);
 
   return (
     <div className="flex flex-col grow justify-between w-full space-y-[24px]">
