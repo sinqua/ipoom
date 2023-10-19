@@ -395,11 +395,11 @@ export const addComment = async (
     .select("*, replies (*), avatars (*)")
     .single();
 
-  if (id !== commentData.avatar.user_id) {
+  if (id !== commentData.avatars.user_id) {
     await supabase.from("alarm_comments").insert([
       {
         source_user_id: id,
-        target_user_id: commentData.avatar.user_id,
+        target_user_id: commentData.avatars.user_id,
         avatar_id: avatarId,
         comment_id: commentData.id,
       },
