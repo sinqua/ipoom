@@ -1,13 +1,17 @@
 import Header from "@/components/user/header";
 import ProfileCard from "@/components/user/profile-card";
-
-export default function Layout({
+export default async function Layout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { user: string };
 }) {
+  const childProp = (children as React.ReactElement<any>).props.childProp;
+
+  const { current, segment } = childProp;
+  
+  console.log("레이아웃 첫번째 : ", children);
   return (
     <div className="flex flex-col h-auto min-h-screen">
       <Header />

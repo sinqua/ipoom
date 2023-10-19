@@ -4,7 +4,9 @@ import Work from "@/components/user/work";
 import InputGuide from "@/components/user/input-guide";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
+import { useMemo } from 'react'
+import { revalidatePath } from 'next/cache'
+import { redirect } from "next/navigation";
 export const revalidate = 0;
 
 type Props = {
@@ -26,6 +28,7 @@ export async function generateMetadata(
     .eq("user_id", userId)
     .single();
 
+  console.log("profile");
   const previousImages = (await parent).openGraph?.images || [];
   const image = profile!.background ? profile!.background : "";
 

@@ -10,6 +10,7 @@ export default function Item({
   imgSrc: string;
   url: string;
 }) {
+  console.log("link item nav");
   return (
     <Link href={url}>
       <div className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer">

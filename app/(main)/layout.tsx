@@ -7,11 +7,19 @@ import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/basic-layout/footer";
 
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const childProp = (children as React.ReactElement<any>).props.childProp;
+
+  const { current, segment } = childProp;
+  
+  console.log("레이아웃 여섯번째 Current : ", current);
+  console.log("레이아웃 여섯번째 Segment : ", segment);
+  
   return (
     <div className="relative flex h-auto">
       <Navbar />
@@ -22,45 +30,3 @@ export default function RootLayout({
     </div>
   );
 }
-
-// export const metadata: Metadata = {
-//   title: {
-//     default: "무피 - 3D 아바타 커뮤니케이션 플랫폼",
-//     template: "%s | 무피",
-//   },
-//   description:
-//     "당신이 만든 캐릭터가 더 많은 사람을 만나는 무피. 어떤 기기에서도 생동감 있고 자연스러운 캐릭터를 보여줍니다.",
-//   applicationName: "무피",
-//   keywords: [
-//     "3D",
-//     "크리에이터",
-//     "포트폴리오",
-//     "무피",
-//     "메타버스",
-//     "Creator",
-//     "Portfolio",
-//     "Moopi",
-//     "VRChat",
-//     "VRM",
-//     "VRC",
-//     "커미션",
-//   ],
-//   metadataBase: new URL("https://moopi.offing.me/"),
-//   openGraph: {
-//     title: "무피 - 3D 아바타 커뮤니케이션 플랫폼",
-//     description:
-//       "당신이 만든 캐릭터가 더 많은 사람을 만나는 무피. 어떤 기기에서도 생동감 있고 자연스러운 캐릭터를 보여줍니다.",
-//     url: "https://moopi.offing.me/",
-//     siteName: "무피",
-//     images: [
-//       {
-//         url: "https://moopi.offing.me/og-image.png",
-//         width: 600,
-//         height: 600,
-//         alt: "무피",
-//       },
-//     ],
-//     type: "website",
-//     locale: "ko_KR",
-//   },
-// };
