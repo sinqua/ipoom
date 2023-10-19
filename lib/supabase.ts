@@ -383,7 +383,7 @@ export const addComment = async (
   avatarId: string,
   content: string
 ) => {
-  const { data, error } = await supabase
+  const { data: commentData, error: commentError } = await supabase
     .from("comments")
     .insert([
       {
@@ -392,11 +392,21 @@ export const addComment = async (
         content: content,
       },
     ])
-    .select("*, replies (*)")
-    .limit(1)
+    .select("*, replies (*), avatars (*)")
     .single();
 
-  if (data) return data;
+  if (id !== commentData.avatar.user_id) {
+    await supabase.from("alarm_comments").insert([
+      {
+        source_user_id: id,
+        target_user_id: commentData.avatar.user_id,
+        avatar_id: avatarId,
+        comment_id: commentData.id,
+      },
+    ]);
+  }
+
+  if (commentData) return commentData;
   else {
     throw new Error("Insert Comment Failed!");
   }
@@ -511,7 +521,8 @@ export const getLikesAvatars = async (userId: string) => {
         .eq("user_id", like.avatars.user_id)
         .single();
 
-      if (like.avatars.thumbnail === null) like.avatars.thumbnail = "/VerticalModel.png";
+      if (like.avatars.thumbnail === null)
+        like.avatars.thumbnail = "/VerticalModel.png";
 
       const newAvatar: any = {
         ...like.avatars,

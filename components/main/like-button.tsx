@@ -1,7 +1,7 @@
 "use client";
 import { addLike, deleteLike } from "@/lib/supabase";
 import { useState } from "react";
-import AlertLogin from "../aler-login";
+import AlertLogin from "../alert-login";
 
 import Image from "next/image";
 import HeartLineImg from "@/app/assets/images/heart_line.svg";

@@ -3,7 +3,7 @@ import { addReply } from "@/lib/supabase";
 import { useRef, useState } from "react";
 import { getTimeAgo } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
-import AlertLogin from "@/components/aler-login";
+import AlertLogin from "@/components/alert-login";
 
 interface CommentInfoProps {
   userId: any;

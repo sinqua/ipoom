@@ -3,7 +3,7 @@ import Image from "next/image";
 import followImg from "@/app/assets/images/follow_white.svg";
 import { addFollow } from "@/lib/supabase";
 import { useState } from "react";
-import AlertLogin from "@/components/aler-login";
+import AlertLogin from "@/components/alert-login";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 
