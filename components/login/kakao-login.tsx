@@ -36,6 +36,7 @@ export default function KakaoLogin() {
       },
     });
 
+    // if enabled, this will refresh the page at ios so gives bug
     // router.refresh();
   };
 

@@ -33,7 +33,8 @@ export default function GoogleLogin() {
       },
     });
 
-    router.refresh();
+    // if enabled, this will refresh the page at ios so gives bug
+    // router.refresh();
   };
 
   return (
