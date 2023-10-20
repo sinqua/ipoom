@@ -5,6 +5,7 @@ import Image from "next/image";
 import leftImg from "@/app/assets/images/left_gray.svg";
 import rightImg from "@/app/assets/images/right_gray.svg";
 import { cn } from "@/lib/utils";
+import followImg from "@/app/assets/images/follow.svg";
 
 interface FollowProps {
   users: any;
@@ -75,7 +76,12 @@ export default function Follow({ users }: FollowProps) {
           })}
       </div>
       {users.length === 0 ? (
-        <div></div>
+        <div className="flex flex-col justify-center items-center">
+          <Image src={followImg} className="w-[80px] h-[80px] m-6" alt="" />
+          <p className=" text-[#9D9D9D] text-[20px] font-semibold">
+            마음에 드는 유저의 소식을 받아보세요!
+          </p>
+        </div>
       ) : (
         <div className="flex justify-center items-center h-[32px] space-x-[8px] !mt-[64px]">
           <div
