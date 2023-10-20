@@ -21,25 +21,34 @@ export default function AlarmItem({
   const [unreadCount, setUnreadCount] = useState(0);
 
   const getAlarmComments = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     const { data: alarmCommentsData } = await supabase
       .from("alarm_comments")
-      .select("*");
+      .select("*")
+      .eq("target_user_id", user?.id);
 
     const { data: alarmRepliesData } = await supabase
       .from("alarm_replies")
-      .select("*");
+      .select("*")
+      .eq("target_user_id", user?.id);
 
     const { data: alarmFollowsData } = await supabase
       .from("alarm_follows")
-      .select("*");
+      .select("*")
+      .eq("target_user_id", user?.id);
 
     const { data: alarmLikesData } = await supabase
       .from("alarm_likes")
-      .select("*");
+      .select("*")
+      .eq("target_user_id", user?.id);
 
     const { data: alarmNoticesData } = await supabase
       .from("alarm_notices")
-      .select("*");
+      .select("*")
+      .eq("user_id", user?.id);
 
     const AllAlarmData = [
       ...alarmCommentsData!,
