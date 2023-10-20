@@ -12,7 +12,7 @@ import LogoutButton from "./logout-button";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
-import AlertItem from "./menu-alert-item";
+import AlarmItem from "./menu-alarm-item";
 
 export default async function MenuList() {
   const cookieStore = cookies();
@@ -30,9 +30,9 @@ export default async function MenuList() {
       <Item imgSrc={homeImg} url={"/home"}>
         홈
       </Item>
-      <AlertItem imgSrc={alarmImg}>
+      <AlarmItem imgSrc={alarmImg}>
         알림
-      </AlertItem>
+      </AlarmItem>
       <Item imgSrc={profileImg} url={`${userId}`}>
         프로필
       </Item>

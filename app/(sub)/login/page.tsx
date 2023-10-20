@@ -73,11 +73,11 @@ export default async function Page() {
           <NaverLogin />
         </div>
         <div className="w-[300px] text-[14px] text-[#9D9D9D] text-center leading-[30px]">
-          계속 진행하면 moopi{" "}
+          계속 진행하면 moopi
           <span className="text-[#333333] underline underline-offset-2 cursor-pointer">
             서비스 약관
           </span>
-          에 동의하고{" "}
+          에 동의하고
           <span className="text-[#333333] underline underline-offset-2 cursor-pointer">
             개인정보 보호정책
           </span>
