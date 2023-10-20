@@ -1,7 +1,7 @@
 "use client";
 import { addLike, deleteLike } from "@/lib/supabase";
 import { useState } from "react";
-import AlertLogin from "../aler-login";
+import AlertLogin from "../alert-login";
 
 import Image from "next/image";
 import HeartLineImg from "@/app/assets/images/heart_line.svg";
@@ -9,17 +9,12 @@ import HeartFillImg from "@/app/assets/images/heart_fill.svg";
 
 interface LikeButtonProps {
   userId: any;
-  avatarId: any;
   likes: any;
 }
 
-export default function LikeButton({
-  userId,
-  avatarId,
-  likes,
-}: LikeButtonProps) {
+export default function LikeButton({ userId, likes }: LikeButtonProps) {
   const checkLikeStatus = (): Boolean => {
-    if (!userId) return false;
+    // if (!userId) return false;
 
     const result = likes.filter((item: any) => item.user_id === userId);
 
@@ -28,29 +23,7 @@ export default function LikeButton({
   };
 
   const [isOpen, setIsOpen] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes.length);
   const [likeStatus, setLikeStatus] = useState(checkLikeStatus());
-
-  const onClickLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    if (!userId) {
-      setIsOpen(true);
-      return;
-    }
-
-    if (likeStatus) {
-      await deleteLike(userId, avatarId);
-
-      setLikeCount(likeCount - 1);
-      setLikeStatus(false);
-    } else {
-      await addLike(userId, avatarId);
-
-      setLikeCount(likeCount + 1);
-      setLikeStatus(true);
-    }
-  };
 
   return (
     <>
@@ -60,7 +33,6 @@ export default function LikeButton({
         width={512}
         height={512}
         alt=""
-        onClick={onClickLikeButton}
       />
       <AlertLogin isOpen={isOpen} setIsOpen={setIsOpen} />
     </>

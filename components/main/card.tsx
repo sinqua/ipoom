@@ -37,7 +37,6 @@ export default async function Card({ index, avatar }: CardProps) {
         />
         <LikeButton
           userId={user?.id}
-          avatarId={avatar.id}
           likes={avatar.likes}
         />
       </div>

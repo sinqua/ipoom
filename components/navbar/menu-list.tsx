@@ -11,10 +11,14 @@ import Item from "./menu-item";
 import LogoutButton from "./logout-button";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
+import AlarmItem from "./menu-alarm-item";
 
 export default async function MenuList() {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -26,9 +30,7 @@ export default async function MenuList() {
       <Item imgSrc={homeImg} url={"/home"}>
         홈
       </Item>
-      <Item imgSrc={alarmImg} url={"/home"}>
-        알림
-      </Item>
+      {userId !== "/login" && <AlarmItem imgSrc={alarmImg}>알림</AlarmItem>}
       <Item imgSrc={profileImg} url={`${userId}`}>
         프로필
       </Item>
@@ -38,7 +40,7 @@ export default async function MenuList() {
       <Item imgSrc={likeImg} url={`${userId}/likes`}>
         좋아요 목록
       </Item>
-      {user && (
+      {userId !== "/login" && (
         <>
           <Item imgSrc={editImg} url={`${userId}/edit`}>
             프로필 수정

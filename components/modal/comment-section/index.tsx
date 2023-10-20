@@ -5,7 +5,7 @@ import Comment from "./comment";
 import Image from "next/image";
 import DownImg from "@/app/assets/images/down.svg";
 import { Separator } from "@/components/ui/separator";
-import AlertLogin from "../../aler-login";
+import AlertLogin from "../../alert-login";
 
 interface CommenSectiontProps {
   userId: any;

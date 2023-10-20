@@ -342,7 +342,7 @@ export const updateAvatarTags = async (avatarId: any, avatarTags: any) => {
 };
 
 export const addFollow = async (sessionId: string, userId: string) => {
-  const { data, error } = await supabase
+  const { data: followData, error: followError } = await supabase
     .from("follows")
     .insert([
       {
@@ -350,9 +350,18 @@ export const addFollow = async (sessionId: string, userId: string) => {
         target_user_id: userId,
       },
     ])
-    .select();
+    .select("*")
+    .single();
 
-  if (data) return true;
+  await supabase.from("alarm_follows").insert([
+    {
+      source_user_id: sessionId,
+      target_user_id: userId,
+      follow_id: followData.id,
+    },
+  ]);
+
+  if (followData) return true;
   else return false;
 };
 
@@ -383,7 +392,7 @@ export const addComment = async (
   avatarId: string,
   content: string
 ) => {
-  const { data, error } = await supabase
+  const { data: commentData, error: commentError } = await supabase
     .from("comments")
     .insert([
       {
@@ -392,11 +401,21 @@ export const addComment = async (
         content: content,
       },
     ])
-    .select("*, replies (*)")
-    .limit(1)
+    .select("*, replies (*), avatars (*)")
     .single();
 
-  if (data) return data;
+  if (id !== commentData.avatars.user_id) {
+    await supabase.from("alarm_comments").insert([
+      {
+        source_user_id: id,
+        target_user_id: commentData.avatars.user_id,
+        avatar_id: avatarId,
+        comment_id: commentData.id,
+      },
+    ]);
+  }
+
+  if (commentData) return commentData;
   else {
     throw new Error("Insert Comment Failed!");
   }
@@ -407,7 +426,7 @@ export const addReply = async (
   commentId: string,
   content: string
 ) => {
-  const { data, error } = await supabase
+  const { data: replyData, error: replyError } = await supabase
     .from("replies")
     .insert([
       {
@@ -416,18 +435,28 @@ export const addReply = async (
         content: content,
       },
     ])
-    .select()
-    .limit(1)
+    .select("*, comments (*)")
     .single();
 
-  if (data) return data;
+  if (id !== replyData.comments.writer_id) {
+    await supabase.from("alarm_replies").insert([
+      {
+        source_user_id: id,
+        target_user_id: replyData.comments.writer_id,
+        avatar_id: replyData.comments.avatar_id,
+        reply_id: replyData.id,
+      },
+    ]);
+  }
+
+  if (replyData) return replyData;
   else {
     throw new Error("Insert Reply Failed!");
   }
 };
 
 export const addLike = async (id: string, avatarId: string) => {
-  const { data, error } = await supabase
+  const { data: likeData, error: likeError } = await supabase
     .from("likes")
     .insert([
       {
@@ -435,15 +464,29 @@ export const addLike = async (id: string, avatarId: string) => {
         target_avatar_id: avatarId,
       },
     ])
-    .select();
+    .select("*, avatars (*)")
+    .single();
 
-  if (data) return data;
+  if (id !== likeData.avatars.user_id) {
+    await supabase.from("alarm_likes").insert([
+      {
+        source_user_id: id,
+        target_user_id: likeData.avatars.user_id,
+        avatar_id: avatarId,
+        like_id: likeData.id,
+      },
+    ]);
+  }
+
+  if (likeData) return likeData;
   else {
     throw new Error("Insert Like Failed!");
   }
 };
 
 export const deleteLike = async (id: string, avatarId: string) => {
+  console.log(id, avatarId);
+
   const { data, error } = await supabase
     .from("likes")
     .delete()
@@ -511,7 +554,8 @@ export const getLikesAvatars = async (userId: string) => {
         .eq("user_id", like.avatars.user_id)
         .single();
 
-      if (like.avatars.thumbnail === null) like.avatars.thumbnail = "/VerticalModel.png";
+      if (like.avatars.thumbnail === null)
+        like.avatars.thumbnail = "/VerticalModel.png";
 
       const newAvatar: any = {
         ...like.avatars,
