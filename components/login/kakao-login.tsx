@@ -36,7 +36,7 @@ export default function KakaoLogin() {
       },
     });
 
-    router.refresh();
+    // router.refresh();
   };
 
   return (
