@@ -20,6 +20,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Header from "@/components/main/header";
 import Follow from "@/components/follow";
+import Refresh from "@/components/refresh";
 
 // type Props = {
 //   params: { avatar: string };
@@ -63,6 +64,7 @@ export default async function Page(props: any) {
   return (
     <div className="flex flex-col h-auto min-h-screen">
       <Header />
+      <Refresh />
       <div className="relative flex flex-col items-center w-full grow">
         <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
           <Follow users={followingUsers} />

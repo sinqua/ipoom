@@ -16,6 +16,7 @@ import Link from "next/link";
 import LikeButton from "@/components/modal/like-button";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import Refresh from "@/components/refresh";
 
 type Props = {
   params: { user: string; avatar: string };
@@ -78,6 +79,7 @@ export default async function Avatar(props: any) {
           </p>
         </div>
       </div>
+      <Refresh />
       <div className="relative flex justify-center h-[600px]">
         <Viewer
           modelUrl={modelUrl?.signedUrl}
