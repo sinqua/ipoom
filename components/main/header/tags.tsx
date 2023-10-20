@@ -8,6 +8,8 @@ import { isMobile } from "react-device-detect";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 
+import { useRouter } from 'next/navigation'
+ 
 export default function Tags() {
   const supabase = createClientComponentClient<Database>();
   const [tags, setTags] = useState<any>([]);
@@ -15,6 +17,7 @@ export default function Tags() {
   const scrollLeftRef = useRef<HTMLDivElement>(null);
   const scrollRightRef = useRef<HTMLDivElement>(null);
 
+  const router = useRouter()
   // rename
   const [isInit, setIsInit] = useState(true);
 
@@ -67,6 +70,9 @@ export default function Tags() {
 
     getMainTags().then((result) => {
       setTags(result);
+          
+      console.log("11111111111");
+      router.refresh();
     });
   }, []);
 
@@ -100,7 +106,7 @@ export default function Tags() {
       </div>
       {!isMobile && (
         <div className="absolute top-0 flex justify-between items-center dt:max-w-[1008px] w-full tb:h-[85px] h-[60px] overflow-x-scroll scrollbar-hide pointer-events-none">
-          {isInit ? (
+          {isInit ? ( 
             <div></div>
           ) : (
             <div className="flex items-center h-full pl-[16px] bg-gradient-to-r from-white">

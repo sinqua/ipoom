@@ -4,7 +4,10 @@ import Work from "@/components/user/work";
 import InputGuide from "@/components/user/input-guide";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
+import { useMemo } from 'react'
+import { revalidatePath } from 'next/cache'
+import { redirect } from "next/navigation";
+import Refresh from "@/components/refresh";
 export const revalidate = 0;
 
 type Props = {
@@ -26,6 +29,7 @@ export async function generateMetadata(
     .eq("user_id", userId)
     .single();
 
+  console.log("profile");
   const previousImages = (await parent).openGraph?.images || [];
   const image = profile!.background ? profile!.background : "";
 
@@ -46,11 +50,14 @@ export default async function Page({ params }: { params: { user: string } }) {
   const works = await getPortfolios(params.user);
 
   return (
-    <div className="grid ph:grid-cols-3 grid-cols-2 gap-[16px] grow h-fit ph:p-0 p-[16px] pb-[80px]">
-      {works?.map((work: any, index: any) => {
-        return <Work user={params.user} avatar={work} key={index} />;
-      })}
-      {works?.length === 0 && <InputGuide />}
-    </div>
+    <>
+      <Refresh />
+      <div className="grid ph:grid-cols-3 grid-cols-2 gap-[16px] grow h-fit ph:p-0 p-[16px] pb-[80px]">
+        {works?.map((work: any, index: any) => {
+          return <Work user={params.user} avatar={work} key={index} />;
+        })}
+        {works?.length === 0 && <InputGuide />}
+      </div>
+    </>
   );
 }
