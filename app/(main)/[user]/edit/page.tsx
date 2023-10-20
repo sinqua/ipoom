@@ -9,6 +9,7 @@ import Description from "@/components/edit/profile-card/description";
 import Twitter from "@/components/edit/profile-card/twitter";
 import Background from "@/components/edit/profile-card/background";
 import { Metadata, ResolvingMetadata } from "next";
+import Refresh from "@/components/refresh";
 
 export const revalidate = 0;
 
@@ -48,17 +49,20 @@ export default async function Page({ params }: { params: { user: string } }) {
   ]);
 
   return (
-    <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
-      <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full space-y-[64px]">
-        <Thumbnail url={profile!.image} />
-        <Background url={profile!.background} />
-        <Nickname name={profile!.nickname} />
-        <Description description={profile!.description} />
-        <Kakao link={link.kakao} />
-        <Twitter link={link.twitter} />
-        <Toss link={link.toss} />
-        <Tags list={profile!.tags} mostUsedTags={mostUsedTags} />
+    <>
+      <Refresh />
+      <div className="flex justify-center w-full grow dt:px-0 px-[16px] py-[40px]">
+        <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full space-y-[64px]">
+          <Thumbnail url={profile!.image} />
+          <Background url={profile!.background} />
+          <Nickname name={profile!.nickname} />
+          <Description description={profile!.description} />
+          <Kakao link={link.kakao} />
+          <Twitter link={link.twitter} />
+          <Toss link={link.toss} />
+          <Tags list={profile!.tags} mostUsedTags={mostUsedTags} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
