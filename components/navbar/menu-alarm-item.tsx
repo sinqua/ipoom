@@ -17,10 +17,10 @@ export default function AlarmItem({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [alarmComments, setAlarmComments] = useState<any>();
+  const [alarms, setAlarms] = useState<any>();
   const [unreadCount, setUnreadCount] = useState(0);
 
-  const getAlarmComments = async () => {
+  const getAlarms = async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -50,7 +50,7 @@ export default function AlarmItem({
       .select("*")
       .eq("user_id", user?.id);
 
-    const AllAlarmData = [
+    const AllAlarmsData = [
       ...alarmCommentsData!,
       ...alarmRepliesData!,
       ...alarmFollowsData!,
@@ -58,11 +58,11 @@ export default function AlarmItem({
       ...alarmNoticesData!,
     ];
 
-    const alarmArray = [];
+    const allAlarms = [];
 
     let count = 0;
 
-    for (const alarm of AllAlarmData!) {
+    for (const alarm of AllAlarmsData!) {
       if (alarm.is_read === false) count++;
 
       if (Object.keys(alarm).includes("notice_id")) {
@@ -77,7 +77,7 @@ export default function AlarmItem({
           notice: noticeData,
         };
 
-        alarmArray.push(newAlarm);
+        allAlarms.push(newAlarm);
       } else {
         const { data: profileData } = await supabase
           .from("profiles")
@@ -90,21 +90,27 @@ export default function AlarmItem({
           user: profileData,
         };
 
-        alarmArray.push(newAlarm);
+        allAlarms.push(newAlarm);
       }
     }
 
+    const sortedAlarms = allAlarms.sort((a, b) => {
+      if (a.created_at < b.created_at) return 1;
+      if (a.created_at > b.created_at) return -1;
+      return 0;
+    });
+
     setUnreadCount(count);
-    setAlarmComments(alarmArray);
+    setAlarms(sortedAlarms);
   };
 
   useEffect(() => {
-    getAlarmComments();
+    getAlarms();
   }, []);
 
   return (
     <>
-      <AlarmListener getAlarmComments={getAlarmComments} />
+      <AlarmListener getAlarms={getAlarms} />
       <div
         className="flex justify-between items-center w-full h-[48px] pl-[32px] pr-[24px] bg-white hover:bg-[#F6F6F6] cursor-pointer"
         onClick={() => setIsOpen(true)}
@@ -123,7 +129,8 @@ export default function AlarmItem({
         <AlertAlarm
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          alarmComments={alarmComments}
+          alarms={alarms}
+          setAlarms={setAlarms}
         />
       )}
     </>

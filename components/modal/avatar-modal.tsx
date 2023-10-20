@@ -11,38 +11,23 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 
 export default function AvatarModal({
+  userId,
   avatar,
   modelUrl,
   comments,
 }: {
+  userId: any;
   avatar: any;
   modelUrl: any;
   comments: any;
 }) {
-  const supabase = createClientComponentClient<Database>();
-  const [userId, setUserId] = useState<any>();
-
   useEffect(() => {
-    const getUserData = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+    document.body.style.overflow = "hidden";
 
-      return user?.id;
+    return () => {
+      document.body.style.overflow = "auto";
     };
-
-    getUserData().then((userId) => {
-      setUserId(userId);
-    });
   }, []);
-
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-
-  //   return () => {
-  //     document.body.style.overflow = "auto";
-  //   };
-  // }, []);
 
   return (
     <div className="fixed inset-0 w-full h-full z-50">

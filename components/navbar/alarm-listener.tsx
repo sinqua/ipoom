@@ -5,9 +5,9 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect } from "react";
 
 export default function AlarmListener({
-  getAlarmComments,
+  getAlarms,
 }: {
-  getAlarmComments: any;
+  getAlarms: any;
 }) {
   const supabase = createClientComponentClient<Database>();
 
@@ -22,8 +22,8 @@ export default function AlarmListener({
           table: "alarm_comments",
         },
         (payload) => {
-          console.log("insert comments", payload);
-          getAlarmComments();
+          // console.log("insert comments", payload);
+          getAlarms();
         }
       )
       .on(
@@ -34,8 +34,8 @@ export default function AlarmListener({
           table: "alarm_replies",
         },
         (payload) => {
-          console.log("insert replies", payload);
-          getAlarmComments();
+          // console.log("insert replies", payload);
+          getAlarms();
         }
       )
       .on(
@@ -46,8 +46,8 @@ export default function AlarmListener({
           table: "alarm_follows",
         },
         (payload) => {
-          console.log("insert follows", payload);
-          getAlarmComments();
+          // console.log("insert follows", payload);
+          getAlarms();
         }
       )
       .on(
@@ -58,8 +58,8 @@ export default function AlarmListener({
           table: "alarm_likes",
         },
         (payload) => {
-          console.log("insert likes", payload);
-          getAlarmComments();
+          // console.log("insert likes", payload);
+          getAlarms();
         }
       )
       .on(
@@ -70,8 +70,8 @@ export default function AlarmListener({
           table: "alarm_notices",
         },
         (payload) => {
-          console.log("insert notices", payload);
-          getAlarmComments();
+          // console.log("insert notices", payload);
+          getAlarms();
         }
       )
       .on(
@@ -82,8 +82,8 @@ export default function AlarmListener({
           table: "alarm_comments",
         },
         (payload) => {
-          console.log("update comments", payload);
-          getAlarmComments();
+          // console.log("update comments", payload);
+          getAlarms();
         }
       )
       .on(
@@ -94,8 +94,8 @@ export default function AlarmListener({
           table: "alarm_replies",
         },
         (payload) => {
-          console.log("update replies", payload);
-          getAlarmComments();
+          // console.log("update replies", payload);
+          getAlarms();
         }
       )
       .on(
@@ -106,8 +106,8 @@ export default function AlarmListener({
           table: "alarm_follows",
         },
         (payload) => {
-          console.log("update follows", payload);
-          getAlarmComments();
+          // console.log("update follows", payload);
+          getAlarms();
         }
       )
       .on(
@@ -118,8 +118,8 @@ export default function AlarmListener({
           table: "alarm_likes",
         },
         (payload) => {
-          console.log("update likes", payload);
-          getAlarmComments();
+          // console.log("update likes", payload);
+          getAlarms();
         }
       )
       .on(
@@ -130,8 +130,8 @@ export default function AlarmListener({
           table: "alarm_notices",
         },
         (payload) => {
-          console.log("update notices", payload);
-          getAlarmComments();
+          // console.log("update notices", payload);
+          getAlarms();
         }
       )
       .subscribe();

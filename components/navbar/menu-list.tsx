@@ -30,9 +30,7 @@ export default async function MenuList() {
       <Item imgSrc={homeImg} url={"/home"}>
         홈
       </Item>
-      <AlarmItem imgSrc={alarmImg}>
-        알림
-      </AlarmItem>
+      {userId !== "/login" && <AlarmItem imgSrc={alarmImg}>알림</AlarmItem>}
       <Item imgSrc={profileImg} url={`${userId}`}>
         프로필
       </Item>

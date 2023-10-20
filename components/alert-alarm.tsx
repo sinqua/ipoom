@@ -15,13 +15,15 @@ import Link from "next/link";
 interface AlertAlarmProps {
   isOpen: boolean;
   setIsOpen: any;
-  alarmComments: any;
+  alarms: any;
+  setAlarms: any;
 }
 
 export default function AlertAlarm({
   isOpen,
   setIsOpen,
-  alarmComments,
+  alarms,
+  setAlarms,
 }: AlertAlarmProps) {
   const router = useRouter();
 
@@ -91,12 +93,48 @@ export default function AlertAlarm({
       return clickNoticeAlarm(alarm);
   };
 
+  const clickMarkAllAsRead = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    await supabase
+      .from("alarm_comments")
+      .update({ is_read: true })
+      .eq("target_user_id", user?.id);
+    await supabase
+      .from("alarm_replies")
+      .update({ is_read: true })
+      .eq("target_user_id", user?.id);
+    await supabase
+      .from("alarm_follows")
+      .update({ is_read: true })
+      .eq("target_user_id", user?.id);
+    await supabase
+      .from("alarm_likes")
+      .update({ is_read: true })
+      .eq("target_user_id", user?.id);
+    await supabase
+      .from("alarm_notices")
+      .update({ is_read: true })
+      .eq("user_id", user?.id);
+
+    const newAlarms = [];
+
+    for (const alarm of alarms) {
+      alarm.is_read = true;
+      newAlarms.push(alarm);
+    }
+
+    setAlarms(newAlarms);
+  };
+
   const createAlarmText = (alarm: any) => {
     if (Object.keys(alarm).includes("comment_id")) {
       return (
         <p className="whitespace-pre-line leading-[23px]">
           <span className="font-semibold">{alarm.user.nickname}</span>
-          님이 회원님의 아바타에 댓글을 달았습니다.
+          &nbsp;님이 회원님의 아바타에 댓글을 달았습니다.
         </p>
       );
     }
@@ -105,7 +143,7 @@ export default function AlertAlarm({
       return (
         <p className="whitespace-pre-line leading-[23px]">
           <span className="font-semibold">{alarm.user.nickname}</span>
-          님이 회원님의 댓글에 답글을 달았습니다.
+          &nbsp;님이 회원님의 댓글에 답글을 달았습니다.
         </p>
       );
     }
@@ -114,7 +152,7 @@ export default function AlertAlarm({
       return (
         <p className="whitespace-pre-line leading-[23px]">
           <span className="font-semibold">{alarm.user.nickname}</span>
-          님이 회원님을 팔로우합니다.
+          &nbsp;님이 회원님을 팔로우합니다.
         </p>
       );
     }
@@ -123,7 +161,7 @@ export default function AlertAlarm({
       return (
         <p className="whitespace-pre-line leading-[23px]">
           <span className="font-semibold">{alarm.user.nickname}</span>
-          회원님의 아바타를 좋아합니다.
+          &nbsp;님이 회원님의 아바타를 좋아합니다.
         </p>
       );
     }
@@ -151,14 +189,17 @@ export default function AlertAlarm({
           >
             <div className="flex justify-between items-center w-full p-[16px]">
               <p className="text-[16px] font-semibold">알림</p>
-              <p className="text-[12px] text-[#2778C7] font-semibold cursor-pointer">
+              <p
+                className="text-[12px] text-[#2778C7] font-semibold cursor-pointer"
+                onClick={clickMarkAllAsRead}
+              >
                 모두 읽음으로 표시
               </p>
             </div>
             <Separator />
             <div className="flex flex-col grow overflow-y-scroll scrollbar-hide">
               <div className="flex flex-col">
-                {alarmComments?.map((alarm: any, index: number) => {
+                {alarms?.map((alarm: any, index: number) => {
                   return (
                     <div
                       className={cn(

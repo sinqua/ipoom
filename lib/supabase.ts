@@ -485,6 +485,8 @@ export const addLike = async (id: string, avatarId: string) => {
 };
 
 export const deleteLike = async (id: string, avatarId: string) => {
+  console.log(id, avatarId);
+
   const { data, error } = await supabase
     .from("likes")
     .delete()
