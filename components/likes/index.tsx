@@ -5,6 +5,7 @@ import Image from "next/image";
 import leftImg from "@/app/assets/images/left_gray.svg";
 import rightImg from "@/app/assets/images/right_gray.svg";
 import { cn } from "@/lib/utils";
+import likeImg from "@/app/assets/images/like.svg";
 
 interface LikesProps {
   avatars: any;
@@ -73,7 +74,12 @@ export default function Likes({ avatars }: LikesProps) {
           })}
       </div>
       {avatars.length === 0 ? (
-        <div></div>
+        <div className="flex flex-col justify-center items-center">
+          <Image src={likeImg} className="w-[80px] h-[80px] m-6" alt="" />
+          <p className=" text-[#9D9D9D] text-[20px] font-semibold">
+            마음에 드는 아바타를 저장하세요!
+          </p>
+        </div>
       ) : (
         <div className="flex justify-center items-center h-[32px] space-x-[8px] !mt-[64px]">
           <div
