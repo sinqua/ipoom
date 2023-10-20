@@ -74,50 +74,54 @@ export default function Follow({ users }: FollowProps) {
             return <Card userData={user} key={index} />;
           })}
       </div>
-      <div className="flex justify-center items-center h-[32px] space-x-[8px] !mt-[64px]">
-        <div
-          className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
-          onClick={changeToPrevPage}
-        >
-          <Image
-            draggable={false}
-            src={leftImg}
-            className="relative w-auto h-[16px]"
-            width={512}
-            height={512}
-            alt=""
-          />
+      {users.length === 0 ? (
+        <div></div>
+      ) : (
+        <div className="flex justify-center items-center h-[32px] space-x-[8px] !mt-[64px]">
+          <div
+            className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
+            onClick={changeToPrevPage}
+          >
+            <Image
+              draggable={false}
+              src={leftImg}
+              className="relative w-auto h-[16px]"
+              width={512}
+              height={512}
+              alt=""
+            />
+          </div>
+          {currentPageArray?.map((item: number, index: number) => {
+            return (
+              <div
+                className={cn(
+                  "flex justify-center items-center w-[32px] h-[32px] rounded-[8px] text-[18px] cursor-pointer",
+                  item === currentPage
+                    ? "text-[#368ADC] font-semibold"
+                    : "text-[#333333] hover:bg-[#F6F6F6]"
+                )}
+                key={index}
+                onClick={() => setCurrentPage(item)}
+              >
+                {item}
+              </div>
+            );
+          })}
+          <div
+            className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
+            onClick={changeToNextPage}
+          >
+            <Image
+              draggable={false}
+              src={rightImg}
+              className="relative w-auto h-[16px]"
+              width={512}
+              height={512}
+              alt=""
+            />
+          </div>
         </div>
-        {currentPageArray?.map((item: number, index: number) => {
-          return (
-            <div
-              className={cn(
-                "flex justify-center items-center w-[32px] h-[32px] rounded-[8px] text-[18px] cursor-pointer",
-                item === currentPage
-                  ? "text-[#368ADC] font-semibold"
-                  : "text-[#333333] hover:bg-[#F6F6F6]"
-              )}
-              key={index}
-              onClick={() => setCurrentPage(item)}
-            >
-              {item}
-            </div>
-          );
-        })}
-        <div
-          className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
-          onClick={changeToNextPage}
-        >
-          <Image
-            draggable={false}
-            src={rightImg}
-            className="relative w-auto h-[16px]"
-            width={512}
-            height={512}
-            alt=""
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
