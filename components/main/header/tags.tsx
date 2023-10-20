@@ -70,8 +70,6 @@ export default function Tags() {
 
     getMainTags().then((result) => {
       setTags(result);
-          
-      console.log("11111111111");
       router.refresh();
     });
   }, []);

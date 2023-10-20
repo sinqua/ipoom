@@ -10,7 +10,6 @@ export default async function Layout({
   params: { user: string };
 }) {
   
-  console.log("레이아웃 두번째 ", children);
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {

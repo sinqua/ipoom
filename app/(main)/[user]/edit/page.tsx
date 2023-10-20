@@ -23,7 +23,6 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
   const image = profile!.background ? profile!.background : "";
 
-  console.log("edit")
   return {
     title: `마이페이지 - ${profile!.nickname}님의 페이지`,
     description: `${profile!.nickname}님의 마이페이지입니다. | 무피`,

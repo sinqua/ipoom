@@ -17,8 +17,6 @@ export default function RootLayout({
 
   const { current, segment } = childProp;
   
-  console.log("레이아웃 여섯번째 Current : ", current);
-  console.log("레이아웃 여섯번째 Segment : ", segment);
   
   return (
     <div className="relative flex h-auto">

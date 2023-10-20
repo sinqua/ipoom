@@ -11,7 +11,6 @@ export default async function Layout({
 
   const { current, segment } = childProp;
   
-  console.log("레이아웃 첫번째 : ", children);
   return (
     <div className="flex flex-col h-auto min-h-screen">
       <Header />

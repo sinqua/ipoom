@@ -68,7 +68,7 @@ export default function Likes({ avatars }: LikesProps) {
       <div className="grid dt:grid-cols-5 ph:grid-cols-4 grid-cols-2 gap-x-[16px] gap-y-[24px]">
         {avatars
           .slice(20 * (currentPage - 1), 20 * currentPage)
-          .map((avatar: any, index: number) => {
+          ?.map((avatar: any, index: number) => {
             return <Card avatar={avatar} key={index} />;
           })}
       </div>
@@ -86,7 +86,7 @@ export default function Likes({ avatars }: LikesProps) {
             alt=""
           />
         </div>
-        {currentPageArray.map((item: number, index: number) => {
+        {currentPageArray?.map((item: number, index: number) => {
           return (
             <div
               className={cn(

@@ -15,7 +15,6 @@ export default function RootLayout({
   modal: React.ReactNode;
 }) {
   
-  console.log("레이아웃 다섯번째 ", children);
   return (
     <html lang="en">
       <body className={inter.className}>

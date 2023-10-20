@@ -29,7 +29,6 @@ export async function generateMetadata(
     .eq("user_id", userId)
     .single();
 
-  console.log("profile");
   const previousImages = (await parent).openGraph?.images || [];
   const image = profile!.background ? profile!.background : "";
 

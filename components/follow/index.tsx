@@ -70,7 +70,7 @@ export default function Follow({ users }: FollowProps) {
       <div className="grid ph:grid-cols-2 grid-cols-1 gap-x-[16px] ph:gap-y-[24px] gap-y-[36px]">
         {users
           .slice(10 * (currentPage - 1), 10 * currentPage)
-          .map((user: any, index: number) => {
+          ?.map((user: any, index: number) => {
             return <Card userData={user} key={index} />;
           })}
       </div>
@@ -88,7 +88,7 @@ export default function Follow({ users }: FollowProps) {
             alt=""
           />
         </div>
-        {currentPageArray.map((item: number, index: number) => {
+        {currentPageArray?.map((item: number, index: number) => {
           return (
             <div
               className={cn(

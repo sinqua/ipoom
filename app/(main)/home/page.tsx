@@ -21,7 +21,6 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser();
   revalidatePath("/home")
-  console.log("home");
   return (
     <div className="relative flex flex-col h-auto min-h-screen">
       <Header />
