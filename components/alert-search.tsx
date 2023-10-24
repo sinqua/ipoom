@@ -31,15 +31,17 @@ export default function AlertSearch({ isOpen, setIsOpen }: AlertSearchProps) {
     if (event.key === "Enter") {
       if (inputRef.current.value) {
         const {
-          data: { user },
-        } = await supabase.auth.getUser();
+          data: { session },
+        } = await supabase.auth.getSession();
 
-        await supabase.from("search_history").insert([
-          {
-            user_id: user?.id,
-            content: inputRef.current.value,
-          },
-        ]);
+        if (session) {
+          await supabase.from("search_history").insert([
+            {
+              user_id: session.user.id,
+              content: inputRef.current.value,
+            },
+          ]);
+        }
 
         setIsOpen(false);
         router.push(`/search?content=${inputRef.current.value}`);
@@ -68,10 +70,29 @@ export default function AlertSearch({ isOpen, setIsOpen }: AlertSearchProps) {
     getSearchHistory();
   }, []);
 
-  const deleteSearchHistory = async (id: any) => {
+  const deleteSearchHistory = async (
+    e: React.MouseEvent<HTMLElement>,
+    id: any
+  ) => {
+    e.stopPropagation();
+
     await supabase.from("search_history").delete().eq("id", id);
 
     getSearchHistory();
+  };
+
+  const deleteAllSearchHistory = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session) {
+      await supabase
+        .from("search_history")
+        .delete()
+        .eq("user_id", session.user.id);
+      getSearchHistory();
+    }
   };
 
   return (
@@ -93,9 +114,6 @@ export default function AlertSearch({ isOpen, setIsOpen }: AlertSearchProps) {
                   ref={inputRef}
                   className="w-full h-[35px] px-[14px] bg-white rounded-[8px] border-[1px] border-[#CCCCCC] focus:border-[#CCCCCC] focus:ring-0 text-[14px]"
                   placeholder="검색"
-                  // onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  //   onChangeNickname(event.target.value);
-                  // }}
                   onKeyDown={handleInput}
                 />
                 <Image
@@ -111,11 +129,14 @@ export default function AlertSearch({ isOpen, setIsOpen }: AlertSearchProps) {
             <div className="flex flex-col grow overflow-y-scroll scrollbar-hide">
               <div className="flex justify-between items-center p-[16px]">
                 <p className="text-[16px] font-semibold">검색기록</p>
-                <p className="text-[12px] text-[#2778C7] cursor-pointer">
+                <p
+                  className="text-[12px] text-[#2778C7] cursor-pointer"
+                  onClick={deleteAllSearchHistory}
+                >
                   전체 삭제
                 </p>
               </div>
-              <div className="flex flex-col justify-center items-center w-full h-full">
+              <div className="flex flex-col justify-start items-center w-full h-full">
                 {searchHistory.length > 0 ? (
                   searchHistory.map((item: any, index: number) => {
                     return (
@@ -145,7 +166,7 @@ export default function AlertSearch({ isOpen, setIsOpen }: AlertSearchProps) {
                           width={512}
                           height={512}
                           alt=""
-                          onClick={() => deleteSearchHistory(item.id)}
+                          onClick={(e) => deleteSearchHistory(e, item.id)}
                         />
                       </div>
                     );
