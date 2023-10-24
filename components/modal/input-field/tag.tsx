@@ -22,7 +22,7 @@ export default function Tag({
         onChange={(e: any) => {
           setAvatarTags(e);
         }}
-        className="flex items-center w-full h-[35px] px-[1px]"
+        className="flex items-center w-auto h-[35px] px-[1px] overflow-x-visible"
         placeholder={"태그를 입력해주세요"}
         styles={{
           control: (baseStyles, state) => ({
@@ -30,10 +30,17 @@ export default function Tag({
             height: "100%",
             width: "100%",
             borderRadius: "10px",
+            paddingLeft: "14px",
+            borderColor: "#CCCCCC !important",
+            boxShadow: "none !important",
           }),
           placeholder: (baseStyles, state) => ({
             ...baseStyles,
             color: "#CCCCCC",
+          }),
+          valueContainer: (baseStyles, state) => ({
+            ...baseStyles,
+            padding: "0",
           }),
         }}
       />

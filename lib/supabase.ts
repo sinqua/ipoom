@@ -72,11 +72,9 @@ export const getFollowStatus = async (sessionId: string, userId: string) => {
     .from("follows")
     .select(`*`)
     .eq("source_user_id", sessionId)
-    .eq("target_user_id", userId)
-    .limit(1)
-    .single();
+    .eq("target_user_id", userId);
 
-  if (data) return true;
+  if (data!.length > 0) return true;
   else return false;
 };
 

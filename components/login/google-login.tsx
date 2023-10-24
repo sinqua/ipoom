@@ -11,7 +11,7 @@ export default function GoogleLogin() {
   const supabase = createClientComponentClient<Database>();
   const searchParams = useSearchParams();
   const callbackUrl = ("/verify?callbackUrl=" +
-    (searchParams.get("callbackUrl") ?? "/")) as string;
+    (searchParams.get("callbackUrl") ?? "/home")) as string;
 
   const getURL = () => {
     let url =

@@ -6,21 +6,22 @@ import leftImg from "@/app/assets/images/left_gray.svg";
 import rightImg from "@/app/assets/images/right_gray.svg";
 import { cn } from "@/lib/utils";
 import likeImg from "@/app/assets/images/like.svg";
+import Select from "react-select";
 
-interface LikesProps {
+interface AvatarProps {
   avatars: any;
+  setAvatars: any;
 }
 
-export default function Likes({ avatars }: LikesProps) {
+export default function Avatar({ avatars, setAvatars }: AvatarProps) {
   const myRef = useRef<any>(null);
 
+  const [sortOption, setSortOption] = useState("최신순");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
   const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
 
   const totalPageCount = Math.ceil(avatars.length / 20);
-
-  console.log("totalPageCount", totalPageCount);
 
   useEffect(() => {
     const pageNumArray: number[] = Array.from(
@@ -44,6 +45,36 @@ export default function Likes({ avatars }: LikesProps) {
     });
   }, [currentPage]);
 
+  useEffect(() => {
+    if (sortOption === "최신순") {
+      const sortedAvatars = avatars.slice(0).sort((a: any, b: any) => {
+        const dateA = new Date(a.created_at!);
+        const dateB = new Date(b.created_at!);
+        return dateB.getTime() - dateA.getTime();
+      });
+
+      setAvatars(sortedAvatars);
+    }
+
+    if (sortOption === "오래된순") {
+      const sortedAvatars = avatars.slice(0).sort((a: any, b: any) => {
+        const dateA = new Date(a.created_at!);
+        const dateB = new Date(b.created_at!);
+        return dateA.getTime() - dateB.getTime();
+      });
+
+      setAvatars(sortedAvatars);
+    }
+
+    if (sortOption === "인기순") {
+      const sortedAvatars = avatars.slice(0).sort((a: any, b: any) => {
+        return b.likes.length - a.likes.length;
+      });
+
+      setAvatars(sortedAvatars);
+    }
+  }, [sortOption]);
+
   const changeToPrevPage = () => {
     if (currentPage === 1) return;
 
@@ -64,15 +95,47 @@ export default function Likes({ avatars }: LikesProps) {
 
   return (
     <div ref={myRef} className="flex flex-col w-full space-y-[24px]">
-      <div className="flex flex-col space-y-[16px]">
-        <p className="text-[20px] font-semibold">좋아요</p>
-        <p className="text-[#9D9D9D]">회원님이 관심을 보였던 아바타입니다.</p>
+      <div className="flex justify-between items-center w-full">
+        <p className="text-[20px] font-semibold">아바타</p>
+        <Select
+          className="basic-single w-[140px] px-[1px]"
+          classNamePrefix="select"
+          value={sortOptions.filter((option: any) => {
+            return option.label === sortOption;
+          })}
+          options={sortOptions}
+          onChange={(e: any) => setSortOption(e.value)}
+          isSearchable={false}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary: "#2778C7",
+            },
+          })}
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              height: "100%",
+              width: "100%",
+              backgroundColor: "#FFFFFF80",
+              borderRadius: "10px",
+              paddingLeft: "14px",
+              borderColor: "#CCCCCC !important",
+              boxShadow: "none !important",
+            }),
+            valueContainer: (baseStyles, state) => ({
+              ...baseStyles,
+              padding: "0",
+            }),
+          }}
+        />
       </div>
       <div className="grid dt:grid-cols-5 ph:grid-cols-4 grid-cols-2 gap-x-[16px] gap-y-[24px]">
         {avatars
           .slice(20 * (currentPage - 1), 20 * currentPage)
           ?.map((avatar: any, index: number) => {
-            return <Card avatar={avatar} key={index} />;
+            return <Card index={index} avatar={avatar} key={index} />;
           })}
       </div>
       {avatars.length === 0 ? (
@@ -131,3 +194,9 @@ export default function Likes({ avatars }: LikesProps) {
     </div>
   );
 }
+
+const sortOptions = [
+  { value: "최신순", label: "최신순" },
+  { value: "오래된순", label: "오래된순" },
+  { value: "인기순", label: "인기순" },
+];

@@ -183,7 +183,7 @@ export default function AlertAlarm({
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="inline-flex flex-col w-[300px] h-[400px] bg-[#FFFFFF] rounded-[8px] overflow-hidden
+            className="inline-flex flex-col max-w-[640px] w-full h-[400px] mx-[16px] bg-[#FFFFFF] rounded-[8px] overflow-hidden
            "
             onClick={(e) => e.stopPropagation()}
           >

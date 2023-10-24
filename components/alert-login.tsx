@@ -40,14 +40,20 @@ export default function AlertLogin({ isOpen, setIsOpen }: AlertLoginProps) {
             <div className="flex text-[14px]">
               <div
                 className="basis-1/2 h-[50px] flex justify-center items-center cursor-pointer text-[#2778C7]"
-                onClick={() => router.push(`/login?callbackUrl=${pathname}`)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(`/login?callbackUrl=${pathname}`);
+                }}
               >
                 이동
               </div>
               <Separator orientation="vertical" />
               <div
                 className="basis-1/2 h-[50px] flex justify-center items-center cursor-pointer"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(false);
+                }}
               >
                 취소
               </div>
