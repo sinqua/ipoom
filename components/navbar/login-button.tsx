@@ -13,8 +13,8 @@ export default function LoginButton() {
       <Link
         href={
           `/login?callbackUrl=${pathname}` +
-          (searchParams.get("content") &&
-            `?content=${searchParams.get("content")}`)
+          (searchParams.get("content") ?
+            `?content=${searchParams.get("content")}` : ``)
         }
         className="flex w-full h-16 items-center space-x-[16px] cursor-pointer"
       >
