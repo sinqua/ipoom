@@ -38,6 +38,8 @@ export default function Animation({
             backgroundColor: "#FFFFFF80",
             borderRadius: "10px",
             paddingLeft: "14px",
+            borderColor: "#CCCCCC !important",
+            boxShadow: "none !important",
           }),
           valueContainer: (baseStyles, state) => ({
             ...baseStyles,

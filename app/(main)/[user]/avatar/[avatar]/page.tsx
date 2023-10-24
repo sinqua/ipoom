@@ -54,8 +54,8 @@ export default async function Avatar(props: any) {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession(); 
 
   const profile = await getProfile(params.user);
   const avatar = await getAvatar(params.avatar);
@@ -126,7 +126,7 @@ export default async function Avatar(props: any) {
             <div className="flex items-center space-x-[24px]">
               <CopyButton />
               <LikeButton
-                userId={user?.id}
+                userId={session?.user.id}
                 avatarId={avatar.id}
                 likes={avatar.likes}
               />
@@ -173,7 +173,7 @@ export default async function Avatar(props: any) {
               <p>{formatFullDate(avatar.created_at)}</p>
             </div>
             <CommentSection
-              userId={user?.id}
+              userId={session?.user.id}
               avatarId={avatar.id}
               comments={comments}
             />

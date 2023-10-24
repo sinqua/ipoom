@@ -21,7 +21,7 @@ export default function Avatar({
           type="text"
           ref={avatarFileNameInputRef}
           disabled
-          className="w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none"
+          className="w-full h-[35px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-[#CCCCCC] border-solid px-[14px] outline-none text-[14px]"
           placeholder="VRM 파일을 등록해주세요"
           defaultValue={avatarFileName}
         />

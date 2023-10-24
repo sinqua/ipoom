@@ -8,18 +8,18 @@ import { isMobile } from "react-device-detect";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 
-import { useRouter } from 'next/navigation'
- 
+import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
+
 export default function Tags() {
   const supabase = createClientComponentClient<Database>();
+
+  const router = useRouter();
   const [tags, setTags] = useState<any>([]);
+  const [isInit, setIsInit] = useState(true);
 
   const scrollLeftRef = useRef<HTMLDivElement>(null);
   const scrollRightRef = useRef<HTMLDivElement>(null);
-
-  const router = useRouter()
-  // rename
-  const [isInit, setIsInit] = useState(true);
 
   const scrollToLeft = () => {
     scrollLeftRef.current?.scrollIntoView({
@@ -75,36 +75,35 @@ export default function Tags() {
   }, []);
 
   return (
-    <div className="relative flex shrink-0 justify-center w-full tb:h-[85px] h-[60px]">
+    <div className="relative flex shrink-0 justify-center w-full ph:h-[85px] h-[60px]">
       <div
         className={cn(
-          "absolute flex dt:max-w-[1008px] w-full tb:h-[85px] h-[60px]",
+          "absolute flex dt:max-w-[1008px] w-full ph:h-[85px] h-[60px]",
           isMobile ? "overflow-x-scroll scrollbar-hide" : "overflow-hidden"
         )}
       >
         <div ref={scrollLeftRef} className="shrink-0 dt:w-0 w-[16px]"></div>
         <div className="flex items-center h-full space-x-[16px]">
-          {tags.length > 0 ? (
-            tags.map((item: any, index: number) => {
-              return (
-                <div
-                  className="flex flex-col items-center tb:px-[24px] px-[8px] tb:py-[8px] py-[4px] space-y-[3px] bg-[#8B55D1] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap"
-                  key={index}
-                >
-                  <p>{`#${item.tag}`}</p>
-                  <p className="tb:block hidden">{item.count}</p>
-                </div>
-              );
-            })
-          ) : (
-            <p>없음 ㅋㅋ</p>
-          )}
+          {tags.length > 0
+            ? tags.map((item: any, index: number) => {
+                return (
+                  <div
+                    className="flex flex-col items-center ph:px-[24px] px-[8px] ph:py-[8px] py-[4px] space-y-[3px] bg-[#8B55D1] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap"
+                    key={index}
+                    onClick={() => router.push(`/search?content=${item.tag}`)}
+                  >
+                    <p>{`#${item.tag}`}</p>
+                    <p className="ph:block hidden">{item.count}</p>
+                  </div>
+                );
+              })
+            : TagsSkeleton()}
         </div>
         <div ref={scrollRightRef} className="shrink-0 dt:w-0 w-[16px]"></div>
       </div>
       {!isMobile && (
-        <div className="absolute top-0 flex justify-between items-center dt:max-w-[1008px] w-full tb:h-[85px] h-[60px] overflow-x-scroll scrollbar-hide pointer-events-none">
-          {isInit ? ( 
+        <div className="absolute top-0 flex justify-between items-center dt:max-w-[1008px] w-full ph:h-[85px] h-[60px] overflow-x-scroll scrollbar-hide pointer-events-none">
+          {isInit ? (
             <div></div>
           ) : (
             <div className="flex items-center h-full pl-[16px] bg-gradient-to-r from-white">
@@ -145,5 +144,22 @@ export default function Tags() {
         </div>
       )}
     </div>
+  );
+}
+
+function TagsSkeleton() {
+  return (
+    <>
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px] " />
+    </>
   );
 }
