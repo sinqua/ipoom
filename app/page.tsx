@@ -3,6 +3,7 @@ import Features from "@/components/landing-page/features";
 import Newsletter from "@/components/landing-page/newsletter";
 import Header from "@/components/landing-page/ui/header";
 import Footer from "@/components/basic-layout/footer";
+import GaTest from "@/components/landing-page/ga-test";
 
 export default function Home() {
   return (
@@ -13,9 +14,8 @@ export default function Home() {
         <Features />
         {/* <FeaturesBlocks /> */}
         {/* <Testimonials /> */}
-        <div>
-          <Newsletter />
-        </div>
+        <Newsletter />
+        <GaTest />
         {/* <Banner /> */}
         <Footer />
       </div>
