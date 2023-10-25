@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/lib/string";
 import FollowButton from "./follow-button";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "@/lib/database.types";
 import { useEffect, useState } from "react";
 import { getFollowStatus } from "@/lib/supabase";
 import { cn } from "@/lib/utils";

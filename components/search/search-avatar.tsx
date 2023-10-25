@@ -100,7 +100,8 @@ export default function SearchAvatar() {
           <Image src={cautionImg} className="w-[100px] h-[100px]" alt="" />
           <div className="flex flex-col items-center space-y-[16px]">
             <p className="text-[18px] font-semibold">
-              '{searchParams.get("content")}'에 대한 검색 결과가 없습니다.
+              &apos;{searchParams.get("content")}&apos;에 대한 검색 결과가
+              없습니다.
             </p>
             <p className="text-[14px] text-[#9D9D9D]">
               다른 키워드로 검색해주세요.

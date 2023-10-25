@@ -18,9 +18,9 @@ export default function Follow({ users }: FollowProps) {
   const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
   const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
 
-  const totalPageCount = Math.ceil(users.length / 10);
-
   useEffect(() => {
+    let totalPageCount = Math.ceil(users.length / 10);
+
     const pageNumArray: number[] = Array.from(
       { length: totalPageCount },
       (_, i) => i + 1
@@ -52,6 +52,8 @@ export default function Follow({ users }: FollowProps) {
   };
 
   const changeToNextPage = () => {
+    let totalPageCount = Math.ceil(users.length / 10);
+
     if (currentPage === totalPageCount) return;
 
     if (currentPage % 5 === 0)

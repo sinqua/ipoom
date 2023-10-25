@@ -28,8 +28,6 @@ export default function User({ users, setUsers }: UserProps) {
   const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
   const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
 
-  const totalPageCount = Math.ceil(users.length / 10);
-
   const getSession = async () => {
     const {
       data: { session },
@@ -40,6 +38,8 @@ export default function User({ users, setUsers }: UserProps) {
 
   useEffect(() => {
     getSession();
+
+    let totalPageCount = Math.ceil(users.length / 10);
 
     const pageNumArray: number[] = Array.from(
       { length: totalPageCount },
@@ -94,6 +94,8 @@ export default function User({ users, setUsers }: UserProps) {
   };
 
   const changeToNextPage = () => {
+    let totalPageCount = Math.ceil(users.length / 10);
+
     if (currentPage === totalPageCount) return;
 
     if (currentPage % 5 === 0)
@@ -209,7 +211,8 @@ export default function User({ users, setUsers }: UserProps) {
           <Image src={cautionImg} className="w-[100px] h-[100px]" alt="" />
           <div className="flex flex-col items-center space-y-[16px]">
             <p className="text-[18px] font-semibold">
-              '{searchParams.get("content")}'에 대한 검색 결과가 없습니다.
+              &apos;{searchParams.get("content")}&apos;에 대한 검색 결과가
+              없습니다.
             </p>
             <p className="text-[14px] text-[#9D9D9D]">
               다른 키워드로 검색해주세요.

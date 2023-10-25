@@ -21,8 +21,6 @@ export default function List() {
   const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
   const [totalPageArray, setTotalPageArray] = useState<number[][]>([]);
 
-  const totalPageCount = Math.ceil(avatars.length / 20);
-
   const getPopularAvatars = async () => {
     const avatarArray = [];
 
@@ -143,6 +141,8 @@ export default function List() {
   }, [searchParams.get("type")]);
 
   useEffect(() => {
+    let totalPageCount = Math.ceil(avatars.length / 10);
+
     const pageNumArray: number[] = Array.from(
       { length: totalPageCount },
       (_, i) => i + 1
@@ -174,6 +174,8 @@ export default function List() {
   };
 
   const changeToNextPage = () => {
+    let totalPageCount = Math.ceil(avatars.length / 10);
+
     if (currentPage === totalPageCount) return;
 
     if (currentPage % 5 === 0)
