@@ -22,33 +22,35 @@ export default function AlarmItem({
 
   const getAlarms = async () => {
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
 
     const { data: alarmCommentsData } = await supabase
       .from("alarm_comments")
       .select("*")
-      .eq("target_user_id", user?.id);
+      .eq("target_user_id", session.user.id);
 
     const { data: alarmRepliesData } = await supabase
       .from("alarm_replies")
       .select("*")
-      .eq("target_user_id", user?.id);
+      .eq("target_user_id", session.user.id);
 
     const { data: alarmFollowsData } = await supabase
       .from("alarm_follows")
       .select("*")
-      .eq("target_user_id", user?.id);
+      .eq("target_user_id", session.user.id);
 
     const { data: alarmLikesData } = await supabase
       .from("alarm_likes")
       .select("*")
-      .eq("target_user_id", user?.id);
+      .eq("target_user_id", session.user.id);
 
     const { data: alarmNoticesData } = await supabase
       .from("alarm_notices")
       .select("*")
-      .eq("user_id", user?.id);
+      .eq("user_id", session.user.id);
 
     const AllAlarmsData = [
       ...alarmCommentsData!,

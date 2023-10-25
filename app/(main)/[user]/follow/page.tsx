@@ -18,7 +18,7 @@ import Link from "next/link";
 import LikeButton from "@/components/modal/like-button";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import Header from "@/components/main/header";
+import Header from "@/components/home/header";
 import Follow from "@/components/follow";
 import Refresh from "@/components/refresh";
 

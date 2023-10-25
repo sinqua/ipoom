@@ -4,6 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 import Card from "./user/card";
+import Image from "next/image";
+import cautionImg from "@/app/assets/images/caution.svg";
+import { cn } from "@/lib/utils";
 
 export default function SearchUser() {
   const searchParams = useSearchParams();
@@ -83,7 +86,10 @@ export default function SearchUser() {
       <div className="flex justify-between items-center">
         <p className="text-[20px] font-semibold">유저</p>
         <p
-          className="text-[#2778C7] font-semibold cursor-pointer"
+          className={cn(
+            "text-[#2778C7] font-semibold cursor-pointer",
+            users.length === 0 && "hidden"
+          )}
           onClick={() =>
             router.push(`/search/user?content=${searchParams.get("content")}`)
           }
@@ -91,11 +97,32 @@ export default function SearchUser() {
           모두 보기
         </p>
       </div>
-      <div className="grid ph:grid-cols-2 grid-cols-1 gap-x-[16px] ph:gap-y-[24px] gap-y-[36px]">
-        {users.map((user: any, index: number) => {
-          return <Card session={session} userData={user} index={index} key={index} />;
-        })}
-      </div>
+      {users.length > 0 ? (
+        <div className="grid ph:grid-cols-2 grid-cols-1 gap-x-[16px] ph:gap-y-[24px] gap-y-[36px]">
+          {users.map((user: any, index: number) => {
+            return (
+              <Card
+                session={session}
+                userData={user}
+                index={index}
+                key={index}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center !mt-[80px] space-y-[32px]">
+          <Image src={cautionImg} className="w-[100px] h-[100px]" alt="" />
+          <div className="flex flex-col items-center space-y-[16px]">
+            <p className="text-[18px] font-semibold">
+              '{searchParams.get("content")}'에 대한 검색 결과가 없습니다.
+            </p>
+            <p className="text-[14px] text-[#9D9D9D]">
+              다른 키워드로 검색해주세요.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -41,5 +41,5 @@ export default function Page() {
     });
   }, []);
 
-  return <div className="w-full h-full">확인중</div>;
+  return <></>;
 }
