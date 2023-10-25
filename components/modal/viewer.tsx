@@ -69,7 +69,7 @@ export default function Viewer({
         <Canvas
           ref={canvasRef}
           gl={{ preserveDrawingBuffer: true }}
-          camera={{ position: [0, 0, 1.1] }}
+          camera={{ position: [0, 3, 1.1], fov: 25 }}
           style={{ backgroundColor: "#FAF9F6" }}
           shadows
         >

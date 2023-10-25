@@ -8,20 +8,24 @@ import Link from "next/link";
 import emptyImg from "@/app/assets/images/empty.png";
 import defaultBgImg from "@/public/default_background.png";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-
 import { getFollowStatus, getLink, getProfile } from "@/lib/supabase";
 import ToastButton from "./toast-button";
 import FollowButton from "./follow-button";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default async function ProfileCard({ userId }: { userId: string }) {
-  const session = await getServerSession(authOptions);
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   const profileData = getProfile(userId);
   const linkData = getLink(userId);
-  const followStatusData = session?.user.id
-    ? getFollowStatus(session?.user.id, userId)
+  const followStatusData = session
+    ? getFollowStatus(session.user.id, userId)
     : false;
 
   const [profile, link, followStatus] = await Promise.all([
@@ -33,7 +37,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
   return (
     <div className="flex flex-col shrink-0 ph:w-[360px] w-full h-fit ph:rounded-[8px] ph:shadow-[0px_3px_6px_rgba(0,0,0,0.16)] overflow-hidden">
       <Image
-        src={profile.background ? profile.background : defaultBgImg}
+        src={profile!.background ? profile!.background : defaultBgImg}
         width={512}
         height={512}
         className="object-cover w-full h-[180px] bg-[#ECECEC]"
@@ -42,7 +46,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
       <div className="flex justify-center items-center w-full h-0 overflow-visible z-10">
         <div className="flex justify-center items-center w-[128px] h-[128px] bg-[#2778C7] rounded-full">
           <Image
-            src={profile.image ? profile.image : emptyImg}
+            src={profile!.image ? profile!.image : emptyImg}
             width={512}
             height={512}
             className="object-cover w-[120px] h-[120px] rounded-full"
@@ -51,18 +55,18 @@ export default async function ProfileCard({ userId }: { userId: string }) {
         </div>
       </div>
       <div className="flex flex-col justify-center w-full ph:p-[24px] p-[16px] !pt-[80px] space-y-[24px] bg-[#FFFFFF]">
-        <p className="text-[24px] font-bold text-center">{profile.nickname}</p>
+        <p className="text-[24px] font-bold text-center">{profile!.nickname}</p>
         <div className="ph:flex hidden flex-col space-y-[40px]">
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">소개</p>
             <p className="whitespace-pre-line leading-[24px]">
-              {profile.description}
+              {profile!.description}
             </p>
           </div>
           <div className="flex flex-col space-y-[16px]">
             <p className="text-[16px] text-[#9D9D9D] font-semibold">태그</p>
             <div className="ph:flex hidden flex-wrap w-full">
-              {profile.tags.map((item: any, index: any) => {
+              {profile!.tags.map((item: any, index: any) => {
                 return (
                   <div
                     className="flex justify-center items-center w-fit h-fit px-[8px] py-[4px] mr-[10px] mb-[10px] text-[14px] bg-[#E9E9E9] rounded-[7px] whitespace-nowrap"
@@ -76,12 +80,9 @@ export default async function ProfileCard({ userId }: { userId: string }) {
           </div>
         </div>
         <div className="ph:hidden flex flex-wrap justify-center w-full">
-          {profile.tags.map((item: any, index: any) => {
+          {profile!.tags.map((item: any, index: any) => {
             return (
-              <p
-                className="m-[5px] text-[14px] whitespace-nowrap"
-                key={index}
-              >
+              <p className="m-[5px] text-[14px] whitespace-nowrap" key={index}>
                 {`#${item.tag}`}
               </p>
             );

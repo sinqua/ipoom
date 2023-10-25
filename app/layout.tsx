@@ -1,8 +1,6 @@
 import "./css/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
-import AuthProvider from "@/components/auth-provider";
 import GoogleAnalytics from "@/components/google-analytics";
 import Discord from "@/components/discord";
 import { Toaster } from "@/components/ui/toaster";
@@ -16,20 +14,17 @@ export default function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
+  
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Suspense>
-          <main>
-            <GoogleAnalytics />
-            <AuthProvider>
-              {children}
-              {modal}
-              <Toaster />
-            </AuthProvider>
-            <Discord />
-          </main>
-        </Suspense>
+        <main>
+          <GoogleAnalytics />
+          {children}
+          {modal}
+          <Toaster />
+          <Discord />
+        </main>
       </body>
     </html>
   );

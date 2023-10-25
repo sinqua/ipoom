@@ -1,12 +1,8 @@
 "use client";
 import Image from "next/image";
-import useDrag from "@/hooks/useDrag";
-import { useEffect } from "react";
-
 import garyPlusImg from "@/app/assets/images/plus_gray.svg";
-import { useSession } from "next-auth/react";
 
-export default async function EmptyCard() {
+export default function EmptyCard() {
   return (
     <div className="flex justify-center items-center w-[150px] h-[150px] bg-[#F1F1F1] rounded-[5px] cursor-pointer">
       <div className="flex flex-col items-center space-y-[16px]">

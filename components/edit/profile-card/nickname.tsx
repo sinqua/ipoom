@@ -1,13 +1,15 @@
 "use client";
 import Card from "@/components/edit/card";
 import CardHeader from "@/components/edit/card/header";
-import { useSession } from "next-auth/react";
 import { useRef, useState } from "react";
 import { validateNickname } from "@/lib/supabase";
 import SaveChange from "./save-change";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 export default function Nickname({ name }: { name: string | null }) {
-  const { data: session, status } = useSession();
+  const supabase = createClientComponentClient<Database>();
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [empty, setEmpty] = useState(true);
@@ -16,7 +18,18 @@ export default function Nickname({ name }: { name: string | null }) {
   const onChangeNickname = async (nickname: string) => {
     setEmpty(nickname.length === 0 ? true : false);
 
-    if (nickname === session?.user.nickname) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select()
+      .eq("user_id", user!.id)
+      .limit(1)
+      .single();
+
+    if (nickname === profileData?.nickname) {
       setDuplication(false);
     } else {
       const result = await validateNickname(nickname);

@@ -19,8 +19,21 @@ const QuillEditor: NextPage<IEditor> = ({ content, htmlStr, setHtmlStr }) => {
   const quillRef = useRef<ReactQuill>(null);
 
   useEffect(() => {
-    loadDescription(content, setHtmlStr);
-  }, [content, setHtmlStr]);
+    const loadDescription = async (content: any) => {
+      if (content) {
+        const descriptionObject = JSON.parse(content);
+
+        const arr: any[] = [];
+        Object.keys(descriptionObject).forEach((key) =>
+          arr.push(descriptionObject[key])
+        );
+
+        setHtmlStr({ ops: arr });
+      }
+    };
+
+    loadDescription(content);
+  }, [content]);
 
   // 이미지 업로드 핸들러, modules 설정보다 위에 있어야 정상 적용
   const imageHandler = () => {
@@ -100,18 +113,18 @@ const QuillEditor: NextPage<IEditor> = ({ content, htmlStr, setHtmlStr }) => {
   );
 };
 
-async function loadDescription(content: any, setHtmlStr: any) {
-  if (content) {
-    const descriptionObject = JSON.parse(content);
+// async function loadDescription(content: any, setHtmlStr: any) {
+//   if (content) {
+//     const descriptionObject = JSON.parse(content);
 
-    const arr: any[] = [];
-    Object.keys(descriptionObject).forEach((key) =>
-      arr.push(descriptionObject[key])
-    );
+//     const arr: any[] = [];
+//     Object.keys(descriptionObject).forEach((key) =>
+//       arr.push(descriptionObject[key])
+//     );
 
-    setHtmlStr({ ops: arr });
-  }
-}
+//     setHtmlStr({ ops: arr });
+//   }
+// }
 
 // toolbar에 사용되는 tool format
 const formats = [
@@ -134,6 +147,5 @@ const formats = [
   "color",
   "background",
 ];
-
 
 export default QuillEditor;

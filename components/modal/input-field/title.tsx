@@ -20,7 +20,7 @@ export default function Title({
         type="text"
         ref={avatarTitleInputRef}
         className={twMerge(
-          "w-full h-[35px] px-[14px] rounded-[10px] bg-white border-solid border-[1px] outline-none",
+          "w-full h-[35px] px-[14px] bg-white rounded-[10px] border-solid border-[1px] focus:border-[#CCCCCC] focus:ring-0 text-[14px]",
           borderColor
         )}
         placeholder="타이틀을 입력해주세요"

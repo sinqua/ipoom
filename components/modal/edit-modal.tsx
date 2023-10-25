@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import checkImg from "@/app/assets/images/check_blue.svg";
 
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { uploadAvatarFile, UploadAvatarThumbnailFile } from "@/lib/storage";
 import {
   updateAvatar,
@@ -27,6 +26,8 @@ import Tag from "./input-field/tag";
 import Visible from "./input-field/visible";
 import Animation from "./input-field/animation";
 import Thumbnail from "./input-field/thumbnail";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 export default function EditModal({
   avatar,
@@ -38,7 +39,7 @@ export default function EditModal({
   mostUsedTags: any;
 }) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const supabase = createClientComponentClient<Database>();
 
   const [captureMode, setCaptureMode] = useState(false);
 
@@ -127,6 +128,10 @@ export default function EditModal({
   }
 
   const onSavePortfolio = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     if (!avatarTitleInputRef.current.value) {
       setBorderColor("border-red-500");
       setIsEmpty(true);
@@ -135,7 +140,7 @@ export default function EditModal({
 
     setStatus("save");
 
-    const avatarData = await updateAvatar(
+    await updateAvatar(
       avatar.id,
       avatarTitleInputRef.current.value,
       avatarDescriptionInputRef.current.value,
@@ -146,25 +151,21 @@ export default function EditModal({
     await updateAvatarTags(avatar.id, avatarTags);
 
     if (thumbnailImage.includes("data:image/png;base64,")) {
-      UploadAvatarThumbnailFile(session?.user.id, thumbnailImage).then(
-        async (uuid) => {
-          await updateAvatarThumbnail(session?.user.id, uuid, avatar.id);
-        }
-      );
+      UploadAvatarThumbnailFile(user?.id, thumbnailImage).then(async (uuid) => {
+        await updateAvatarThumbnail(user?.id, uuid, avatar.id);
+      });
     }
 
     if (avatarFile) {
       const uuid = uuidv4() + ".vrm";
 
-      uploadAvatarFile(session?.user.id, uuid, avatarFile).then(
-        async (data) => {
-          await updateAvatarName(avatar.id, uuid);
-        }
-      );
+      uploadAvatarFile(user?.id, uuid, avatarFile).then(async (data) => {
+        await updateAvatarName(avatar.id, uuid);
+      });
 
       setStatus("done");
 
-      await optimizeAvatar(avatarFile, session, avatar.id, uuid);
+      await optimizeAvatar(avatarFile, user, avatar.id, uuid);
     }
 
     setStatus("done");
@@ -302,7 +303,7 @@ export default function EditModal({
 }
 async function optimizeAvatar(
   avatarFile: any,
-  session: any,
+  user: any,
   avatarId: number,
   uuid: string
 ) {
@@ -311,7 +312,7 @@ async function optimizeAvatar(
   formData.append("name", avatarFile.name);
   formData.append("avatarId", avatarId.toString());
   formData.append("uuid", uuid);
-  if (session) formData.append("id", session?.user.id);
+  if (user) formData.append("id", user.id);
 
   try {
     const response = await fetch("https://server.offing.me", {

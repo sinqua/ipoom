@@ -1,67 +1,24 @@
-import Header from "@/components/main/header";
+import Hero from "@/components/landing-page/hero";
+import Features from "@/components/landing-page/features";
+import Newsletter from "@/components/landing-page/newsletter";
+import Header from "@/components/landing-page/ui/header";
 import Footer from "@/components/basic-layout/footer";
-import Navbar from "@/components/navbar";
-import { Toaster } from "@/components/ui/toaster";
-import Carousel from "@/components/carousel";
-import {
-  getMainFollowAvatars,
-  getMainPopularAvatars,
-  getMainRecentAvatars,
-  getMainTags,
-} from "@/lib/supabase";
-import Follow from "@/components/main/follow";
-import Popular from "@/components/main/popular";
-import Recent from "@/components/main/recent";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { Suspense } from "react";
-import Tags from "@/components/main/header/tags";
 
-export default async function Main() {
-  const session = await getServerSession(authOptions);
-
-  const tagsData = getMainTags();
-  const popularAvatarsData = getMainPopularAvatars();
-  const followAvatarsData = session
-    ? getMainFollowAvatars(session?.user.id)
-    : null;
-  const recentAvatarsData = getMainRecentAvatars();
-
-  const [tags, popularAvatars, followAvatars, recentAvatars] =
-    await Promise.all([
-      tagsData,
-      popularAvatarsData,
-      followAvatarsData,
-      recentAvatarsData,
-    ]);
-
+export default function Home() {
   return (
-    <div className="relative flex h-auto text-[#333333]">
-      <Navbar />
-      <div className="relative flex flex-col grow h-auto">
-        <div className="relative flex flex-col h-auto min-h-screen">
-          <Header />
-          <div className="relative flex flex-col items-center w-full grow">
-            <Suspense
-              fallback={
-                <div className="shrink-0 w-full tb:h-[85px] h-[60px]" />
-              }
-            >
-              <Tags tags={tags} />
-            </Suspense>
-            <Carousel />
-            <Suspense>
-              <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
-                <Popular avatars={popularAvatars} />
-                {session && <Follow avatars={followAvatars} />}
-                <Recent avatars={recentAvatars} />
-              </div>
-            </Suspense>
-          </div>
+    <>
+      <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+        <Header />
+        <Hero />
+        <Features />
+        {/* <FeaturesBlocks /> */}
+        {/* <Testimonials /> */}
+        <div>
+          <Newsletter />
         </div>
-        <Toaster />
+        {/* <Banner /> */}
         <Footer />
       </div>
-    </div>
+    </>
   );
 }

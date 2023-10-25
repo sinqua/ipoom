@@ -1,17 +1,21 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import loginImg from "@/app/assets/images/login.svg";
 
-
 export default function LoginButton() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   return (
     <div className="relative flex justify-between items-center h-[88px] space-x-[44px] px-[32px] pr-[24px] border-t-[1px]">
       <Link
-        href={`/login?callbackUrl=${pathname}`}
+        href={
+          `/login?callbackUrl=${pathname}` +
+          (searchParams.get("content") ?
+            `?content=${searchParams.get("content")}` : ``)
+        }
         className="flex w-full h-16 items-center space-x-[16px] cursor-pointer"
       >
         <div className="flex justify-center items-center w-[40px] h-[40px] rounded-full border-solid border-[1px] border-[#D4D4D4] shadow-[0px_3px_6px_rgba(0,0,0,0.16)]">

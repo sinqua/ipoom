@@ -1,21 +1,24 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+// import { signOut } from "next-auth/react";
 
 import moreImg from "@/app/assets/images/more.svg";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 export default function KebabMenu() {
-  const { data: session } = useSession();
+  const supabase = createClientComponentClient<Database>();
+
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const logOut = () => {
-    signOut();
-    setIsOpen(false);
-  };
-  const url = session ? `/${session?.user.id}/edit` : "";
+  // const logOut = () => {
+  //   signOut();
+  //   setIsOpen(false);
+  // };
+  // const url = session ? `/${session?.user.id}/edit` : "";
 
   return (
     <>

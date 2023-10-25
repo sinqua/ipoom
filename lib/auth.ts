@@ -1,17 +1,17 @@
 import { NextAuthOptions } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord"
-import TwitterProvider from "next-auth/providers/twitter"
-import KakaoProvider from "next-auth/providers/kakao"
-import NaverProvider from "next-auth/providers/naver"
-import GoogleProvider from "next-auth/providers/google"
-import { SupabaseAdapter } from "@next-auth/supabase-adapter"
+import DiscordProvider from "next-auth/providers/discord";
+import TwitterProvider from "next-auth/providers/twitter";
+import KakaoProvider from "next-auth/providers/kakao";
+import NaverProvider from "next-auth/providers/naver";
+import GoogleProvider from "next-auth/providers/google";
+import { SupabaseAdapter } from "@next-auth/supabase-adapter";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     DiscordProvider({
       clientId: process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID as string,
-      clientSecret: process.env.NEXT_PUBLIC_DISCORD_CLIENT_SECRET as string
+      clientSecret: process.env.NEXT_PUBLIC_DISCORD_CLIENT_SECRET as string,
     }),
     TwitterProvider({
       clientId: process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID as string,
@@ -36,16 +36,23 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY as string,
   }),
   callbacks: {
-    async session({ session, token, user }: { session: any, token: any, user: any }) {
-
+    async session({
+      session,
+      token,
+      user,
+    }: {
+      session: any;
+      token: any;
+      user: any;
+    }) {
       if (user) {
         session.user = user;
       }
 
-      return session
+      return session;
     },
   },
   pages: {
-    signIn: '/login'
-  }
-}
+    signIn: "/login",
+  },
+};

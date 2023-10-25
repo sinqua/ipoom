@@ -1,36 +1,33 @@
 "use client";
 import Image from "next/image";
-
-import HeartLineImg from "@/app/assets/images/heart_line.svg";
-import HeartFillImg from "@/app/assets/images/heart_fill.svg";
-
 import Background from "@/components/modal/background";
 import { formatFullDate } from "@/lib/string";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Viewer from "./viewer";
-import { useSession } from "next-auth/react";
 import CommentSection from "./comment-section";
 import CopyButton from "./copy-button";
 import LikeButton from "./like-button";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 export default function AvatarModal({
+  userId,
   avatar,
   modelUrl,
   comments,
 }: {
+  userId: any;
   avatar: any;
   modelUrl: any;
   comments: any;
 }) {
-  const session = useSession();
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
 
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-
-  //   return () => {
-  //     document.body.style.overflow = "auto";
-  //   };
-  // }, []);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <div className="fixed inset-0 w-full h-full z-50">
@@ -53,7 +50,7 @@ export default function AvatarModal({
                 <div className="flex items-center space-x-[24px]">
                   <CopyButton />
                   <LikeButton
-                    userId={session.data?.user.id}
+                    userId={userId}
                     avatarId={avatar.id}
                     likes={avatar.likes}
                   />
@@ -104,7 +101,7 @@ export default function AvatarModal({
                   <p>{formatFullDate(avatar.created_at)}</p>
                 </div>
                 <CommentSection
-                  userId={session.data?.user.id}
+                  userId={userId}
                   avatarId={avatar.id}
                   comments={comments}
                 />

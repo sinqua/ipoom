@@ -1,7 +1,6 @@
 "use client";
-import { supabase, supabaseAuth } from "@/lib/database";
+import { supabase } from "@/lib/database";
 import { UploadQuillImage } from "@/lib/storage";
-import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import FadeLoader from "react-spinners/FadeLoader";
 import { v4 as uuidv4 } from "uuid";
@@ -9,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 import checkImg from "@/app/assets/images/check_blue.svg";
 import { generatePublicUrl } from "@/lib/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
 
 export default function SaveQuillChange({
   label,
@@ -17,14 +18,18 @@ export default function SaveQuillChange({
   label: any;
   htmlStr: any;
 }) {
-  const { data: session } = useSession();
+  const supabase = createClientComponentClient<Database>();
 
   const [status, setStatus] = useState("");
 
   const handleClick = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     setStatus("save");
 
-    await handleSaveQuill(session, label, htmlStr);
+    await handleSaveQuill(user?.id, label, htmlStr);
 
     setStatus("done");
   };
@@ -71,7 +76,7 @@ export default function SaveQuillChange({
   );
 }
 
-const handleSaveQuill = async (session: any, label: any, htmlStr: any) => {
+const handleSaveQuill = async (userId: any, label: any, htmlStr: any) => {
   if (label === "description") {
     for (let i = 0; i < htmlStr.ops.length; i++) {
       if (Object.keys(htmlStr.ops[i].insert).includes("image")) {
@@ -79,11 +84,14 @@ const handleSaveQuill = async (session: any, label: any, htmlStr: any) => {
           var uuid = uuidv4();
 
           await UploadQuillImage(
-            session?.user.id,
+            userId,
             `${uuid}.png`,
             htmlStr.ops[i].insert.image
           ).then(async (data) => {
-            htmlStr.ops[i].insert.image = generatePublicUrl("quill", data!.path);
+            htmlStr.ops[i].insert.image = generatePublicUrl(
+              "quill",
+              data!.path
+            );
           });
         }
       }
@@ -92,7 +100,7 @@ const handleSaveQuill = async (session: any, label: any, htmlStr: any) => {
     const { data, error } = await supabase
       .from("user_details")
       .update({ description: JSON.stringify({ ...htmlStr.ops }) })
-      .eq("user_id", session?.user.id)
+      .eq("user_id", userId)
       .select();
 
     return;
@@ -105,11 +113,14 @@ const handleSaveQuill = async (session: any, label: any, htmlStr: any) => {
           var uuid = uuidv4();
 
           await UploadQuillImage(
-            session?.user.id,
+            userId,
             `${uuid}.png`,
             htmlStr.ops[i].insert.image
           ).then(async (data) => {
-            htmlStr.ops[i].insert.image = generatePublicUrl("quill", data!.path);
+            htmlStr.ops[i].insert.image = generatePublicUrl(
+              "quill",
+              data!.path
+            );
           });
         }
       }
@@ -118,7 +129,7 @@ const handleSaveQuill = async (session: any, label: any, htmlStr: any) => {
     const { data, error } = await supabase
       .from("user_details")
       .update({ price_info: JSON.stringify({ ...htmlStr.ops }) })
-      .eq("user_id", session?.user.id)
+      .eq("user_id", userId)
       .select();
 
     return;
