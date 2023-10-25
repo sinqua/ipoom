@@ -1,14 +1,14 @@
-import Header from "@/components/main/header";
+import Header from "@/components/home/header";
 import Footer from "@/components/basic-layout/footer";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
 import Carousel from "@/components/carousel";
 
-import Follow from "@/components/main/follow";
-import Popular from "@/components/main/popular";
-import Recent from "@/components/main/recent";
+import Follow from "@/components/home/follow";
+import Popular from "@/components/home/popular";
+import Recent from "@/components/home/recent";
 import { Suspense } from "react";
-import Tags from "@/components/main/header/tags";
+import Tags from "@/components/home/header/tags";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { revalidatePath } from 'next/cache'

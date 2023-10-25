@@ -13,12 +13,12 @@ export default async function Profile() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  const profile = await getProfile(user?.id!);
+  const profile = await getProfile(session?.user.id!);
 
-  return user ? (
+  return session ? (
     profile ? (
       <div className="relative flex justify-between items-center h-[88px] px-[32px] pr-[24px] border-t-[1px]">
         <Link href={`/${profile.user_id}`}>

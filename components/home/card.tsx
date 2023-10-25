@@ -3,21 +3,13 @@ import { cn, getTimeAgo } from "@/lib/utils";
 import Image from "next/image";
 import LikeButton from "./like-button";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface CardProps {
   index: number;
   avatar: any;
 }
 
-export default async function Card({ index, avatar }: CardProps) {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+export default function Card({ index, avatar }: CardProps) {
   return (
     <Link
       href={`/avatar/${avatar.id}`}
@@ -35,10 +27,7 @@ export default async function Card({ index, avatar }: CardProps) {
           height={512}
           alt=""
         />
-        <LikeButton
-          userId={user?.id}
-          likes={avatar.likes}
-        />
+        <LikeButton likes={avatar.likes} />
       </div>
       <div className="flex flex-col h-max space-y-[8px] p-[8px]">
         <div className="flex justify-between items-center">

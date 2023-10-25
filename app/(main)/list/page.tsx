@@ -4,6 +4,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Header from "@/components/home/header";
 import Likes from "@/components/likes";
 import Refresh from "@/components/refresh";
+import List from "@/components/list";
 
 // type Props = {
 //   params: { avatar: string };
@@ -36,21 +37,13 @@ import Refresh from "@/components/refresh";
 export default async function Page(props: any) {
   const { params } = props;
 
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const likesAvatars = await getLikesAvatars(user?.id!);
-
   return (
     <div className="flex flex-col h-auto min-h-screen">
       <Header />
       <Refresh />
       <div className="relative flex flex-col items-center w-full grow">
         <div className="relative flex flex-col dt:max-w-[1008px] w-full h-full dt:px-0 px-[16px] px:pt-[60px] pt-[40px] pb-[80px] space-y-[64px]">
-          <Likes avatars={likesAvatars} />
+          <List />
         </div>
       </div>
     </div>

@@ -7,11 +7,12 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 export default async function UploadWork() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  if (!user) return null;
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) return null;
 
   return (
     <div className="px-[32px] py-[24px]">

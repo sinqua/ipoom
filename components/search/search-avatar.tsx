@@ -1,14 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import leftImg from "@/app/assets/images/left_gray.svg";
-import rightImg from "@/app/assets/images/right_gray.svg";
-import { cn } from "@/lib/utils";
-import likeImg from "@/app/assets/images/like.svg";
+import cautionImg from "@/app/assets/images/caution.svg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 import Card from "./avatar/card";
+import { cn } from "@/lib/utils";
 
 export default function SearchAvatar() {
   const searchParams = useSearchParams();
@@ -80,7 +78,10 @@ export default function SearchAvatar() {
       <div className="flex justify-between items-center">
         <p className="text-[20px] font-semibold">아바타</p>
         <p
-          className="text-[#2778C7] font-semibold cursor-pointer"
+          className={cn(
+            "text-[#2778C7] font-semibold cursor-pointer",
+            avatars.length === 0 && "hidden"
+          )}
           onClick={() =>
             router.push(`/search/avatar?content=${searchParams.get("content")}`)
           }
@@ -88,11 +89,25 @@ export default function SearchAvatar() {
           모두 보기
         </p>
       </div>
-      <div className="grid dt:grid-cols-5 ph:grid-cols-4 grid-cols-2 gap-x-[16px] gap-y-[24px]">
-        {avatars.map((avatar: any, index: number) => {
-          return <Card index={index} avatar={avatar} key={index} />;
-        })}
-      </div>
+      {avatars.length > 0 ? (
+        <div className="grid dt:grid-cols-5 ph:grid-cols-4 grid-cols-2 gap-x-[16px] gap-y-[24px]">
+          {avatars.map((avatar: any, index: number) => {
+            return <Card index={index} avatar={avatar} key={index} />;
+          })}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center !mt-[80px] space-y-[32px]">
+          <Image src={cautionImg} className="w-[100px] h-[100px]" alt="" />
+          <div className="flex flex-col items-center space-y-[16px]">
+            <p className="text-[18px] font-semibold">
+              '{searchParams.get("content")}'에 대한 검색 결과가 없습니다.
+            </p>
+            <p className="text-[14px] text-[#9D9D9D]">
+              다른 키워드로 검색해주세요.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

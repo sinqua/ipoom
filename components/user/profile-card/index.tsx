@@ -17,13 +17,16 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 export default async function ProfileCard({ userId }: { userId: string }) {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
   const profileData = getProfile(userId);
   const linkData = getLink(userId);
-  const followStatusData = user ? getFollowStatus(user.id, userId) : false;
+  const followStatusData = session
+    ? getFollowStatus(session.user.id, userId)
+    : false;
 
   const [profile, link, followStatus] = await Promise.all([
     profileData,
@@ -132,7 +135,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
         </div> */}
         <div className="flex w-full space-x-[16px]">
           <FollowButton
-            sessionId={user?.id}
+            sessionId={session?.user.id}
             userId={userId}
             status={followStatus}
           />

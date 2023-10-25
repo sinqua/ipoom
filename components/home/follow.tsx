@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import Card from "./card";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 
 export default async function Follow() {
   const cookieStore = cookies();
@@ -58,9 +59,12 @@ export default async function Follow() {
       <div className="flex flex-col space-y-[16px]">
         <div className="flex justify-between items-center">
           <p className="text-[20px] font-semibold">팔로우</p>
-          <p className="text-[#2778C7] font-semibold cursor-pointer">
+          <Link
+            href={"/list?type=follow"}
+            className="text-[14px] text-[#2778C7] font-semibold cursor-pointer"
+          >
             모두 보기
-          </p>
+          </Link>
         </div>
         <p className="text-[#9D9D9D]">
           회원님이 팔로우한 유저들의 최근 아바타입니다.

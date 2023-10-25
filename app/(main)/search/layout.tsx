@@ -1,5 +1,5 @@
-import Tags from "@/components/main/header/tags";
-import Header from "@/components/main/header";
+import Tags from "@/components/home/header/tags";
+import Header from "@/components/home/header";
 import SearchInfo from "@/components/search/search-info";
 
 export default function RootLayout({

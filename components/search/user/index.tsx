@@ -5,10 +5,11 @@ import Image from "next/image";
 import leftImg from "@/app/assets/images/left_gray.svg";
 import rightImg from "@/app/assets/images/right_gray.svg";
 import { cn } from "@/lib/utils";
-import followImg from "@/app/assets/images/follow.svg";
+import cautionImg from "@/app/assets/images/caution.svg";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 import Select from "react-select";
+import { useSearchParams } from "next/navigation";
 
 interface UserProps {
   users: any;
@@ -21,7 +22,7 @@ export default function User({ users, setUsers }: UserProps) {
   const myRef = useRef<any>(null);
 
   const [session, setSession] = useState<any>();
-
+  const searchParams = useSearchParams();
   const [sortOption, setSortOption] = useState("최신순");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageArray, setCurrentPageArray] = useState<number[]>([]);
@@ -106,7 +107,10 @@ export default function User({ users, setUsers }: UserProps) {
       <div className="flex justify-between items-center w-full">
         <p className="text-[20px] font-semibold">유저</p>
         <Select
-          className="basic-single w-[140px] px-[1px]"
+          className={cn(
+            "basic-single w-[140px] px-[1px]",
+            users.length === 0 && "hidden"
+          )}
           classNamePrefix="select"
           value={sortOptions.filter((option: any) => {
             return option.label === sortOption;
@@ -139,63 +143,77 @@ export default function User({ users, setUsers }: UserProps) {
           }}
         />
       </div>
-      <div className="grid ph:grid-cols-2 grid-cols-1 gap-x-[16px] ph:gap-y-[24px] gap-y-[36px]">
-        {users
-          .slice(10 * (currentPage - 1), 10 * currentPage)
-          ?.map((user: any, index: number) => {
-            return <Card session={session} userData={user} index={index} key={index} />;
-          })}
-      </div>
-      {users.length === 0 ? (
-        <div className="flex flex-col justify-center items-center">
-          <Image src={followImg} className="w-[80px] h-[80px] m-6" alt="" />
-          <p className=" text-[#9D9D9D] text-[20px] font-semibold">
-            마음에 드는 유저의 소식을 받아보세요!
-          </p>
-        </div>
-      ) : (
-        <div className="flex justify-center items-center h-[32px] space-x-[8px] !mt-[64px]">
-          <div
-            className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
-            onClick={changeToPrevPage}
-          >
-            <Image
-              draggable={false}
-              src={leftImg}
-              className="relative w-auto h-[16px]"
-              width={512}
-              height={512}
-              alt=""
-            />
+      {users.length > 0 ? (
+        <>
+          <div className="grid ph:grid-cols-2 grid-cols-1 gap-x-[16px] ph:gap-y-[24px] gap-y-[36px]">
+            {users
+              .slice(10 * (currentPage - 1), 10 * currentPage)
+              ?.map((user: any, index: number) => {
+                return (
+                  <Card
+                    session={session}
+                    userData={user}
+                    index={index}
+                    key={index}
+                  />
+                );
+              })}
           </div>
-          {currentPageArray?.map((item: number, index: number) => {
-            return (
-              <div
-                className={cn(
-                  "flex justify-center items-center w-[32px] h-[32px] rounded-[8px] text-[18px] cursor-pointer",
-                  item === currentPage
-                    ? "text-[#368ADC] font-semibold"
-                    : "text-[#333333] hover:bg-[#F6F6F6]"
-                )}
-                key={index}
-                onClick={() => setCurrentPage(item)}
-              >
-                {item}
-              </div>
-            );
-          })}
-          <div
-            className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
-            onClick={changeToNextPage}
-          >
-            <Image
-              draggable={false}
-              src={rightImg}
-              className="relative w-auto h-[16px]"
-              width={512}
-              height={512}
-              alt=""
-            />
+          <div className="flex justify-center items-center h-[32px] space-x-[8px] !mt-[64px]">
+            <div
+              className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
+              onClick={changeToPrevPage}
+            >
+              <Image
+                draggable={false}
+                src={leftImg}
+                className="relative w-auto h-[16px]"
+                width={512}
+                height={512}
+                alt=""
+              />
+            </div>
+            {currentPageArray?.map((item: number, index: number) => {
+              return (
+                <div
+                  className={cn(
+                    "flex justify-center items-center w-[32px] h-[32px] rounded-[8px] text-[18px] cursor-pointer",
+                    item === currentPage
+                      ? "text-[#368ADC] font-semibold"
+                      : "text-[#333333] hover:bg-[#F6F6F6]"
+                  )}
+                  key={index}
+                  onClick={() => setCurrentPage(item)}
+                >
+                  {item}
+                </div>
+              );
+            })}
+            <div
+              className="flex justify-center items-center w-[16px] h-[16px] cursor-pointer"
+              onClick={changeToNextPage}
+            >
+              <Image
+                draggable={false}
+                src={rightImg}
+                className="relative w-auto h-[16px]"
+                width={512}
+                height={512}
+                alt=""
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-col justify-center items-center !mt-[80px] space-y-[32px]">
+          <Image src={cautionImg} className="w-[100px] h-[100px]" alt="" />
+          <div className="flex flex-col items-center space-y-[16px]">
+            <p className="text-[18px] font-semibold">
+              '{searchParams.get("content")}'에 대한 검색 결과가 없습니다.
+            </p>
+            <p className="text-[14px] text-[#9D9D9D]">
+              다른 키워드로 검색해주세요.
+            </p>
           </div>
         </div>
       )}

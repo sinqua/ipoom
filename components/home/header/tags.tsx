@@ -21,6 +21,19 @@ export default function Tags() {
   const scrollLeftRef = useRef<HTMLDivElement>(null);
   const scrollRightRef = useRef<HTMLDivElement>(null);
 
+  const [tagColors, setTagColors] = useState([
+    "bg-[#8B55D1]",
+    "bg-[#D15555]",
+    "bg-[#5572D1]",
+    "bg-[#269F2E]",
+    "bg-[#B97129]",
+    "bg-[#29979F]",
+    "bg-[#7155D1]",
+    "bg-[#9EAE2F]",
+    "bg-[#269871]",
+    "bg-[#6622AA]",
+  ]);
+
   const scrollToLeft = () => {
     scrollLeftRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -88,7 +101,10 @@ export default function Tags() {
             ? tags.map((item: any, index: number) => {
                 return (
                   <div
-                    className="flex flex-col items-center ph:px-[24px] px-[8px] ph:py-[8px] py-[4px] space-y-[3px] bg-[#8B55D1] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap"
+                    className={cn(
+                      "flex flex-col items-center ph:px-[24px] px-[8px] ph:py-[8px] py-[4px] space-y-[3px] rounded-[8px] text-[#FFFFFF] cursor-pointer whitespace-nowrap",
+                      `${tagColors[index]}`
+                    )}
                     key={index}
                     onClick={() => router.push(`/search?content=${item.tag}`)}
                   >
@@ -150,16 +166,16 @@ export default function Tags() {
 function TagsSkeleton() {
   return (
     <>
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
-      <Skeleton className="w-[100px] h-[53px] " />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
+      <Skeleton className="w-[100px] h-[53px]" />
     </>
   );
 }

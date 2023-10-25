@@ -41,7 +41,7 @@ export default function Page() {
     const { data: userData, error: userError } = await supabase
       .from("profiles")
       .select("*")
-      // .in("id", indexArray)
+      .in("id", indexArray)
       .order("created_at", { ascending: false })
       .limit(8);
 
@@ -52,14 +52,6 @@ export default function Page() {
           .select("*")
           .eq("user_id", user.user_id!);
 
-        userArray.push({
-          ...user,
-          avatarCount: avatarsData?.length,
-        });
-        userArray.push({
-          ...user,
-          avatarCount: avatarsData?.length,
-        });
         userArray.push({
           ...user,
           avatarCount: avatarsData?.length,
