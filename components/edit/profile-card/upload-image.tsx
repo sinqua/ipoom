@@ -19,7 +19,7 @@ const UploadImage = forwardRef(function UploadImage(props: any, ref: any) {
         className="flex justify-center items-center h-[47px] px-[16px] rounded-[10px] bg-[#368ADC] text-white cursor-pointer"
         htmlFor={props.label}
       >
-        프로필 변경
+        이미지 변경
       </label>
       <input
         className="hidden"

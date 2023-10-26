@@ -105,27 +105,26 @@ export const validateNickname = async (nickname: string) => {
 };
 
 // rename
-export const getPortfolios = async (id: string) => {
-  const { data: portfoliosData, error: portfoliosError } = await supabase
+export const getAvatars = async (id: string) => {
+  const { data: avatarsData, error: avatarsError } = await supabase
     .from("avatars")
     .select(`*, tags (*), animations (*)`)
     .eq("user_id", id);
 
-  const portfolios = [];
-  for (const portfolio of portfoliosData!) {
-    if (portfolio.thumbnail === null)
-      portfolio.thumbnail = "/VerticalModel.png";
+  const avatars = [];
+  for (const avatar of avatarsData!) {
+    if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
 
-    portfolios.push(portfolio);
+    avatars.push(avatar);
   }
 
-  portfolios.sort((a, b) => {
+  avatars.sort((a, b) => {
     const dateA = new Date(a.created_at!);
     const dateB = new Date(b.created_at!);
     return dateB.getTime() - dateA.getTime();
   });
 
-  return portfolios;
+  return avatars;
 };
 
 // rename
@@ -153,33 +152,6 @@ export const getMainTags = async () => {
   });
 
   return options.slice(0, 10);
-};
-
-// rename
-export const getAllAvatars = async () => {
-  const { data: avatarsData, error: avatarsError } = await supabase
-    .from("avatars")
-    .select("*, tags (tag), likes (*)");
-
-  if (avatarsData) {
-    const avatars = [];
-
-    for (const avatar of avatarsData!) {
-      const user = await getProfile(avatar.user_id!);
-
-      if (avatar.thumbnail === null) avatar.thumbnail = "/VerticalModel.png";
-
-      const newAvatar: any = {
-        ...avatar,
-        user: user,
-      };
-      avatars.push(newAvatar);
-    }
-
-    return avatars;
-  } else {
-    throw new Error("Avatar not found");
-  }
 };
 
 export const getAvatar = async (id: string) => {
@@ -248,6 +220,8 @@ export const deleteAvatar = async (avatarId: any) => {
     .from("avatars")
     .delete()
     .eq("id", avatarId);
+
+  console.log("error", error);
 
   if (error) throw new Error("Delete Avatar Failed!");
 };

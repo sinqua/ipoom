@@ -30,16 +30,16 @@ type menuMap = {
 };
 
 const menus: menuMap = {
-  프로필카드: undefined,
+  "프로필 카드": undefined,
+  "아바타": "avatars",
   "커미션 안내": "description",
-  작업: "portfolio",
   "비용 안내": "price-info",
 };
 
 const links: menuMap = {
-  프로필카드: "edit",
+  "프로필 카드": "edit",
+  "아바타": "edit/avatars",
   "커미션 안내": "edit/description",
-  작업: "edit/portfolio",
   "비용 안내": "edit/price-info",
 };
 

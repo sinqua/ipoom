@@ -1,5 +1,4 @@
 import homeImg from "@/app/assets/images/home.svg";
-import portfolioImg from "@/app/assets/images/portfolio.svg";
 import alarmImg from "@/app/assets/images/alram.svg";
 import profileImg from "@/app/assets/images/profile.svg";
 import followImg from "@/app/assets/images/follow.svg";

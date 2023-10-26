@@ -1,22 +1,25 @@
 "use client";
 import Image from "next/image";
 import { formatDate } from "@/lib/string";
-import Tag from "@/components/edit/portfolio/tag";
+import Tag from "@/components/edit/avatars/tag";
 import Link from "next/link";
 import { deleteAvatar } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 import checkImg from "@/app/assets/images/check_blue.svg";
 import { useEffect, useState } from "react";
+import AlertDelete from "@/components/alert-delete";
 
 export default function Card({ avatar }: { avatar: any }) {
   const router = useRouter();
 
+  const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState("");
 
-  const onDeletePortfolio = async () => {
+  const onDeleteAvatar = async () => {
     await deleteAvatar(avatar.id);
 
+    setIsOpen(false);
     setStatus("done");
   };
 
@@ -35,7 +38,7 @@ export default function Card({ avatar }: { avatar: any }) {
         <p className="ph:hidden block text-[20px] font-bold mb-[24px]">
           {avatar.name}
         </p>
-        <div className="shrink-0 ph:w-[394px] w-full h-fit aspect-[8/7] !m-0 rounded-[10px]">
+        <div className="shrink-0 ph:w-[394px] w-full h-fit aspect-[8/7] !m-0 rounded-[8px] overflow-hidden">
           <Image
             src={avatar.thumbnail}
             className="object-cover w-full h-full"
@@ -73,7 +76,7 @@ export default function Card({ avatar }: { avatar: any }) {
             </div>
             <div className="relative flex flex-col w-full space-y-[32px]">
               <div className="flex flex-col space-y-[16px]">
-                <p className="text-[20px] font-bold">파일</p>
+                <p className="text-[20px] font-bold">아바타</p>
                 <p>{avatar.vrm}</p>
               </div>
               <div className="relative flex flex-col space-y-[16px]">
@@ -88,7 +91,8 @@ export default function Card({ avatar }: { avatar: any }) {
             <div className="flex ph:w-auto w-full space-x-[16px]">
               <div
                 className="flex justify-center items-center ph:w-[116px] w-1/2 h-[42px] rounded-[10px] bg-[#FFFFFF] border-[1px] border-solid border-[#D4D4D4] cursor-pointer text-[14px]"
-                onClick={() => setStatus("check")}
+                // onClick={() => setStatus("check")}
+                onClick={() => setIsOpen(true)}
               >
                 삭제하기
               </div>
@@ -102,41 +106,19 @@ export default function Card({ avatar }: { avatar: any }) {
           </div>
         </div>
       </div>
-      {status !== "" && (
+      <AlertDelete
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        deleteAvatar={onDeleteAvatar}
+      />
+      {status === "done" && (
         <div className="fixed inset-0 flex justify-center items-center w-full h-full z-50 !m-0">
-          {status === "check" ? (
-            <div className="flex flex-col justify-center items-center w-[332px] h-[170px] bg-[#FFFFFF] rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)]">
-              <div className="flex flex-col grow justify-center items-center space-y-[16px]">
-                <p className="text-[16px] font-semibold text-center">
-                  캐릭터를 삭제합니다.
-                </p>
-                <p className="text-[#7B7B7B] text-center">
-                  삭제한 캐릭터는 복구할 수 없습니다.
-                </p>
-              </div>
-              <div className="flex w-full h-[50px]">
-                <div
-                  className="flex justify-center items-center w-full h-full text-[#E14753] border-solid border-t-[1px] border-[#DFDFDF] cursor-pointer"
-                  onClick={onDeletePortfolio}
-                >
-                  삭제
-                </div>
-                <div
-                  className="flex justify-center items-center w-full h-full text-[#7B7B7B] border-solid border-t-[1px] border-l-[1px] border-[#DFDFDF] cursor-pointer"
-                  onClick={() => setStatus("")}
-                >
-                  취소
-                </div>
-              </div>
+          <div className="flex justify-center items-center w-[180px] h-[180px] bg-[#FFFFFF] rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)]">
+            <div className="flex flex-col items-center space-y-[24px]">
+              <Image src={checkImg} alt="" />
+              <p className="text-[18px] font-semibold">삭제 완료</p>
             </div>
-          ) : (
-            <div className="flex justify-center items-center w-[180px] h-[180px] bg-[#FFFFFF] rounded-[8px] shadow-[0px_3px_6px_rgba(0,0,0,0.16)]">
-              <div className="flex flex-col items-center space-y-[24px]">
-                <Image src={checkImg} alt="" />
-                <p className="text-[18px] font-semibold">삭제 완료</p>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       )}
     </>
