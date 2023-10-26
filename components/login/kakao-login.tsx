@@ -1,16 +1,13 @@
 "use client";
 import Image from "next/image";
-// import { signIn } from "next-auth/react";
 import kakaoLogo from "@/app/assets/logos/kakao.svg";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import type { Database } from "@/lib/database.types";
 
 export default function KakaoLogin() {
-  const router = useRouter();
-
   const supabase = createClientComponentClient<Database>();
   const searchParams = useSearchParams();
   const callbackUrl = ("verify?callbackUrl=" +
