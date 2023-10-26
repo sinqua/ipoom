@@ -67,13 +67,13 @@ export default async function Page() {
         </div>
         <div className="space-y-[18px] text-sm text-white">
           <KakaoLogin />
-          <TwitterLogin />
+          {/* <TwitterLogin /> */}
           <GoogleLogin />
           <DiscordLogin />
-          <NaverLogin />
+          {/* <NaverLogin /> */}
         </div>
         <div className="w-[300px] text-[14px] text-[#9D9D9D] text-center leading-[30px]">
-          계속 진행하면 moopi
+          계속 진행하면 moopi&nbsp;
           <span className="text-[#333333] underline underline-offset-2 cursor-pointer">
             서비스 약관
           </span>

@@ -23,9 +23,6 @@ export default async function MenuList() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  console.log(`${session?.user.id}/follow`);
-  console.log(`${session?.user.id}/likes`);
-
   return (
     <div className="grow flex flex-col">
       <Item imgSrc={homeImg} url={"/home"}>
