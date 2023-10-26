@@ -14,18 +14,22 @@ export default function Page() {
   useEffect(() => {
     const getUserData = async () => {
       const {
-        data: { user },
-      } = await supabase.auth.getUser();
+        data: { session },
+      } = await supabase.auth.getSession();
 
-      return user?.id;
+      return session;
     };
 
-    getUserData().then((userId) => {
+    getUserData();
+
+    getUserData().then((session) => {
       const getData = async () => {
+        if (!session) return false;
+
         const { data } = await supabase
           .from("profiles")
           .select()
-          .eq("user_id", userId!);
+          .eq("user_id", session?.user.id!);
 
         if (data?.length! > 0) return true;
         else return false;
