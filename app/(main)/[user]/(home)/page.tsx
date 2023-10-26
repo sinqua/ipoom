@@ -1,11 +1,11 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import { getPortfolios, getProfile } from "@/lib/supabase";
-import Work from "@/components/user/work";
+import { getAvatars, getProfile } from "@/lib/supabase";
+import Avatar from "@/components/user/avatar";
 import InputGuide from "@/components/user/input-guide";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useMemo } from 'react'
-import { revalidatePath } from 'next/cache'
+import { useMemo } from "react";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import Refresh from "@/components/refresh";
 export const revalidate = 0;
@@ -46,16 +46,16 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: { params: { user: string } }) {
-  const works = await getPortfolios(params.user);
+  const avatars = await getAvatars(params.user);
 
   return (
     <>
       <Refresh />
       <div className="grid ph:grid-cols-3 grid-cols-2 gap-[16px] grow h-fit ph:p-0 p-[16px] pb-[80px]">
-        {works?.map((work: any, index: any) => {
-          return <Work user={params.user} avatar={work} key={index} />;
+        {avatars?.map((avatar: any, index: any) => {
+          return <Avatar user={params.user} avatar={avatar} key={index} />;
         })}
-        {works?.length === 0 && <InputGuide />}
+        {avatars?.length === 0 && <InputGuide />}
       </div>
     </>
   );

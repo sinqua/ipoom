@@ -113,7 +113,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
     scrollToBottom();
   }
 
-  const onSavePortfolio = async () => {
+  const onSaveAvatar = async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -247,7 +247,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                   </div>
                   <div
                     className="flex justify-center items-center w-full h-[42px] !mt-[56px] rounded-[10px] bg-[#368ADC] text-[#FFFFFF] cursor-pointer"
-                    onClick={onSavePortfolio}
+                    onClick={onSaveAvatar}
                   >
                     저장하기
                   </div>

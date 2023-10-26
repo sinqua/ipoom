@@ -3,7 +3,7 @@ import Link from "next/link";
 import Cover from "./cover";
 import { getTimeAgo } from "@/lib/utils";
 
-export default function Work({ user, avatar }: { user: any; avatar: any }) {
+export default function Avatar({ user, avatar }: { user: any; avatar: any }) {
   return (
     <div className="relative w-auto dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden">
       <div className="relative w-full h-full cursor-pointer rounded-[8px] overflow-hidden">

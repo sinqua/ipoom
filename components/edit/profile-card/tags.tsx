@@ -41,7 +41,7 @@ export default function Tags({
               height: "100%",
               width: "100%",
               borderRadius: "10px",
-              paddingLeft: "20px",
+              paddingLeft: "10px",
               borderColor: "#CCCCCC !important",
               boxShadow: "none !important",
             }),

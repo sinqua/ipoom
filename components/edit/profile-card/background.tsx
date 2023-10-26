@@ -16,7 +16,7 @@ export default function Background({ url }: { url: string | null }) {
   return (
     <Card>
       <CardHeader title={"배경 사진"}>
-        최소 200 x 200 크기의 JPEG 또는 PNG 파일이 필요합니다.
+        최소 360 x 180 크기의 JPEG 또는 PNG 파일이 필요합니다.
       </CardHeader>
       <div className="flex items-center ph:space-x-[32px] space-x-[24px]">
         <Image
