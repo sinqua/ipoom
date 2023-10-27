@@ -1,6 +1,7 @@
 import Header from "@/components/edit/header";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { redirect } from "next/navigation";
 
 export default async function Layout({
   children,
@@ -9,17 +10,14 @@ export default async function Layout({
   children: React.ReactNode;
   params: { user: string };
 }) {
-  
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (user?.id !== params.user) {
-    if (process.env.NEXT_PUBLIC_ENV === "Production")
-      throw new Error("Unauthorized");
-  }
+  if (!session) redirect("/login");
+  if (session.user.id !== params.user) redirect("/home");
 
   return (
     <div className="flex flex-col h-auto min-h-screen">

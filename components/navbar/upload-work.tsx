@@ -19,6 +19,7 @@ export default async function UploadWork() {
       <Link
         href={"/upload"}
         className="flex justify-center items-center w-full h-[46px] rounded-[10px] bg-[#368ADC] hover:bg-[#5EA1E3] text-white cursor-pointer"
+        scroll={false}
       >
         <div className="flex items-center space-x-[16px]">
           <Image

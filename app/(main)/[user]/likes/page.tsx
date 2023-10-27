@@ -4,6 +4,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Header from "@/components/home/header";
 import Likes from "@/components/likes";
 import Refresh from "@/components/refresh";
+import { redirect } from "next/navigation";
 
 // type Props = {
 //   params: { avatar: string };
@@ -39,10 +40,13 @@ export default async function Page(props: any) {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  const likesAvatars = await getLikesAvatars(user?.id!);
+  if (!session) redirect("/login");
+  if (session.user.id !== params.user) redirect("/home");
+
+  const likesAvatars = await getLikesAvatars(session.user.id);
 
   return (
     <div className="flex flex-col h-auto min-h-screen">
