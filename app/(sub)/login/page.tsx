@@ -13,6 +13,7 @@ import { Metadata } from "next";
 import Redirect from "@/components/login/redirect";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -55,12 +56,14 @@ export default async function Page() {
         </p>
       </div>
       <div className="flex flex-col justify-center items-center grow space-y-[40px]">
-        <Image
-          className="w-auto h-[40px] mb-[30px]"
-          src={moopiLogo}
-          alt=""
-          loading="eager"
-        />
+        <Link href={"/home"} className="mb-[30px]">
+          <Image
+            className="w-auto h-[40px]"
+            src={moopiLogo}
+            alt=""
+            loading="eager"
+          />
+        </Link>
         <div className="flex flex-col w-[320px] space-y-[16px]">
           <p className="text-[36px] font-semibold">반갑습니다</p>
           <p className="text-[14px] text-[#9D9D9D]">로그인 방법을 선택하세요</p>

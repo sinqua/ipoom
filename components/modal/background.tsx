@@ -3,13 +3,15 @@ import Image from "next/image";
 import cancelImg from "@/app/assets/images/cancel.svg";
 import { useRouter } from "next/navigation";
 
-export default function Background() {
-  const router = useRouter();
-
+export default function Background({
+  onCloseModal,
+}: {
+  onCloseModal: any;
+}) {
   return (
     <div
       className="absolute flex justify-center top-0 w-full h-full bg-[#00000085]"
-      onClick={() => router.back()}
+      onClick={onCloseModal}
     >
       <div className="relative w-full dt:max-w-[1288px] max-w-none h-full">
         <Image

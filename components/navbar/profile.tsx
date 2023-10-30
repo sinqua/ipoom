@@ -17,7 +17,7 @@ export default async function Profile() {
   } = await supabase.auth.getSession();
 
   const profile = await getProfile(session?.user.id!);
-
+  
   return session ? (
     profile ? (
       <div className="relative flex justify-between items-center h-[88px] px-[32px] pr-[24px] border-t-[1px]">

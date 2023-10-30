@@ -9,7 +9,7 @@ import emptyImg from "@/app/assets/images/empty.png";
 import defaultBgImg from "@/public/default_background.png";
 
 import { getFollowStatus, getLink, getProfile } from "@/lib/supabase";
-import ToastButton from "./toast-button";
+import CopyButton from "./copy-button";
 import FollowButton from "./follow-button";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -139,7 +139,7 @@ export default async function ProfileCard({ userId }: { userId: string }) {
             userId={userId}
             status={followStatus}
           />
-          <ToastButton />
+          <CopyButton />
         </div>
         <MenuBar />
       </div>

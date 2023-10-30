@@ -8,6 +8,8 @@ import MenuList from "./menu-list";
 import UploadWork from "./upload-work";
 import { Suspense } from "react";
 
+import BehaviorLogin from "./behavior-login";
+
 export default function Navbar() {
   return (
     <div className="dt:relative absolute dt:w-[280px] w-auto z-50">
@@ -36,6 +38,7 @@ export default function Navbar() {
         <MenuList />
         <UploadWork />
         <Profile />
+        <BehaviorLogin />
       </div>
     </div>
   );
