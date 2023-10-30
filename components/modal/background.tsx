@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import cancelImg from "@/app/assets/images/cancel.svg";
-import { useRouter } from "next/navigation";
 
 export default function Background({
   onCloseModal,
