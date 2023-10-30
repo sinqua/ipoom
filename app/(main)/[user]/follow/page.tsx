@@ -1,26 +1,12 @@
-import CopyButton from "@/components/modal/copy-button";
-import Viewer from "@/components/modal/viewer";
-import {
-  createModelUrl,
-  getAvatar,
-  getComments,
-  getFollowingUsers,
-  getProfile,
-} from "@/lib/supabase";
+import { getFollowingUsers } from "@/lib/supabase";
 import type { Metadata, ResolvingMetadata } from "next";
 
-import Image from "next/image";
-
-import { formatFullDate } from "@/lib/string";
-import CommentSection from "@/components/modal/comment-section";
-
-import Link from "next/link";
-import LikeButton from "@/components/modal/like-button";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Header from "@/components/home/header";
 import Follow from "@/components/follow";
 import Refresh from "@/components/refresh";
+import { redirect } from "next/navigation";
 
 // type Props = {
 //   params: { avatar: string };
@@ -56,10 +42,13 @@ export default async function Page(props: any) {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  const followingUsers = await getFollowingUsers(user?.id!);
+  if (!session) redirect("/login");
+  if (session.user.id !== params.user) redirect("/home");
+
+  const followingUsers = await getFollowingUsers(session.user.id);
 
   return (
     <div className="flex flex-col h-auto min-h-screen">

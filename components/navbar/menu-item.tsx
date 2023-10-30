@@ -33,8 +33,6 @@ export default function Item({
       }
     }
 
-    console.log("url", url);
-
     router.push(url);
   };
 

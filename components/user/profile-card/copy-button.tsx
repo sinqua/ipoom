@@ -3,10 +3,14 @@ import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
 import linkImg from "@/app/assets/images/link_blue.svg";
 import { usePathname } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
+import { isMobile } from "react-device-detect";
 
-export default function ToastButton() {
+export default function CopyButton() {
   const { toast } = useToast();
 
+  const supabase = createClientComponentClient<Database>();
   const pathname = usePathname();
 
   const copyLink = () => {
@@ -22,6 +26,20 @@ export default function ToastButton() {
         "flex justify-center max-w-[350px] w-full h-[47px] mx-[36px] bg-[#368ADC] rounded-[8px] border-none text-[#FFFFFF]",
       description: "링크가 복사되었습니다.",
     });
+
+    onSaveBehaviorShare();
+  };
+
+  const onSaveBehaviorShare = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    await supabase
+      .from("behavior_share")
+      .insert([{ user_id: session.user.id, is_mobile: isMobile }]);
   };
 
   return (

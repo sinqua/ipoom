@@ -99,6 +99,7 @@ export default function Card({ avatar }: { avatar: any }) {
               <Link
                 href={`/edit/${avatar.id}`}
                 className="flex justify-center items-center ph:w-[116px] w-1/2 h-[42px] rounded-[10px] bg-[#368ADC] text-[14px] text-[#FFFFFF]"
+                scroll={false}
               >
                 수정하기
               </Link>

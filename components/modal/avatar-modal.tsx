@@ -32,7 +32,7 @@ export default function AvatarModal({
   return (
     <div className="fixed inset-0 w-full h-full z-50">
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
-        <Background />
+        <Background onCloseModal={null} />
         <div className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]">
           <div className="w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
             <div className="relative ph:grow grow-0 ph:h-full h-[550px]">

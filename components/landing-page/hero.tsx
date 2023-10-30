@@ -64,9 +64,7 @@ export default function Hero() {
               {/* 창작을 즐겁고 가치 있게  */}
               {/* 보상 받는 창작, 편리한  */}
               {/* 창작을 더욱 자신있게 */}
-              {/* 새로운 창작에 대한 자신감 */}
-              
-              한 곳에서 편하게 공유하는
+              {/* 새로운 창작에 대한 자신감 */}한 곳에서 편하게 공유하는
               {/* 어디서나 그대로 보여지는 */}
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
@@ -77,7 +75,6 @@ export default function Hero() {
             </h1>
 
             <div className="max-w-3xl mx-auto">
-
               <p
                 className="text-xl text-gray-600 mb-8"
                 data-aos="zoom-y-out"
@@ -86,11 +83,9 @@ export default function Hero() {
                 {/* 무피의 3D 포트폴리오는 당신이 만든 캐릭터를 더 많은 사람에게 보여줍니다. 
                 <br />
                 어떤 기기에서도 자연스러운 레이아웃까지 제공합니다. */}
-
                 당신이 만든 캐릭터가 더 많은 사람을 만나는 무피.
                 <br />
                 어떤 기기에서도 생동감 있고 자연스러운 캐릭터를 보여줍니다.
-                
                 {/* 무피는 창작자의 노력을 응원하며, 다양한 최신기술로 당신의
                 아이디어와 창작을 더욱 가치 있게 만들어나가는 데 도움을
                 드립니다. 지금 바로 창작의 세계로 떠나보세요! */}
@@ -112,13 +107,13 @@ export default function Hero() {
                 <div>
                   <a
                     className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
-                    href="/6064c1dd-071b-42e4-92e4-d0989aed4ebc"
+                    href="/home"
                   >
                     둘러보기
                   </a>
                 </div>
               </div>
-            </div> 
+            </div>
           </div>
 
           {/* Hero image */}

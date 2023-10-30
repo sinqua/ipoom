@@ -151,8 +151,48 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
       }
       setStatus("done");
 
-      optimizeAvatar(avatarFile, user?.id, avatarData![0].id, uuid);
+      onSaveBehaviorUploadEnd();
+      
+      await optimizeAvatar(avatarFile, user?.id, avatarData![0].id, uuid);
     });
+  };
+
+  const onSaveBehaviorUploadStart = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    await supabase
+      .from("behavior_upload")
+      .insert([{ user_id: session.user.id, upload_start: true }]);
+  };
+
+  const onSaveBehaviorUploadExit = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    await supabase
+      .from("behavior_upload")
+      .insert([{ user_id: session.user.id, upload_exit: true }]);
+
+    router.back();
+  };
+
+  const onSaveBehaviorUploadEnd = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    await supabase
+      .from("behavior_upload")
+      .insert([{ user_id: session.user.id, upload_end: true }]);
   };
 
   useEffect(() => {
@@ -172,10 +212,14 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
     }
   }, [status]);
 
+  useEffect(() => {
+    onSaveBehaviorUploadStart();
+  }, []);
+
   return (
     <div className="fixed inset-0 w-full h-full z-50">
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
-        <Background />
+        <Background onCloseModal={onSaveBehaviorUploadExit} />
         <div
           ref={pageTopRef}
           className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]"

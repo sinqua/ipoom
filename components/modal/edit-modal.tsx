@@ -165,10 +165,50 @@ export default function EditModal({
 
       setStatus("done");
 
+      onSaveBehaviorEditEnd();
+
       await optimizeAvatar(avatarFile, user, avatar.id, uuid);
     }
 
     setStatus("done");
+  };
+
+  const onSaveBehaviorEditStart = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    await supabase
+      .from("behavior_edit")
+      .insert([{ user_id: session.user.id, edit_start: true }]);
+  };
+
+  const onSaveBehaviorEditExit = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    await supabase
+      .from("behavior_edit")
+      .insert([{ user_id: session.user.id, edit_exit: true }]);
+
+    router.back();
+  };
+
+  const onSaveBehaviorEditEnd = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) return;
+
+    await supabase
+      .from("behavior_edit")
+      .insert([{ user_id: session.user.id, edit_end: true }]);
   };
 
   useEffect(() => {
@@ -188,10 +228,14 @@ export default function EditModal({
     }
   }, [status]);
 
+  useEffect(() => {
+    onSaveBehaviorEditStart();
+  }, []);
+
   return (
     <div className="fixed inset-0 w-full h-full z-50">
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
-        <Background />
+        <Background onCloseModal={onSaveBehaviorEditExit} />
         <div
           ref={pageTopRef}
           className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]"

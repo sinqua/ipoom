@@ -23,7 +23,7 @@ export default function Background({ url }: { url: string | null }) {
           src={fileUrl ? fileUrl : defaultImg}
           width={160}
           height={160}
-          className="object-cover ph:h-[160px] h-[100px] ph:w-[160px] w-[100px] bg-gray-200 rounded-full border-none"
+          className="object-cover ph:h-[160px] h-[100px] ph:w-[160px] w-[100px] bg-gray-200 rounded-[8px] border-none"
           alt=""
         />
         <div className="flex ph:w-[276px] justify-between ph:grow-0 grow ">

@@ -7,7 +7,7 @@ export default function Avatar({ user, avatar }: { user: any; avatar: any }) {
   return (
     <div className="relative w-auto dt:h-[240px] ph:h-[233px] h-[240px] rounded-[8px] overflow-hidden">
       <div className="relative w-full h-full cursor-pointer rounded-[8px] overflow-hidden">
-        <Link href={`/${user}/avatar/${avatar.id}`}>
+        <Link href={`/${user}/avatar/${avatar.id}`} scroll={false}>
           <Image
             src={avatar.thumbnail}
             width={512}
