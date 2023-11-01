@@ -40,7 +40,11 @@ export default function Page() {
               alt=""
             />
             <div className="ph:absolute relative top-[40px] right-0 flex flex-col items-center flex-shrink-0 dt:w-[679px] ph:w-[525px] w-[324px] space-y-[32px]">
-              <Image src={titleImg} className="dt:w-[648px] ph:w-[437px] w-[316px]" alt="" />
+              <Image
+                src={titleImg}
+                className="dt:w-[648px] ph:w-[437px] w-[316px]"
+                alt=""
+              />
               <div className="flex justify-center items-center">
                 <Image src={pinkLabelImg} className="w-full" alt="" />
                 <p className="absolute dt:text-[40px] ph:text-[30px] text-[20px] text-[#FFFFFF] ">
@@ -56,156 +60,180 @@ export default function Page() {
         </div>
       </div>
       <div className="flex justify-center items-center w-full dt:h-[390px] ph:h-[230px] bg-[#FFFFFF]">
-        <div className="flex justify-center items-center dt:space-x-[64px] ph:space-x-[16px]">
-          <div className="flex flex-col items-center w-[300px] space-y-[16px]">
+        <div className="flex ph:flex-row flex-col justify-center items-center ph:py-0 py-[40px] dt:space-x-[64px] ph:space-x-[16px] space-x-0 ph:space-y-0 space-y-[32px]">
+          <div className="flex flex-col justify-center items-center tb:w-[300px] w-[220px] h-[150px] space-y-[16px]">
             <p className="text-[18px] text-[#9D9D9D] font-semibold">기간</p>
             <p className="text-[24px] text-[#333333] font-semibold">
               10월 1일 ~ 11월 1일
             </p>
           </div>
           <div className="w-[8px] h-[8px] bg-[#333333] rounded-full" />
-          <div className="flex flex-col items-center w-[300px] space-y-[16px]">
+          <div className="flex flex-col justify-center items-center tb:w-[300px] w-[220px] h-[150px] space-y-[16px]">
             <p className="text-[18px] text-[#9D9D9D] font-semibold">마감까지</p>
             <p className="text-[24px] text-[#333333] font-semibold">
               11일 : 9시간
             </p>
           </div>
           <div className="w-[8px] h-[8px] bg-[#333333] rounded-full" />
-          <div className="flex flex-col items-center w-[300px] space-y-[16px]">
+          <div className="flex flex-col justify-center items-center tb:w-[300px] w-[220px] h-[150px] space-y-[16px]">
             <p className="text-[18px] text-[#9D9D9D] font-semibold">아바타</p>
             <p className="text-[24px] text-[#333333] font-semibold">158개</p>
           </div>
         </div>
       </div>
-      {/* <div className="relative flex justify-center items-center">
+      <div className="relative flex justify-center items-center">
         <Image
           src={background2Img}
-          className="relative object-cover w-full max-h-[884px] aspect-[50/23]"
+          className="relative object-cover w-full dt:h-[884px] tb:h-[665px] ph:h-[575px] h-[1474px]"
           alt=""
         />
         <div className="absolute flex flex-col justify-center items-center">
-          <Image src={rewardTextImg} alt="" />
+          <Image
+            src={rewardTextImg}
+            className="dt:w-[223px] ph:w-[192px] w-[161px]"
+            alt=""
+          />
           <div className="flex justify-center items-center mt-[32px] px-[48px] py-[12px] bg-[#FFFFFF60] rounded-[8px]">
             <p className="text-[16px] text-[#333333] font-CoreGTD">
               콘테스트에 참여해서 성적내면 받아갈수 있다고 아 ㅋㅋㅋ
             </p>
           </div>
-          <div className="flex mt-[105px] space-x-[60px]">
+          <div className="flex ph:flex-row flex-col dt:mt-[105px] tb:mt-[75px] ph:mt-[68px] mt-[60px] dt:space-x-[120px] tb:space-x-[70px] ph:space-x-[60px] space-x-0 ph:space-y-0 space-y-[90px]">
             <div className="relative flex flex-col items-center">
-              <div className="absolute top-[-40px] flex justify-center items-center z-10">
-                <Image src={goldLabelImg} alt="" />
-                <p className="absolute top-[25px] text-[30px] text-[#FFFFFF] font-GmarketSans event-font-shadow">
+              <div className="absolute dt:top-[-40px] tb:top-[-25px] ph:top-[-18px] top-[-25px] flex justify-center items-center w-max z-10">
+                <Image
+                  src={goldLabelImg}
+                  className="dt:w-[419px] tb:w-[272px] ph:w-[200px] w-[281px]"
+                  alt=""
+                />
+                <p className="absolute dt:top-[30px] tb:top-[17px] ph:top-[13px] top-[20px] dt:text-[30px] tb:text-[24px] ph:text-[18px] text-[20px] text-[#FFFFFF] font-GmarketSans event-font-shadow">
                   최우수상
                 </p>
               </div>
               <Image
                 src={goldPrizeImg}
-                className="w-[360px] h-[360px] rounded-full"
+                className="dt:w-[360px] tb:w-[234px] ph:w-[172px] w-[242px] rounded-full"
                 alt=""
               />
-              <p className="mt-[40px] text-[30px] font-CoreGTDBold">
+              <p className="dt:mt-[40px] tb:mt-[32px] mt-[24px] dt:text-[30px] tb:text-[28px] ph:text-[24px] text-[26px] font-CoreGTDBold">
                 BOOTH 아이템
               </p>
-              <p className="mt-[8px] text-[24px] text-[#9D9D9D]">
+              <p className="mt-[8px] dt:text-[24px] tb:text-[22px] ph:text-[18px] text-[20px] text-[#9D9D9D]">
                 {"(10만원 상당)"}
               </p>
             </div>
             <div className="relative flex flex-col items-center">
-              <div className="absolute top-[-40px] flex justify-center items-center z-10">
-                <Image src={silverLabelImg} alt="" />
-                <p className="absolute top-[25px] text-[30px] text-[#FFFFFF] font-GmarketSans event-font-shadow">
+              <div className="absolute dt:top-[-40px] tb:top-[-25px] ph:top-[-18px] top-[-25px] flex justify-center items-center w-max z-10">
+                <Image
+                  src={silverLabelImg}
+                  className="dt:w-[419px] tb:w-[272px] ph:w-[200px] w-[281px]"
+                  alt=""
+                />
+                <p className="absolute dt:top-[30px] tb:top-[17px] ph:top-[13px] top-[20px] dt:text-[30px] tb:text-[24px] ph:text-[18px] text-[20px] text-[#FFFFFF] font-GmarketSans event-font-shadow">
                   우수상
                 </p>
               </div>
               <Image
                 src={silverPrizeImg}
-                className="w-[360px] h-[360px] rounded-full"
+                className="dt:w-[360px] tb:w-[234px] ph:w-[172px] w-[242px] rounded-full"
                 alt=""
               />
-              <p className="mt-[40px] text-[30px] font-CoreGTDBold">BBQ</p>
-              <p className="mt-[8px] text-[24px] text-[#9D9D9D]">
+              <p className="dt:mt-[40px] tb:mt-[32px] mt-[24px] dt:text-[30px] tb:text-[28px] ph:text-[24px] text-[26px] font-CoreGTDBold">
+                BBQ
+              </p>
+              <p className="mt-[8px] dt:text-[24px] tb:text-[22px] ph:text-[18px] text-[20px] text-[#9D9D9D]">
                 황금올리브치킨+콜라1.25L
               </p>
             </div>
             <div className="relative flex flex-col items-center">
-              <div className="absolute top-[-40px] flex justify-center items-center z-10">
-                <Image src={bronzeLabelImg} alt="" />
-                <p className="absolute top-[25px] text-[30px] text-[#FFFFFF] font-GmarketSans event-font-shadow">
+              <div className="absolute dt:top-[-40px] tb:top-[-25px] ph:top-[-18px] top-[-25px] flex justify-center items-center w-max z-10">
+                <Image
+                  src={bronzeLabelImg}
+                  className="dt:w-[419px] tb:w-[272px] ph:w-[200px] w-[281px]"
+                  alt=""
+                />
+                <p className="absolute dt:top-[30px] tb:top-[17px] ph:top-[13px] top-[20px] dt:text-[30px] tb:text-[24px] ph:text-[18px] text-[20px] text-[#FFFFFF] font-GmarketSans event-font-shadow">
                   장려상
                 </p>
               </div>
               <Image
                 src={bronzePrizeImg}
-                className="w-[360px] h-[360px] rounded-full"
+                className="dt:w-[360px] tb:w-[234px] ph:w-[172px] w-[242px] rounded-full"
                 alt=""
               />
-              <p className="mt-[40px] text-[30px] font-CoreGTDBold">스타벅스</p>
-              <p className="mt-[8px] text-[24px] text-[#9D9D9D]">
+              <p className="dt:mt-[40px] tb:mt-[32px] mt-[24px] dt:text-[30px] tb:text-[28px] ph:text-[24px] text-[26px] font-CoreGTDBold">
+                스타벅스
+              </p>
+              <p className="mt-[8px] dt:text-[24px] tb:text-[22px] ph:text-[18px] text-[20px] text-[#9D9D9D]">
                 아이스 카페 아메리카노 T
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center space-y-[64px] py-[80px]">
-        <Image src={eventTextImg} alt="" />
-        <div className="flex flex-col space-y-[32px]">
-          <div className="flex items-center w-[1200px] p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
-            <div className="flex justify-center items-center">
+      <div className="flex flex-col items-center dt:space-y-[64px] ph:space-y-[45px] space-y-[38px] ph:px-[32px] px-[16px] dt:py-[80px] ph:py-[60px] py-[40px]">
+        <Image
+          src={eventTextImg}
+          className="dt:w-[469px] ph:w-[389px] w-[309px]"
+          alt=""
+        />
+        <div className="flex flex-col items-center w-full space-y-[32px]">
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
               <Image src={blueHeartImg} alt="" />
               <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
                 1
               </p>
             </div>
-            <p className="text-[20px] font-SegoeUI">
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
               For athletes, high altitude produces two contradictory effects on
               performance. For explosive events
             </p>
           </div>
-          <div className="flex items-center w-[1200px] p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
-            <div className="flex justify-center items-center">
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
               <Image src={blueHeartImg} alt="" />
               <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
                 2
               </p>
             </div>
-            <p className="text-[20px] font-SegoeUI">
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
               In the eighteenth century the German philosopher Immanuel Kant
               developed a theory of knowledge in wh
             </p>
           </div>
-          <div className="flex items-center w-[1200px] p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
-            <div className="flex justify-center items-center">
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
               <Image src={blueHeartImg} alt="" />
               <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
                 3
               </p>
             </div>
-            <p className="text-[20px] font-SegoeUI">
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
               Physical space is often conceived in three linear dimensions,
               although modern physicists usually con
             </p>
           </div>
-          <div className="flex items-center w-[1200px] p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
-            <div className="flex justify-center items-center">
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
               <Image src={blueHeartImg} alt="" />
               <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
                 4
               </p>
             </div>
-            <p className="text-[20px] font-SegoeUI">
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
               The long barrow was built on land previously inhabited in the
               Mesolithic period. It consisted of a s
             </p>
           </div>
-          <div className="flex items-center w-[1200px] p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
-            <div className="flex justify-center items-center">
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
               <Image src={blueHeartImg} alt="" />
               <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
                 5
               </p>
             </div>
-            <p className="text-[20px] font-SegoeUI">
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
               Physiological respiration involves the mechanisms that ensure that
               the composition of the functional
             </p>
@@ -218,14 +246,14 @@ export default function Page() {
           className="absolute object-cover w-full h-full z-[-10]"
           alt=""
         />
-        <div className="flex flex-col justify-center items-center my-[80px]">
-          <Image src={rankingTextImg} alt="" />
-          <div className="flex justify-center items-center mt-[32px] px-[48px] py-[12px] bg-[#FFFFFF60] rounded-[8px]">
+        <div className="flex flex-col justify-center items-center dt:my-[80px] ph:my-[60px] my-[40px]">
+          <Image src={rankingTextImg} className="dt:w-[371px] ph:w-[310px] w-[250px]" alt="" />
+          <div className="flex justify-center items-center ph:mt-[32px] mt-[24px] px-[48px] py-[12px] bg-[#FFFFFF60] rounded-[8px]">
             <p className="text-[16px] text-[#333333] font-CoreGTD">
               님들 화력 이거밖에 안됨?
             </p>
           </div>
-          <div className="flex mt-[75px] space-x-[100px]">
+          <div className="flex dt:flex-row flex-col mt-[75px] dt:space-x-[100px] space-x-0 dt:space-y-0 space-y-[129px]">
             <div className="flex flex-col">
               <div className="relative flex justify-center">
                 <Image
@@ -313,8 +341,8 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center py-[120px] bg-[#313131] text-[#FFFFFF] font-SegoeUI">
-        <div className="flex flex-col w-[1200px] space-y-[24px]">
+      <div className="flex justify-center items-center dt:py-[120px] ph:py-[64px] py-[40px] bg-[#313131] text-[#FFFFFF] font-SegoeUI">
+        <div className="flex flex-col w-[1200px] space-y-[24px] ph:mx-[32px] mx-[23px]">
           <div className="text-[18px] text-left font-bold">이벤트 유의사항</div>
           <div className="flex flex-col space-y-[3px]">
             <p className="leading-[25px]">
@@ -343,7 +371,7 @@ export default function Page() {
             </p>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
