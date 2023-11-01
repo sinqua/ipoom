@@ -137,6 +137,12 @@ module.exports = {
       },
       fontFamily: {
         inter: ["var(--font-inter)", "sans-serif"],
+        SegoeUI: ["SegoeUI"],
+        SegoeUIBold: ["SegoeUIBold"],
+        CoreGTD: ["CoreGTD"],
+        CoreGTDBold: ["CoreGTDBold"],
+        Maplestory: ["Maplestory"],
+        GmarketSans: ["GmarketSans"],
       },
       fontSize: {
         xs: "0.75rem",
