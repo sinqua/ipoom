@@ -52,8 +52,9 @@ export default function Page() {
                 </p>
               </div>
               <p className="dt:text-[26px] ph:text-[24px] text-[16px] text-center text-[#FFFFFF] font-medium">
-                For athletes, high altitude produces two contradictory effects
-                on performance. For explosive events
+                당신의 디자인 능력을 뽐내보세요! 3D 아바타 대회에서 자신의
+                아바타를 업로드하고, &apos;좋아요&apos;를 모아 순위를
+                올려보세요.
               </p>
             </div>
           </div>
@@ -64,7 +65,7 @@ export default function Page() {
           <div className="flex flex-col justify-center items-center tb:w-[300px] w-[220px] h-[150px] space-y-[16px]">
             <p className="text-[18px] text-[#9D9D9D] font-semibold">기간</p>
             <p className="text-[24px] text-[#333333] font-semibold">
-              10월 1일 ~ 11월 1일
+              11월 3일 ~ 11월 12일
             </p>
           </div>
           <div className="w-[8px] h-[8px] bg-[#333333] rounded-full" />
@@ -95,7 +96,8 @@ export default function Page() {
           />
           <div className="flex justify-center items-center mt-[32px] px-[48px] py-[12px] bg-[#FFFFFF60] rounded-[8px]">
             <p className="text-[16px] text-[#333333] font-CoreGTD">
-              콘테스트에 참여해서 성적내면 받아갈수 있다고 아 ㅋㅋㅋ
+              우승자에게는 특별한 보상이! 당신의 아바타가 최고가 될 수 있도록
+              참여해보세요!
             </p>
           </div>
           <div className="flex ph:flex-row flex-col dt:mt-[105px] tb:mt-[75px] ph:mt-[68px] mt-[60px] dt:space-x-[120px] tb:space-x-[70px] ph:space-x-[60px] space-x-0 ph:space-y-0 space-y-[90px]">
@@ -186,8 +188,8 @@ export default function Page() {
               </p>
             </div>
             <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              For athletes, high altitude produces two contradictory effects on
-              performance. For explosive events
+              무피 사이트에 <span className="font-bold">회원가입</span>을
+              합니다.
             </p>
           </div>
           <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
@@ -198,8 +200,8 @@ export default function Page() {
               </p>
             </div>
             <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              In the eighteenth century the German philosopher Immanuel Kant
-              developed a theory of knowledge in wh
+              내비게이션 메뉴를 통해 <span className="font-bold">프로필</span>{" "}
+              메뉴를 클릭합니다.
             </p>
           </div>
           <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
@@ -210,8 +212,8 @@ export default function Page() {
               </p>
             </div>
             <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              Physical space is often conceived in three linear dimensions,
-              although modern physicists usually con
+              페이지 중앙의 <span className="font-bold">아바타 업로드</span>{" "}
+              버튼을 클릭합니다.
             </p>
           </div>
           <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
@@ -222,8 +224,8 @@ export default function Page() {
               </p>
             </div>
             <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              The long barrow was built on land previously inhabited in the
-              Mesolithic period. It consisted of a s
+              양식에 맞추어 아바타 파일(<span className="font-bold">VRM</span>{" "}
+              형식만 지원합니다!)을 업로드하고 설명을 작성합니다.
             </p>
           </div>
           <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
@@ -234,8 +236,32 @@ export default function Page() {
               </p>
             </div>
             <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              Physiological respiration involves the mechanisms that ensure that
-              the composition of the functional
+              <span className="font-bold">저장하기</span> 버튼을 눌러 아바타를
+              업로드합니다.
+            </p>
+          </div>
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
+              <Image src={blueHeartImg} alt="" />
+              <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
+                6
+              </p>
+            </div>
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
+              아바타 업로드가 마무리되기를 기다립니다. 업로드가 완료되면
+              아바타가 게시됩니다.
+            </p>
+          </div>
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
+              <Image src={blueHeartImg} alt="" />
+              <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
+                7
+              </p>
+            </div>
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
+              게시가 완료된 아바타를 공유하여{" "}
+              <span className="font-bold">좋아요</span>를 모아보세요!
             </p>
           </div>
         </div>
@@ -247,10 +273,15 @@ export default function Page() {
           alt=""
         />
         <div className="flex flex-col justify-center items-center dt:my-[80px] ph:my-[60px] my-[40px]">
-          <Image src={rankingTextImg} className="dt:w-[371px] ph:w-[310px] w-[250px]" alt="" />
+          <Image
+            src={rankingTextImg}
+            className="dt:w-[371px] ph:w-[310px] w-[250px]"
+            alt=""
+          />
           <div className="flex justify-center items-center ph:mt-[32px] mt-[24px] px-[48px] py-[12px] bg-[#FFFFFF60] rounded-[8px]">
             <p className="text-[16px] text-[#333333] font-CoreGTD">
-              님들 화력 이거밖에 안됨?
+              좋아요를 가장 많이 받은 아바타가 1등이 됩니다. 1등부터 3등까지의
+              아바타는 특별한 보상을 받습니다.
             </p>
           </div>
           <div className="flex dt:flex-row flex-col mt-[75px] dt:space-x-[100px] space-x-0 dt:space-y-0 space-y-[129px]">
@@ -346,28 +377,25 @@ export default function Page() {
           <div className="text-[18px] text-left font-bold">이벤트 유의사항</div>
           <div className="flex flex-col space-y-[3px]">
             <p className="leading-[25px]">
-              ㆍPhysiological respiration involves the mechanisms that ensure
-              that the composition of the functional
+              ㆍ이벤트 참여는 회원 가입이 완료된 사용자만 가능합니다.
             </p>
             <p className="leading-[25px]">
-              ㆍMaxwell's equations—the foundation of classical
-              electromagnetism—describe light as a wave that moves
+              ㆍ부적절한 내용의 아바타는 사전 통보 없이 삭제될 수 있습니다.
             </p>
             <p className="leading-[25px]">
-              ㆍPhysical space is often conceived in three linear dimensions,
-              although modern physicists usually con
+              ㆍ이벤트의 일정 및 내용은 주최 측의 사정에 따라 변경될 수
+              있습니다.
             </p>
             <p className="leading-[25px]">
-              ㆍThe long barrow was built on land previously inhabited in the
-              Mesolithic period. It consisted of a s
+              ㆍ이벤트에 참여함으로써 참가자는 이벤트의 모든 규칙을 이해하고
+              동의한 것으로 간주됩니다.
             </p>
             <p className="leading-[25px]">
-              ㆍFor athletes, high altitude produces two contradictory effects
-              on performance. For explosive events
+              ㆍ상품은 이벤트 종료 후 1주일 이내에 연락처를 통해 발송됩니다.
             </p>
             <p className="leading-[25px]">
-              ㆍIn the eighteenth century the German philosopher Immanuel Kant
-              developed a theory of knowledge in wh
+              ㆍ부적절한 방법으로 이벤트에 참여한 경우 당첨이 취소될 수
+              있습니다.
             </p>
           </div>
         </div>
