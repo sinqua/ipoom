@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import Image from "next/image";
@@ -24,6 +24,20 @@ import redHeartImg from "@/app/assets/images/contest/red_heart.png";
 import EventViewer from "@/components/modal/event-viewer";
 
 export default function Page() {
+  const [diffDay, setDiffDay] = useState<any>(0);
+  const [diffTime, setDiffTime] = useState<any>(0);
+  const [avatarCount, setAvatarCount] = useState(0);
+
+  useEffect(() => {
+    var start = new Date();
+    var end = new Date("2023-11-13 00:00:00");
+
+    setDiffDay(
+      Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
+    );
+    setDiffTime(((end.getTime() - start.getTime()) / (1000 * 60 * 60)) % 24);
+  }, []);
+
   return (
     <div className="flex flex-col text-[14px] font-CoreGTD">
       <div className="relative flex justify-center w-full dt:h-[900px] ph:h-[684px] h-[824px] overflow-hidden">
@@ -48,7 +62,7 @@ export default function Page() {
               <div className="flex justify-center items-center">
                 <Image src={pinkLabelImg} className="w-full" alt="" />
                 <p className="absolute dt:text-[40px] ph:text-[30px] text-[20px] text-[#FFFFFF] ">
-                  10월 11일 ~ 10월 12일
+                  11월 3일 ~ 11월 12일
                 </p>
               </div>
               <p className="dt:text-[26px] ph:text-[24px] text-[16px] text-center text-[#FFFFFF] font-medium">
@@ -72,13 +86,13 @@ export default function Page() {
           <div className="flex flex-col justify-center items-center tb:w-[300px] w-[220px] h-[150px] space-y-[16px]">
             <p className="text-[18px] text-[#9D9D9D] font-semibold">마감까지</p>
             <p className="text-[24px] text-[#333333] font-semibold">
-              11일 : 9시간
+              {`${Math.floor(diffDay)}일 : ${Math.ceil(diffTime)}시간`}
             </p>
           </div>
           <div className="w-[8px] h-[8px] bg-[#333333] rounded-full" />
           <div className="flex flex-col justify-center items-center tb:w-[300px] w-[220px] h-[150px] space-y-[16px]">
             <p className="text-[18px] text-[#9D9D9D] font-semibold">아바타</p>
-            <p className="text-[24px] text-[#333333] font-semibold">158개</p>
+            <p className="text-[24px] text-[#333333] font-semibold">{`${avatarCount}개`}</p>
           </div>
         </div>
       </div>
