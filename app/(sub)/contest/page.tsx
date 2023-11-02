@@ -355,7 +355,7 @@ export default function Page() {
           <div className="flex dt:flex-row flex-col mt-[75px] dt:space-x-[100px] space-x-0 dt:space-y-0 space-y-[129px]">
             {rankingAvatars.map((avatar: any, index: number) => {
               return (
-                <RankingAvatar avatar={avatar} index={index} />
+                <RankingAvatar avatar={avatar} index={index} key={index} />
               )
             })}
 
