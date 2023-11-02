@@ -1,6 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import background1Img from "@/app/assets/images/contest/background1.svg";
@@ -19,12 +18,9 @@ import goldPrizeImg from "@/app/assets/images/contest/gold_prize.png";
 import silverPrizeImg from "@/app/assets/images/contest/silver_prize.png";
 import bronzePrizeImg from "@/app/assets/images/contest/bronze_prize.png";
 import blueHeartImg from "@/app/assets/images/contest/blue_heart.png";
-import redHeartImg from "@/app/assets/images/contest/red_heart.png";
 
-import EventViewer from "@/components/modal/event-viewer";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
-import { createModelUrl } from "@/lib/supabase";
 import RankingAvatar from "@/components/contest/ranking-avatar";
 
 export default function Page() {
@@ -39,7 +35,7 @@ export default function Page() {
     const { data: avatarCountData, error: avatarCountError } = await supabase
       .from("avatars")
       .select("*")
-      .gte("created_at", "2023-10-20")
+      .gte("created_at", "2023-11-02")
       .lte("created_at", "2023-11-13");
 
     setAvatarCount(avatarCountData!.length);
@@ -48,7 +44,9 @@ export default function Page() {
   const getRankingAvatars = async () => {
     const { data: avatarsData, error: avatarsError } = await supabase
       .from("avatars")
-      .select("*, likes (*)");
+      .select("*, likes (*)")
+      .gte("created_at", "2023-11-02")
+      .lte("created_at", "2023-11-13");
 
     if (avatarsData) {
       const sortedAvatars = avatarsData
@@ -61,17 +59,6 @@ export default function Page() {
           return b.likes.length - a.likes.length || diffLikeTime;
         })
         .slice(0, 3);
-
-      // console.log("sortedAvatars", sortedAvatars);
-
-      // const avatars: any[] = [];
-
-      // sortedAvatars.map(async (avatar: any) => {
-      //   console.log("avatar zz", avatar.name);
-
-      // });
-
-      // console.log("avatars", avatars);
 
       setRankingAvatars(sortedAvatars);
     }
@@ -88,8 +75,6 @@ export default function Page() {
 
     getAvatarCount();
     getRankingAvatars();
-
-    console.log("hihi");
   }, []);
 
   return (
@@ -356,66 +341,8 @@ export default function Page() {
             {rankingAvatars.map((avatar: any, index: number) => {
               return (
                 <RankingAvatar avatar={avatar} index={index} key={index} />
-              )
+              );
             })}
-
-            {/* <RankingAvatar avatar={rankingAvatars[0]} /> */}
-            {/* <div className="flex flex-col">
-              <div className="relative flex justify-center">
-                <Image
-                  src={redHeartImg}
-                  className="absolute top-[-8px]"
-                  alt=""
-                />
-                <div className="flex justify-center items-center w-[209px] py-[10px] bg-[#FFFFFF] rounded-[200px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)] text-[24px] font-SegoeUI font-semibold">
-                  {Number(1058).toLocaleString()}
-                </div>
-              </div>
-              <div className="relative flex flex-col items-center w-[340px] h-[425px] my-[20px]">
-                <EventViewer
-                  modelUrl={"./hero.vrm"}
-                  animation={"Idle"}
-                  toolbarCss={"hidden"}
-                />
-              </div>
-              <div className="relative flex items-center w-[340px] h-[64px]">
-                <div className="absolute top-[23.5px] left-[2.5px] w-[58px] h-[36px] bg-[#808080] rounded-[8px] rotate-[22.521deg]" />
-                <div className="absolute right-0 flex justify-center items-center w-[311px] h-[64px] py-[bg-[#FFFFFF] bg-[#FFFFFF] rounded-[8px] shadow-[5px_5px_0px_rgba(84,87,167,1)] text-[24px] font-SegoeUI font-semibold z-10">
-                  미미짱짱세용
-                </div>
-                <div className="flex justify-center items-center w-[58px] h-[36px] bg-[#BDBDBD] rounded-[8px] text-[20px] text-[#FFFFFF] font-SegoeUI font-semibold z-10">
-                  2
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <div className="relative flex justify-center">
-                <Image
-                  src={redHeartImg}
-                  className="absolute top-[-8px]"
-                  alt=""
-                />
-                <div className="flex justify-center items-center w-[209px] py-[10px] bg-[#FFFFFF] rounded-[200px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)] text-[24px] font-SegoeUI font-semibold">
-                  {Number(120).toLocaleString()}
-                </div>
-              </div>
-              <div className="relative flex flex-col items-center w-[340px] h-[425px] my-[20px]">
-                <EventViewer
-                  modelUrl={"./hero.vrm"}
-                  animation={"Idle"}
-                  toolbarCss={"hidden"}
-                />
-              </div>
-              <div className="relative flex items-center w-[340px] h-[64px]">
-                <div className="absolute top-[23.5px] left-[2.5px] w-[58px] h-[36px] bg-[#9D6027] rounded-[8px] rotate-[22.521deg]" />
-                <div className="absolute right-0 flex justify-center items-center w-[311px] h-[64px] py-[bg-[#FFFFFF] bg-[#FFFFFF] rounded-[8px] shadow-[5px_5px_0px_rgba(84,87,167,1)] text-[24px] font-SegoeUI font-semibold z-10">
-                  혜진게이
-                </div>
-                <div className="flex justify-center items-center w-[58px] h-[36px] bg-[#C77D38] rounded-[8px] text-[20px] text-[#FFFFFF] font-SegoeUI font-semibold z-10">
-                  3
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

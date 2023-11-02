@@ -5,6 +5,7 @@ import { createModelUrl } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import redHeartImg from "@/app/assets/images/contest/red_heart.png";
+import { cn } from "@/lib/utils";
 
 export default function RankingAvatar({
   avatar,
@@ -19,8 +20,6 @@ export default function RankingAvatar({
     const url = await createModelUrl(avatar.user_id, avatar.vrm);
 
     setModelUrl(url.signedUrl);
-
-    console.log(avatar.name, url);
   };
 
   useEffect(() => {
@@ -45,12 +44,30 @@ export default function RankingAvatar({
         )}
       </div>
       <div className="relative flex items-center w-[340px] h-[64px]">
-        <div className="absolute top-[23.5px] left-[2.5px] w-[58px] h-[36px] bg-[#C0A74B] rounded-[8px] rotate-[22.521deg]" />
+        <div
+          className={cn(
+            "absolute top-[23.5px] left-[3px] w-[58px] h-[36px] rounded-[8px] rotate-[22.521deg]",
+            index === 0
+              ? "bg-[#C0A74B]"
+              : index === 1
+              ? "bg-[#808080]"
+              : "bg-[#9D6027]"
+          )}
+        />
         <div className="absolute right-0 flex justify-center items-center w-[311px] h-[64px] py-[bg-[#FFFFFF] bg-[#FFFFFF] rounded-[8px] shadow-[5px_5px_0px_rgba(84,87,167,1)] text-[24px] font-SegoeUI font-semibold z-10">
           {avatar ? avatar.name : "-"}
         </div>
-        <div className="flex justify-center items-center w-[58px] h-[36px] bg-[#EDCB51] rounded-[8px] text-[20px] text-[#FFFFFF] font-SegoeUI font-semibold z-10">
-          1
+        <div
+          className={cn(
+            "flex justify-center items-center w-[58px] h-[36px] rounded-[8px] text-[20px] text-[#FFFFFF] font-SegoeUI font-semibold z-10",
+            index === 0
+              ? "bg-[#EDCB51]"
+              : index === 1
+              ? "bg-[#BDBDBD]"
+              : "bg-[#C77D38]"
+          )}
+        >
+          {index + 1}
         </div>
       </div>
     </div>
