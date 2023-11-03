@@ -103,7 +103,10 @@ export default function Page() {
                 quality={100}
                 alt=""
               />
-              <div className="flex justify-center items-center cursor-pointer" onClick={()=>router.push('/login')}>
+              <div
+                className="flex justify-center items-center cursor-pointer"
+                onClick={() => router.push("/login")}
+              >
                 <Image src={pinkLabelImg} className="w-full" alt="" />
                 <p className="absolute dt:text-[40px] ph:text-[30px] text-[20px] text-[#FFFFFF] ">
                   아바타 등록하기
@@ -238,6 +241,17 @@ export default function Page() {
           alt=""
         />
         <div className="flex flex-col items-center w-full space-y-[32px]">
+          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
+            <div className="flex flex-shrink-0 justify-center items-center">
+              <Image src={blueHeartImg} alt="" />
+              <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
+                0
+              </p>
+            </div>
+            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
+              아바타 파일이 저장된 <span className="font-bold">PC, 노트북</span>에서 <span className="font-bold">moopi.me</span> 사이트를 접속합니다.
+            </p>
+          </div>
           <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
             <div className="flex flex-shrink-0 justify-center items-center">
               <Image src={blueHeartImg} alt="" />
