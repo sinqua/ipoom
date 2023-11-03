@@ -9,10 +9,9 @@ export default function Footer() {
         <div className="flex flex-col ph:items-start items-center ph:w-[310px] w-full">
           <Image src={moopiLogo} className="w-[40px] h-[40px]" alt="" />
           <div className="w-full mt-[24px] ph:text-left text-center">
-            Moopy is a platform that helps people access 3D content more easily.
-            Find your avatar right now
+            Moopi is a platform that helps people access 3D content more easily.
           </div>
-          <div className="flex mt-[40px]">
+          {/* <div className="flex mt-[40px]">
             <div className="flex justify-center items-center p-[8px]">
               <Image src={emptyImg} className="w-[20px] h-[20px]" alt="" />
             </div>
@@ -25,7 +24,7 @@ export default function Footer() {
             <div className="flex justify-center items-center p-[8px]">
               <Image src={emptyImg} className="w-[20px] h-[20px]" alt="" />
             </div>
-          </div>
+          </div> */}
           <p className="ph:block hidden mt-[80px]">
             Copyright ⓒ MOOPI Corp. All rights reserved
           </p>

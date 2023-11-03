@@ -22,9 +22,12 @@ import blueHeartImg from "@/app/assets/images/contest/blue_heart.png";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 import RankingAvatar from "@/components/contest/ranking-avatar";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
 
   const [diffDay, setDiffDay] = useState<any>(0);
   const [diffTime, setDiffTime] = useState<any>(0);
@@ -100,10 +103,13 @@ export default function Page() {
                 quality={100}
                 alt=""
               />
-              <div className="flex justify-center items-center">
+              <div
+                className="flex justify-center items-center cursor-pointer"
+                onClick={() => router.push("/login")}
+              >
                 <Image src={pinkLabelImg} className="w-full" alt="" />
                 <p className="absolute dt:text-[40px] ph:text-[30px] text-[20px] text-[#FFFFFF] ">
-                  11월 3일 ~ 11월 12일
+                  아바타 등록하기
                 </p>
               </div>
               <p className="dt:text-[26px] ph:text-[24px] text-[16px] text-center text-[#FFFFFF] font-medium">
@@ -243,8 +249,7 @@ export default function Page() {
               </p>
             </div>
             <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              무피 사이트에 <span className="font-bold">회원가입</span>을
-              합니다.
+              아바타 파일이 저장된 <span className="font-bold">PC, 노트북</span>에서 <span className="font-bold">moopi.me</span> 사이트를 접속합니다.
             </p>
           </div>
           <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
