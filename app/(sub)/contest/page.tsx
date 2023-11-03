@@ -245,23 +245,11 @@ export default function Page() {
             <div className="flex flex-shrink-0 justify-center items-center">
               <Image src={blueHeartImg} alt="" />
               <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
-                0
-              </p>
-            </div>
-            <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              아바타 파일이 저장된 <span className="font-bold">PC, 노트북</span>에서 <span className="font-bold">moopi.me</span> 사이트를 접속합니다.
-            </p>
-          </div>
-          <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
-            <div className="flex flex-shrink-0 justify-center items-center">
-              <Image src={blueHeartImg} alt="" />
-              <p className="absolute translate-y-[-2px] text-[20px] text-[#FFFFFF] font-SegoeUIBold">
                 1
               </p>
             </div>
             <p className="dt:text-[20px] ph:text-[16px] text-[14px] font-SegoeUI">
-              무피 사이트에 <span className="font-bold">회원가입</span>을
-              합니다.
+              아바타 파일이 저장된 <span className="font-bold">PC, 노트북</span>에서 <span className="font-bold">moopi.me</span> 사이트를 접속합니다.
             </p>
           </div>
           <div className="flex items-center max-w-[1200px] w-full p-[24px] space-x-[16px] bg-[#FFFFFF] rounded-[20px] shadow-[0px_3px_10px_rgba(0,0,0,0.25)]">
