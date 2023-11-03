@@ -5,6 +5,7 @@ import rightImg from "@/app/assets/images/right_gray.svg";
 import bannerImg from "@/public/banner.png";
 import socialImg from "@/public/social.png";
 import hiImg from "@/public/hi.png";
+import contestImg from "@/public/contest.png";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -142,7 +143,9 @@ export default function Carousel() {
 }
 
 const numberToImageMap: { [key: number]: any } = {
-  1: bannerImg,
-  2: socialImg,
-  3: hiImg,
+  1: contestImg,
+  2: contestImg,
+  3: contestImg,
+  // 2: socialImg,
+  // 3: hiImg,
 };
