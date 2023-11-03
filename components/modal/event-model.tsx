@@ -12,7 +12,7 @@ import {
 import { LoadMixamoAnimation } from "@/utils/LoadMixamoAnimation";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Circle } from "@react-three/drei";
+import { Circle, Resize, useCamera } from "@react-three/drei";
 import { Color } from "three";
 
 export interface ModelProps {
@@ -26,7 +26,6 @@ export default function Model({
   animation,
   setProgress,
 }: ModelProps) {
-
   const [vrm, setVrm] = useState<VRM>(null!);
   const vrmRef = useRef<any>();
   const [actions, setActions] = useState<any>({});
@@ -41,7 +40,7 @@ export default function Model({
 
     return mixer;
   }, [vrm]);
-  
+
   useEffect(() => {
     setVrm(null!);
     setActions({});
@@ -51,9 +50,14 @@ export default function Model({
     if (Object.keys(actions).length !== 5) return;
     if (currentAnimation === animation) return;
 
-    playNextAction(animationMixer, actions, currentAnimation, animation, setCurrentAnimation);
+    playNextAction(
+      animationMixer,
+      actions,
+      currentAnimation,
+      animation,
+      setCurrentAnimation
+    );
   }, [animation]);
-
 
   useEffect(() => {
     if (actions["Landing"] && actions[animation]) {
@@ -65,11 +69,9 @@ export default function Model({
         landingAction.clampWhenFinished = true;
         landingAction.play();
 
-        vrmRef.current.parent.traverse((child: any) => {
-          if (child instanceof THREE.Mesh) {
-            child.material.transparent = true;
-            child.material.opacity = 1;
-          }
+        const materials: MToonMaterial[] = vrm.materials! as MToonMaterial[];
+        materials.forEach((material: MToonMaterial) => {
+          material.opacity = 1;
         });
 
         animationMixer.addEventListener("finished", (e: any) => {
@@ -125,69 +127,43 @@ export default function Model({
   return (
     <>
       {vrm && (
-        <primitive
-          ref={vrmRef}
-          object={vrm.scene}
-          position={[0, -0.67, 0]}
-          rotation={[0, 135, 0]}
-          children-0-castShadow
-        >
-          {/* <Circle
-            args={[0.35]}
-            rotation-x={-Math.PI / 2}
-            receiveShadow
-            renderOrder={2}
-          >
-            <shaderMaterial attach="material" args={[gradientShader]} />
-          </Circle> */}
-        </primitive>
+        <Resize height width>
+          <primitive
+            ref={vrmRef}
+            object={vrm.scene}
+            rotation={[0, 135, 0]}
+            position={[0, -0.48, 0]}
+            children-0-castShadow
+          ></primitive>
+        </Resize>
       )}
     </>
   );
 }
 
-const gradientShader = {
-  uniforms: {
-    color1: { value: new Color("#A0A0A0") }, // Start color
-    color2: { value: new Color("#FAF9F6") }, // End color
-  },
-  vertexShader: `
-        varying vec2 vUv;
-        void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-    `,
-  fragmentShader: `
-        uniform vec3 color1;
-        uniform vec3 color2;
-        varying vec2 vUv;
-        void main() {
-            vec2 center = vec2(0.5, 0.5);
-            float dist = distance(vUv, center);
-            float alpha = 1.34 - dist; // Calculate alpha value based on distance
-            gl_FragColor = vec4(mix(color1, color2, dist), alpha);
-          }
-    `,
-};
-
 function hideTPose(vrm: VRM) {
-    vrm.scene.traverse((child: any) => {
-        if (child instanceof THREE.Mesh) {
-            child.material.transparent = true;
-            child.material.opacity = 0;
-        }
-    });
+  vrm.scene.traverse((child: any) => {
+    if (child instanceof THREE.Mesh) {
+      child.material.transparent = true;
+      child.material.opacity = 0;
+    }
+  });
 }
 
-function playNextAction(animationMixer: THREE.AnimationMixer, actions: any, currentAnimation: string, animation: string, setCurrentAnimation: any) {
-    var currentAction = animationMixer.clipAction(actions[currentAnimation]);
-    var nextAction = animationMixer.clipAction(actions[animation]);
+function playNextAction(
+  animationMixer: THREE.AnimationMixer,
+  actions: any,
+  currentAnimation: string,
+  animation: string,
+  setCurrentAnimation: any
+) {
+  var currentAction = animationMixer.clipAction(actions[currentAnimation]);
+  var nextAction = animationMixer.clipAction(actions[animation]);
 
-    currentAction.fadeOut(0.5);
-    nextAction.reset().fadeIn(0.5).play();
+  currentAction.fadeOut(0.5);
+  nextAction.reset().fadeIn(0.5).play();
 
-    setCurrentAnimation(animation);
+  setCurrentAnimation(animation);
 }
 
 function loadDefaultAnimation(vrm: VRM, setActions: any) {
@@ -232,6 +208,8 @@ function OptimizeModel(vrm: VRM) {
 
   materials.forEach((material: MToonMaterial) => {
     material.toneMapped = false;
+    material.transparent = true;
+    material.opacity = 0;
   });
   return vrm;
 }
