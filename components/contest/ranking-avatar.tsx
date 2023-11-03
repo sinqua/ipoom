@@ -54,8 +54,10 @@ export default function RankingAvatar({
               : "bg-[#9D6027]"
           )}
         />
-        <div className="absolute right-0 flex justify-center items-center w-[311px] h-[64px] py-[bg-[#FFFFFF] bg-[#FFFFFF] rounded-[8px] shadow-[5px_5px_0px_rgba(84,87,167,1)] text-[24px] font-SegoeUI font-semibold z-10">
-          {avatar ? avatar.name : "-"}
+        <div className="absolute right-0 flex justify-center items-center w-[311px] h-[64px] px-[40px] bg-[#FFFFFF] rounded-[8px] shadow-[5px_5px_0px_rgba(84,87,167,1)] ">
+          <p className="text-[24px] font-SegoeUI font-semibold z-10 text-ellipsis overflow-hidden whitespace-nowrap">
+            {avatar ? avatar.name : "-"}
+          </p>
         </div>
         <div
           className={cn(

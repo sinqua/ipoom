@@ -25,6 +25,7 @@ export default async function Follow() {
         .from("avatars")
         .select("*, tags (*), likes (*)")
         .eq("user_id", follow.target_user_id)
+        .eq("optimized", true)
         .order("created_at", { ascending: false });
 
       followAvatars = [...followAvatars, ...avatarsData!];

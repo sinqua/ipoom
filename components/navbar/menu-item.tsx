@@ -36,7 +36,7 @@ export default function Item({
     router.push(url);
   };
 
-  return (
+  return url !== "/contest" ? (
     <>
       <div
         className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer"
@@ -45,6 +45,16 @@ export default function Item({
         <Image src={imgSrc} className="w-[24px] h-[24px]" alt="" priority />
         <p className="text-[16px]">{children}</p>
       </div>
+      <AlertLogin isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
+  ) : (
+    <>
+      <Link href={"/contest"} target="_blank"
+        className="flex items-center w-full h-[48px] px-[32px] space-x-[16px] bg-white hover:bg-[#F6F6F6] cursor-pointer"
+      >
+        <Image src={imgSrc} className="w-[24px] h-[24px]" alt="" priority />
+        <p className="text-[16px]">{children}</p>
+      </Link>
       <AlertLogin isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );

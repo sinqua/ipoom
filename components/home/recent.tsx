@@ -12,6 +12,7 @@ export default async function Recent() {
   const { data: avatarsData, error: avatarsError } = await supabase
     .from("avatars")
     .select("*, tags (*), likes (*)")
+    .eq("optimized", true)
     .order("created_at", { ascending: false });
 
   if (avatarsData) {

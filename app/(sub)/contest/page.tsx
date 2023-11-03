@@ -35,7 +35,7 @@ export default function Page() {
     const { data: avatarCountData, error: avatarCountError } = await supabase
       .from("avatars")
       .select("*")
-      .gte("created_at", "2023-11-02")
+      .gte("created_at", "2023-11-03")
       .lte("created_at", "2023-11-13");
 
     setAvatarCount(avatarCountData!.length);
@@ -45,7 +45,7 @@ export default function Page() {
     const { data: avatarsData, error: avatarsError } = await supabase
       .from("avatars")
       .select("*, likes (*)")
-      .gte("created_at", "2023-11-02")
+      .gte("created_at", "2023-11-03")
       .lte("created_at", "2023-11-13");
 
     if (avatarsData) {
