@@ -89,13 +89,15 @@ export default function Page() {
           <div className="relative flex flex-col-reverse ph:items-stretch items-center justify-between max-w-[1724px] w-full h-full ph:mr-[60px] mr-0">
             <Image
               src={avatarImg}
-              className="ph:absolute relative bottom-0 left-0 w-auto dt:h-auto ph:h-[617px] h-[322px] "
+              className="ph:absolute relative bottom-0 left-0 w-auto dt:h-auto ph:h-[617px] h-[322px]"
+              quality={100}
               alt=""
             />
             <div className="ph:absolute relative top-[40px] right-0 flex flex-col items-center flex-shrink-0 dt:w-[679px] ph:w-[525px] w-[324px] space-y-[32px]">
               <Image
                 src={titleImg}
                 className="dt:w-[648px] ph:w-[437px] w-[316px]"
+                quality={100}
                 alt=""
               />
               <div className="flex justify-center items-center">
