@@ -118,7 +118,7 @@ export default function Page() {
           <div className="flex flex-col justify-center items-center tb:w-[300px] w-[220px] h-[150px] space-y-[16px]">
             <p className="text-[18px] text-[#9D9D9D] font-semibold">기간</p>
             <p className="text-[24px] text-[#333333] font-semibold">
-              11월 3일 ~ 11월 12일
+              11월 3일 ~ 12일
             </p>
           </div>
           <div className="w-[8px] h-[8px] bg-[#333333] rounded-full" />
