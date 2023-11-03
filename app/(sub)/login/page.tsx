@@ -70,16 +70,12 @@ export default async function Page() {
           <p className="text-[14px] text-[#9D9D9D]">로그인 방법을 선택하세요</p>
         </div>
         <div className="space-y-[18px] text-sm text-white">
-          <EmailLogin index={1} />
-          <EmailLogin index={2} />
-          <EmailLogin index={3} />
-          <EmailLogin index={4} />
-          <EmailLogin index={5} />
           <KakaoLogin />
-          {/* <TwitterLogin /> */}
           <GoogleLogin />
           <DiscordLogin />
           {/* <NaverLogin /> */}
+          {/* <TwitterLogin /> */}
+          {/* <EmailLogin index={1} /> */}
         </div>
         <div className="w-[300px] text-[14px] text-[#9D9D9D] text-center leading-[30px]">
           계속 진행하면 moopi&nbsp;
