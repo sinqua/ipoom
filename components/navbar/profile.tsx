@@ -21,7 +21,7 @@ export default async function Profile() {
   return session ? (
     profile ? (
       <div className="relative flex justify-between items-center h-[88px] px-[32px] pr-[24px] border-t-[1px]">
-        <Link href={`/${profile.user_id}`}>
+        <Link href={`/${profile.user_id}`} className="w-full">
           <div className="flex grow items-center space-x-[16px]">
             <Image
               src={profile.image ? profile.image : emptyImg}
@@ -31,7 +31,7 @@ export default async function Profile() {
               alt=""
               priority
             />
-            <p className="text-[16px] text-[#637381]">{profile.nickname}</p>
+            <p className="text-ellipsis overflow-hidden whitespace-nowrap text-[16px] text-[#637381]">{profile.nickname}</p>
           </div>
         </Link>
         {/* <KebabMenu /> */}

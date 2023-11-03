@@ -69,12 +69,12 @@ export default async function Avatar(props: any) {
         <div className="fixed top-0 flex justify-center items-center w-full dt:h-[80px] h-[65px] space-x-[16px] z-20">
           <Image
             src={avatar.thumbnail!}
-            className="ph:w-[40px] ph:h-[40px] w-[32px] h-[32px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
+            className="object-cover ph:w-[40px] ph:h-[40px] w-[32px] h-[32px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
             width={512}
             height={512}
             alt=""
           />
-          <p className="ph:text-[24px] text-[20px] font-semibold">
+          <p className="ph:max-w-[300px] max-w-[180px] w-min text-ellipsis overflow-hidden whitespace-nowrap ph:text-[24px] text-[20px] font-semibold">
             {avatar.name}
           </p>
         </div>
@@ -101,7 +101,7 @@ export default async function Avatar(props: any) {
                   />
                   <p className="text-[16px] font-bold">{profile!.nickname}</p>
                 </div>
-                <Link href={`/${profile!.user_id}`}>
+                <Link href={`/${profile!.user_id}`} className="shrink-0">
                   <p className="text-[12px] font-semibold text-[#368ADC]">
                     • 페이지 이동
                   </p>
@@ -122,7 +122,7 @@ export default async function Avatar(props: any) {
         <div className="flex flex-col dt:max-w-[1008px] w-full dt:px-0 px-[16px] space-y-[24px]">
           <div className="flex justify-between">
             <p className="text-[24px] font-semibold">{avatar.name}</p>
-            <div className="flex items-center space-x-[24px]">
+            <div className="flex items-center shrink-0 space-x-[24px]">
               <CopyButton />
               <LikeButton
                 userId={user?.id}

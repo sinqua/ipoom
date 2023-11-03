@@ -17,9 +17,9 @@ export default function Avatar({ user, avatar }: { user: any; avatar: any }) {
           />
         </Link>
         <div className="absolute bottom-0 flex flex-col justify-between items-center w-full h-[61px] p-[8px] bg-black/20 backdrop-blur-[3px] text-[#FFFFFF] pointer-events-none">
-          <div className="flex justify-between items-center w-full">
-            <p className="text-[16px] font-semibold">{avatar.name}</p>
-            <p className="text-[12px]">{getTimeAgo(avatar.created_at)}</p>
+          <div className="flex justify-between items-center w-full space-x-[5px]">
+            <p className="text-ellipsis overflow-hidden whitespace-nowrap text-[16px] font-semibold">{avatar.name}</p>
+            <p className="shrink-0 text-[12px]">{getTimeAgo(avatar.created_at)}</p>
           </div>
           <div className="w-full">
             <p className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">

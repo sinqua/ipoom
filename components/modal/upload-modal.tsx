@@ -55,7 +55,6 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
 
   const [status, setStatus] = useState("");
 
-  const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   const pageTopRef = useRef<HTMLDivElement>(null);
@@ -118,8 +117,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!avatarTitleInputRef.current.value || !avatarFile) {
-      setBorderColor("border-red-500");
+    if (!avatarTitleInputRef.current.value || !avatarFile || !thumbnailImage) {
       setIsEmpty(true);
       return;
     }
@@ -152,7 +150,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
       setStatus("done");
 
       onSaveBehaviorUploadEnd();
-      
+
       await optimizeAvatar(avatarFile, user?.id, avatarData![0].id, uuid);
     });
   };
@@ -250,7 +248,6 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                 <div className="flex flex-col space-y-[40px]">
                   <Title
                     avatarTitleInputRef={avatarTitleInputRef}
-                    borderColor={borderColor}
                     isEmpty={isEmpty}
                   />
                   <Avatar
@@ -284,6 +281,7 @@ export default function UploadModal({ mostUsedTags }: { mostUsedTags: any }) {
                     setThumbnailImage={setThumbnailImage}
                     setCaptureMode={setCaptureMode}
                     thumbnailFileInputRef={thumbnailFileInputRef}
+                    isEmpty={isEmpty}
                   />
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">게시일</p>
