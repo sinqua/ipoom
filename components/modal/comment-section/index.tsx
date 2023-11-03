@@ -108,7 +108,7 @@ export default function CommentSection({
           <textarea
             ref={inputRef}
             className="flex items-center w-full !p-0 resize-none text-[14px] bg-white border-none focus:ring-0 overflow-hidden"
-            placeholder="# 아바타를 보고 느끼신 점을 적어주세요.&#13;&#10;# 지나친 비방이나 공격적인 언어표현은 제제의 대상이 될 수 있습니다."
+            placeholder="# 지나친 비방이나 공격적인 언어표현은 제재의 대상이 될 수 있습니다."
             onChange={handleTextareaSizeChange}
           />
           <div

@@ -30,9 +30,9 @@ export default function Card({ index, avatar }: CardProps) {
         <LikeButton likes={avatar.likes} />
       </div>
       <div className="flex flex-col h-max space-y-[8px] p-[8px]">
-        <div className="flex justify-between items-center">
-          <p className="text-[16px] font-semibold">{avatar.name}</p>
-          <p className="text-[12px]">{getTimeAgo(avatar.created_at)}</p>
+        <div className="flex justify-between items-center space-x-[5px]">
+          <p className="text-ellipsis overflow-hidden whitespace-nowrap text-[16px] font-semibold">{avatar.name}</p>
+          <p className="shrink-0 text-[12px]">{getTimeAgo(avatar.created_at)}</p>
         </div>
         <div className="w-full pr-[15px]">
           <p className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">
@@ -54,7 +54,7 @@ export default function Card({ index, avatar }: CardProps) {
             height={512}
             alt=""
           />
-          <p className="text-[12px] font-semibold">{avatar.user.nickname}</p>
+          <p className="text-ellipsis overflow-hidden whitespace-nowrap text-[12px] font-semibold">{avatar.user.nickname}</p>
         </div>
       </div>
     </Link>

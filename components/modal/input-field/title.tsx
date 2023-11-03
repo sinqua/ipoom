@@ -2,14 +2,12 @@ import { twMerge } from "tailwind-merge";
 
 interface TitleProps {
   avatarTitleInputRef: any;
-  borderColor: string;
   avatarName?: any;
   isEmpty: boolean;
 }
 
 export default function Title({
   avatarTitleInputRef,
-  borderColor,
   avatarName,
   isEmpty,
 }: TitleProps) {
@@ -19,10 +17,7 @@ export default function Title({
       <input
         type="text"
         ref={avatarTitleInputRef}
-        className={twMerge(
-          "w-full h-[35px] px-[14px] bg-white rounded-[10px] border-solid border-[1px] focus:border-[#CCCCCC] focus:ring-0 text-[14px]",
-          borderColor
-        )}
+        className="w-full h-[35px] px-[14px] bg-white rounded-[10px] border-solid border-[1px] border-[#CCCCCC] focus:border-[#CCCCCC] focus:ring-0 text-[14px]"
         placeholder="타이틀을 입력해주세요"
         defaultValue={avatarName}
       ></input>

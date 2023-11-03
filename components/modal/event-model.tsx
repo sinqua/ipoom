@@ -12,7 +12,7 @@ import {
 import { LoadMixamoAnimation } from "@/utils/LoadMixamoAnimation";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Circle, Resize } from "@react-three/drei";
+import { Circle, Resize, useCamera } from "@react-three/drei";
 import { Color } from "three";
 
 export interface ModelProps {
@@ -126,55 +126,19 @@ export default function Model({
   return (
     <>
       {vrm && (
-        <>
-          <Resize height width>
-            <primitive
-              ref={vrmRef}
-              object={vrm.scene}
-              position={[0, -0.48, 0]}
-              rotation={[0, 135, 0]}
-              children-0-castShadow
-            ></primitive>
-          </Resize>
-          <Circle
-            position={[0, -0.5, 0]}
-            args={[0.25]}
-            rotation-x={-Math.PI / 2}
-            receiveShadow
-            renderOrder={2}
-          >
-            <shaderMaterial attach="material" args={[gradientShader]} />
-          </Circle>
-        </>
+        <Resize height width>
+          <primitive
+            ref={vrmRef}
+            object={vrm.scene}
+            rotation={[0, 135, 0]}
+            position={[0, -0.48, 0]}
+            children-0-castShadow
+          ></primitive>
+        </Resize>
       )}
     </>
   );
 }
-
-const gradientShader = {
-  uniforms: {
-    color1: { value: new Color("#A0A0A0") }, // Start color
-    color2: { value: new Color("#FAF9F6") }, // End color
-  },
-  vertexShader: `
-        varying vec2 vUv;
-        void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-    `,
-  fragmentShader: `
-        uniform vec3 color1;
-        uniform vec3 color2;
-        varying vec2 vUv;
-        void main() {
-            vec2 center = vec2(0.5, 0.5);
-            float dist = distance(vUv, center);
-            float alpha = 1.34 - dist; // Calculate alpha value based on distance
-            gl_FragColor = vec4(mix(color1, color2, dist), alpha);
-          }
-    `,
-};
 
 function playNextAction(
   animationMixer: THREE.AnimationMixer,

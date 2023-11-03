@@ -9,6 +9,7 @@ import CopyButton from "./copy-button";
 import LikeButton from "./like-button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
+import { useRouter } from "next/navigation";
 
 export default function AvatarModal({
   userId,
@@ -21,6 +22,8 @@ export default function AvatarModal({
   modelUrl: any;
   comments: any;
 }) {
+  const router = useRouter();
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -32,7 +35,7 @@ export default function AvatarModal({
   return (
     <div className="fixed inset-0 w-full h-full z-50">
       <div className="relative flex justify-center w-full h-full pt-[80px] dt:px-[32px] ph:px-[16px] px-0 ph:overflow-hidden overflow-y-scroll">
-        <Background onCloseModal={null} />
+        <Background onCloseModal={() => router.back()} />
         <div className="relative w-full dt:max-w-[1288px] max-w-none h-ful bg-gray-300 rounded-t-[10px]">
           <div className="w-full ph:h-full h-auto flex ph:flex-row flex-col rounded-t-[10px] overflow-hidden">
             <div className="relative ph:grow grow-0 ph:h-full h-[550px]">
@@ -45,9 +48,9 @@ export default function AvatarModal({
               />
             </div>
             <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto p-[24px] space-y-[24px] bg-[#FFFFFF] overflow-y-scroll scrollbar-hide">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-start space-x-[10px]">
                 <p className="text-[24px] font-semibold">{avatar.name}</p>
-                <div className="flex items-center space-x-[24px]">
+                <div className="flex items-center shrink-0 h-[32px] space-x-[24px]">
                   <CopyButton />
                   <LikeButton
                     userId={userId}

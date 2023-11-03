@@ -69,6 +69,32 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  @font-face {
+    font-family: "SegoeUI";
+    font-weight: 400;
+    src: url("../assets/fonts/SegoeUI.ttf") format("woff");
+  }
+  @font-face {
+    font-family: "SegoeUIBold";
+    font-weight: 700;
+    src: url("../assets/fonts/SegoeUIBold.ttf") format("woff");
+  }
+  @font-face {
+    font-family: "CoreGTD";
+    font-weight: 500;
+    src: url("../assets/fonts/CoreGTD.otf") format("woff");
+  }
+  @font-face {
+    font-family: "CoreGTDBold";
+    font-weight: 700;
+    src: url("../assets/fonts/CoreGTDBold.otf") format("woff");
+  }
+  @font-face {
+    font-family: "GmarketSans";
+    font-weight: 500;
+    src: url("../assets/fonts/GmarketSans.ttf") format("woff");
+  }
 }
 
 @layer base {
@@ -295,4 +321,8 @@ p {
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and 엣지 */
   scrollbar-width: none; /* 파이어폭스 */
+}
+
+.event-font-shadow {
+  text-shadow: 0px 0px 5px #4C4F5F;
 }

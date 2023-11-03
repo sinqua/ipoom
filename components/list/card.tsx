@@ -25,7 +25,7 @@ export default function Card({ avatar }: CardProps) {
           height={512}
           alt=""
         />
-        <LikeButton avatarId={avatar.id} />
+        <LikeButton avatar={avatar} />
       </div>
       <div className="flex flex-col h-max space-y-[8px] p-[8px]">
         <div className="flex justify-between items-center">

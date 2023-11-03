@@ -14,6 +14,7 @@ import Redirect from "@/components/login/redirect";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
+import EmailLogin from "@/components/login/email-login";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -69,6 +70,11 @@ export default async function Page() {
           <p className="text-[14px] text-[#9D9D9D]">로그인 방법을 선택하세요</p>
         </div>
         <div className="space-y-[18px] text-sm text-white">
+          <EmailLogin index={1} />
+          <EmailLogin index={2} />
+          <EmailLogin index={3} />
+          <EmailLogin index={4} />
+          <EmailLogin index={5} />
           <KakaoLogin />
           {/* <TwitterLogin /> */}
           <GoogleLogin />

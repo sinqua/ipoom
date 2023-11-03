@@ -11,9 +11,9 @@ import BounceLoader from "react-spinners/BounceLoader";
 import ToolBar from "./tool-bar";
 import HelperScreen from "./helper-screen";
 
-const ModelComponent = lazy(() => import("./model"));
+const ModelComponent = lazy(() => import("./event-model"));
 
-interface ViewerProps {
+interface EventViewerProps {
   modelUrl: string | null;
   animation: string | undefined;
   canvasRef?: any;
@@ -23,7 +23,7 @@ interface ViewerProps {
   children?: React.ReactNode;
 }
 
-export default function Viewer({
+export default function EventViewer({
   modelUrl,
   animation,
   canvasRef,
@@ -31,7 +31,7 @@ export default function Viewer({
   status,
   toolbarCss,
   children,
-}: ViewerProps) {
+}: EventViewerProps) {
   const [modelInfo, setModelInfo] = useState<ModelProps>();
   const [helpViewer, setHelpViewer] = useState(false);
   const [progress, setProgress] = useState(status);
@@ -59,7 +59,7 @@ export default function Viewer({
   return (
     <div
       id="canvas"
-      className="ph:absolute relative w-full h-full bg-[#FAF9F6]"
+      className="ph:absolute relative w-full h-full bg-transparent"
       onContextMenu={handleContextMenu}
     >
       {helpViewer && (
@@ -70,7 +70,7 @@ export default function Viewer({
           ref={canvasRef}
           gl={{ preserveDrawingBuffer: true }}
           camera={{ position: [0, 0, 2.5], fov: 25 }}
-          style={{ backgroundColor: "#FAF9F6" }}
+          style={{ backgroundColor: "transparent", pointerEvents: "none" }}
           shadows
         >
           <CameraControls
