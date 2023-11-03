@@ -110,7 +110,6 @@ export default function Model({
         setProgress(true);
 
         const vrm: VRM = gltf.userData.vrm;
-        hideTPose(vrm);
 
         setVrm(OptimizeModel(vrm));
       },
@@ -139,15 +138,6 @@ export default function Model({
       )}
     </>
   );
-}
-
-function hideTPose(vrm: VRM) {
-  vrm.scene.traverse((child: any) => {
-    if (child instanceof THREE.Mesh) {
-      child.material.transparent = true;
-      child.material.opacity = 0;
-    }
-  });
 }
 
 function playNextAction(

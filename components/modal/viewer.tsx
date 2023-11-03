@@ -69,14 +69,14 @@ export default function Viewer({
         <Canvas
           ref={canvasRef}
           gl={{ preserveDrawingBuffer: true }}
-          camera={{ position: [0, 3, 1.1], fov: 25 }}
+          camera={{ position: [0, 0, 2.5], fov: 25 }}
           style={{ backgroundColor: "#FAF9F6" }}
           shadows
         >
           <CameraControls
             ref={cameraControlsRef}
             maxDistance={5}
-            polarAngle={1.35}
+            polarAngle={1.45}
           />
           <directionalLight position={[0, 1, 0]} castShadow />
           {modelInfo && <ModelComponent {...modelInfo!} />}
