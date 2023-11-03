@@ -23,9 +23,11 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 import RankingAvatar from "@/components/contest/ranking-avatar";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
 
   const [diffDay, setDiffDay] = useState<any>(0);
   const [diffTime, setDiffTime] = useState<any>(0);
@@ -101,12 +103,12 @@ export default function Page() {
                 quality={100}
                 alt=""
               />
-              <Link className="flex justify-center items-center" href={'/login'}>
+              <div className="flex justify-center items-center cursor-pointer" onClick={()=>router.push('/login')}>
                 <Image src={pinkLabelImg} className="w-full" alt="" />
                 <p className="absolute dt:text-[40px] ph:text-[30px] text-[20px] text-[#FFFFFF] ">
                   아바타 등록하기
                 </p>
-              </Link>
+              </div>
               <p className="dt:text-[26px] ph:text-[24px] text-[16px] text-center text-[#FFFFFF] font-medium">
                 당신의 디자인 능력을 뽐내보세요! 3D 아바타 대회에서 자신의
                 아바타를 업로드하고, &apos;좋아요&apos;를 모아 순위를
