@@ -72,7 +72,6 @@ export default function EditModal({
       value: tag.tag,
     }))
   );
-  const [borderColor, setBorderColor] = useState<string>("border-[#CCCCCC]");
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   const pageTopRef = useRef<HTMLDivElement>(null);
@@ -133,7 +132,6 @@ export default function EditModal({
     } = await supabase.auth.getUser();
 
     if (!avatarTitleInputRef.current.value) {
-      setBorderColor("border-red-500");
       setIsEmpty(true);
       return;
     }
@@ -266,7 +264,6 @@ export default function EditModal({
                 <div className="flex flex-col space-y-[40px]">
                   <Title
                     avatarTitleInputRef={avatarTitleInputRef}
-                    borderColor={borderColor}
                     avatarName={avatar.name}
                     isEmpty={isEmpty}
                   />
@@ -303,6 +300,7 @@ export default function EditModal({
                     setThumbnailImage={setThumbnailImage}
                     setCaptureMode={setCaptureMode}
                     thumbnailFileInputRef={thumbnailFileInputRef}
+                    isEmpty={isEmpty}
                   />
                   <div className="flex flex-col space-y-[16px]">
                     <p className="font-semibold text-[#333333]">게시일</p>

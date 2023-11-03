@@ -48,9 +48,9 @@ export default function AvatarModal({
               />
             </div>
             <div className="flex flex-col shrink-0 ph:w-[352px] w-full ph:h-full h-auto p-[24px] space-y-[24px] bg-[#FFFFFF] overflow-y-scroll scrollbar-hide">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-start space-x-[10px]">
                 <p className="text-[24px] font-semibold">{avatar.name}</p>
-                <div className="flex items-center space-x-[24px]">
+                <div className="flex items-center shrink-0 h-[32px] space-x-[24px]">
                   <CopyButton />
                   <LikeButton
                     userId={userId}
