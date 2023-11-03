@@ -50,9 +50,9 @@ export default function Comment({ userId, comment }: CommentProps) {
         >
           <Image
             src={profile ? profile.image : emptyImg}
-            className="w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
-            width={512}
-            height={512}
+            className="object-cover w-[40px] h-[40px] rounded-full shadow-[0px_3px_6px_rgba(0,0,0,0.16)]"
+            width={128}
+            height={128}
             alt=""
           />
           <p className="font-semibold text-[18px]">{profile?.nickname}</p>

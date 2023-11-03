@@ -1,4 +1,5 @@
 import homeImg from "@/app/assets/images/home.svg";
+import reviewImg from "@/app/assets/images/review.svg";
 import alarmImg from "@/app/assets/images/alram.svg";
 import profileImg from "@/app/assets/images/profile.svg";
 import followImg from "@/app/assets/images/follow.svg";
@@ -26,6 +27,9 @@ export default async function MenuList() {
     <div className="grow flex flex-col">
       <Item imgSrc={homeImg} url={"/home"}>
         홈
+      </Item>
+      <Item imgSrc={reviewImg} url={"/contest"}>
+        컨테스트
       </Item>
       {session && <AlarmItem imgSrc={alarmImg}>알림</AlarmItem>}
       <Item imgSrc={profileImg} url={`/${session?.user.id}`}>
